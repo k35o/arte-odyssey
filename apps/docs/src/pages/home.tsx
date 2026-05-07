@@ -90,6 +90,7 @@ export function Home() {
           color="gray"
           renderItem={({ className, children }) => (
             <a
+              // oxlint-disable-next-line typescript-eslint/no-unsafe-assignment -- renderItem の className は string 型だが oxlint が any と推論する偽陽性
               className={className}
               href="https://github.com/k35o/ArteOdyssey"
               rel="noopener noreferrer"
@@ -107,6 +108,7 @@ export function Home() {
         <Button
           renderItem={({ className, children }) => (
             <a
+              // oxlint-disable-next-line typescript-eslint/no-unsafe-assignment -- renderItem の className は string 型だが oxlint が any と推論する偽陽性
               className={className}
               href={STORYBOOK_URL}
               rel="noopener noreferrer"
