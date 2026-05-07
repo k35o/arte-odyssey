@@ -91,7 +91,7 @@ export function Home() {
           renderItem={({ className, children }) => (
             <a
               className={className}
-              href="https://github.com/k35o/ArteOdyssey"
+              href="https://github.com/k35o/arte-odyssey"
               rel="noopener noreferrer"
               target="_blank"
             >

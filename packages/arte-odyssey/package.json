@@ -11,13 +11,13 @@
     "ui"
   ],
   "bugs": {
-    "url": "https://github.com/k35o/ArteOdyssey/issues"
+    "url": "https://github.com/k35o/arte-odyssey/issues"
   },
   "license": "MIT",
   "author": "k8o <kosakanoki@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/k35o/ArteOdyssey.git"
+    "url": "git+https://github.com/k35o/arte-odyssey.git"
   },
   "files": [
     "dist/**",
