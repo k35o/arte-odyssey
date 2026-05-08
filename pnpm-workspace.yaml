@@ -2,6 +2,14 @@ packages:
   - packages/*
   - apps/*
   - examples/*
+
+allowBuilds:
+  '@tailwindcss/oxide': false
+  agent-browser: true
+  edgedriver: false
+  esbuild: false
+  geckodriver: false
+  sharp: false
 blockExoticSubdeps: true
 
 catalog:
@@ -11,24 +19,18 @@ catalog:
   '@types/react-dom': 19.2.3
   '@vitejs/plugin-react': 6.0.1
   postcss: 8.5.13
-  react: 19.2.5
-  react-dom: 19.2.5
+  react: 19.2.6
+  react-dom: 19.2.6
   tailwindcss: 4.2.4
   vite: 8.0.10
   vite-plus: 0.1.20
   vitest: 4.1.5
 
-allowBuilds:
-  '@tailwindcss/oxide': false
-  agent-browser: true
-  edgedriver: false
-  esbuild: false
-  geckodriver: false
-  sharp: false
-
 minimumReleaseAge: 10080
 
 minimumReleaseAgeExclude:
   - '@k8o/*'
+  - 'react@19.2.6'
+  - 'react-dom@19.2.6'
 
 verifyDepsBeforeRun: install
