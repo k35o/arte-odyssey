@@ -30,7 +30,7 @@ const iconButtonProps: PropItem[] = [
   {
     name: 'tooltipPlacement',
     types: ['Placement'],
-    defaultValue: "'bottom'",
+    defaultValue: "'top'",
   },
   { name: 'tooltipDisabled', types: ['boolean'], defaultValue: 'false' },
   {
