@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "k35o/ArteOdyssey"
+      "repo": "k35o/arte-odyssey"
     }
   ],
   "commit": false,
