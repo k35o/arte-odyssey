@@ -38,7 +38,7 @@ export const IconButton: FC<Props> = ({
   size = 'md',
   bg = 'transparent',
   label,
-  tooltipPlacement = 'bottom',
+  tooltipPlacement = 'top',
   tooltipDisabled = false,
   children,
   onAction,
