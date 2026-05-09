@@ -300,7 +300,7 @@ export function Theming() {
         <p className="text-fg-mute">
           <T k="theming.borderRadiusDescription" />
         </p>
-        <div className="flex items-end gap-6">
+        <div className="grid grid-cols-3 gap-4 sm:grid-cols-5 sm:gap-6">
           {RADII.map((radius) => (
             <div className="flex flex-col items-center gap-2" key={radius.name}>
               <div

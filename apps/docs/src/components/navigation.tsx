@@ -11,8 +11,8 @@ import { ThemeSwitcher } from './theme-switcher';
 const NAV_ITEMS: Array<{ path: string; labelKey: MessageKey }> = [
   { path: '/', labelKey: 'nav.home' },
   { path: '/get-started', labelKey: 'nav.getStarted' },
-  { path: '/components', labelKey: 'nav.components' },
   { path: '/theming', labelKey: 'nav.theming' },
+  { path: '/components', labelKey: 'nav.components' },
   { path: '/hooks', labelKey: 'nav.hooks' },
   { path: '/helpers', labelKey: 'nav.helpers' },
 ];
