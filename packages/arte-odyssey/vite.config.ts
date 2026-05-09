@@ -82,8 +82,16 @@ export default defineConfig({
         extends: true,
         test: {
           name: { label: 'helpers', color: 'blue' },
-          include: ['src/helpers/**/*.test.{ts,tsx}'],
-          includeSource: ['src/helpers/**/*.{ts,tsx}'],
+          include: [
+            'src/helpers/**/*.test.{ts,tsx}',
+            'src/internal/**/*.test.{ts,tsx}',
+            'src/components/**/*.test.ts',
+          ],
+          includeSource: [
+            'src/helpers/**/*.{ts,tsx}',
+            'src/internal/**/*.{ts,tsx}',
+            'src/components/**/*.ts',
+          ],
         },
       },
     ],

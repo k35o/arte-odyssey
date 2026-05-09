@@ -6,23 +6,12 @@ export const helperCategories: NavCategory[] = [
     items: [{ name: 'cn', path: '/helpers/cn' }],
   },
   {
-    titleKey: 'helpers.categoryColor',
-    items: [{ name: 'findAllColors', path: '/helpers/find-all-colors' }],
-  },
-  {
-    titleKey: 'helpers.categoryNumber',
+    titleKey: 'helpers.categoryReact',
     items: [
-      { name: 'between', path: '/helpers/between' },
-      { name: 'cast', path: '/helpers/cast' },
-      { name: 'commalize', path: '/helpers/commalize' },
-      { name: 'toPrecision', path: '/helpers/to-precision' },
-    ],
-  },
-  {
-    titleKey: 'helpers.categoryUtility',
-    items: [
-      { name: 'uuidV4', path: '/helpers/uuid-v4' },
-      { name: 'isInternalRoute', path: '/helpers/is-internal-route' },
+      { name: 'mergeRefs', path: '/helpers/merge-refs' },
+      { name: 'mergeProps', path: '/helpers/merge-props' },
+      { name: 'chain', path: '/helpers/chain' },
+      { name: 'createSafeContext', path: '/helpers/create-safe-context' },
     ],
   },
 ];

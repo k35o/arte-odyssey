@@ -1,7 +1,7 @@
 import type { FC, HTMLAttributes } from 'react';
 
 import { cn } from './../../../helpers/cn';
-import { toPrecision } from './../../../helpers/number';
+import { toPrecision } from './../../../internal/to-precision';
 
 type Props = {
   progress: number;

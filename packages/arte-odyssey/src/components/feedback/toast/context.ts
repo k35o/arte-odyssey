@@ -8,7 +8,6 @@ import {
   useCallback,
 } from 'react';
 
-import { uuidV4 } from './../../../helpers/uuid-v4';
 import type { Status } from './../../../types/variables';
 
 const MAX_TOAST_COUNT = 5;
@@ -32,7 +31,7 @@ export const useToast = () => {
   const onOpen = useCallback(
     (status: Status, message: string) => {
       setToasts((prev) => {
-        const next = [...prev, { id: uuidV4(), status, message }];
+        const next = [...prev, { id: crypto.randomUUID(), status, message }];
         return next.slice(-MAX_TOAST_COUNT);
       });
     },

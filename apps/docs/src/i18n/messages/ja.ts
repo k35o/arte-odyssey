@@ -309,9 +309,7 @@ export const ja = {
     'controlled/uncontrolledコンポーネントの状態を管理するフックです。',
   'helpers.description': 'ArteOdysseyが提供するヘルパー関数の一覧です。',
   'helpers.categoryStyling': 'スタイリング',
-  'helpers.categoryColor': 'カラー',
-  'helpers.categoryNumber': '数値',
-  'helpers.categoryUtility': 'ユーティリティ',
+  'helpers.categoryReact': 'React',
   'helpers.common.importTitle': 'インポート',
   'helpers.common.usageTitle': '使い方',
   'helpers.common.basicUsageTitle': '基本的な使い方',
@@ -319,19 +317,14 @@ export const ja = {
   'helpers.common.returnValueTitle': '戻り値',
   'helpers.cn.description':
     'clsxとtailwind-mergeを組み合わせたクラス名ユーティリティです。',
-  'helpers.findAllColors.description':
-    'テキスト内のすべてのCSS色の値とその位置を検出する関数です。',
-  'helpers.between.description':
-    '数値を最小値と最大値の間にクランプする関数です。',
-  'helpers.cast.description':
-    '文字列を数値に変換し、精度を指定できる関数です。',
-  'helpers.commalize.description':
-    '数値を3桁ごとのカンマ区切りにフォーマットする関数です。',
-  'helpers.toPrecision.description':
-    '数値を指定した小数点以下の桁数に丸める関数です。',
-  'helpers.uuidV4.description': 'UUID v4文字列を生成する関数です。',
-  'helpers.isInternalRoute.description':
-    'URLが内部ルートかどうかを判定する関数です。',
+  'helpers.mergeRefs.description':
+    '複数のrefを1つの要素に結合するユーティリティです。',
+  'helpers.mergeProps.description':
+    'classNameやイベントハンドラを適切にマージしながら、複数のpropsを合成するユーティリティです。',
+  'helpers.chain.description':
+    '複数の関数を順番に呼び出す関数を作るユーティリティです。',
+  'helpers.createSafeContext.description':
+    'Provider外でアクセスされた場合に明確にthrowするContextを作成するユーティリティです。',
   'theming.introduction':
     'ArteOdysseyは、CSS変数ベースのデザイントークンシステムを使用しています。ライトモードとダークモードの両方に対応し、カスタマイズが容易です。',
   'theming.colorPaletteTitle': 'カラーパレット',

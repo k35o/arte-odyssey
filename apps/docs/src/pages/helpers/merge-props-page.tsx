@@ -5,31 +5,28 @@ import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
-import { FindAllColorsPreview } from './_previews/find-all-colors-previews';
+import { MergePropsPreview } from './_previews/merge-props-previews';
 
 const parameters: PropItem[] = [
-  {
-    name: 'text',
-    types: ['string'],
-    defaultValue: null,
-  },
+  { name: 'base', types: ['Record<string, unknown>'], defaultValue: null },
+  { name: 'override', types: ['Record<string, unknown>'], defaultValue: null },
 ];
 
 const returnValue: PropItem[] = [
   {
-    name: 'results',
-    types: ['{ color: string; start: number; end: number }[]'],
+    name: 'mergedProps',
+    types: ['Omit<A, keyof B> & B'],
     defaultValue: null,
   },
 ];
 
-export function FindAllColorsPage() {
+export function MergePropsPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">findAllColors</Heading>
+        <Heading type="h1">mergeProps</Heading>
         <p className="text-fg-mute text-lg">
-          <T k="helpers.findAllColors.description" />
+          <T k="helpers.mergeProps.description" />
         </p>
       </div>
       <Separator color="mute" />
@@ -39,7 +36,7 @@ export function FindAllColorsPage() {
           <T k="helpers.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { findAllColors } from '@k8o/arte-odyssey';"
+          code="import { mergeProps } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>
@@ -54,14 +51,15 @@ export function FindAllColorsPage() {
             <T k="helpers.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
-            code={`const colors = findAllColors('color: #ff0080; background: hsl(280, 70%, 50%)');
-// [
-//   { color: '#ff0080', start: 7, end: 14 },
-//   { color: 'hsl(280, 70%, 50%)', start: 27, end: 45 },
-// ]`}
-            lang="ts"
+            code={`const merged = mergeProps(
+  { className: 'p-2', onClick: () => log('a') },
+  { className: 'text-fg-info', onClick: () => log('b') },
+);
+// className: 'p-2 text-fg-info' (cn merged)
+// onClick: chained — calls 'a' then 'b'`}
+            lang="tsx"
           >
-            <FindAllColorsPreview />
+            <MergePropsPreview />
           </ComponentPreview>
         </div>
       </section>
