@@ -6,6 +6,7 @@ import { useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { Tooltip, type TooltipTriggerProps } from '../../overlays/tooltip';
+import { chain } from './../../../helpers/chain';
 import { cn } from './../../../helpers/cn';
 import { mergeRefs } from './../../../helpers/merge-refs';
 
@@ -157,23 +158,11 @@ export const IconButton: FC<Props> = ({
               aria-label={label}
               className={className}
               disabled={isDisabled}
-              onBlur={(e) => {
-                triggerProps.onBlur(e);
-                onBlur?.(e);
-              }}
+              onBlur={chain(triggerProps.onBlur, onBlur)}
               onClick={handleClick}
-              onFocus={(e) => {
-                triggerProps.onFocus(e);
-                onFocus?.(e);
-              }}
-              onMouseEnter={(e) => {
-                triggerProps.onMouseEnter(e);
-                onMouseEnter?.(e);
-              }}
-              onMouseLeave={(e) => {
-                triggerProps.onMouseLeave(e);
-                onMouseLeave?.(e);
-              }}
+              onFocus={chain(triggerProps.onFocus, onFocus)}
+              onMouseEnter={chain(triggerProps.onMouseEnter, onMouseEnter)}
+              onMouseLeave={chain(triggerProps.onMouseLeave, onMouseLeave)}
               ref={mergeRefs(ref, triggerProps.ref)}
               type="button"
             >
