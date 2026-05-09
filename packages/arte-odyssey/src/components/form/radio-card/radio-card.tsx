@@ -8,9 +8,10 @@ import type {
   KeyboardEvent,
   ReactNode,
 } from 'react';
-import { useId, useRef, useState } from 'react';
+import { useId, useRef } from 'react';
 
 import { cn } from '../../../helpers/cn';
+import { useControllableState } from '../../../hooks/controllable-state';
 
 export type RadioCardOption = Readonly<{
   value: string;
@@ -56,16 +57,15 @@ export const RadioCard: FC<Props> = ({
 }) => {
   const groupId = useId();
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const [internalValue, setInternalValue] = useState(
-    defaultValue ?? options[0]?.value,
-  );
-  const isControlled = value !== undefined;
-  const currentValue = isControlled ? value : internalValue;
+  const [currentValue, setCurrentValue] = useControllableState<
+    string | undefined
+  >({
+    value,
+    defaultValue: defaultValue ?? options[0]?.value,
+  });
 
   const selectValue = (nextValue: string) => {
-    if (!isControlled) {
-      setInternalValue(nextValue);
-    }
+    setCurrentValue(nextValue);
     onChange?.({
       target: { value: nextValue },
     } as ChangeEvent<HTMLInputElement>);

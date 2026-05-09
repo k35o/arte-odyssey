@@ -5,6 +5,7 @@ import { useFormStatus } from 'react-dom';
 
 import { ChevronIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
+import { useControllableState } from './../../../hooks/controllable-state';
 import { clamp } from './../../../internal/clamp';
 import { toPrecision } from './../../../internal/to-precision';
 import { cast } from './cast';
@@ -57,28 +58,24 @@ export const NumberField: FC<Props> = ({
   min = -9_007_199_254_740_991,
   ...rest
 }) => {
-  const isControlled = value !== undefined;
-  const initialValue = defaultValue ?? value ?? 0;
-
-  const [internalValue, setInternalValue] = useState(initialValue);
+  const [currentValue, setCurrentValue] = useControllableState<number>({
+    value,
+    defaultValue: defaultValue ?? 0,
+    onChange,
+  });
   const [displayValue, setDisplayValue] = useState(
-    initialValue.toFixed(precision),
+    currentValue.toFixed(precision),
   );
-  const [prevValue, setPrevValue] = useState(initialValue);
+  const [prevValue, setPrevValue] = useState(currentValue);
   const { pending } = useFormStatus();
 
-  const currentValue = isControlled ? value : internalValue;
-
-  if (isControlled && value !== prevValue) {
-    setDisplayValue(value.toFixed(precision));
-    setPrevValue(value);
+  if (currentValue !== prevValue) {
+    setDisplayValue(currentValue.toFixed(precision));
+    setPrevValue(currentValue);
   }
 
   const handleChange = (newValue: number) => {
-    if (!isControlled) {
-      setInternalValue(newValue);
-    }
-    onChange?.(newValue);
+    setCurrentValue(newValue);
   };
 
   return (

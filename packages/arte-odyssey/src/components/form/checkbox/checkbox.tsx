@@ -6,12 +6,12 @@ import type {
   FC,
   InputHTMLAttributes,
 } from 'react';
-import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { CheckIcon } from '../../icons';
 import { useCheckboxGroupContext } from '../checkbox-group/checkbox-group';
 import { cn } from './../../../helpers/cn';
+import { useControllableState } from './../../../hooks/controllable-state';
 
 type BaseProps = {
   itemValue?: string;
@@ -53,9 +53,10 @@ export const Checkbox: FC<Props> = ({
 }) => {
   const groupContext = useCheckboxGroupContext();
   const { pending } = useFormStatus();
-  const [internalChecked, setInternalChecked] = useState(
-    defaultChecked ?? false,
-  );
+  const [internalChecked, setInternalChecked] = useControllableState({
+    value,
+    defaultValue: defaultChecked ?? false,
+  });
   const groupItemValue = itemValue ?? '';
 
   if (groupContext && (itemValue === undefined || itemValue === '')) {
@@ -67,14 +68,10 @@ export const Checkbox: FC<Props> = ({
     disabled || groupContext?.disabled === true || pending;
   const checked = groupContext
     ? groupContext.currentValue.includes(groupItemValue)
-    : isControlled
-      ? value
-      : internalChecked;
+    : internalChecked;
 
   const setChecked = (nextChecked: boolean) => {
-    if (!isControlled) {
-      setInternalChecked(nextChecked);
-    }
+    setInternalChecked(nextChecked);
     onChange?.({
       target: { checked: nextChecked },
     } as ChangeEvent<HTMLInputElement>);

@@ -1,9 +1,10 @@
 'use client';
 
 import type { FC, FieldsetHTMLAttributes, ReactNode } from 'react';
-import { useId, useState } from 'react';
+import { useId } from 'react';
 
 import { cn } from '../../../helpers/cn';
+import { useControllableState } from '../../../hooks/controllable-state';
 import { CheckIcon } from '../../icons';
 
 export type CheckboxCardOption = Readonly<{
@@ -47,19 +48,17 @@ export const CheckboxCard: FC<Props> = ({
   ...rest
 }) => {
   const groupId = useId();
-  const [internalValue, setInternalValue] = useState(defaultValue ?? []);
-  const isControlled = value !== undefined;
-  const selectedValues = isControlled ? value : internalValue;
+  const [selectedValues, setSelectedValues] = useControllableState<string[]>({
+    value,
+    defaultValue: defaultValue ?? [],
+    onChange,
+  });
 
   const handleToggle = (nextValue: string, checked: boolean) => {
     const nextValues = checked
       ? [...selectedValues, nextValue]
       : selectedValues.filter((item) => item !== nextValue);
-
-    if (!isControlled) {
-      setInternalValue(nextValues);
-    }
-    onChange?.(nextValues);
+    setSelectedValues(nextValues);
   };
 
   return (

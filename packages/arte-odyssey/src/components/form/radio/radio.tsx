@@ -6,11 +6,11 @@ import type {
   FC,
   HTMLAttributes,
 } from 'react';
-import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import type { Option } from '../../../types/variables';
 import { cn } from './../../../helpers/cn';
+import { useControllableState } from './../../../hooks/controllable-state';
 
 type BaseProps = {
   'aria-labelledby': string;
@@ -46,16 +46,18 @@ export const Radio: FC<Props> = ({
   options,
   ...rest
 }) => {
-  const [internalValue, setInternalValue] = useState(defaultValue);
+  const [selectedValue, setSelectedValue] = useControllableState<
+    string | undefined
+  >({
+    value,
+    defaultValue,
+  });
   const { pending } = useFormStatus();
   const isControlled = value !== undefined;
-  const selectedValue = isControlled ? value : internalValue;
   const disabledResolved = disabled || pending;
 
   const selectValue = (nextValue: string) => {
-    if (!isControlled) {
-      setInternalValue(nextValue);
-    }
+    setSelectedValue(nextValue);
     onChange?.({
       target: { value: nextValue },
     } as ChangeEvent<HTMLInputElement>);
