@@ -1,5 +1,21 @@
 # @k8o/arte-odyssey
 
+## 8.0.3
+
+### Patch Changes
+
+- [#463](https://github.com/k35o/arte-odyssey/pull/463) [`adda8df`](https://github.com/k35o/arte-odyssey/commit/adda8dfec1cd27f0c06497209615cb41b849ddb3) Thanks [@k35o](https://github.com/k35o)! - `IconButton` の `tooltipPlacement` のデフォルト値を `'bottom'` から `'top'` に変更した。
+
+  ツールチップがボタンの上に表示されることで、下部のコンテンツが隠れにくくなる。`tooltipPlacement` を明示的に指定しているコードに影響はない。
+
+- [#460](https://github.com/k35o/arte-odyssey/pull/460) [`66852a1`](https://github.com/k35o/arte-odyssey/commit/66852a13a3cc7d1dfe763402f30ede890848f646) Thanks [@k35o](https://github.com/k35o)! - リポジトリ名を `k35o/ArteOdyssey` から `k35o/arte-odyssey` に変更したことに伴い、パッケージメタデータを追従させた。
+
+  - `packages/arte-odyssey/package.json` の `bugs.url` と `repository.url` を新リポジトリ URL に更新
+  - `.changeset/config.json` の `repo` を更新（今後の CHANGELOG 生成リンクが新 URL になる）
+  - ルート `package.json` の `repository.url` を更新
+
+  GitHub のリダイレクトで旧 URL は当面動くが、npm 上の "Bug Reports" / "Repository" リンクを新 URL に正すため publish に反映する。公開 API・実装の変更はない。
+
 ## 8.0.2
 
 ### Patch Changes
