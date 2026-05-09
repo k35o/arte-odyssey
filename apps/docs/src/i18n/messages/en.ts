@@ -309,7 +309,6 @@ export const en = {
     'A catalog of helper functions provided by ArteOdyssey.',
   'helpers.categoryStyling': 'Styling',
   'helpers.categoryReact': 'React',
-  'helpers.categoryNumber': 'Number',
   'helpers.common.importTitle': 'Import',
   'helpers.common.usageTitle': 'Usage',
   'helpers.common.basicUsageTitle': 'Basic Usage',
@@ -325,8 +324,6 @@ export const en = {
     'A utility that creates a function that calls multiple functions in order.',
   'helpers.createSafeContext.description':
     'A utility that creates a Context that throws clearly when accessed outside its Provider.',
-  'helpers.clamp.description':
-    'A function that clamps a number between a minimum and maximum value.',
   'theming.introduction':
     'ArteOdyssey uses a CSS variable-based design token system. It supports both light and dark modes and is easy to customize.',
   'theming.colorPaletteTitle': 'Color Palette',

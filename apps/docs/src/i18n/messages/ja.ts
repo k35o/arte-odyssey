@@ -310,7 +310,6 @@ export const ja = {
   'helpers.description': 'ArteOdysseyが提供するヘルパー関数の一覧です。',
   'helpers.categoryStyling': 'スタイリング',
   'helpers.categoryReact': 'React',
-  'helpers.categoryNumber': '数値',
   'helpers.common.importTitle': 'インポート',
   'helpers.common.usageTitle': '使い方',
   'helpers.common.basicUsageTitle': '基本的な使い方',
@@ -326,8 +325,6 @@ export const ja = {
     '複数の関数を順番に呼び出す関数を作るユーティリティです。',
   'helpers.createSafeContext.description':
     'Provider外でアクセスされた場合に明確にthrowするContextを作成するユーティリティです。',
-  'helpers.clamp.description':
-    '数値を最小値と最大値の間にクランプする関数です。',
   'theming.introduction':
     'ArteOdysseyは、CSS変数ベースのデザイントークンシステムを使用しています。ライトモードとダークモードの両方に対応し、カスタマイズが容易です。',
   'theming.colorPaletteTitle': 'カラーパレット',

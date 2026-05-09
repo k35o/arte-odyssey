@@ -4,8 +4,8 @@ import { type FC, type InputHTMLAttributes, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { ChevronIcon } from '../../icons';
-import { clamp } from './../../../helpers/clamp';
 import { cn } from './../../../helpers/cn';
+import { clamp } from './../../../internal/clamp';
 import { toPrecision } from './../../../internal/to-precision';
 import { cast } from './cast';
 

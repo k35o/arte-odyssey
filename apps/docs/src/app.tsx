@@ -51,7 +51,6 @@ import { TooltipPage } from './pages/components/tooltip-page';
 import { GetStarted } from './pages/get-started';
 import { Helpers } from './pages/helpers';
 import { ChainPage } from './pages/helpers/chain-page';
-import { ClampPage } from './pages/helpers/clamp-page';
 import { CnPage } from './pages/helpers/cn-page';
 import { CreateSafeContextPage } from './pages/helpers/create-safe-context-page';
 import { MergePropsPage } from './pages/helpers/merge-props-page';
@@ -400,10 +399,6 @@ const routes: RouteDefinition[] = [
       route({
         path: '/helpers/create-safe-context',
         component: <CreateSafeContextPage />,
-      }),
-      route({
-        path: '/helpers/clamp',
-        component: <ClampPage />,
       }),
     ],
   }),

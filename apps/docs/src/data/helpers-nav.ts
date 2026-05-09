@@ -14,8 +14,4 @@ export const helperCategories: NavCategory[] = [
       { name: 'createSafeContext', path: '/helpers/create-safe-context' },
     ],
   },
-  {
-    titleKey: 'helpers.categoryNumber',
-    items: [{ name: 'clamp', path: '/helpers/clamp' }],
-  },
 ];
