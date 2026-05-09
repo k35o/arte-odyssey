@@ -12,6 +12,7 @@ import { useFormStatus } from 'react-dom';
 
 import { useControllableState } from '../../../hooks/controllable-state';
 import { useDeferredDebounce } from '../../../hooks/deferred-debounce';
+import { useDisclosure } from '../../../hooks/disclosure';
 import type { Option } from '../../../types/variables';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
@@ -70,7 +71,7 @@ export const Autocomplete: FC<Props> = ({
   });
 
   const ref = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useState(false);
+  const { isOpen, open, close } = useDisclosure();
   const [text, setText] = useState('');
   const [selectIndex, setSelectIndex] = useState<number>();
 
@@ -83,9 +84,9 @@ export const Autocomplete: FC<Props> = ({
 
   const reset = useCallback(() => {
     setText('');
-    setOpen(false);
+    close();
     setSelectIndex(undefined);
-  }, []);
+  }, [close]);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -151,8 +152,8 @@ export const Autocomplete: FC<Props> = ({
           <input
             {...rest}
             aria-autocomplete="list"
-            aria-controls={open ? `${id}_listbox` : undefined}
-            aria-expanded={open}
+            aria-controls={isOpen ? `${id}_listbox` : undefined}
+            aria-expanded={isOpen}
             aria-invalid={invalid}
             aria-required={required}
             autoComplete="off"
@@ -166,19 +167,19 @@ export const Autocomplete: FC<Props> = ({
               if (e.relatedTarget?.id.startsWith(`${id}_option_`) === true) {
                 return;
               }
-              setOpen(false);
+              close();
             }}
             onChange={(e) => {
-              setOpen(true);
+              open();
               setText(e.target.value);
               setSelectIndex(undefined);
             }}
             onClick={() => {
-              if (open && text.length === 0) {
-                setOpen(false);
+              if (isOpen && text.length === 0) {
+                close();
                 return;
               }
-              setOpen(true);
+              open();
               setSelectIndex(undefined);
             }}
             onKeyDown={(e) => {
@@ -188,7 +189,7 @@ export const Autocomplete: FC<Props> = ({
                 return;
               }
               if (e.key === 'ArrowDown') {
-                setOpen(true);
+                open();
                 setSelectIndex((prev) => {
                   if (prev === undefined) {
                     return 0;
@@ -198,7 +199,7 @@ export const Autocomplete: FC<Props> = ({
                 return;
               }
               if (e.key === 'ArrowUp') {
-                setOpen(true);
+                open();
                 setSelectIndex((prev) => {
                   if (prev === undefined) {
                     return 0;
@@ -251,7 +252,7 @@ export const Autocomplete: FC<Props> = ({
         )}
       </div>
       <div className="relative w-full">
-        {open && (
+        {isOpen && (
           <div
             className="bg-bg-raised absolute top-1 z-10 w-full rounded-xl shadow-md"
             role="presentation"
