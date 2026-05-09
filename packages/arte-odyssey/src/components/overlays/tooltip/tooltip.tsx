@@ -9,11 +9,35 @@ import {
   type PropsWithChildren,
   type ReactElement,
   type RefCallback,
+  useCallback,
   useMemo,
+  useSyncExternalStore,
 } from 'react';
 
 import { Popover } from '../popover';
 import { usePlacement, usePopoverContext } from '../popover/hooks';
+
+const HOVER_QUERY = '(hover: hover)';
+
+const useCanHover = (): boolean => {
+  const subscribe = useCallback((cb: () => void) => {
+    const mql = window.matchMedia(HOVER_QUERY);
+    mql.addEventListener('change', cb);
+    return () => {
+      mql.removeEventListener('change', cb);
+    };
+  }, []);
+
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(HOVER_QUERY).matches,
+    () => true,
+  );
+};
+
+const noop = () => {
+  /* skip hover handling on touch devices */
+};
 
 export type TooltipTriggerProps = {
   ref: RefCallback<HTMLElement>;
@@ -26,11 +50,12 @@ export type TooltipTriggerProps = {
 
 const useTooltipTriggerProps = (): TooltipTriggerProps => {
   const popover = usePopoverContext();
+  const canHover = useCanHover();
   return useMemo(
     () => ({
       ref: popover.setTriggerRef,
-      onMouseEnter: popover.onOpen,
-      onMouseLeave: popover.onClose,
+      onMouseEnter: canHover ? popover.onOpen : noop,
+      onMouseLeave: canHover ? popover.onClose : noop,
       onFocus: (e: FocusEvent<HTMLElement>) => {
         if (e.target.matches(':focus-visible')) {
           popover.onOpen();
@@ -39,7 +64,7 @@ const useTooltipTriggerProps = (): TooltipTriggerProps => {
       onBlur: popover.onClose,
       'aria-describedby': popover.isOpen ? `${popover.rootId}_list` : undefined,
     }),
-    [popover],
+    [popover, canHover],
   );
 };
 
@@ -64,6 +89,7 @@ const Trigger: FC<{
 const Content: FC<PropsWithChildren> = ({ children }) => {
   const placement = usePlacement();
   const popover = usePopoverContext();
+  const canHover = useCanHover();
   const translate = {
     top: { translateY: 5 },
     bottom: { translateY: -5 },
@@ -98,8 +124,8 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
           id={id}
           onBlur={popover.onClose}
           onFocus={popover.onOpen}
-          onMouseEnter={popover.onOpen}
-          onMouseLeave={popover.onClose}
+          onMouseEnter={canHover ? popover.onOpen : noop}
+          onMouseLeave={canHover ? popover.onClose : noop}
           ref={ref}
           role="tooltip"
         >
