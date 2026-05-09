@@ -5,41 +5,31 @@ import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
-import { CastPreview } from './_previews/cast-previews';
+import { ChainPreview } from './_previews/chain-previews';
 
 const parameters: PropItem[] = [
   {
-    name: 'value',
-    types: ['string'],
+    name: '...callbacks',
+    types: ['(T | undefined)[]'],
     defaultValue: null,
-  },
-  {
-    name: 'step',
-    types: ['number'],
-    defaultValue: null,
-  },
-  {
-    name: 'precision',
-    types: ['number'],
-    defaultValue: 'undefined',
   },
 ];
 
 const returnValue: PropItem[] = [
   {
-    name: 'result',
-    types: ['number'],
+    name: 'chainedFunction',
+    types: ['(...args: Parameters<T>) => void'],
     defaultValue: null,
   },
 ];
 
-export function CastPage() {
+export function ChainPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">cast</Heading>
+        <Heading type="h1">chain</Heading>
         <p className="text-fg-mute text-lg">
-          <T k="helpers.cast.description" />
+          <T k="helpers.chain.description" />
         </p>
       </div>
       <Separator color="mute" />
@@ -48,7 +38,10 @@ export function CastPage() {
         <Heading type="h2">
           <T k="helpers.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { cast } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { chain } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 
@@ -61,13 +54,16 @@ export function CastPage() {
             <T k="helpers.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
-            code={`cast('1.5', 1);       // 1.5
-cast('3.14159', 0.01); // 3.14
-cast('-19', 3);        // -19
-cast('1e4', 1);        // 10000`}
-            lang="ts"
+            code={`<button
+  onClick={chain(
+    () => playRipple(),
+    onClick,
+    () => trackAnalytics(),
+  )}
+/>`}
+            lang="tsx"
           >
-            <CastPreview />
+            <ChainPreview />
           </ComponentPreview>
         </div>
       </section>

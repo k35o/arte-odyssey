@@ -5,36 +5,27 @@ import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
-import { ToPrecisionPreview } from './_previews/to-precision-previews';
+import { CreateSafeContextPreview } from './_previews/create-safe-context-previews';
 
 const parameters: PropItem[] = [
-  {
-    name: 'value',
-    types: ['number'],
-    defaultValue: null,
-  },
-  {
-    name: 'precision',
-    types: ['number'],
-    defaultValue: '10',
-  },
+  { name: 'errorMessage', types: ['string'], defaultValue: null },
 ];
 
 const returnValue: PropItem[] = [
   {
-    name: 'result',
-    types: ['number'],
+    name: '[Context, useSafeContext]',
+    types: ['readonly [Context<T | null>, () => T]'],
     defaultValue: null,
   },
 ];
 
-export function ToPrecisionPage() {
+export function CreateSafeContextPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">toPrecision</Heading>
+        <Heading type="h1">createSafeContext</Heading>
         <p className="text-fg-mute text-lg">
-          <T k="helpers.toPrecision.description" />
+          <T k="helpers.createSafeContext.description" />
         </p>
       </div>
       <Separator color="mute" />
@@ -44,7 +35,7 @@ export function ToPrecisionPage() {
           <T k="helpers.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { toPrecision } from '@k8o/arte-odyssey';"
+          code="import { createSafeContext } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>
@@ -59,13 +50,21 @@ export function ToPrecisionPage() {
             <T k="helpers.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
-            code={`toPrecision(1.2345, 0);  // 1
-toPrecision(1.2345, 1);  // 1.2
-toPrecision(1.2345, 2);  // 1.23
-toPrecision(1.2345, 3);  // 1.235`}
-            lang="ts"
+            code={`const [CounterContext, useCounter] = createSafeContext<CounterValue>(
+  'useCounter must be used within CounterProvider',
+);
+
+const Provider: FC<PropsWithChildren> = ({ children }) => (
+  <CounterContext value={...}>{children}</CounterContext>
+);
+
+const Child = () => {
+  const { count } = useCounter(); // throws if used outside Provider
+  return <span>{count}</span>;
+};`}
+            lang="tsx"
           >
-            <ToPrecisionPreview />
+            <CreateSafeContextPreview />
           </ComponentPreview>
         </div>
       </section>

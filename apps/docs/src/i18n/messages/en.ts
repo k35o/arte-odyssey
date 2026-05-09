@@ -308,9 +308,8 @@ export const en = {
   'helpers.description':
     'A catalog of helper functions provided by ArteOdyssey.',
   'helpers.categoryStyling': 'Styling',
-  'helpers.categoryColor': 'Color',
+  'helpers.categoryReact': 'React',
   'helpers.categoryNumber': 'Number',
-  'helpers.categoryUtility': 'Utility',
   'helpers.common.importTitle': 'Import',
   'helpers.common.usageTitle': 'Usage',
   'helpers.common.basicUsageTitle': 'Basic Usage',
@@ -318,19 +317,16 @@ export const en = {
   'helpers.common.returnValueTitle': 'Return Value',
   'helpers.cn.description':
     'A class name utility combining clsx and tailwind-merge.',
-  'helpers.findAllColors.description':
-    'A function that detects all CSS color values and their positions in text.',
-  'helpers.between.description':
+  'helpers.mergeRefs.description':
+    'A utility that merges multiple refs into a single element.',
+  'helpers.mergeProps.description':
+    'A utility that merges multiple props together, properly combining className and event handlers.',
+  'helpers.chain.description':
+    'A utility that creates a function that calls multiple functions in order.',
+  'helpers.createSafeContext.description':
+    'A utility that creates a Context that throws clearly when accessed outside its Provider.',
+  'helpers.clamp.description':
     'A function that clamps a number between a minimum and maximum value.',
-  'helpers.cast.description':
-    'A function that converts a string to a number with precision control.',
-  'helpers.commalize.description':
-    'A function that formats a number with comma separators.',
-  'helpers.toPrecision.description':
-    'A function that rounds a number to a specified number of decimal places.',
-  'helpers.uuidV4.description': 'A function that generates a UUID v4 string.',
-  'helpers.isInternalRoute.description':
-    'A function that determines whether a URL is an internal route.',
   'theming.introduction':
     'ArteOdyssey uses a CSS variable-based design token system. It supports both light and dark modes and is easy to customize.',
   'theming.colorPaletteTitle': 'Color Palette',

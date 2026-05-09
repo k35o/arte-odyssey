@@ -4,8 +4,10 @@ import { type FC, type InputHTMLAttributes, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { ChevronIcon } from '../../icons';
+import { clamp } from './../../../helpers/clamp';
 import { cn } from './../../../helpers/cn';
-import { between, cast, toPrecision } from './../../../helpers/number';
+import { toPrecision } from './../../../internal/to-precision';
+import { cast } from './cast';
 
 type BaseProps = {
   invalid?: boolean;
@@ -106,7 +108,7 @@ export const NumberField: FC<Props> = ({
         disabled={disabled}
         readOnly={pending || undefined}
         onBlur={() => {
-          const newValue = between(cast(displayValue, precision), min, max);
+          const newValue = clamp(cast(displayValue, precision), min, max);
           handleChange(newValue);
           setDisplayValue(newValue.toFixed(precision));
         }}
@@ -121,7 +123,7 @@ export const NumberField: FC<Props> = ({
         }}
         onKeyDown={(e) => {
           if (e.key === 'ArrowUp') {
-            const newValue = between(
+            const newValue = clamp(
               toPrecision(cast(displayValue, precision) + step, precision),
               min,
               max,
@@ -130,7 +132,7 @@ export const NumberField: FC<Props> = ({
             setDisplayValue(newValue.toFixed(precision));
           }
           if (e.key === 'ArrowDown') {
-            const newValue = between(
+            const newValue = clamp(
               toPrecision(cast(displayValue, precision) - step, precision),
               min,
               max,
@@ -156,7 +158,7 @@ export const NumberField: FC<Props> = ({
           )}
           disabled={disabled || pending}
           onClick={() => {
-            const newValue = between(
+            const newValue = clamp(
               toPrecision(cast(displayValue, precision) + step, precision),
               min,
               max,
@@ -178,7 +180,7 @@ export const NumberField: FC<Props> = ({
           )}
           disabled={disabled || pending}
           onClick={() => {
-            const newValue = between(
+            const newValue = clamp(
               toPrecision(cast(displayValue, precision) - step, precision),
               min,
               max,

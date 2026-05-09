@@ -50,14 +50,12 @@ import { ToastPage } from './pages/components/toast-page';
 import { TooltipPage } from './pages/components/tooltip-page';
 import { GetStarted } from './pages/get-started';
 import { Helpers } from './pages/helpers';
-import { BetweenPage } from './pages/helpers/between-page';
-import { CastPage } from './pages/helpers/cast-page';
+import { ChainPage } from './pages/helpers/chain-page';
+import { ClampPage } from './pages/helpers/clamp-page';
 import { CnPage } from './pages/helpers/cn-page';
-import { CommalizePage } from './pages/helpers/commalize-page';
-import { FindAllColorsPage } from './pages/helpers/find-all-colors-page';
-import { IsInternalRoutePage } from './pages/helpers/is-internal-route-page';
-import { ToPrecisionPage } from './pages/helpers/to-precision-page';
-import { UuidV4Page } from './pages/helpers/uuid-v4-page';
+import { CreateSafeContextPage } from './pages/helpers/create-safe-context-page';
+import { MergePropsPage } from './pages/helpers/merge-props-page';
+import { MergeRefsPage } from './pages/helpers/merge-refs-page';
 import { Home } from './pages/home';
 import { HooksPage } from './pages/hooks';
 import { UseBreakpointPage } from './pages/hooks/use-breakpoint-page';
@@ -388,32 +386,24 @@ const routes: RouteDefinition[] = [
         component: <CnPage />,
       }),
       route({
-        path: '/helpers/find-all-colors',
-        component: <FindAllColorsPage />,
+        path: '/helpers/merge-refs',
+        component: <MergeRefsPage />,
       }),
       route({
-        path: '/helpers/between',
-        component: <BetweenPage />,
+        path: '/helpers/merge-props',
+        component: <MergePropsPage />,
       }),
       route({
-        path: '/helpers/cast',
-        component: <CastPage />,
+        path: '/helpers/chain',
+        component: <ChainPage />,
       }),
       route({
-        path: '/helpers/commalize',
-        component: <CommalizePage />,
+        path: '/helpers/create-safe-context',
+        component: <CreateSafeContextPage />,
       }),
       route({
-        path: '/helpers/to-precision',
-        component: <ToPrecisionPage />,
-      }),
-      route({
-        path: '/helpers/uuid-v4',
-        component: <UuidV4Page />,
-      }),
-      route({
-        path: '/helpers/is-internal-route',
-        component: <IsInternalRoutePage />,
+        path: '/helpers/clamp',
+        component: <ClampPage />,
       }),
     ],
   }),

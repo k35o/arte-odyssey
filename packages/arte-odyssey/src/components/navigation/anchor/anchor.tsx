@@ -1,7 +1,6 @@
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 
 import { ExternalLinkIcon } from '../../icons';
-import { isInternalRoute } from './../../../helpers/is-internal-route';
 
 type RestProps = Omit<
   AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -33,7 +32,8 @@ export const Anchor = <T extends string>({
   ),
   ...rest
 }: Props<T>) => {
-  const type = isInternalRoute(href) && !openInNewTab ? 'internal' : 'external';
+  const isExternal = href.startsWith('http');
+  const type = !isExternal && !openInNewTab ? 'internal' : 'external';
   const baseClassName =
     'text-fg-info underline transition-colors hover:text-fg-info/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-info focus-visible:rounded-sm';
   const props =

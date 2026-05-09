@@ -5,31 +5,25 @@ import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
-import { CommalizePreview } from './_previews/commalize-previews';
+import { ClampPreview } from './_previews/clamp-previews';
 
 const parameters: PropItem[] = [
-  {
-    name: 'num',
-    types: ['number'],
-    defaultValue: null,
-  },
+  { name: 'value', types: ['number'], defaultValue: null },
+  { name: 'min', types: ['number'], defaultValue: null },
+  { name: 'max', types: ['number'], defaultValue: null },
 ];
 
 const returnValue: PropItem[] = [
-  {
-    name: 'result',
-    types: ['string'],
-    defaultValue: null,
-  },
+  { name: 'clampedValue', types: ['number'], defaultValue: null },
 ];
 
-export function CommalizePage() {
+export function ClampPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">commalize</Heading>
+        <Heading type="h1">clamp</Heading>
         <p className="text-fg-mute text-lg">
-          <T k="helpers.commalize.description" />
+          <T k="helpers.clamp.description" />
         </p>
       </div>
       <Separator color="mute" />
@@ -39,7 +33,7 @@ export function CommalizePage() {
           <T k="helpers.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { commalize } from '@k8o/arte-odyssey';"
+          code="import { clamp } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>
@@ -54,13 +48,12 @@ export function CommalizePage() {
             <T k="helpers.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
-            code={`commalize(100);         // '100'
-commalize(1000);        // '1,000'
-commalize(1000000);     // '1,000,000'
-commalize(1234567.89);  // '1,234,568'`}
+            code={`clamp(5, 0, 10);  // 5
+clamp(-5, 0, 10); // 0
+clamp(15, 0, 10); // 10`}
             lang="ts"
           >
-            <CommalizePreview />
+            <ClampPreview />
           </ComponentPreview>
         </div>
       </section>

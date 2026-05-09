@@ -1,7 +1,7 @@
 import { type FC, Fragment, type HTMLAttributes } from 'react';
 
 import { cn } from './../../../helpers/cn';
-import { findAllColors } from './../../../helpers/color/find-all-colors';
+import { findAllColors } from './find-all-colors';
 
 type Props = {
   children: string;

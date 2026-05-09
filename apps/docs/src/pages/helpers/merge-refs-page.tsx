@@ -5,31 +5,31 @@ import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
-import { IsInternalRoutePreview } from './_previews/is-internal-route-previews';
+import { MergeRefsPreview } from './_previews/merge-refs-previews';
 
 const parameters: PropItem[] = [
   {
-    name: 'href',
-    types: ['string'],
+    name: '...refs',
+    types: ['ReadonlyArray<Ref<T> | undefined>'],
     defaultValue: null,
   },
 ];
 
 const returnValue: PropItem[] = [
   {
-    name: 'result',
-    types: ['boolean'],
+    name: 'callbackRef',
+    types: ['RefCallback<T>'],
     defaultValue: null,
   },
 ];
 
-export function IsInternalRoutePage() {
+export function MergeRefsPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">isInternalRoute</Heading>
+        <Heading type="h1">mergeRefs</Heading>
         <p className="text-fg-mute text-lg">
-          <T k="helpers.isInternalRoute.description" />
+          <T k="helpers.mergeRefs.description" />
         </p>
       </div>
       <Separator color="mute" />
@@ -39,7 +39,7 @@ export function IsInternalRoutePage() {
           <T k="helpers.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { isInternalRoute } from '@k8o/arte-odyssey';"
+          code="import { mergeRefs } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>
@@ -54,12 +54,14 @@ export function IsInternalRoutePage() {
             <T k="helpers.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
-            code={`isInternalRoute('/about');              // true
-isInternalRoute('/docs/getting-started'); // true
-isInternalRoute('https://example.com');  // false`}
-            lang="ts"
+            code={`const Input: FC<{ ref?: Ref<HTMLInputElement> }> = ({ ref }) => {
+  const internalRef = useRef<HTMLInputElement>(null);
+
+  return <input ref={mergeRefs(internalRef, ref)} />;
+};`}
+            lang="tsx"
           >
-            <IsInternalRoutePreview />
+            <MergeRefsPreview />
           </ComponentPreview>
         </div>
       </section>

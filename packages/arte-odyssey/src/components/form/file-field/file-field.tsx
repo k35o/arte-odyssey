@@ -19,7 +19,6 @@ import {
 } from 'react';
 import { useFormStatus } from 'react-dom';
 
-import { uuidV4 } from '../../../helpers/uuid-v4';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
 
@@ -85,7 +84,10 @@ const Root = ({
       onChange?.(event);
 
       const files = Array.from(event.target.files ?? []);
-      const newFiles = files.map((file) => ({ file, id: uuidV4() }));
+      const newFiles = files.map((file) => ({
+        file,
+        id: crypto.randomUUID(),
+      }));
       const updatedFiles =
         multiple || webkitDirectory
           ? [...acceptedFiles, ...newFiles].slice(
