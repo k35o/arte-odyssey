@@ -2,14 +2,13 @@
 
 import { useListItem } from '@floating-ui/react';
 import {
-  createContext,
   type HTMLAttributes,
   type HTMLProps,
   type RefObject,
-  use,
   useMemo,
 } from 'react';
 
+import { createSafeContext } from '../../../helpers/create-safe-context';
 import { useOpenContext } from '../popover/hooks';
 
 export type Option = {
@@ -34,18 +33,11 @@ type MenuContext = {
   ) => HTMLAttributes<HTMLElement>;
 };
 
-const MenuContext = createContext<MenuContext | null>(null);
+const [MenuContextProvider, useMenuContext] = createSafeContext<MenuContext>(
+  'useMenuContext must be used within a ListBox.Root',
+);
 
-export const MenuContextProvider = MenuContext;
-
-const useMenuContext = (): MenuContext => {
-  const menu = use(MenuContext);
-  if (!menu) {
-    throw new Error('useMenuContext must be used within a DropdownMenu.Root');
-  }
-
-  return menu;
-};
+export { MenuContextProvider };
 
 export const useMenuContent = () => {
   const menu = useMenuContext();

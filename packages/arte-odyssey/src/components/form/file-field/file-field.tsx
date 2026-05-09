@@ -8,19 +8,12 @@ import type {
   PropsWithChildren,
   ReactElement,
 } from 'react';
-import {
-  createContext,
-  use,
-  useCallback,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useId, useMemo, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
+import { createSafeContext } from './../../../helpers/create-safe-context';
 
 type AcceptedFile = {
   file: File;
@@ -35,18 +28,10 @@ type FileFieldContext = {
   openFilePicker: () => void;
 };
 
-const FileFieldContext = createContext<FileFieldContext | null>(null);
-
-const FileFieldProvider = FileFieldContext;
-
-const useFileFieldContext = (): FileFieldContext => {
-  const fileField = use(FileFieldContext);
-  if (!fileField) {
-    throw new Error('useFileFieldContext must be used within a FileField.Root');
-  }
-
-  return fileField;
-};
+const [FileFieldProvider, useFileFieldContext] =
+  createSafeContext<FileFieldContext>(
+    'useFileFieldContext must be used within a FileField.Root',
+  );
 
 type RootProps = PropsWithChildren<
   {

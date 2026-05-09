@@ -1,11 +1,9 @@
 'use client';
 
 import {
-  createContext,
   type FC,
   type PropsWithChildren,
   type Ref,
-  use,
   useId,
   useMemo,
 } from 'react';
@@ -13,18 +11,11 @@ import {
 import { IconButton } from '../../buttons/icon-button';
 import { Heading } from '../../data-display/heading';
 import { CloseIcon } from '../../icons';
+import { createSafeContext } from './../../../helpers/create-safe-context';
 
-const DialogContext = createContext<{
+const [DialogContext, useDialogContext] = createSafeContext<{
   rootId: string;
-} | null>(null);
-
-const useDialogContext = () => {
-  const context = use(DialogContext);
-  if (context === null) {
-    throw new Error('useDialogContext must be used within a DialogProvider');
-  }
-  return context;
-};
+}>('useDialogContext must be used within a DialogProvider');
 
 const Root: FC<
   PropsWithChildren<{

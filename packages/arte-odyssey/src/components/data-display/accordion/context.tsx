@@ -2,31 +2,22 @@
 
 import { createContext, type FC, type PropsWithChildren, use } from 'react';
 
+import { createSafeContext } from '../../../helpers/create-safe-context';
 import { useDisclosure } from '../../../hooks/disclosure';
 
 const OpenContext = createContext(false);
 
 type ToggleOpen = () => void;
-const ToggleOpenContext = createContext<ToggleOpen | undefined>(undefined);
-const ItemIdContext = createContext<string | undefined>(undefined);
+const [ToggleOpenContext, useToggleOpen] = createSafeContext<ToggleOpen>(
+  'useToggleOpen must be used within AccordionProvider',
+);
+const [ItemIdContext, useItemId] = createSafeContext<string>(
+  'useItemId must be used within AccordionProvider',
+);
+
+export { useItemId, useToggleOpen };
 
 export const useOpen = (): boolean => use(OpenContext);
-
-export const useToggleOpen = (): ToggleOpen => {
-  const toggleOpen = use(ToggleOpenContext);
-  if (!toggleOpen) {
-    throw new Error('useToggleOpen must be used within AccordionProvider');
-  }
-  return toggleOpen;
-};
-
-export const useItemId = (): string => {
-  const id = use(ItemIdContext);
-  if (id === undefined || id === '') {
-    throw new Error('useItemId must be used within AccordionProvider');
-  }
-  return id;
-};
 
 export const AccordionItemProvider: FC<
   PropsWithChildren<{
