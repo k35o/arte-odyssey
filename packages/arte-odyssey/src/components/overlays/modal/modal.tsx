@@ -13,6 +13,7 @@ import {
 } from 'react';
 
 import { ToastProvider } from '../../feedback/toast';
+import { PortalRootProvider } from '../../providers';
 import { cn } from './../../../helpers/cn';
 
 const centerVariants: Variants = {
@@ -170,9 +171,11 @@ export const Modal: FC<
               : rightVariants
       }
     >
-      <ToastProvider portalRef={realRef} position="absolute">
-        {children}
-      </ToastProvider>
+      <PortalRootProvider value={realRef}>
+        <ToastProvider portalRef={realRef} position="absolute">
+          {children}
+        </ToastProvider>
+      </PortalRootProvider>
     </motion.dialog>
   );
 };
