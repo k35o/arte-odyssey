@@ -23,6 +23,7 @@ import {
   FormIcon,
   GoodIcon,
   HistoryIcon,
+  HorizontalWritingIcon,
   InformativeIcon,
   InterestingIcon,
   LightModeIcon,
@@ -49,6 +50,7 @@ import {
 } from './lucide';
 import { QiitaIcon } from './qiita';
 import { TwitterIcon } from './twitter';
+import { VerticalWritingIcon } from './vertical-writing';
 
 const meta: Meta<typeof SVGAElement> = {
   title: 'components/icons',
@@ -130,6 +132,14 @@ export const Primary: Story = {
       <div className="flex flex-col items-center justify-center">
         <BlogIcon />
         <p className="text-center">Blog</p>
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <HorizontalWritingIcon />
+        <p className="text-center">横書き</p>
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <VerticalWritingIcon />
+        <p className="text-center">縦書き</p>
       </div>
       <div className="flex flex-col items-center justify-center">
         <SlideIcon />

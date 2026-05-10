@@ -22,6 +22,7 @@ export {
   FormIcon,
   GoodIcon,
   HistoryIcon,
+  HorizontalWritingIcon,
   InformativeIcon,
   InterestingIcon,
   LightModeIcon,
@@ -52,3 +53,4 @@ export {
 } from './lucide';
 export { QiitaIcon } from './qiita';
 export { TwitterIcon } from './twitter';
+export { VerticalWritingIcon } from './vertical-writing';
