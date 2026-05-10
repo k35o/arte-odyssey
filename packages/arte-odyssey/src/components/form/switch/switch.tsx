@@ -1,10 +1,11 @@
 'use client';
 
 import type { ChangeEventHandler, FC, InputHTMLAttributes } from 'react';
-import { useId, useState } from 'react';
+import { useId } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
+import { useControllableState } from '../../../hooks/controllable-state';
 
 type BaseProps = {
   invalid?: boolean;
@@ -48,13 +49,13 @@ export const Switch: FC<Props> = ({
 }) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
-  const [internalChecked, setInternalChecked] = useState(
-    defaultChecked ?? false,
-  );
+  const [isSelected, setSelected] = useControllableState({
+    value,
+    defaultValue: defaultChecked ?? false,
+  });
   const { pending } = useFormStatus();
 
   const isControlled = value !== undefined;
-  const isSelected = isControlled ? value : internalChecked;
   const disabledResolved = disabled || pending;
 
   return (
@@ -76,9 +77,7 @@ export const Switch: FC<Props> = ({
           disabled={disabledResolved}
           id={inputId}
           onChange={(event) => {
-            if (!isControlled) {
-              setInternalChecked(event.target.checked);
-            }
+            setSelected(event.target.checked);
             onChange?.(event);
           }}
           required={required}
