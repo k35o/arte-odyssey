@@ -18,7 +18,7 @@ export const useClickAway = <T extends Element = HTMLElement>(
     };
 
     document.addEventListener('mousedown', handler);
-    document.addEventListener('touchstart', handler);
+    document.addEventListener('touchstart', handler, { passive: true });
 
     return () => {
       document.removeEventListener('mousedown', handler);

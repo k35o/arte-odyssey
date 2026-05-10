@@ -63,7 +63,7 @@ export const NumberField: FC<Props> = ({
     defaultValue: defaultValue ?? 0,
     onChange,
   });
-  const [displayValue, setDisplayValue] = useState(
+  const [displayValue, setDisplayValue] = useState(() =>
     currentValue.toFixed(precision),
   );
   const [prevValue, setPrevValue] = useState(currentValue);

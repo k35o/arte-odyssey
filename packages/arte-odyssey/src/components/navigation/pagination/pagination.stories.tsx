@@ -11,23 +11,37 @@ const meta: Meta<typeof Pagination> = {
 export default meta;
 type Story = StoryObj<typeof Pagination>;
 
-const PaginationRender = ({ initialPage }: { initialPage: number }) => {
-  const [page, setPage] = useState(initialPage);
+const DefaultRender = () => {
+  const [page, setPage] = useState(1);
+  return (
+    <Pagination currentPage={page} onPageChange={setPage} totalPages={10} />
+  );
+};
+
+const MiddleRender = () => {
+  const [page, setPage] = useState(5);
+  return (
+    <Pagination currentPage={page} onPageChange={setPage} totalPages={10} />
+  );
+};
+
+const LastRender = () => {
+  const [page, setPage] = useState(10);
   return (
     <Pagination currentPage={page} onPageChange={setPage} totalPages={10} />
   );
 };
 
 export const Default: Story = {
-  render: () => <PaginationRender initialPage={1} />,
+  render: () => <DefaultRender />,
 };
 
 export const Middle: Story = {
-  render: () => <PaginationRender initialPage={5} />,
+  render: () => <MiddleRender />,
 };
 
 export const Last: Story = {
-  render: () => <PaginationRender initialPage={10} />,
+  render: () => <LastRender />,
 };
 
 export const Disabled: Story = {
