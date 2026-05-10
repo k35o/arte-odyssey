@@ -16,12 +16,19 @@ import {
   SHADOWS,
   SPACING_SCALE,
   TEXT_SIZES,
+  Z_INDICES,
   lineHeightToNumber,
 } from '@k8o/arte-odyssey/tokens';
 
 import { CodeBlock } from '../components/code-block';
 import { T } from '../components/t';
 import { TokenCard } from '../components/token-card';
+
+const Z_INDEX_USAGE = {
+  overlay: 'Popover, DropdownMenu, ListBox, Tooltip',
+  modal: 'Modal, Drawer',
+  toast: 'Toast',
+} as const;
 
 export function Theming() {
   return (
@@ -388,6 +395,34 @@ export function Theming() {
                 </code>
                 <span className="text-fg-subtle text-xs">
                   ≥ {bp.px} ({bp.rem})
+                </span>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </section>
+      <Separator color="mute" />
+
+      {/* Z-Index */}
+      <section className="flex flex-col gap-4">
+        <Heading type="h2">
+          <T k="theming.zIndexTitle" />
+        </Heading>
+        <p className="text-fg-mute">
+          <T k="theming.zIndexDescription" />
+        </p>
+        <Card appearance="bordered">
+          <div className="flex flex-col gap-2 p-4">
+            {Z_INDICES.map((z) => (
+              <div className="flex items-center gap-4" key={z.name}>
+                <code className="w-24 shrink-0 text-sm font-medium">
+                  z-{z.name}
+                </code>
+                <span className="text-fg-mute flex-1 text-sm">
+                  {Z_INDEX_USAGE[z.name as keyof typeof Z_INDEX_USAGE]}
+                </span>
+                <span className="text-fg-subtle shrink-0 text-xs">
+                  {z.value}
                 </span>
               </div>
             ))}

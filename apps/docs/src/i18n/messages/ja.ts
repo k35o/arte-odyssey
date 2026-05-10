@@ -361,6 +361,9 @@ export const ja = {
     'スペーシングスケールです。基本単位は0.25rem（4px）で、p-{n}やgap-{n}はn × 0.25remに計算されます。',
   'theming.breakpointsTitle': 'ブレイクポイント',
   'theming.breakpointsDescription': 'レスポンシブブレイクポイントです。',
+  'theming.zIndexTitle': 'Z-Index レイヤ',
+  'theming.zIndexDescription':
+    'オーバーレイ系コンポーネントの重なり順を定義する 3 層スケールです。trigger に紐付く浮遊 UI（Popover / DropdownMenu / ListBox / Tooltip）はoverlay、Modal / Drawer はmodal、Toast はtoastに配置されます。',
   'sideNav.openNavigation': 'ナビゲーションを開く',
   'common.switchToDarkMode': 'ダークモードに切り替え',
   'common.switchToLightMode': 'ライトモードに切り替え',
