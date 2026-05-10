@@ -1,5 +1,5 @@
 ---
-'@k8o/arte-odyssey': major
+'@k8o/arte-odyssey': patch
 ---
 
 全コンポーネントで `className` と `style` プロップを受け取れないようにした。
