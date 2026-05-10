@@ -19,6 +19,7 @@ import {
   useId,
 } from 'react';
 
+import { cn } from '../../../helpers/cn';
 import { useDisclosure } from '../../../hooks/disclosure';
 import { useWritingMode } from '../../../hooks/writing-mode';
 import { usePortalRoot } from '../../providers';
@@ -165,7 +166,7 @@ const Content: FC<{
             modal={false}
           >
             <div
-              className={writingClass}
+              className={cn('z-overlay', writingClass)}
               ref={setContentRef}
               style={contentStyles}
             >

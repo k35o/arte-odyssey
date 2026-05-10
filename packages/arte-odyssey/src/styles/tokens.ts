@@ -472,3 +472,23 @@ export const BREAKPOINTS: readonly Breakpoint[] = [
   { name: 'xl', rem: '80rem', px: '1280px' },
   { name: '2xl', rem: '96rem', px: '1536px' },
 ];
+
+// ---------------------------------------------------------------------------
+// Overlay z-index layers
+// ---------------------------------------------------------------------------
+
+/**
+ * オーバーレイ系コンポーネントの重なり順を定義する 3 層スケール。
+ *
+ *   overlay (1000) — trigger に紐付く浮遊 UI (Popover / DropdownMenu / ListBox / Tooltip)
+ *   modal   (1300) — Modal / Drawer。`<dialog>` top-layer により実質はネイティブ制御だが、
+ *                     stacking context を持つ非ネイティブ実装に切り替えても破綻しないよう明示
+ *   toast   (1500) — Toast。モーダルや浮遊 UI より上に必ず表示される
+ *
+ * 同層内の同時表示はサポート外。新たな層が必要になったら間に挿入する。
+ */
+export const Z_INDICES: readonly NamedScale[] = [
+  { name: 'overlay', value: '1000' },
+  { name: 'modal', value: '1300' },
+  { name: 'toast', value: '1500' },
+];

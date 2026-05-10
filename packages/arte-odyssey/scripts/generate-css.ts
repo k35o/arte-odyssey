@@ -32,6 +32,7 @@ import {
   SPACING_BASE,
   TEXT_SIZES,
   WHITE,
+  Z_INDICES,
   type SemanticToken,
   type ShadeRef,
 } from '../src/styles/tokens.ts';
@@ -66,6 +67,9 @@ const renderPalette = (): string =>
         .join('\n')}`,
   ).join('\n\n');
 
+const renderZRootBlock = (): string =>
+  Z_INDICES.map((z) => `  --z-${z.name}: ${z.value};`).join('\n');
+
 const renderRoot = (): string => {
   const palette = renderPalette();
   const fg = renderSemanticBlock(FG_TOKENS, 'light');
@@ -74,6 +78,7 @@ const renderRoot = (): string => {
   const primary = renderSemanticBlock(PRIMARY_TOKENS, 'light');
   const secondary = renderSemanticBlock(SECONDARY_TOKENS, 'light');
   const group = renderSemanticBlock(GROUP_TOKENS, 'light');
+  const zIndices = renderZRootBlock();
 
   return `:root {
   --white: ${WHITE};
@@ -91,6 +96,8 @@ ${primary}
 ${secondary}
 
   --back-drop: ${BACK_DROP};
+
+${zIndices}
 
   /* TODO: 上の変数の一環として使えるようにする */
 ${group}
@@ -214,6 +221,11 @@ ${renderInsetShadows()}
 ${renderBreakpoints()}
 }`;
 
+const renderZUtilities = (): string =>
+  Z_INDICES.map(
+    (z) => `@utility z-${z.name} {\n  z-index: var(--z-${z.name});\n}`,
+  ).join('\n\n');
+
 const renderTokensCss = (): string => `${renderRoot()}
 
 ${renderDark()}
@@ -236,6 +248,8 @@ ${base}
 ${renderTokensCss()}
 
 ${utilities}
+
+${renderZUtilities()}
 `;
 
 const outputPath = resolve(stylesDir, 'index.css');

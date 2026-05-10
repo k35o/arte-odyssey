@@ -65,7 +65,7 @@ export const ToastProvider: FC<
               aria-label="通知"
               aria-live="polite"
               className={cn(
-                'absolute bottom-3 z-50 flex w-full flex-col items-center justify-center gap-4',
+                'absolute bottom-3 z-toast flex w-full flex-col items-center justify-center gap-4',
                 position === 'fixed' && 'fixed',
                 position === 'absolute' && 'absolute',
               )}
