@@ -1,13 +1,8 @@
 'use client';
 
-import {
-  createContext,
-  type Dispatch,
-  type SetStateAction,
-  use,
-  useCallback,
-} from 'react';
+import { type Dispatch, type SetStateAction, useCallback } from 'react';
 
+import { createSafeContext } from './../../../helpers/create-safe-context';
 import type { Status } from './../../../types/variables';
 
 const MAX_TOAST_COUNT = 5;
@@ -18,15 +13,12 @@ export type ToastType = {
   message: string;
 };
 
-export const SetToastContext = createContext<
-  Dispatch<SetStateAction<ToastType[]>> | undefined
->(undefined);
+export const [SetToastContext, useSetToast] = createSafeContext<
+  Dispatch<SetStateAction<ToastType[]>>
+>('useToast must be used within a ToastProvider');
 
 export const useToast = () => {
-  const setToasts = use(SetToastContext);
-  if (!setToasts) {
-    throw new Error('useToast must be used within a ToastProvider');
-  }
+  const setToasts = useSetToast();
 
   const onOpen = useCallback(
     (status: Status, message: string) => {

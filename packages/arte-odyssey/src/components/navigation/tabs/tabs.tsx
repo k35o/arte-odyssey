@@ -2,12 +2,10 @@
 
 import * as motion from 'motion/react-client';
 import {
-  createContext,
   type FC,
   type KeyboardEvent,
   type PropsWithChildren,
   type RefObject,
-  use,
   useEffect,
   useId,
   useMemo,
@@ -16,6 +14,7 @@ import {
 } from 'react';
 
 import { cn } from './../../../helpers/cn';
+import { createSafeContext } from './../../../helpers/create-safe-context';
 
 type TabsContext = {
   rootId: string;
@@ -24,15 +23,9 @@ type TabsContext = {
   setSelectedId: (id: string) => void;
 };
 
-const TabsProvider = createContext<TabsContext | undefined>(undefined);
-
-const useTabsState = (): TabsContext => {
-  const context = use(TabsProvider);
-  if (!context) {
-    throw new Error('useTabsState must be used within a TabsProvider');
-  }
-  return context;
-};
+const [TabsProvider, useTabsState] = createSafeContext<TabsContext>(
+  'useTabsState must be used within a TabsProvider',
+);
 
 const Root: FC<
   PropsWithChildren<{
@@ -68,22 +61,9 @@ const Root: FC<
   );
 };
 
-const TabsListProvider = createContext<
-  | {
-      setFocusRef: RefObject<boolean>;
-    }
-  | undefined
->(undefined);
-
-const useTabsListState = (): {
+const [TabsListProvider, useTabsListState] = createSafeContext<{
   setFocusRef: RefObject<boolean>;
-} => {
-  const context = use(TabsListProvider);
-  if (!context) {
-    throw new Error('useTabListState must be used within a TabListProvider');
-  }
-  return context;
-};
+}>('useTabListState must be used within a TabListProvider');
 
 const List: FC<
   PropsWithChildren<{

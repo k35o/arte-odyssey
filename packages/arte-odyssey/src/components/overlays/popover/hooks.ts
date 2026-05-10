@@ -7,17 +7,16 @@ import type {
 } from '@floating-ui/react';
 import {
   type CSSProperties,
-  createContext,
   type KeyboardEvent,
   type KeyboardEventHandler,
   type MouseEventHandler,
   type RefCallback,
   type RefObject,
-  use,
   useMemo,
   useRef,
 } from 'react';
 
+import { createSafeContext } from './../../../helpers/create-safe-context';
 import { useClickAway } from './../../../hooks/click-away';
 
 type PopoverContext = {
@@ -38,18 +37,10 @@ type PopoverContext = {
   contentStyles: CSSProperties;
 };
 
-const PopoverContext = createContext<PopoverContext | null>(null);
-
-export const PopoverProvider = PopoverContext;
-
-export const usePopoverContext = (): PopoverContext => {
-  const popover = use(PopoverContext);
-  if (!popover) {
-    throw new Error('usePopoverContext must be used within a Popover.Root');
-  }
-
-  return popover;
-};
+export const [PopoverProvider, usePopoverContext] =
+  createSafeContext<PopoverContext>(
+    'usePopoverContext must be used within a Popover.Root',
+  );
 
 export const useFloatingUIContext = () => {
   const popover = usePopoverContext();
