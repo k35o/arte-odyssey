@@ -1,5 +1,49 @@
 # @k8o/arte-odyssey
 
+## 9.0.0
+
+### Major Changes
+
+- [#467](https://github.com/k35o/arte-odyssey/pull/467) [`a20d9f3`](https://github.com/k35o/arte-odyssey/commit/a20d9f337c46c57890da9c6ea66c67202f516b47) Thanks [@k35o](https://github.com/k35o)! - 公開している Helpers を整理し、UI ライブラリとして必要な 5 つに絞った。
+
+  新しい公開 Helpers:
+
+  - `cn` (既存) — clsx + tailwind-merge ラッパー
+  - `mergeRefs` (新規公開) — 複数の ref を 1 つの要素に結合する
+  - `mergeProps` (新規) — className/style/イベントハンドラを適切にマージしながら複数の props を合成する
+  - `chain` (新規) — 複数の関数を順番に呼び出す関数を作る
+  - `createSafeContext` (新規) — Provider 外でアクセスされた場合に明確に throw する Context を作成する
+
+  廃止または非公開化した Helpers:
+
+  - `between` → 内部実装 (`src/internal/clamp.ts`) として `clamp` にリネーム
+  - `findAllColors` → Code コンポーネント内部に colocate
+  - `isInternalRoute` → Anchor 内にインライン化
+  - `cast` → NumberField コンポーネント内部に colocate
+  - `toPrecision` → 内部実装 (`src/internal/`) に移動
+  - `uuidV4` → `crypto.randomUUID()` 直接利用に置換、削除
+  - `commalize` → 利用箇所がないため削除
+
+  これらを `@k8o/arte-odyssey` から直接 import している場合は、自プロジェクトに移すか標準 API・他ライブラリへ置き換える必要がある。
+
+### Patch Changes
+
+- [#472](https://github.com/k35o/arte-odyssey/pull/472) [`7812f1c`](https://github.com/k35o/arte-odyssey/commit/7812f1c8f3961c84b45a301b8295326cab32dbe7) Thanks [@k35o](https://github.com/k35o)! - `useControllableState` フックを内部のフォーム系コンポーネントで dogfood 適用した。各コンポーネントが手書きで持っていた `isControlled = value !== undefined` + `useState` + 条件分岐 + `onChange` 呼び出しの定型コードを削減した。
+
+  対象: `Switch` / `Checkbox` / `Radio` / `RadioCard` / `CheckboxCard` / `NumberField`
+
+- [#471](https://github.com/k35o/arte-odyssey/pull/471) [`7bb19eb`](https://github.com/k35o/arte-odyssey/commit/7bb19eb2fc2ef9579f3d334d29eb30541553c86e) Thanks [@k35o](https://github.com/k35o)! - `createSafeContext` ヘルパーを内部の Compound コンポーネントで dogfood 適用した。`createContext` + `use` + null チェックの定型コードを削減し、Provider 外で利用された際のエラーメッセージを統一した。
+
+  対象: `FileField` / `Dialog` / `DropdownMenu` / `ListBox` / `Popover` / `Tabs` / `Toast` / `Accordion`
+
+- [#473](https://github.com/k35o/arte-odyssey/pull/473) [`6761d92`](https://github.com/k35o/arte-odyssey/commit/6761d92bcf9d6fbc7c76d92cab1d0eaece2dd69d) Thanks [@k35o](https://github.com/k35o)! - `useDisclosure` フックを `Autocomplete` で適用した。`useState(false)` + `setOpen(true)`/`setOpen(false)` の手動 open/close 管理を `useDisclosure` の `isOpen`/`open`/`close` に置き換えた。
+
+  `chain` ヘルパーを `IconButton` の Tooltip トリガープロップ統合で適用した。`(e) => { triggerProps.onFoo(e); userOnFoo?.(e); }` の手動チェイニングを `chain(triggerProps.onFoo, userOnFoo)` で簡潔にした。
+
+- [#470](https://github.com/k35o/arte-odyssey/pull/470) [`0777043`](https://github.com/k35o/arte-odyssey/commit/07770431211d79df8661b3e4b85037e0045ad6c8) Thanks [@k35o](https://github.com/k35o)! - `Tooltip` をホバー非対応デバイス (タッチデバイス) では表示しないようにした。`(hover: hover)` のメディアクエリを `useSyncExternalStore` で監視し、ホバーが効かないデバイスではマウス起因の開閉ロジックをスキップする。フォーカス起因の開閉は引き続き動作するため、キーボード操作やスクリーンリーダーには影響しない。
+
+  `IconButton` など `Tooltip` を内部利用するコンポーネントでも同じ挙動になる。
+
 ## 8.0.3
 
 ### Patch Changes
