@@ -7,6 +7,7 @@ import {
   Bell,
   Blend,
   Bookmark,
+  BookOpenText,
   BookText,
   Bot,
   Calendar,
@@ -273,4 +274,8 @@ export const AccessibilityIcon: FC<IconProps> = ({ size = 'md' }) => (
 
 export const SparklesIcon: FC<IconProps> = ({ size = 'md' }) => (
   <BaseIcon renderItem={(props) => <Sparkles {...props} />} size={size} />
+);
+
+export const HorizontalWritingIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <BookOpenText {...props} />} size={size} />
 );
