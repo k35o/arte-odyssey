@@ -25,7 +25,7 @@ type Props = {
     'aria-label': string;
     triggerProps: IconButtonTriggerProps;
   }) => ReactNode;
-} & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type'>;
+} & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type' | 'className' | 'style'>;
 
 const joinIds = (
   ...ids: ReadonlyArray<string | undefined>

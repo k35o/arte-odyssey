@@ -27,6 +27,7 @@ type BaseProps = {
   | 'type'
   | 'role'
   | 'className'
+  | 'style'
   | 'value'
   | 'onChange'
   | 'defaultValue'

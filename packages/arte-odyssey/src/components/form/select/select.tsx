@@ -10,7 +10,7 @@ import { cn } from './../../../helpers/cn';
 type Props = {
   invalid?: boolean;
   options: readonly Option[];
-} & Omit<SelectHTMLAttributes<HTMLSelectElement>, 'className'>;
+} & Omit<SelectHTMLAttributes<HTMLSelectElement>, 'className' | 'style'>;
 
 export const Select: FC<Props> = ({
   invalid = false,

@@ -7,7 +7,7 @@ import { cn } from './../../../helpers/cn';
 
 type Props = {
   invalid?: boolean;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className'>;
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className' | 'style'>;
 
 export const TextField: FC<Props> = ({
   invalid = false,

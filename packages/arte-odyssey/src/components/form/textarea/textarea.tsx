@@ -9,7 +9,7 @@ type Props = {
   invalid?: boolean;
   fullHeight?: boolean;
   autoResize?: boolean;
-} & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'className'>;
+} & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'className' | 'style'>;
 
 const resizeToContent = (el: HTMLTextAreaElement) => {
   el.style.height = 'auto';

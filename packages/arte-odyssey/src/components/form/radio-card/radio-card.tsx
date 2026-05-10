@@ -27,7 +27,12 @@ type BaseProps = {
   options: readonly RadioCardOption[];
 } & Omit<
   FieldsetHTMLAttributes<HTMLFieldSetElement>,
-  'className' | 'children' | 'onChange' | 'defaultValue' | 'aria-labelledby'
+  | 'className'
+  | 'style'
+  | 'children'
+  | 'onChange'
+  | 'defaultValue'
+  | 'aria-labelledby'
 >;
 
 type ControlledProps = {

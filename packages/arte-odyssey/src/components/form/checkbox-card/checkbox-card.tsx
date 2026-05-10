@@ -20,7 +20,7 @@ type BaseProps = {
   options: readonly CheckboxCardOption[];
 } & Omit<
   FieldsetHTMLAttributes<HTMLFieldSetElement>,
-  'className' | 'children' | 'onChange' | 'defaultValue'
+  'className' | 'style' | 'children' | 'onChange' | 'defaultValue'
 >;
 
 type ControlledProps = {

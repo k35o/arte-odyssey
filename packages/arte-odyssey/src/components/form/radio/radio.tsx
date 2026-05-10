@@ -19,7 +19,7 @@ type BaseProps = {
   options: readonly Option[];
 } & Omit<
   HTMLAttributes<HTMLDivElement>,
-  'role' | 'className' | 'children' | 'aria-labelledby' | 'onChange'
+  'role' | 'className' | 'style' | 'children' | 'aria-labelledby' | 'onChange'
 >;
 
 type ControlledProps = {

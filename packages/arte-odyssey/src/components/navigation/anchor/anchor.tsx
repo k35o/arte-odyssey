@@ -4,7 +4,7 @@ import { ExternalLinkIcon } from '../../icons';
 
 type RestProps = Omit<
   AnchorHTMLAttributes<HTMLAnchorElement>,
-  'href' | 'children' | 'target' | 'rel' | 'className'
+  'href' | 'children' | 'target' | 'rel' | 'className' | 'style'
 >;
 
 type Props<T extends string> = {

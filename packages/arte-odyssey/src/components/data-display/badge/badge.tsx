@@ -8,7 +8,7 @@ type Props = {
   interactive?: boolean;
   tone?: 'neutral' | 'info' | 'success' | 'warning' | 'error';
   variant?: 'solid' | 'outline';
-} & Omit<HTMLAttributes<HTMLElement>, 'children'>;
+} & Omit<HTMLAttributes<HTMLElement>, 'children' | 'className' | 'style'>;
 
 export const Badge: FC<Props> = ({
   interactive = false,
@@ -16,7 +16,6 @@ export const Badge: FC<Props> = ({
   text,
   tone = 'neutral',
   variant = 'solid',
-  className,
   ...rest
 }) => {
   const interactiveClassName = cn(
@@ -103,14 +102,14 @@ export const Badge: FC<Props> = ({
 
   if (interactive) {
     return (
-      <button {...rest} className={cn(badgeClassName, className)} type="button">
+      <button {...rest} className={badgeClassName} type="button">
         {text}
       </button>
     );
   }
 
   return (
-    <span {...rest} className={cn(badgeClassName, className)}>
+    <span {...rest} className={badgeClassName}>
       {text}
     </span>
   );

@@ -6,13 +6,12 @@ type Props = {
   animate?: boolean;
   shape?: 'rect' | 'circle';
   size?: 'sm' | 'md' | 'lg';
-} & Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
+} & Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'className' | 'style'>;
 
 export const Skeleton: FC<Props> = ({
   animate = true,
   shape = 'rect',
   size = 'md',
-  className,
   ...rest
 }) => (
   <div
@@ -29,7 +28,6 @@ export const Skeleton: FC<Props> = ({
       shape === 'circle' && size === 'sm' && 'size-8',
       shape === 'circle' && size === 'md' && 'size-12',
       shape === 'circle' && size === 'lg' && 'size-16',
-      className,
     )}
   />
 );
