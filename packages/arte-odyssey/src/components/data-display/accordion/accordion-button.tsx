@@ -16,7 +16,7 @@ export const AccordionButton: FC<PropsWithChildren> = ({ children }) => {
       aria-controls={`${id}-panel`}
       aria-expanded={open}
       className={cn(
-        'flex w-full cursor-pointer items-center justify-between rounded-md p-4 text-fg-base transition-colors',
+        'flex w-full cursor-pointer items-center justify-between rounded-md p-4 text-fg-base transition-colors vertical:h-full',
         'hover:bg-primary-bg-subtle hover:text-primary-fg',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-info',
       )}
@@ -28,7 +28,8 @@ export const AccordionButton: FC<PropsWithChildren> = ({ children }) => {
       <span
         className={cn(
           'transition-transform duration-150',
-          open && 'rotate-180',
+          !open && 'vertical:rotate-90',
+          open && 'rotate-180 vertical:-rotate-90',
         )}
       >
         <ChevronIcon direction="down" />
