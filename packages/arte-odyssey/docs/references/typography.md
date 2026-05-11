@@ -72,6 +72,35 @@ import { Heading } from '@k8o/arte-odyssey';
 <Heading type="h3">サブセクション</Heading>
 ```
 
+## 縦書きモード
+
+縦書き表示には専用のユーティリティと variant を用意している。
+
+### ユーティリティ
+
+| Tailwind クラス | 用途                                                                                                        |
+| --------------- | ----------------------------------------------------------------------------------------------------------- |
+| `writing-h`     | 横書き (`writing-mode: horizontal-tb`) に戻す。縦書きツリー内の図表・コードブロック・置換要素などで使う。   |
+| `writing-v`     | 縦書き (`writing-mode: vertical-rl`) を適用し、`text-orientation: mixed` などの推奨初期値も一括で設定する。 |
+
+### `vertical:` variant
+
+`.writing-v` 子孫で活性化し、`.writing-h` 子孫では無効化する Tailwind variant。横書きデフォルトに対する上書きを宣言的に書ける。
+
+```tsx
+<div className="writing-v">
+  <p className="my-4 vertical:my-0">
+    {/* 横書き時のみ縦マージン、縦書きでは外す */}
+  </p>
+</div>
+```
+
+### 注意点
+
+- 画像・iframe などの置換要素は `vertical-rl` で大きさが想定通りにならないことがある。`<img className="vertical:writing-h" />` のように要素自体は横書きに戻す。
+- `-webkit-line-clamp` (`line-clamp-*`) は Safari で `writing-mode` と干渉する。縦書きでは `block-size` 上限 + `overflow: hidden` に置き換える。
+- KaTeX など内部で水平レイアウトを前提とするライブラリは、必要箇所だけ `writing-h` を上書きする。
+
 ## やってはいけないこと
 
 - 3種類以上のフォントウェイトを1画面で使う

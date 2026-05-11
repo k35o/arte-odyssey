@@ -64,3 +64,8 @@
 /* dark・light themeの値を使うための宣言 */
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant light (&:where(.light, .light *));
+
+/* 縦書きモード。`.writing-v` 配下に適用し、`.writing-h` 配下のアイランドでは無効化する */
+@custom-variant vertical (
+  &:where(.writing-v, .writing-v *):not(.writing-h, .writing-h *)
+);
