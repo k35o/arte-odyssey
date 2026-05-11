@@ -37,6 +37,26 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+    writingMode: {
+      description: 'Toggle Writing Mode.',
+      defaultValue: 'horizontal',
+      toolbar: {
+        title: 'Writing Mode',
+        items: [
+          {
+            value: 'horizontal',
+            title: '横書き',
+            icon: 'menu',
+          },
+          {
+            value: 'vertical',
+            title: '縦書き',
+            icon: 'sidebar',
+          },
+        ],
+        dynamicTitle: true,
+      },
+    },
   },
   parameters: {
     backgrounds: { disable: true },
@@ -50,6 +70,10 @@ const preview: Preview = {
     (Story, { globals, parameters }) => {
       const theme =
         parameters.theme ?? globals.theme ?? ('light' as 'light' | 'dark');
+      const writingMode =
+        parameters.writingMode ??
+        globals.writingMode ??
+        ('horizontal' as 'horizontal' | 'vertical');
       useEffect(() => {
         document.body.classList.add(
           'text-fg-base',
@@ -62,7 +86,13 @@ const preview: Preview = {
       return (
         <ArteOdysseyProvider>
           <ApplayThemeByStorybook theme={theme} />
-          <div className="min-h-svh p-6">
+          <div
+            className={
+              writingMode === 'vertical'
+                ? 'writing-v min-h-svh p-6'
+                : 'min-h-svh p-6'
+            }
+          >
             <Story />
           </div>
         </ArteOdysseyProvider>
