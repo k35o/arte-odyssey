@@ -37,3 +37,7 @@
   line-break: strict;
   word-break: normal;
 }
+
+@utility writing-sideways-rl {
+  writing-mode: sideways-rl;
+}
