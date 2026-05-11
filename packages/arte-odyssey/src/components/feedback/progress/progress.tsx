@@ -22,10 +22,11 @@ export const Progress: FC<Props> = ({
       aria-valuemax={maxProgress}
       aria-valuemin={minProgress}
       aria-valuenow={progress}
-      className="bg-primary-bg h-4 rounded-full transition-all"
+      className="bg-primary-bg rounded-full transition-all"
       role="progressbar"
       style={{
-        width: `${((progress / maxProgress) * 100).toString()}%`,
+        inlineSize: `${((progress / maxProgress) * 100).toString()}%`,
+        blockSize: '1rem',
       }}
     />
   </div>
