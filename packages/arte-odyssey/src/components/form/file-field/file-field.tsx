@@ -42,7 +42,13 @@ type RootProps = PropsWithChildren<
     webkitDirectory?: boolean;
   } & Omit<
     InputHTMLAttributes<HTMLInputElement>,
-    'type' | 'className' | 'onChange' | 'defaultValue' | 'value' | 'children'
+    | 'type'
+    | 'className'
+    | 'style'
+    | 'onChange'
+    | 'defaultValue'
+    | 'value'
+    | 'children'
   >
 >;
 

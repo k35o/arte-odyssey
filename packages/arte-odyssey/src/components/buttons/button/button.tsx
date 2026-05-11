@@ -18,7 +18,7 @@ type Props = {
   endIcon?: ReactNode;
   onAction?: () => void | Promise<void>;
   renderItem?: (props: { className: string; children: ReactNode }) => ReactNode;
-} & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type'>;
+} & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type' | 'className' | 'style'>;
 
 export const Button: FC<Props> = ({
   ref,

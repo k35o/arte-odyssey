@@ -7,7 +7,6 @@ export const Card: FC<CardProps> = ({
   children,
   width = 'full',
   appearance = 'shadow',
-  className,
   ...rest
 }) => (
   <div
@@ -19,7 +18,6 @@ export const Card: FC<CardProps> = ({
       width === 'full' && 'w-full',
       width === 'fit' && 'w-fit',
       'bg-bg-base',
-      className,
     )}
   >
     {children}

@@ -2,13 +2,9 @@ import type { FC, PropsWithChildren, ReactNode } from 'react';
 
 import { cn } from '../../../helpers/cn';
 
-type RootProps = PropsWithChildren<{
-  className?: string;
-  containerClassName?: string;
-}>;
+type RootProps = PropsWithChildren;
 
 type RowProps = PropsWithChildren<{
-  className?: string;
   interactive?: boolean;
 }>;
 
@@ -16,77 +12,56 @@ type CellAlign = 'left' | 'center' | 'right';
 
 type HeaderCellProps = PropsWithChildren<{
   align?: CellAlign;
-  className?: string;
 }>;
 
 type CellProps = PropsWithChildren<{
   align?: CellAlign;
-  className?: string;
   colSpan?: number;
   tone?: 'default' | 'muted';
 }>;
 
-type SectionProps = PropsWithChildren<{
-  className?: string;
-}>;
+type SectionProps = PropsWithChildren;
 
-type CaptionProps = PropsWithChildren<{
-  className?: string;
-}>;
+type CaptionProps = PropsWithChildren;
 
 type EmptyStateProps = {
   colSpan: number;
   children: ReactNode;
 };
 
-const Root: FC<RootProps> = ({ children, className, containerClassName }) => (
-  <div
-    className={cn(
-      'w-full overflow-x-auto rounded-lg border border-border-mute bg-bg-base',
-      containerClassName,
-    )}
-  >
-    <table
-      className={cn('min-w-full border-collapse text-left text-sm', className)}
-    >
+const Root: FC<RootProps> = ({ children }) => (
+  <div className="border-border-mute bg-bg-base w-full overflow-x-auto rounded-lg border">
+    <table className="min-w-full border-collapse text-left text-sm">
       {children}
     </table>
   </div>
 );
 
-const Head: FC<SectionProps> = ({ children, className }) => (
-  <thead className={cn('bg-bg-subtle', className)}>{children}</thead>
+const Head: FC<SectionProps> = ({ children }) => (
+  <thead className="bg-bg-subtle">{children}</thead>
 );
 
-const Body: FC<SectionProps> = ({ children, className }) => (
-  <tbody className={cn('[&_tr:last-child]:border-b-0', className)}>
-    {children}
-  </tbody>
+const Body: FC<SectionProps> = ({ children }) => (
+  <tbody className="[&_tr:last-child]:border-b-0">{children}</tbody>
 );
 
-const Row: FC<RowProps> = ({ children, className, interactive = false }) => (
+const Row: FC<RowProps> = ({ children, interactive = false }) => (
   <tr
     className={cn(
       'border-border-mute border-b transition-colors',
       interactive && 'hover:bg-bg-mute',
-      className,
     )}
   >
     {children}
   </tr>
 );
 
-const HeaderCell: FC<HeaderCellProps> = ({
-  align = 'left',
-  children,
-  className,
-}) => (
+const HeaderCell: FC<HeaderCellProps> = ({ align = 'left', children }) => (
   <th
     className={cn(
       'px-4 py-3 font-medium text-fg-base',
       align === 'center' && 'text-center',
       align === 'right' && 'text-right',
-      className,
     )}
     scope="col"
   >
@@ -97,7 +72,6 @@ const HeaderCell: FC<HeaderCellProps> = ({
 const Cell: FC<CellProps> = ({
   align = 'left',
   children,
-  className,
   colSpan,
   tone = 'default',
 }) => (
@@ -107,7 +81,6 @@ const Cell: FC<CellProps> = ({
       tone === 'muted' ? 'text-fg-mute' : 'text-fg-base',
       align === 'center' && 'text-center',
       align === 'right' && 'text-right',
-      className,
     )}
     colSpan={colSpan}
   >
@@ -115,20 +88,21 @@ const Cell: FC<CellProps> = ({
   </td>
 );
 
-const Caption: FC<CaptionProps> = ({ children, className }) => (
-  <caption
-    className={cn('caption-bottom px-4 py-3 text-fg-mute text-sm', className)}
-  >
+const Caption: FC<CaptionProps> = ({ children }) => (
+  <caption className="text-fg-mute caption-bottom px-4 py-3 text-sm">
     {children}
   </caption>
 );
 
 const EmptyState: FC<EmptyStateProps> = ({ children, colSpan }) => (
-  <Row>
-    <Cell align="center" className="text-fg-mute py-10" colSpan={colSpan}>
+  <tr className="border-border-mute border-b transition-colors">
+    <td
+      className="text-fg-mute px-4 py-10 text-center align-middle"
+      colSpan={colSpan}
+    >
       {children}
-    </Cell>
-  </Row>
+    </td>
+  </tr>
 );
 
 export const Table = {

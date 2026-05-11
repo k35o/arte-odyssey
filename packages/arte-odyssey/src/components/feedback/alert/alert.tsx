@@ -7,7 +7,10 @@ import type { Status } from './../../../types/variables';
 type Props = {
   status: Status;
   message: string | string[];
-} & Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'role'>;
+} & Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'children' | 'role' | 'className' | 'style'
+>;
 
 const STATUS_LABEL = {
   success: '成功',
@@ -16,7 +19,7 @@ const STATUS_LABEL = {
   error: 'エラー',
 } as const satisfies Record<Status, string>;
 
-export const Alert: FC<Props> = ({ status, message, className, ...rest }) => (
+export const Alert: FC<Props> = ({ status, message, ...rest }) => (
   <div
     {...rest}
     className={cn(
@@ -25,7 +28,6 @@ export const Alert: FC<Props> = ({ status, message, className, ...rest }) => (
       status === 'info' && 'bg-bg-info',
       status === 'warning' && 'bg-bg-warning',
       status === 'error' && 'bg-bg-error',
-      className,
     )}
     role={status === 'error' || status === 'warning' ? 'alert' : 'status'}
   >

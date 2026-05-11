@@ -33,7 +33,7 @@ type RootBaseProps = PropsWithChildren<
     name: string;
   } & Omit<
     FieldsetHTMLAttributes<HTMLFieldSetElement>,
-    'className' | 'onChange' | 'defaultValue' | 'name'
+    'className' | 'style' | 'onChange' | 'defaultValue' | 'name'
   >
 >;
 

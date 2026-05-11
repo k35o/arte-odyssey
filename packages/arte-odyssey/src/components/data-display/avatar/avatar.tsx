@@ -11,7 +11,10 @@ type Props = {
   name?: string;
   size?: 'sm' | 'md' | 'lg';
   src?: string;
-} & Omit<HTMLAttributes<HTMLSpanElement>, 'role' | 'aria-label'>;
+} & Omit<
+  HTMLAttributes<HTMLSpanElement>,
+  'role' | 'aria-label' | 'className' | 'style'
+>;
 
 const getInitials = (name?: string) => {
   if (name === undefined || name === '') {
@@ -34,7 +37,6 @@ export const Avatar: FC<Props> = ({
   name,
   size = 'md',
   src,
-  className,
   ...rest
 }) => {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
@@ -51,7 +53,6 @@ export const Avatar: FC<Props> = ({
         size === 'sm' && 'size-8 text-xs',
         size === 'md' && 'size-10 text-sm',
         size === 'lg' && 'size-14 text-lg',
-        className,
       )}
       role="img"
     >

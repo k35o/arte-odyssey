@@ -7,13 +7,12 @@ type Props = {
   color?: 'base' | 'mute' | 'subtle';
 } & Omit<
   HTMLAttributes<HTMLSpanElement>,
-  'children' | 'role' | 'aria-orientation'
+  'children' | 'role' | 'aria-orientation' | 'className' | 'style'
 >;
 
 export const Separator: FC<Props> = ({
   orientation = 'horizontal',
   color = 'base',
-  className,
   ...rest
 }) => {
   const isVertical = orientation === 'vertical';
@@ -30,7 +29,6 @@ export const Separator: FC<Props> = ({
         color === 'base' && 'bg-border-base',
         color === 'mute' && 'bg-border-mute',
         color === 'subtle' && 'bg-border-subtle',
-        className,
       )}
       role="separator"
     />

@@ -5,19 +5,21 @@ import { cn } from '../../../helpers/cn';
 type Props = {
   label?: string;
   size?: 'sm' | 'md' | 'lg';
-} & Omit<OutputHTMLAttributes<HTMLOutputElement>, 'children' | 'aria-label'>;
+} & Omit<
+  OutputHTMLAttributes<HTMLOutputElement>,
+  'children' | 'aria-label' | 'className' | 'style'
+>;
 
 export const Spinner: FC<Props> = ({
   label = 'Loading',
   size = 'md',
-  className,
   ...rest
 }) => (
   <output
     {...rest}
     aria-label={label}
     aria-live="polite"
-    className={cn('inline-flex items-center justify-center', className)}
+    className="inline-flex items-center justify-center"
   >
     <span
       aria-hidden

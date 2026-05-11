@@ -11,7 +11,7 @@ type Props = {
   invalid?: boolean;
   showLabel?: string;
   hideLabel?: string;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className'>;
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className' | 'style'>;
 
 export const PasswordInput: FC<Props> = ({
   invalid = false,

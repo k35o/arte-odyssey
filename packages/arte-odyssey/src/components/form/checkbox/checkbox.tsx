@@ -20,6 +20,7 @@ type BaseProps = {
   InputHTMLAttributes<HTMLInputElement>,
   | 'type'
   | 'className'
+  | 'style'
   | 'value'
   | 'onChange'
   | 'defaultChecked'
