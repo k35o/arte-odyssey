@@ -255,64 +255,67 @@ export const Autocomplete: FC<Props> = ({
           </IconButton>
         )}
       </div>
-      <div className="relative w-full">
-        {isOpen && (
-          <div
-            className="bg-bg-raised absolute top-1 z-10 w-full rounded-xl shadow-md"
-            role="presentation"
+      {isOpen && (
+        <div
+          className="bg-bg-raised absolute z-10 rounded-xl shadow-md"
+          role="presentation"
+          style={{
+            top: 'calc(100% + 0.25rem)',
+            left: 0,
+            width: '100%',
+          }}
+        >
+          <ul
+            aria-busy={isPending || undefined}
+            className={cn(
+              'max-h-96 py-2 transition-opacity',
+              isPending && 'opacity-60',
+            )}
+            id={`${id}_listbox`}
           >
-            <ul
-              aria-busy={isPending || undefined}
-              className={cn(
-                'max-h-96 py-2 transition-opacity',
-                isPending && 'opacity-60',
-              )}
-              id={`${id}_listbox`}
-            >
-              {filteredOptions.length === 0 && (
-                <li className="text-fg-mute px-3 py-2">該当なし</li>
-              )}
-              {filteredOptions.map((option, idx) => {
-                const selected = currentValue.includes(option.value);
-                return (
-                  <li
-                    className={cn(
-                      'cursor-pointer px-3 py-2 transition-colors',
-                      selected && 'bg-primary-bg-subtle text-primary-fg',
-                      selectIndex === idx && !selected && 'bg-bg-subtle',
-                      selectIndex === idx &&
-                        selected &&
-                        'bg-primary-bg-mute text-primary-fg',
-                    )}
-                    id={`${id}_option_${option.value}`}
-                    key={option.value}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      reset();
-                      if (selected) {
-                        handleChange(
-                          currentValue.filter((v) => v !== option.value),
-                        );
-                        return;
-                      }
-                      handleChange([...currentValue, option.value]);
-                    }}
-                    onKeyDown={(e) => {
-                      e.preventDefault();
-                    }}
-                    onMouseEnter={() => {
-                      setSelectIndex(idx);
-                    }}
-                    tabIndex={-1}
-                  >
-                    {option.label}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
-      </div>
+            {filteredOptions.length === 0 && (
+              <li className="text-fg-mute px-3 py-2">該当なし</li>
+            )}
+            {filteredOptions.map((option, idx) => {
+              const selected = currentValue.includes(option.value);
+              return (
+                <li
+                  className={cn(
+                    'cursor-pointer px-3 py-2 transition-colors',
+                    selected && 'bg-primary-bg-subtle text-primary-fg',
+                    selectIndex === idx && !selected && 'bg-bg-subtle',
+                    selectIndex === idx &&
+                      selected &&
+                      'bg-primary-bg-mute text-primary-fg',
+                  )}
+                  id={`${id}_option_${option.value}`}
+                  key={option.value}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    reset();
+                    if (selected) {
+                      handleChange(
+                        currentValue.filter((v) => v !== option.value),
+                      );
+                      return;
+                    }
+                    handleChange([...currentValue, option.value]);
+                  }}
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                  }}
+                  onMouseEnter={() => {
+                    setSelectIndex(idx);
+                  }}
+                  tabIndex={-1}
+                >
+                  {option.label}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
