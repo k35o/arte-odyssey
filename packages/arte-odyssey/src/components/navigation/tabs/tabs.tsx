@@ -77,7 +77,7 @@ const List: FC<
     <div
       aria-label={label}
       aria-orientation="horizontal"
-      className="border-border-base flex overflow-x-auto overflow-y-hidden border-b p-0.5 wrap-normal"
+      className="border-border-base vertical:border-b-0 vertical:border-l flex overflow-x-auto overflow-y-hidden border-b p-0.5 wrap-normal"
       id={`${rootId}-tablist`}
       role="tablist"
     >
@@ -132,7 +132,7 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
     >
       {selectedId === id && (
         <motion.div
-          className="bg-primary-border vertical:right-auto vertical:bottom-0 vertical:-left-0.5 vertical:top-0 vertical:h-auto vertical:w-1 absolute right-0 -bottom-0.5 left-0 h-1"
+          className="bg-primary-border absolute start-0 end-0 -inset-be-0.5 block-1"
           layoutId={`${rootId}-underline`}
         />
       )}
