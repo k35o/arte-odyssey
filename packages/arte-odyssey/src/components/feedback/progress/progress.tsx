@@ -18,7 +18,7 @@ export const Progress: FC<Props> = ({
 }) => (
   <div
     {...rest}
-    className="bg-bg-emphasize block-4 inline-full rounded-full vertical:inline-48"
+    className="bg-bg-emphasize vertical:inline-48 rounded-full block-4 inline-full"
     style={
       {
         '--progress-fill': `${((progress / maxProgress) * 100).toString()}%`,

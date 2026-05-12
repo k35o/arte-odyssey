@@ -30,7 +30,7 @@ type EmptyStateProps = {
 };
 
 const Root: FC<RootProps> = ({ children }) => (
-  <div className="border-border-mute bg-bg-base w-full overflow-x-auto rounded-lg border vertical:writing-sideways-rl vertical:h-fit vertical:w-fit">
+  <div className="border-border-mute bg-bg-base vertical:writing-sideways-rl vertical:h-fit vertical:w-fit w-full overflow-x-auto rounded-lg border">
     <table className="min-w-full border-collapse text-left text-sm">
       {children}
     </table>
@@ -42,7 +42,7 @@ const Head: FC<SectionProps> = ({ children }) => (
 );
 
 const Body: FC<SectionProps> = ({ children }) => (
-  <tbody className="[&_tr:last-child]:border-b-0 vertical:[&_tr:last-child]:border-l-0">
+  <tbody className="vertical:[&_tr:last-child]:border-l-0 [&_tr:last-child]:border-b-0">
     {children}
   </tbody>
 );
