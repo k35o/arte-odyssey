@@ -15,17 +15,17 @@ export const PreviewArea: FC<Props> = ({ children }) => {
   const locale = useLocale();
   const isVertical = locale === 'ja' && writingMode === 'vertical';
   return (
-    <div className="border-border-mute bg-bg-base flex flex-col border-b">
+    <div className="border-border-mute bg-bg-base relative border-b">
       {locale === 'ja' && (
-        <div className="flex justify-end">
+        <div className="absolute top-2 right-2 z-10">
           <WritingModeSwitcher />
         </div>
       )}
       <div
         className={
           isVertical
-            ? 'writing-v flex flex-wrap items-center gap-4 p-6 [min-inline-size:24rem]'
-            : 'flex flex-wrap items-center gap-4 p-6'
+            ? 'writing-v flex flex-wrap items-center gap-4 p-6 pt-14 [min-inline-size:24rem]'
+            : 'flex flex-wrap items-center gap-4 p-6 pt-14'
         }
       >
         {children}
