@@ -23,13 +23,8 @@ export function WritingModeSwitcher() {
           : t('common.switchToVerticalWriting')
       }
       onClick={toggleWritingMode}
-      size="sm"
     >
-      {isVertical ? (
-        <HorizontalWritingIcon size="sm" />
-      ) : (
-        <VerticalWritingIcon size="sm" />
-      )}
+      {isVertical ? <HorizontalWritingIcon /> : <VerticalWritingIcon />}
     </IconButton>
   );
 }
