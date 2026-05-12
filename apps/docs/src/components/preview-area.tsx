@@ -17,7 +17,7 @@ export const PreviewArea: FC<Props> = ({ children }) => {
   return (
     <div className="border-border-mute bg-bg-base flex flex-col border-b">
       {locale === 'ja' && (
-        <div className="flex justify-end px-2 py-1">
+        <div className="flex justify-end p-1">
           <WritingModeSwitcher />
         </div>
       )}
