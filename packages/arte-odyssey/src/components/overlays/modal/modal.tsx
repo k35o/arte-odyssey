@@ -143,13 +143,22 @@ export const Modal: FC<
       animate={realDialogOpen ? 'open' : 'closed'}
       className={cn(
         'bg-bg-raised text-fg-base shadow-md backdrop:bg-back-drop',
-        type === 'center' && 'm-auto max-h-lg w-5/6 max-w-2xl rounded-lg',
+        type === 'center' && 'm-auto rounded-lg',
         type === 'bottom' && 'mt-auto w-screen max-w-screen rounded-t-lg',
         type === 'right' &&
           'ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg',
         type === 'left' &&
           'mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg',
       )}
+      style={
+        type === 'center'
+          ? {
+              inlineSize: '83.333%',
+              maxInlineSize: '42rem',
+              maxBlockSize: '32rem',
+            }
+          : undefined
+      }
       exit="closed"
       initial="closed"
       onClick={(e) => {

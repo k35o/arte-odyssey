@@ -87,7 +87,7 @@ export const Button: FC<Props> = ({
     size === 'sm' && 'px-3 py-1 text-sm',
     size === 'md' && 'px-4 py-2 text-md',
     size === 'lg' && 'px-6 py-3 text-lg',
-    fullWidth && 'w-full',
+    fullWidth && 'w-full vertical:w-auto',
     (hasStartIcon || hasEndIcon) && 'flex items-center gap-2',
     hasStartIcon && hasEndIcon
       ? 'justify-between'

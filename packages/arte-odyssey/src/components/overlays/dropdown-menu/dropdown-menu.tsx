@@ -79,7 +79,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
           <div
             {...props}
             {...contentProps}
-            className="bg-bg-raised flex min-w-40 flex-col rounded-lg py-2 shadow-md"
+            className="bg-bg-raised vertical:min-w-0 vertical:min-h-40 flex min-w-40 flex-col rounded-lg py-2 shadow-md"
           >
             {children}
           </div>
