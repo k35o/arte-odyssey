@@ -302,7 +302,7 @@ export const Autocomplete: FC<Props> = ({
           <ul
             aria-busy={isPending || undefined}
             className={cn(
-              'max-h-96 py-2 transition-opacity',
+              'max-h-96 py-2 transition-opacity vertical:max-h-none vertical:max-w-96',
               isPending && 'opacity-60',
             )}
             id={`${id}_listbox`}
