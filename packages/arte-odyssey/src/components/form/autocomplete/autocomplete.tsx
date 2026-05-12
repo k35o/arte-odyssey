@@ -144,7 +144,7 @@ export const Autocomplete: FC<Props> = ({
   return (
     <div
       className={cn(
-        'relative w-full rounded-xl border border-border-base bg-bg-base vertical:h-full vertical:w-auto',
+        'relative w-full rounded-xl border border-border-base bg-bg-base',
         'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute hover:has-disabled:has-hover:bg-bg-mute',
@@ -161,8 +161,8 @@ export const Autocomplete: FC<Props> = ({
             />
           ))
         : null}
-      <div className="vertical:min-h-0 vertical:min-w-12 flex min-h-12 items-center justify-between gap-2 px-3 py-2">
-        <div className="vertical:min-w-auto vertical:min-h-0 flex min-w-0 flex-1 flex-wrap items-center gap-1">
+      <div className="flex min-h-12 items-center justify-between gap-2 px-3 py-2">
+        <div className="flex w-full flex-wrap gap-1">
           {currentValue.map((selectedValue) => {
             const label = options.find(
               (option) => option.value === selectedValue,
@@ -199,7 +199,7 @@ export const Autocomplete: FC<Props> = ({
             aria-required={required}
             autoComplete="off"
             className={cn(
-              'w-full min-w-12 grow bg-transparent focus-visible:outline-hidden vertical:h-full vertical:w-auto vertical:min-h-12 vertical:min-w-0',
+              'grow bg-transparent focus-visible:outline-hidden',
               'disabled:cursor-not-allowed',
             )}
             disabled={disabledResolved}
