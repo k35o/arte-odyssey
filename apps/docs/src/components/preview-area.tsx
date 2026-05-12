@@ -24,7 +24,7 @@ export const PreviewArea: FC<Props> = ({ children }) => {
       <div
         className={
           isVertical
-            ? 'writing-v flex flex-wrap items-center gap-4 p-6 pt-14 [min-inline-size:24rem]'
+            ? 'writing-v flex flex-wrap items-center gap-4 p-6 pt-14 min-inline-96'
             : 'flex flex-wrap items-center gap-4 p-6 pt-14'
         }
       >
