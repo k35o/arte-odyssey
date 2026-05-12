@@ -31,7 +31,7 @@ export const PasswordInput: FC<Props> = ({
         aria-invalid={invalid}
         autoComplete={autoComplete}
         className={cn(
-          'w-full rounded-xl border border-border-base bg-bg-base px-3 py-2 pr-12',
+          'rounded-xl border border-border-base bg-bg-base px-3 py-2 pe-12',
           'aria-invalid:border-border-error',
           'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute hover:disabled:bg-bg-mute',
           'read-only:cursor-not-allowed read-only:bg-bg-subtle',
@@ -39,13 +39,14 @@ export const PasswordInput: FC<Props> = ({
         )}
         disabled={disabled}
         readOnly={pending || readOnly}
+        style={{ inlineSize: '100%' }}
         type={isVisible ? 'text' : 'password'}
         {...rest}
       />
       <button
         aria-label={isVisible ? hideLabel : showLabel}
         className={cn(
-          'absolute top-1/2 right-2 inline-flex -translate-y-1/2 items-center justify-center rounded-md p-1 text-fg-mute transition-colors',
+          'absolute top-1/2 end-2 inline-flex -translate-y-1/2 items-center justify-center rounded-md p-1 text-fg-mute transition-colors',
           'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
           !disabled && !pending && 'hover:bg-bg-mute hover:text-fg-base',
           (disabled || pending) && 'cursor-not-allowed text-fg-mute/70',

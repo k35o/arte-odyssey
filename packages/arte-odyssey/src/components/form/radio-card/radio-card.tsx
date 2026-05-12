@@ -146,10 +146,12 @@ export const RadioCard: FC<Props> = ({
               }
 
               event.preventDefault();
+              const isVerticalRl =
+                getComputedStyle(event.currentTarget).writingMode ===
+                'vertical-rl';
+              const forwardKey = isVerticalRl ? 'ArrowLeft' : 'ArrowRight';
               const direction =
-                event.key === 'ArrowDown' || event.key === 'ArrowRight'
-                  ? 1
-                  : -1;
+                event.key === 'ArrowDown' || event.key === forwardKey ? 1 : -1;
               const nextIndex = getNextIndex(index, direction);
               const nextOption = options[nextIndex];
               if (!nextOption) {

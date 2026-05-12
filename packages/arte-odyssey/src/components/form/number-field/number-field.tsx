@@ -82,11 +82,12 @@ export const NumberField: FC<Props> = ({
   return (
     <div
       className={cn(
-        'relative flex h-12 w-full items-center justify-between gap-2 rounded-xl border border-border-base bg-bg-base',
+        'relative flex items-center justify-between gap-2 rounded-xl border border-border-base bg-bg-base',
         'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute hover:has-disabled:has-hover:bg-bg-mute',
       )}
+      style={{ inlineSize: '100%', blockSize: '3rem' }}
     >
       <input
         autoComplete="off"
@@ -99,7 +100,7 @@ export const NumberField: FC<Props> = ({
         aria-valuemin={min}
         aria-valuenow={currentValue}
         className={cn(
-          'grow bg-transparent pr-8 pl-3 focus-visible:outline-hidden size-full',
+          'grow bg-transparent pe-8 ps-3 focus-visible:outline-hidden size-full',
           'disabled:cursor-not-allowed',
           'read-only:cursor-not-allowed',
         )}
@@ -146,11 +147,11 @@ export const NumberField: FC<Props> = ({
       />
       <div
         aria-hidden="true"
-        className="absolute right-1 flex h-full flex-col py-1"
+        className="vertical:inset-e-auto vertical:bottom-1 vertical:h-auto vertical:w-full vertical:flex-row vertical:px-1 vertical:py-0 absolute end-1 flex h-full flex-col py-1"
       >
         <button
           className={cn(
-            'flex w-6 grow items-center justify-center rounded-md text-fg-mute transition-colors',
+            'flex w-6 grow items-center justify-center rounded-md text-fg-mute transition-colors vertical:h-6 vertical:w-auto',
             'hover:bg-bg-mute hover:text-fg-base',
             'disabled:cursor-not-allowed disabled:text-fg-mute hover:disabled:bg-transparent',
           )}
@@ -172,7 +173,7 @@ export const NumberField: FC<Props> = ({
         </button>
         <button
           className={cn(
-            'flex w-6 grow items-center justify-center rounded-md text-fg-mute transition-colors',
+            'flex w-6 grow items-center justify-center rounded-md text-fg-mute transition-colors vertical:h-6 vertical:w-auto',
             'hover:bg-bg-mute hover:text-fg-base',
             'disabled:cursor-not-allowed disabled:text-fg-mute hover:disabled:bg-transparent',
           )}

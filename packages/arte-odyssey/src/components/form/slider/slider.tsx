@@ -67,10 +67,12 @@ export const Slider: FC<Props> = ({
   return (
     <div
       className={cn(
-        'relative flex h-8 w-full items-center',
-        'before:absolute before:inset-x-0 before:h-2 before:rounded-full before:bg-bg-mute',
-        'after:absolute after:left-0 after:h-2 after:rounded-full after:bg-primary-bg',
-        'after:w-(--slider-progress)',
+        'relative flex items-center',
+        'h-8 w-full vertical:h-full vertical:w-8',
+        'before:absolute before:rounded-full before:bg-bg-mute',
+        'before:inset-x-0 before:h-2 vertical:before:inset-y-0 vertical:before:inset-x-auto vertical:before:h-auto vertical:before:w-2',
+        'after:absolute after:rounded-full after:bg-primary-bg',
+        'after:left-0 after:h-2 after:w-(--slider-progress) vertical:after:left-auto vertical:after:top-0 vertical:after:h-(--slider-progress) vertical:after:w-2',
         invalid && 'after:bg-bg-error',
         disabledResolved && 'opacity-50',
       )}
@@ -83,7 +85,8 @@ export const Slider: FC<Props> = ({
         aria-valuemin={min}
         aria-valuenow={currentValue}
         className={cn(
-          'relative z-10 h-8 w-full appearance-none bg-transparent',
+          'relative z-10 appearance-none bg-transparent',
+          'h-8 w-full vertical:h-full vertical:w-8 vertical:[writing-mode:vertical-lr]',
           'focus:outline-none',
           'disabled:cursor-not-allowed',
           '[&::-webkit-slider-runnable-track]:h-2 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-transparent',
