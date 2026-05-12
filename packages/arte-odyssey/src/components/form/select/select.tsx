@@ -22,22 +22,20 @@ export const Select: FC<Props> = ({
   return (
     <div
       className={cn(
-        'relative flex h-fit items-center rounded-xl border border-border-base bg-bg-base',
+        'relative flex h-fit w-full items-center rounded-xl border border-border-base bg-bg-base vertical:h-full vertical:w-fit',
         invalid && 'border-border-error',
         (disabled || pending) &&
           'cursor-not-allowed border-border-mute bg-bg-mute',
         'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
       )}
-      style={{ inlineSize: '100%' }}
     >
       <select
         aria-invalid={invalid}
         className={cn(
-          'grow appearance-none bg-transparent px-3 py-2 text-fg-base focus-visible:outline-hidden',
+          'w-full grow appearance-none bg-transparent px-3 py-2 text-fg-base focus-visible:outline-hidden vertical:h-full vertical:w-auto',
           'disabled:cursor-not-allowed',
         )}
         disabled={disabled || pending}
-        style={{ inlineSize: '100%' }}
         {...rest}
       >
         {options.map((option) => (

@@ -22,15 +22,14 @@ export const Separator: FC<Props> = ({
       aria-orientation={orientation}
       className={cn(
         'block',
+        isVertical
+          ? 'h-full w-px vertical:h-px vertical:w-full'
+          : 'h-px w-full vertical:h-full vertical:w-px',
         color === 'base' && 'bg-border-base',
         color === 'mute' && 'bg-border-mute',
         color === 'subtle' && 'bg-border-subtle',
       )}
       role="separator"
-      style={{
-        inlineSize: isVertical ? '1px' : '100%',
-        blockSize: isVertical ? '100%' : '1px',
-      }}
     />
   );
 };

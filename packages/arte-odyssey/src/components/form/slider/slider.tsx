@@ -69,24 +69,19 @@ export const Slider: FC<Props> = ({
         'h-8 w-full vertical:h-full vertical:w-8',
         disabledResolved && 'opacity-50',
       )}
+      style={{ '--slider-progress': clampedProgress } as React.CSSProperties}
     >
       <span
         aria-hidden
-        className="bg-bg-mute relative rounded-full"
-        style={{ inlineSize: '100%', blockSize: '8px' }}
+        className="bg-bg-mute vertical:h-full vertical:w-2 relative h-2 w-full rounded-full"
       >
         <span
           aria-hidden
           className={cn(
-            'bg-primary-bg absolute rounded-full',
+            'bg-primary-bg absolute inset-y-0 left-0 h-full w-(--slider-progress) rounded-full',
+            'vertical:top-0 vertical:left-auto vertical:right-0 vertical:inset-y-auto vertical:h-(--slider-progress) vertical:w-full',
             invalid && 'bg-bg-error',
           )}
-          style={{
-            insetInlineStart: 0,
-            insetBlockStart: 0,
-            blockSize: '100%',
-            inlineSize: clampedProgress,
-          }}
         />
       </span>
       <input

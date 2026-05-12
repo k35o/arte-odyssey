@@ -1,4 +1,4 @@
-import type { FC, HTMLAttributes } from 'react';
+import type { CSSProperties, FC, HTMLAttributes } from 'react';
 
 import { toPrecision } from './../../../internal/to-precision';
 
@@ -16,18 +16,22 @@ export const Progress: FC<Props> = ({
   label,
   ...rest
 }) => (
-  <div {...rest} className="bg-bg-emphasize w-full rounded-full">
+  <div
+    {...rest}
+    className="bg-bg-emphasize w-full rounded-full"
+    style={
+      {
+        '--progress-fill': `${((progress / maxProgress) * 100).toString()}%`,
+      } as CSSProperties
+    }
+  >
     <div
       aria-label={label ?? `${toPrecision(progress / maxProgress).toString()}%`}
       aria-valuemax={maxProgress}
       aria-valuemin={minProgress}
       aria-valuenow={progress}
-      className="bg-primary-bg rounded-full transition-all"
+      className="bg-primary-bg h-4 w-(--progress-fill) rounded-full transition-all"
       role="progressbar"
-      style={{
-        inlineSize: `${((progress / maxProgress) * 100).toString()}%`,
-        blockSize: '1rem',
-      }}
     />
   </div>
 );

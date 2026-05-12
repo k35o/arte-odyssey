@@ -28,25 +28,23 @@ export const PasswordInput: FC<Props> = ({
   return (
     <div
       className={cn(
-        'relative flex items-center rounded-xl border border-border-base bg-bg-base',
+        'relative flex w-full items-center rounded-xl border border-border-base bg-bg-base vertical:h-full vertical:w-auto',
         invalid && 'border-border-error',
         (disabled || pending) &&
           'cursor-not-allowed border-border-mute bg-bg-mute',
         'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
       )}
-      style={{ inlineSize: '100%' }}
     >
       <input
         aria-invalid={invalid}
         autoComplete={autoComplete}
         className={cn(
-          'grow bg-transparent px-3 py-2 focus-visible:outline-hidden',
+          'w-full grow bg-transparent px-3 py-2 focus-visible:outline-hidden vertical:h-full vertical:w-auto',
           'disabled:cursor-not-allowed',
           'read-only:cursor-not-allowed read-only:bg-bg-subtle',
         )}
         disabled={disabled}
         readOnly={pending || readOnly}
-        style={{ inlineSize: '100%' }}
         type={isVisible ? 'text' : 'password'}
         {...rest}
       />
