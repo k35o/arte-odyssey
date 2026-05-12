@@ -77,7 +77,7 @@ const List: FC<
     <div
       aria-label={label}
       aria-orientation="horizontal"
-      className="border-border-base vertical:border-b-0 vertical:border-l flex overflow-x-auto overflow-y-hidden border-b p-0.5 wrap-normal"
+      className="border-border-base vertical:border-b-0 vertical:border-l vertical:overflow-x-hidden vertical:overflow-y-auto flex overflow-x-auto overflow-y-hidden border-b p-0.5 wrap-normal"
       id={`${rootId}-tablist`}
       role="tablist"
     >
