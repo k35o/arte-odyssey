@@ -93,8 +93,17 @@ export const Autocomplete: FC<Props> = ({
       flip({ fallbackAxisSideDirection: 'end', padding: 8 }),
       floatingSize({
         apply: ({ rects, elements }) => {
+          // reference の inline-axis 寸法に floating を合わせる。
+          // 縦書きでは reference.height が inline-axis、横書きでは reference.width。
+          const referenceEl =
+            elements.reference instanceof HTMLElement
+              ? elements.reference
+              : null;
+          const isVertical =
+            referenceEl !== null &&
+            getComputedStyle(referenceEl).writingMode.startsWith('vertical');
           Object.assign(elements.floating.style, {
-            inlineSize: `${rects.reference.width}px`,
+            inlineSize: `${isVertical ? rects.reference.height : rects.reference.width}px`,
           });
         },
       }),
