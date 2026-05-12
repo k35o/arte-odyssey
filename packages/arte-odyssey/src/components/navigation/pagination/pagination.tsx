@@ -39,7 +39,11 @@ export const Pagination: FC<Props> = ({
             onPageChange(safeCurrent - 1);
           }}
           size="sm"
-          startIcon={<ChevronIcon direction="left" size="sm" />}
+          startIcon={
+            <span className="vertical:rotate-90 inline-flex">
+              <ChevronIcon direction="left" size="sm" />
+            </span>
+          }
           variant="skeleton"
         >
           {prevLabel}
@@ -56,7 +60,11 @@ export const Pagination: FC<Props> = ({
         <Button
           color="gray"
           disabled={disabled || isLast}
-          endIcon={<ChevronIcon direction="right" size="sm" />}
+          endIcon={
+            <span className="vertical:rotate-90 inline-flex">
+              <ChevronIcon direction="right" size="sm" />
+            </span>
+          }
           onClick={() => {
             onPageChange(safeCurrent + 1);
           }}
