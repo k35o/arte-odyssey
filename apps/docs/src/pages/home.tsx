@@ -13,6 +13,7 @@ import {
   Separator,
   ShieldCheckIcon,
   SparklesIcon,
+  VerticalWritingIcon,
 } from '@k8o/arte-odyssey';
 import type { FC, ReactNode } from 'react';
 
@@ -56,6 +57,11 @@ const FEATURES: Feature[] = [
     title: 'home.featureMinimal',
     description: 'home.featureMinimalDescription',
     icon: <SparklesIcon />,
+  },
+  {
+    title: 'home.featureVerticalWriting',
+    description: 'home.featureVerticalWritingDescription',
+    icon: <VerticalWritingIcon />,
   },
 ];
 

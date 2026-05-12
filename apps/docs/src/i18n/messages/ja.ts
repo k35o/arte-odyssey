@@ -30,6 +30,9 @@ export const ja = {
   'home.featureMinimal': '柔と端のデザイン',
   'home.featureMinimalDescription':
     '触れるものは柔らかく、読むものは端正に。余白と形の柔らかさで魅せるUIを提供します。',
+  'home.featureVerticalWriting': '縦書き対応',
+  'home.featureVerticalWritingDescription':
+    '`writing-v` と `vertical:` variant で、縦書きの紙面でも読みやすいレイアウトを実現。日本語ドキュメントを縦書きで体験できます。',
   'common.language': '言語',
   'nav.openMenu': 'メニューを開く',
   'getStarted.introduction':
@@ -361,6 +364,8 @@ export const ja = {
   'sideNav.openNavigation': 'ナビゲーションを開く',
   'common.switchToDarkMode': 'ダークモードに切り替え',
   'common.switchToLightMode': 'ライトモードに切り替え',
+  'common.switchToVerticalWriting': '縦書きプレビューに切り替え',
+  'common.switchToHorizontalWriting': '横書きプレビューに切り替え',
   'error.title': '問題が発生しました',
   'error.description': '予期しないエラーが発生しました。',
   'error.retry': '再読み込み',

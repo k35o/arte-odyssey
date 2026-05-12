@@ -7,6 +7,7 @@ import type { MessageKey } from '../i18n';
 import { localizeHref, useTranslation } from '../i18n';
 import { LanguageSwitcher } from './language-switcher';
 import { ThemeSwitcher } from './theme-switcher';
+import { WritingModeSwitcher } from './writing-mode-switcher';
 
 const NAV_ITEMS: Array<{ path: string; labelKey: MessageKey }> = [
   { path: '/', labelKey: 'nav.home' },
@@ -66,6 +67,7 @@ export function Navigation() {
           })}
         </ul>
         <div className="flex items-center gap-2">
+          {locale === 'ja' && <WritingModeSwitcher />}
           <ThemeSwitcher />
           <LanguageSwitcher />
         </div>

@@ -28,6 +28,7 @@ import {
   useTranslation,
 } from '../i18n';
 import { ThemeProvider } from '../theme/context';
+import { WritingModeProvider } from '../theme/writing-mode-context';
 
 type SideNavConfig = {
   categories: NavCategory[];
@@ -183,9 +184,11 @@ export function LocaleLayout({ params }: { params: { locale: string } }) {
     >
       <LocaleProvider locale={localeParam}>
         <ThemeProvider>
-          <div className="flex h-dvh flex-col">
-            <LayoutContent />
-          </div>
+          <WritingModeProvider>
+            <div className="flex h-dvh flex-col">
+              <LayoutContent />
+            </div>
+          </WritingModeProvider>
         </ThemeProvider>
       </LocaleProvider>
     </ErrorBoundary>
