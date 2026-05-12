@@ -26,16 +26,23 @@ export const PasswordInput: FC<Props> = ({
   const { pending } = useFormStatus();
 
   return (
-    <div className="relative w-full">
+    <div
+      className={cn(
+        'relative flex items-center rounded-xl border border-border-base bg-bg-base',
+        invalid && 'border-border-error',
+        (disabled || pending) &&
+          'cursor-not-allowed border-border-mute bg-bg-mute',
+        'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
+      )}
+      style={{ inlineSize: '100%' }}
+    >
       <input
         aria-invalid={invalid}
         autoComplete={autoComplete}
         className={cn(
-          'rounded-xl border border-border-base bg-bg-base px-3 py-2 pe-12',
-          'aria-invalid:border-border-error',
-          'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute hover:disabled:bg-bg-mute',
+          'grow bg-transparent px-3 py-2 focus-visible:outline-hidden',
+          'disabled:cursor-not-allowed',
           'read-only:cursor-not-allowed read-only:bg-bg-subtle',
-          'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
         )}
         disabled={disabled}
         readOnly={pending || readOnly}
@@ -46,7 +53,7 @@ export const PasswordInput: FC<Props> = ({
       <button
         aria-label={isVisible ? hideLabel : showLabel}
         className={cn(
-          'absolute top-1/2 end-2 inline-flex -translate-y-1/2 items-center justify-center rounded-md p-1 text-fg-mute transition-colors',
+          'me-2 inline-flex shrink-0 items-center justify-center rounded-md p-1 text-fg-mute transition-colors',
           'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
           !disabled && !pending && 'hover:bg-bg-mute hover:text-fg-base',
           (disabled || pending) && 'cursor-not-allowed text-fg-mute/70',

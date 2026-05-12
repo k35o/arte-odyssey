@@ -1,6 +1,6 @@
 'use client';
 
-import type { CSSProperties, FC, InputHTMLAttributes } from 'react';
+import type { FC, InputHTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
@@ -60,24 +60,35 @@ export const Slider: FC<Props> = ({
   const disabledResolved = disabled || pending;
   const range = Math.max(max - min, 1);
   const progress = ((currentValue - min) / range) * 100;
-  const style = {
-    '--slider-progress': `${Math.min(Math.max(progress, 0), 100)}%`,
-  } as CSSProperties;
+  const clampedProgress = `${Math.min(Math.max(progress, 0), 100)}%`;
 
   return (
     <div
       className={cn(
-        'relative flex items-center',
+        'relative flex items-center justify-center',
         'h-8 w-full vertical:h-full vertical:w-8',
-        'before:absolute before:rounded-full before:bg-bg-mute',
-        'before:inset-x-0 before:h-2 vertical:before:inset-y-0 vertical:before:inset-x-auto vertical:before:h-auto vertical:before:w-2',
-        'after:absolute after:rounded-full after:bg-primary-bg',
-        'after:left-0 after:h-2 after:w-(--slider-progress) vertical:after:left-auto vertical:after:top-0 vertical:after:h-(--slider-progress) vertical:after:w-2',
-        invalid && 'after:bg-bg-error',
         disabledResolved && 'opacity-50',
       )}
-      style={style}
     >
+      <span
+        aria-hidden
+        className="bg-bg-mute relative rounded-full"
+        style={{ inlineSize: '100%', blockSize: '8px' }}
+      >
+        <span
+          aria-hidden
+          className={cn(
+            'bg-primary-bg absolute rounded-full',
+            invalid && 'bg-bg-error',
+          )}
+          style={{
+            insetInlineStart: 0,
+            insetBlockStart: 0,
+            blockSize: '100%',
+            inlineSize: clampedProgress,
+          }}
+        />
+      </span>
       <input
         {...rest}
         aria-invalid={invalid}
@@ -85,7 +96,7 @@ export const Slider: FC<Props> = ({
         aria-valuemin={min}
         aria-valuenow={currentValue}
         className={cn(
-          'relative z-10 appearance-none bg-transparent',
+          'absolute inset-0 z-10 appearance-none bg-transparent',
           'h-8 w-full vertical:h-full vertical:w-8 vertical:[writing-mode:vertical-lr]',
           'focus:outline-none',
           'disabled:cursor-not-allowed',
