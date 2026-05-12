@@ -144,7 +144,7 @@ export const Autocomplete: FC<Props> = ({
   return (
     <div
       className={cn(
-        'relative w-full rounded-xl border border-border-base bg-bg-base',
+        'relative rounded-xl border border-border-base bg-bg-base inline-full',
         'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute hover:has-disabled:has-hover:bg-bg-mute',

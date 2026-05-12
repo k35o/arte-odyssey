@@ -17,7 +17,7 @@ export const ja = {
     '最新のReact 19で構築。Server Componentsやアクションなど、モダンなパターンに対応しています。',
   'home.featureTailwind': 'Tailwind CSS 4',
   'home.featureTailwindDescription':
-    'Tailwind CSS 4のユーティリティファーストアプローチで、柔軟かつ効率的なスタイリングを実現します。',
+    'Tailwind CSS 4 のユーティリティファーストアプローチに統合。ライトモードとダークモードもセマンティックトークンでシームレスに切り替えられます。',
   'home.featureDarkMode': 'ダークモード',
   'home.featureDarkModeDescription':
     'ライトモードとダークモードをシームレスに切り替え。セマンティックトークンが自動で適応します。',

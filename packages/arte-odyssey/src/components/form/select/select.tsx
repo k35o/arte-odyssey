@@ -46,7 +46,7 @@ export const Select: FC<Props> = ({
       </select>
       <span
         aria-hidden
-        className="vertical:rotate-90 pointer-events-none me-3 shrink-0"
+        className="vertical:-rotate-90 pointer-events-none me-3 shrink-0"
       >
         <ChevronIcon direction="down" size="sm" />
       </span>

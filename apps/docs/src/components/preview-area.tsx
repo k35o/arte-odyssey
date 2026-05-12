@@ -17,7 +17,7 @@ export const PreviewArea: FC<Props> = ({ children }) => {
     <div
       className={
         isVertical
-          ? 'border-border-mute bg-bg-base writing-v flex flex-wrap items-center gap-4 border-b p-6'
+          ? 'border-border-mute bg-bg-base writing-v flex flex-wrap items-center gap-4 border-b p-6 [min-inline-size:24rem]'
           : 'border-border-mute bg-bg-base flex flex-wrap items-center gap-4 border-b p-6'
       }
     >

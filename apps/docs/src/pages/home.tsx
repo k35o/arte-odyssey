@@ -6,7 +6,6 @@ import {
   BlogIcon,
   Button,
   Card,
-  DarkModeIcon,
   GitHubIcon,
   Heading,
   PaletteIcon,
@@ -37,11 +36,6 @@ const FEATURES: Feature[] = [
     title: 'home.featureTailwind',
     description: 'home.featureTailwindDescription',
     icon: <PaletteIcon />,
-  },
-  {
-    title: 'home.featureDarkMode',
-    description: 'home.featureDarkModeDescription',
-    icon: <DarkModeIcon />,
   },
   {
     title: 'home.featureTypeScript',

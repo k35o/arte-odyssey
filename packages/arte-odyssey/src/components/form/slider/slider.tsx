@@ -66,20 +66,19 @@ export const Slider: FC<Props> = ({
     <div
       className={cn(
         'relative flex items-center justify-center',
-        'h-8 w-full vertical:h-full vertical:w-8',
+        'block-8 inline-full vertical:inline-48',
         disabledResolved && 'opacity-50',
       )}
       style={{ '--slider-progress': clampedProgress } as React.CSSProperties}
     >
       <span
         aria-hidden
-        className="bg-bg-mute vertical:h-full vertical:w-2 relative h-2 w-full rounded-full"
+        className="bg-bg-mute relative rounded-full block-2 inline-full"
       >
         <span
           aria-hidden
           className={cn(
-            'bg-primary-bg absolute inset-y-0 left-0 h-full w-(--slider-progress) rounded-full',
-            'vertical:top-0 vertical:left-auto vertical:right-0 vertical:inset-y-auto vertical:h-(--slider-progress) vertical:w-full',
+            'bg-primary-bg absolute start-0 inset-be-0 block-full inline-(--slider-progress) rounded-full',
             invalid && 'bg-bg-error',
           )}
         />
@@ -92,7 +91,7 @@ export const Slider: FC<Props> = ({
         aria-valuenow={currentValue}
         className={cn(
           'absolute inset-0 z-10 appearance-none bg-transparent',
-          'h-8 w-full vertical:h-full vertical:w-8 vertical:[writing-mode:vertical-lr]',
+          'h-8 w-full vertical:h-auto vertical:w-8 vertical:[writing-mode:vertical-lr]',
           'focus:outline-none',
           'disabled:cursor-not-allowed',
           '[&::-webkit-slider-runnable-track]:h-2 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-transparent',

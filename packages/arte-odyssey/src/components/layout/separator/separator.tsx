@@ -22,9 +22,7 @@ export const Separator: FC<Props> = ({
       aria-orientation={orientation}
       className={cn(
         'block',
-        isVertical
-          ? 'h-full w-px vertical:h-px vertical:w-full'
-          : 'h-px w-full vertical:h-full vertical:w-px',
+        isVertical ? 'block-full inline-px' : 'block-px inline-full',
         color === 'base' && 'bg-border-base',
         color === 'mute' && 'bg-border-mute',
         color === 'subtle' && 'bg-border-subtle',

@@ -18,7 +18,7 @@ export const Progress: FC<Props> = ({
 }) => (
   <div
     {...rest}
-    className="bg-bg-emphasize w-full rounded-full"
+    className="bg-bg-emphasize block-4 inline-full rounded-full vertical:inline-48"
     style={
       {
         '--progress-fill': `${((progress / maxProgress) * 100).toString()}%`,
@@ -30,7 +30,7 @@ export const Progress: FC<Props> = ({
       aria-valuemax={maxProgress}
       aria-valuemin={minProgress}
       aria-valuenow={progress}
-      className="bg-primary-bg h-4 w-(--progress-fill) rounded-full transition-all"
+      className="bg-primary-bg rounded-full transition-all block-full inline-(--progress-fill)"
       role="progressbar"
     />
   </div>

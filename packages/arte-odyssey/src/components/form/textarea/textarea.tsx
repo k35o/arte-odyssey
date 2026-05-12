@@ -39,7 +39,7 @@ export const Textarea: FC<Props> = ({
     <textarea
       aria-invalid={invalid}
       className={cn(
-        'w-full resize-none rounded-xl border border-border-base bg-bg-base px-3 py-2',
+        'resize-none rounded-xl border border-border-base bg-bg-base px-3 py-2 inline-full',
         'aria-invalid:border-border-error',
         'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute hover:disabled:bg-bg-mute',
         'read-only:cursor-not-allowed read-only:bg-bg-subtle',

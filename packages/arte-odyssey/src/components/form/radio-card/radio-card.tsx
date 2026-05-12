@@ -96,7 +96,7 @@ export const RadioCard: FC<Props> = ({
       {...rest}
       aria-labelledby={labelledbyId}
       className={cn(
-        'm-0 w-full min-w-0 border-0 p-0',
+        'm-0 min-w-0 border-0 p-0 inline-full',
         'grid gap-3',
         disabled && 'opacity-70',
       )}
@@ -119,7 +119,7 @@ export const RadioCard: FC<Props> = ({
             }
             aria-pressed={checked}
             className={cn(
-              'flex w-full min-w-0 rounded-xl border bg-bg-base p-4 text-left transition-colors',
+              'flex min-w-0 rounded-xl border bg-bg-base p-4 text-left transition-colors inline-full',
               'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
               checked &&
                 'border-primary-border bg-primary-bg-subtle hover:bg-primary-bg-mute',

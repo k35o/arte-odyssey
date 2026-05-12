@@ -17,7 +17,7 @@ export const en = {
     'Built with the latest React 19. Supports modern patterns like Server Components and actions.',
   'home.featureTailwind': 'Tailwind CSS 4',
   'home.featureTailwindDescription':
-    'Flexible and efficient styling powered by Tailwind CSS 4 and its utility-first approach.',
+    'Integrated with Tailwind CSS 4 utility-first approach. Light and dark modes switch seamlessly via semantic tokens.',
   'home.featureDarkMode': 'Dark Mode',
   'home.featureDarkModeDescription':
     'Seamless light and dark mode switching. Semantic tokens adapt automatically.',
