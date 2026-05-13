@@ -360,6 +360,9 @@ export const en = {
     'The spacing scale. The base unit is 0.25rem (4px), and p-{n} or gap-{n} computes to n × 0.25rem.',
   'theming.breakpointsTitle': 'Breakpoints',
   'theming.breakpointsDescription': 'Responsive breakpoints.',
+  'theming.zIndexTitle': 'Z-Index Layers',
+  'theming.zIndexDescription':
+    'A three-tier scale that defines stacking order for overlay components. Anchored floating UI (Popover / DropdownMenu / ListBox / Tooltip) sits on overlay, Modal / Drawer on modal, and Toast on toast.',
   'sideNav.openNavigation': 'Open navigation',
   'common.switchToDarkMode': 'Switch to dark mode',
   'common.switchToLightMode': 'Switch to light mode',

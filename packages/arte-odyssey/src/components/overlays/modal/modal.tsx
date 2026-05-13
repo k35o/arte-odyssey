@@ -13,6 +13,7 @@ import {
 } from 'react';
 
 import { ToastProvider } from '../../feedback/toast';
+import { PortalRootProvider } from '../../providers';
 import { cn } from './../../../helpers/cn';
 
 const centerVariants: Variants = {
@@ -142,7 +143,7 @@ export const Modal: FC<
     <motion.dialog
       animate={realDialogOpen ? 'open' : 'closed'}
       className={cn(
-        'bg-bg-raised text-fg-base shadow-md backdrop:bg-back-drop',
+        'bg-bg-raised text-fg-base z-modal shadow-md backdrop:bg-back-drop',
         type === 'center' &&
           'm-auto max-h-lg w-5/6 max-w-2xl rounded-lg vertical:h-5/6 vertical:max-h-2xl vertical:w-auto vertical:max-w-lg',
         type === 'bottom' && 'mt-auto w-screen max-w-screen rounded-t-lg',
@@ -170,9 +171,11 @@ export const Modal: FC<
               : rightVariants
       }
     >
-      <ToastProvider portalRef={realRef} position="absolute">
-        {children}
-      </ToastProvider>
+      <PortalRootProvider value={realRef}>
+        <ToastProvider portalRef={realRef} position="absolute">
+          {children}
+        </ToastProvider>
+      </PortalRootProvider>
     </motion.dialog>
   );
 };

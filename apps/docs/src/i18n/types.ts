@@ -290,6 +290,8 @@ export const MESSAGE_KEYS = [
   'theming.spacingDescription',
   'theming.breakpointsTitle',
   'theming.breakpointsDescription',
+  'theming.zIndexTitle',
+  'theming.zIndexDescription',
   'sideNav.openNavigation',
   'common.switchToDarkMode',
   'common.switchToLightMode',
