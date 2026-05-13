@@ -17,6 +17,7 @@ import {
   type ReactElement,
   useEffect,
   useId,
+  useLayoutEffect,
   useState,
 } from 'react';
 
@@ -152,8 +153,9 @@ const Content: FC<{
   // Popover content は body 直下へ portal されるため、trigger 側の writing-mode を
   // 取り込まないと縦書きページでも横書きで描画されてしまう。
   // また `vertical:` variant は `.writing-v` 祖先を要求するため class も付与する。
+  // 横書きで paint されてから縦書きに切り替わる flash を避けるため layout effect で同期適用する。
   const [writingClass, setWritingClass] = useState<'writing-v' | undefined>();
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isOpen) return;
     const trigger = triggerRef.current;
     if (trigger instanceof HTMLElement) {
