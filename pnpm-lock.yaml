@@ -22,8 +22,8 @@ catalogs:
       specifier: 6.0.1
       version: 6.0.1
     postcss:
-      specifier: 8.5.13
-      version: 8.5.13
+      specifier: 8.5.14
+      version: 8.5.14
     react:
       specifier: 19.2.6
       version: 19.2.6
@@ -48,8 +48,8 @@ importers:
   .:
     devDependencies:
       '@changesets/changelog-github':
-        specifier: 0.6.0
-        version: 0.6.0
+        specifier: 0.7.0
+        version: 0.7.0
       '@changesets/cli':
         specifier: 2.31.0
         version: 2.31.0(@types/node@24.12.2)
@@ -61,10 +61,10 @@ importers:
         version: 20.5.3
       '@k8o/oxc-config':
         specifier: 0.1.2
-        version: 0.1.2(oxfmt@0.46.0)(oxlint-tailwindcss@0.6.3(@oxlint/plugins@1.62.0))(oxlint@1.61.0(oxlint-tsgolint@0.22.0))
+        version: 0.1.2(oxfmt@0.46.0)(oxlint-tailwindcss@0.7.0(@oxlint/plugins@1.63.0))(oxlint@1.61.0(oxlint-tsgolint@0.22.0))
       '@oxlint/plugins':
-        specifier: 1.62.0
-        version: 1.62.0
+        specifier: 1.63.0
+        version: 1.63.0
       '@types/node':
         specifier: 24.12.2
         version: 24.12.2
@@ -75,8 +75,8 @@ importers:
         specifier: latest
         version: 9.0.1(typescript@6.0.3)
       oxlint-tailwindcss:
-        specifier: 0.6.3
-        version: 0.6.3(@oxlint/plugins@1.62.0)
+        specifier: 0.7.0
+        version: 0.7.0(@oxlint/plugins@1.63.0)
       playwright:
         specifier: 1.59.1
         version: 1.59.1
@@ -260,7 +260,7 @@ importers:
         version: 4.1.5(vitest@4.1.5)
       postcss:
         specifier: 'catalog:'
-        version: 8.5.13
+        version: 8.5.14
       react:
         specifier: 'catalog:'
         version: 19.2.6
@@ -393,8 +393,8 @@ packages:
   '@changesets/changelog-git@0.2.1':
     resolution: {integrity: sha512-x/xEleCFLH28c3bQeQIyeZf8lFXyDFVn1SgcBiR2Tw/r4IAWlk1fzxCEZ6NxQAjF2Nwtczoen3OA2qR+UawQ8Q==}
 
-  '@changesets/changelog-github@0.6.0':
-    resolution: {integrity: sha512-wA2/y4hR/A1K411cCT75rz0d46Iezxp1WYRFoFJDIUpkQ6oDBAIUiU7BZkDCmYgz0NBl94X1lgcZO+mHoiHnFg==}
+  '@changesets/changelog-github@0.7.0':
+    resolution: {integrity: sha512-rBsbRvc4TVn+FvFnOVM3LxlFJfTXXCp8gfVJ+0BubxWNSVnLuAzowi5j+IEraLLP52w8AAs9QfKbPS3MMiXQJA==}
 
   '@changesets/cli@2.31.0':
     resolution: {integrity: sha512-AhI4enNTgHu2IZr6K4WZyf0EPch4XVMn1yOMFmCD9gsfBGqMYaHXls5HyDv6/CL5axVQABz68eG30eCtbr2wFg==}
@@ -1319,8 +1319,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@oxlint/plugins@1.62.0':
-    resolution: {integrity: sha512-BgKRw631mImmxuGuRoWaRT8AvNSJCfJvR7lDzP1jR3sBAa7q8P/Ii+lcEOEFZsfcfpkXLyUKGEQLYXWqb60wvw==}
+  '@oxlint/plugins@1.63.0':
+    resolution: {integrity: sha512-vZAzaUQkwgdN62RHgPFzfCsiBI6SDJMUdUlBGpJK0V++UHCMUk7UeJseygOhE/wOUSgV3ccE4ORkgab3C3MC6g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
   '@polka/url@1.0.0-next.29':
@@ -2885,8 +2885,8 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
-  oxlint-tailwindcss@0.6.3:
-    resolution: {integrity: sha512-FuM8Hf6e59/FWi4aobymWWGgwuvCDpCU2/uWlnfU5FwTe3cKw5RLu8t2Q9K7wbbmgkjyfS4V5TmdVQX3O1s0kw==}
+  oxlint-tailwindcss@0.7.0:
+    resolution: {integrity: sha512-vTnjgJtc87y2hltgG6Z5D6AFHi55USb4iGDDyZDgnGrJDWlqEY8Zf6+5tkk1FpRVILPZIqlcVkDg9B6iLX0x+w==}
     engines: {node: '>=20'}
     peerDependencies:
       '@oxlint/plugins': '>=1.43.0'
@@ -3006,12 +3006,12 @@ packages:
     resolution: {integrity: sha512-pMMHxBOZKFU6HgAZ4eyGnwXF/EvPGGqUr0MnZ5+99485wwW41kW91A4LOGxSHhgugZmSChL5AlElNdwlNgcnLQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.5.12:
-    resolution: {integrity: sha512-W62t/Se6rA0Az3DfCL0AqJwXuKwBeYg6nOaIgzP+xZ7N5BFCI7DYi1qs6ygUYT6rvfi6t9k65UMLJC+PHZpDAA==}
-    engines: {node: ^10 || ^12 || >=14}
-
   postcss@8.5.13:
     resolution: {integrity: sha512-qif0+jGGZoLWdHey3UFHHWP0H7Gbmsk8T5VEqyYFbWqPr1XqvLGBbk/sl8V5exGmcYJklJOhOQq1pV9IcsiFag==}
+    engines: {node: ^10 || ^12 || >=14}
+
+  postcss@8.5.14:
+    resolution: {integrity: sha512-SoSL4+OSEtR99LHFZQiJLkT59C5B1amGO1NzTwj7TT1qCUgUO6hxOvzkOYxD+vMrXBM3XJIKzokoERdqQq/Zmg==}
     engines: {node: ^10 || ^12 || >=14}
 
   prettier@2.8.8:
@@ -3737,7 +3737,7 @@ snapshots:
     dependencies:
       '@changesets/types': 6.1.0
 
-  '@changesets/changelog-github@0.6.0':
+  '@changesets/changelog-github@0.7.0':
     dependencies:
       '@changesets/get-github-info': 0.8.0
       '@changesets/types': 6.1.0
@@ -4271,11 +4271,11 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@k8o/oxc-config@0.1.2(oxfmt@0.46.0)(oxlint-tailwindcss@0.6.3(@oxlint/plugins@1.62.0))(oxlint@1.61.0(oxlint-tsgolint@0.22.0))':
+  '@k8o/oxc-config@0.1.2(oxfmt@0.46.0)(oxlint-tailwindcss@0.7.0(@oxlint/plugins@1.63.0))(oxlint@1.61.0(oxlint-tsgolint@0.22.0))':
     optionalDependencies:
       oxfmt: 0.46.0
       oxlint: 1.61.0(oxlint-tsgolint@0.22.0)
-      oxlint-tailwindcss: 0.6.3(@oxlint/plugins@1.62.0)
+      oxlint-tailwindcss: 0.7.0(@oxlint/plugins@1.63.0)
 
   '@lit-labs/ssr-dom-shim@1.4.0': {}
 
@@ -4492,7 +4492,7 @@ snapshots:
   '@oxlint/binding-win32-x64-msvc@1.61.0':
     optional: true
 
-  '@oxlint/plugins@1.62.0': {}
+  '@oxlint/plugins@1.63.0': {}
 
   '@polka/url@1.0.0-next.29': {}
 
@@ -5084,7 +5084,7 @@ snapshots:
       '@oxc-project/runtime': 0.127.0
       '@oxc-project/types': 0.127.0
       lightningcss: 1.32.0
-      postcss: 8.5.12
+      postcss: 8.5.13
     optionalDependencies:
       '@types/node': 24.12.2
       esbuild: 0.27.3
@@ -5097,7 +5097,7 @@ snapshots:
       '@oxc-project/runtime': 0.127.0
       '@oxc-project/types': 0.127.0
       lightningcss: 1.32.0
-      postcss: 8.5.12
+      postcss: 8.5.13
     optionalDependencies:
       '@types/node': 24.12.2
       esbuild: 0.27.3
@@ -5988,9 +5988,9 @@ snapshots:
       '@oxfmt/binding-win32-ia32-msvc': 0.46.0
       '@oxfmt/binding-win32-x64-msvc': 0.46.0
 
-  oxlint-tailwindcss@0.6.3(@oxlint/plugins@1.62.0):
+  oxlint-tailwindcss@0.7.0(@oxlint/plugins@1.63.0):
     dependencies:
-      '@oxlint/plugins': 1.62.0
+      '@oxlint/plugins': 1.63.0
       '@tailwindcss/node': 4.2.4
       tailwindcss: 4.2.4
 
@@ -6110,13 +6110,13 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.12:
+  postcss@8.5.13:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.13:
+  postcss@8.5.14:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
