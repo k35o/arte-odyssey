@@ -19,3 +19,4 @@ export { useStep } from './step';
 export { useTimeout } from './timeout';
 export { useWindowResize } from './window-resize';
 export { useWindowSize } from './window-size';
+export { useWritingMode, type WritingMode } from './writing-mode';

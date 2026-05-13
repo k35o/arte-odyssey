@@ -32,6 +32,11 @@
 - **Form 系** (TextField / Textarea / NumberField / PasswordInput / Select / Slider / Switch / Autocomplete / CheckboxCard / RadioCard): `inline-size` / `block-size` を中心にした論理サイズへ移行
 - **Button**: `fullWidth` が縦書きでは content fit になるよう調整
 - **RadioCard**: writing-mode を実行時に取得して、`vertical-rl` のとき左右キーの forward/backward を反転
+- **Tabs**: `aria-orientation` を writing-mode から導出し、縦書きでは上下キー、横書きでは左右キーでタブ移動
+
+## Hook
+
+- `useWritingMode(ref)` を追加。要素の `writing-mode` を `'horizontal' | 'vertical'` で返し、`ResizeObserver` で writing-mode 切替も追従する。`useEffect` / `useLayoutEffect` を呼び出し側から消すためのプリミティブ。
 
 ## Storybook
 
