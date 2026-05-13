@@ -20,16 +20,16 @@
     "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "0.6.0",
+    "@changesets/changelog-github": "0.7.0",
     "@changesets/cli": "2.31.0",
     "@commitlint/cli": "20.5.3",
     "@commitlint/config-conventional": "20.5.3",
     "@k8o/oxc-config": "0.1.2",
-    "@oxlint/plugins": "1.62.0",
+    "@oxlint/plugins": "1.63.0",
     "@types/node": "24.12.2",
     "agent-browser": "0.26.0",
     "cosmiconfig": "latest",
-    "oxlint-tailwindcss": "0.6.3",
+    "oxlint-tailwindcss": "0.7.0",
     "playwright": "1.59.1",
     "typescript": "6.0.3",
     "vite-plus": "catalog:"
