@@ -20,14 +20,20 @@ export const Select: FC<Props> = ({
 }) => {
   const { pending } = useFormStatus();
   return (
-    <div className="relative h-fit w-full">
+    <div
+      className={cn(
+        'relative flex h-fit w-full items-center rounded-xl border border-border-base bg-bg-base vertical:h-full vertical:w-fit',
+        invalid && 'border-border-error',
+        (disabled || pending) &&
+          'cursor-not-allowed border-border-mute bg-bg-mute',
+        'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
+      )}
+    >
       <select
         aria-invalid={invalid}
         className={cn(
-          'w-full appearance-none rounded-xl border border-border-base bg-bg-base px-3 py-2 text-fg-base',
-          'aria-invalid:border-border-error',
-          'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute hover:disabled:bg-bg-mute',
-          'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+          'w-full grow appearance-none bg-transparent px-3 py-2 text-fg-base focus-visible:outline-hidden vertical:h-full vertical:w-auto',
+          'disabled:cursor-not-allowed',
         )}
         disabled={disabled || pending}
         {...rest}
@@ -38,9 +44,12 @@ export const Select: FC<Props> = ({
           </option>
         ))}
       </select>
-      <div className="absolute top-2/4 right-3 -translate-y-1/2">
+      <span
+        aria-hidden
+        className="vertical:-rotate-90 pointer-events-none me-3 shrink-0"
+      >
         <ChevronIcon direction="down" size="sm" />
-      </div>
+      </span>
     </div>
   );
 };

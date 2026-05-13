@@ -25,3 +25,19 @@
     minmax(min(calc(var(--spacing) * --value(integer)), 100%), 1fr)
   );
 }
+
+@utility writing-h {
+  writing-mode: horizontal-tb;
+}
+
+@utility writing-v {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  text-underline-position: under left;
+  line-break: strict;
+  word-break: normal;
+}
+
+@utility writing-sideways-rl {
+  writing-mode: sideways-rl;
+}

@@ -23,7 +23,7 @@ export const Drawer: FC<
       <section
         aria-describedby={`${rootId}-content`}
         aria-labelledby={`${rootId}-header`}
-        className="flex h-full flex-col"
+        className="vertical:flex-row flex h-full flex-col"
         id={rootId}
       >
         <div

@@ -1,6 +1,13 @@
 'use client';
 
 import {
+  autoUpdate,
+  flip,
+  offset,
+  size as floatingSize,
+  useFloating,
+} from '@floating-ui/react';
+import {
   type FC,
   type InputHTMLAttributes,
   useCallback,
@@ -76,6 +83,34 @@ export const Autocomplete: FC<Props> = ({
   const [text, setText] = useState('');
   const [selectIndex, setSelectIndex] = useState<number>();
 
+  const { refs, floatingStyles } = useFloating({
+    strategy: 'fixed',
+    placement: 'bottom-start',
+    open: isOpen,
+    whileElementsMounted: autoUpdate,
+    middleware: [
+      offset(4),
+      flip({ fallbackAxisSideDirection: 'end', padding: 8 }),
+      floatingSize({
+        apply: ({ rects, elements }) => {
+          // reference の inline-axis 寸法に floating を合わせる。
+          // 縦書きでは reference.height が inline-axis、横書きでは reference.width。
+          const referenceEl =
+            elements.reference instanceof HTMLElement
+              ? elements.reference
+              : null;
+          const isVertical =
+            referenceEl !== null &&
+            getComputedStyle(referenceEl).writingMode.startsWith('vertical');
+          Object.assign(elements.floating.style, {
+            inlineSize: `${isVertical ? rects.reference.height : rects.reference.width}px`,
+          });
+        },
+      }),
+    ],
+    transform: false,
+  });
+
   const [deferredText, isPending] = useDeferredDebounce(text);
   const filteredOptions = options.filter((option) =>
     option.label.includes(deferredText),
@@ -101,15 +136,20 @@ export const Autocomplete: FC<Props> = ({
     };
   }, [reset]);
 
+  const setReferenceRef = (node: HTMLDivElement | null) => {
+    ref.current = node;
+    refs.setReference(node);
+  };
+
   return (
     <div
       className={cn(
-        'relative w-full rounded-xl border border-border-base bg-bg-base',
+        'relative rounded-xl border border-border-base bg-bg-base inline-full',
         'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute hover:has-disabled:has-hover:bg-bg-mute',
       )}
-      ref={ref}
+      ref={setReferenceRef}
     >
       {name !== undefined && name !== ''
         ? currentValue.map((selectedValue) => (
@@ -252,64 +292,64 @@ export const Autocomplete: FC<Props> = ({
           </IconButton>
         )}
       </div>
-      <div className="relative w-full">
-        {isOpen && (
-          <div
-            className="bg-bg-raised absolute top-1 z-10 w-full rounded-xl shadow-md"
-            role="presentation"
+      {isOpen && (
+        <div
+          className="bg-bg-raised z-10 rounded-xl shadow-md"
+          ref={refs.setFloating}
+          role="presentation"
+          style={floatingStyles}
+        >
+          <ul
+            aria-busy={isPending || undefined}
+            className={cn(
+              'max-h-96 py-2 transition-opacity vertical:max-h-none vertical:max-w-96',
+              isPending && 'opacity-60',
+            )}
+            id={`${id}_listbox`}
           >
-            <ul
-              aria-busy={isPending || undefined}
-              className={cn(
-                'max-h-96 py-2 transition-opacity',
-                isPending && 'opacity-60',
-              )}
-              id={`${id}_listbox`}
-            >
-              {filteredOptions.length === 0 && (
-                <li className="text-fg-mute px-3 py-2">該当なし</li>
-              )}
-              {filteredOptions.map((option, idx) => {
-                const selected = currentValue.includes(option.value);
-                return (
-                  <li
-                    className={cn(
-                      'cursor-pointer px-3 py-2 transition-colors',
-                      selected && 'bg-primary-bg-subtle text-primary-fg',
-                      selectIndex === idx && !selected && 'bg-bg-subtle',
-                      selectIndex === idx &&
-                        selected &&
-                        'bg-primary-bg-mute text-primary-fg',
-                    )}
-                    id={`${id}_option_${option.value}`}
-                    key={option.value}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      reset();
-                      if (selected) {
-                        handleChange(
-                          currentValue.filter((v) => v !== option.value),
-                        );
-                        return;
-                      }
-                      handleChange([...currentValue, option.value]);
-                    }}
-                    onKeyDown={(e) => {
-                      e.preventDefault();
-                    }}
-                    onMouseEnter={() => {
-                      setSelectIndex(idx);
-                    }}
-                    tabIndex={-1}
-                  >
-                    {option.label}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
-      </div>
+            {filteredOptions.length === 0 && (
+              <li className="text-fg-mute px-3 py-2">該当なし</li>
+            )}
+            {filteredOptions.map((option, idx) => {
+              const selected = currentValue.includes(option.value);
+              return (
+                <li
+                  className={cn(
+                    'cursor-pointer px-3 py-2 transition-colors',
+                    selected && 'bg-primary-bg-subtle text-primary-fg',
+                    selectIndex === idx && !selected && 'bg-bg-subtle',
+                    selectIndex === idx &&
+                      selected &&
+                      'bg-primary-bg-mute text-primary-fg',
+                  )}
+                  id={`${id}_option_${option.value}`}
+                  key={option.value}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    reset();
+                    if (selected) {
+                      handleChange(
+                        currentValue.filter((v) => v !== option.value),
+                      );
+                      return;
+                    }
+                    handleChange([...currentValue, option.value]);
+                  }}
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                  }}
+                  onMouseEnter={() => {
+                    setSelectIndex(idx);
+                  }}
+                  tabIndex={-1}
+                >
+                  {option.label}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

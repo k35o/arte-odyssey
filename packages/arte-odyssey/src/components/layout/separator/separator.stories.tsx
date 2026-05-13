@@ -17,13 +17,13 @@ const meta: Meta<typeof Separator> = {
 export default meta;
 type Story = StoryObj<typeof Separator>;
 
-export const Horizontal: Story = {
+export const Block: Story = {
   args: {
     orientation: 'horizontal',
   },
 };
 
-export const Vertical: Story = {
+export const Inline: Story = {
   args: {
     orientation: 'vertical',
   },

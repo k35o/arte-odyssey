@@ -17,7 +17,7 @@ export const en = {
     'Built with the latest React 19. Supports modern patterns like Server Components and actions.',
   'home.featureTailwind': 'Tailwind CSS 4',
   'home.featureTailwindDescription':
-    'Flexible and efficient styling powered by Tailwind CSS 4 and its utility-first approach.',
+    'Integrated with Tailwind CSS 4 utility-first approach. Light and dark modes switch seamlessly via semantic tokens.',
   'home.featureDarkMode': 'Dark Mode',
   'home.featureDarkModeDescription':
     'Seamless light and dark mode switching. Semantic tokens adapt automatically.',
@@ -30,6 +30,9 @@ export const en = {
   'home.featureMinimal': 'Soft & Sharp Design',
   'home.featureMinimalDescription':
     'Soft where you touch, sharp where you read. UI that speaks through whitespace and gentle forms.',
+  'home.featureVerticalWriting': 'Vertical Writing Support',
+  'home.featureVerticalWritingDescription':
+    'The `writing-v` utility and `vertical:` variant deliver readable layouts on vertical paper. Preview the Japanese docs in vertical mode.',
   'common.language': 'Language',
   'nav.openMenu': 'Open menu',
   'getStarted.introduction':
@@ -360,6 +363,8 @@ export const en = {
   'sideNav.openNavigation': 'Open navigation',
   'common.switchToDarkMode': 'Switch to dark mode',
   'common.switchToLightMode': 'Switch to light mode',
+  'common.switchToVerticalWriting': 'Switch to vertical preview',
+  'common.switchToHorizontalWriting': 'Switch to horizontal preview',
   'error.title': 'Something went wrong',
   'error.description': 'An unexpected error occurred.',
   'error.retry': 'Retry',

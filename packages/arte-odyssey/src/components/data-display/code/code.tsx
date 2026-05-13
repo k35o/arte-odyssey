@@ -51,7 +51,7 @@ export const Code: FC<Props> = ({ children, ...rest }) => {
   return (
     <code
       {...rest}
-      className="bg-bg-mute m-0.5 inline-flex items-center gap-1 rounded-md px-1.5 sm:py-0.5"
+      className="bg-bg-mute vertical:inline vertical:gap-0 m-0.5 inline-flex items-center gap-1 rounded-md px-1.5 sm:py-0.5"
     >
       {parts}
     </code>

@@ -1,6 +1,6 @@
 'use client';
 
-import type { CSSProperties, FC, InputHTMLAttributes } from 'react';
+import type { FC, InputHTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
@@ -60,22 +60,29 @@ export const Slider: FC<Props> = ({
   const disabledResolved = disabled || pending;
   const range = Math.max(max - min, 1);
   const progress = ((currentValue - min) / range) * 100;
-  const style = {
-    '--slider-progress': `${Math.min(Math.max(progress, 0), 100)}%`,
-  } as CSSProperties;
+  const clampedProgress = `${Math.min(Math.max(progress, 0), 100)}%`;
 
   return (
     <div
       className={cn(
-        'relative flex h-8 w-full items-center',
-        'before:absolute before:inset-x-0 before:h-2 before:rounded-full before:bg-bg-mute',
-        'after:absolute after:left-0 after:h-2 after:rounded-full after:bg-primary-bg',
-        'after:w-(--slider-progress)',
-        invalid && 'after:bg-bg-error',
+        'relative flex items-center justify-center',
+        'block-8 inline-full vertical:inline-48',
         disabledResolved && 'opacity-50',
       )}
-      style={style}
+      style={{ '--slider-progress': clampedProgress } as React.CSSProperties}
     >
+      <span
+        aria-hidden
+        className="bg-bg-mute relative rounded-full block-2 inline-full"
+      >
+        <span
+          aria-hidden
+          className={cn(
+            'bg-primary-bg absolute start-0 inset-be-0 block-full inline-(--slider-progress) rounded-full',
+            invalid && 'bg-bg-error',
+          )}
+        />
+      </span>
       <input
         {...rest}
         aria-invalid={invalid}
@@ -83,7 +90,8 @@ export const Slider: FC<Props> = ({
         aria-valuemin={min}
         aria-valuenow={currentValue}
         className={cn(
-          'relative z-10 h-8 w-full appearance-none bg-transparent',
+          'absolute inset-0 z-10 appearance-none bg-transparent',
+          'h-8 w-full vertical:h-auto vertical:w-8 vertical:[writing-mode:vertical-lr]',
           'focus:outline-none',
           'disabled:cursor-not-allowed',
           '[&::-webkit-slider-runnable-track]:h-2 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-transparent',

@@ -15,6 +15,10 @@ import {
 
 import { cn } from './../../../helpers/cn';
 import { createSafeContext } from './../../../helpers/create-safe-context';
+import {
+  useWritingMode,
+  type WritingMode,
+} from './../../../hooks/writing-mode';
 
 type TabsContext = {
   rootId: string;
@@ -63,6 +67,7 @@ const Root: FC<
 
 const [TabsListProvider, useTabsListState] = createSafeContext<{
   setFocusRef: RefObject<boolean>;
+  writingMode: WritingMode;
 }>('useTabListState must be used within a TabListProvider');
 
 const List: FC<
@@ -72,13 +77,19 @@ const List: FC<
 > = ({ label, children }) => {
   const { rootId } = useTabsState();
   const setFocusRef = useRef<boolean>(false);
-  const listContextValue = useMemo(() => ({ setFocusRef }), []);
+  const listRef = useRef<HTMLDivElement>(null);
+  const writingMode = useWritingMode(listRef);
+  const listContextValue = useMemo(
+    () => ({ setFocusRef, writingMode }),
+    [writingMode],
+  );
   return (
     <div
       aria-label={label}
-      aria-orientation="horizontal"
-      className="border-border-base flex overflow-x-auto overflow-y-hidden border-b p-0.5 wrap-normal"
+      aria-orientation={writingMode === 'vertical' ? 'vertical' : 'horizontal'}
+      className="border-border-base vertical:border-b-0 vertical:border-l vertical:overflow-x-hidden vertical:overflow-y-auto flex overflow-x-auto overflow-y-hidden border-b p-0.5 wrap-normal"
       id={`${rootId}-tablist`}
+      ref={listRef}
       role="tablist"
     >
       <TabsListProvider value={listContextValue}>{children}</TabsListProvider>
@@ -88,7 +99,7 @@ const List: FC<
 
 const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
   const { rootId, ids, selectedId, setSelectedId } = useTabsState();
-  const { setFocusRef } = useTabsListState();
+  const { setFocusRef, writingMode } = useTabsListState();
   const ref = useRef<HTMLAnchorElement & HTMLDivElement>(null);
   const activeIndex = ids.indexOf(selectedId);
   const index = ids.indexOf(id);
@@ -99,6 +110,19 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
       setFocusRef.current = false;
     }
   }, [activeIndex, index, setFocusRef]);
+
+  const moveTo = (direction: 1 | -1) => {
+    const nextActiveIndex =
+      direction === 1
+        ? index === ids.length - 1
+          ? 0
+          : index + 1
+        : index === 0
+          ? ids.length - 1
+          : index - 1;
+    setSelectedId(ids[nextActiveIndex] ?? ids[0]);
+    setFocusRef.current = true;
+  };
 
   return (
     <div
@@ -114,16 +138,15 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
         setSelectedId(id);
       }}
       onKeyDown={(e: KeyboardEvent) => {
-        if (e.key === 'ArrowLeft') {
-          const nextActiveIndex = index === 0 ? ids.length - 1 : index - 1;
-          setSelectedId(ids[nextActiveIndex] ?? ids[0]);
-          setFocusRef.current = true;
+        // 縦書きでは tablist の inline 軸が縦になるので、prev/next を上下キーに割り当てる。
+        const prevKey = writingMode === 'vertical' ? 'ArrowUp' : 'ArrowLeft';
+        const nextKey = writingMode === 'vertical' ? 'ArrowDown' : 'ArrowRight';
+        if (e.key === prevKey) {
+          moveTo(-1);
           return;
         }
-        if (e.key === 'ArrowRight') {
-          const nextActiveIndex = index === ids.length - 1 ? 0 : index + 1;
-          setSelectedId(ids[nextActiveIndex] ?? ids[0]);
-          setFocusRef.current = true;
+        if (e.key === nextKey) {
+          moveTo(1);
         }
       }}
       ref={ref}
@@ -132,7 +155,7 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
     >
       {selectedId === id && (
         <motion.div
-          className="bg-primary-border absolute right-0 -bottom-0.5 left-0 h-1"
+          className="bg-primary-border absolute start-0 end-0 -inset-be-0.5 block-1"
           layoutId={`${rootId}-underline`}
         />
       )}

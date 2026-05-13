@@ -20,12 +20,14 @@ import {
 } from 'react';
 
 import { useDisclosure } from '../../../hooks/disclosure';
+import { useWritingMode } from '../../../hooks/writing-mode';
 import { usePortalRoot } from '../../providers';
 import {
   type PopoverContentProps,
   PopoverProvider,
   type PopoverTriggerProps,
   usePopoverContent,
+  usePopoverContext,
   usePopoverTrigger,
 } from './hooks';
 
@@ -142,9 +144,16 @@ const Content: FC<{
     contentStyles,
     itemProps,
   } = usePopoverContent();
+  const { triggerRef } = usePopoverContext();
 
   const root = usePortalRoot();
   const protalProps = root ? { root } : {};
+
+  // Popover content は body 直下へ portal されるため、trigger 側の writing-mode を
+  // 取り込まないと縦書きページでも横書きで描画されてしまう。
+  // `vertical:` variant は `.writing-v` 祖先を要求するので、縦書きなら class を付与する。
+  const writingMode = useWritingMode(triggerRef);
+  const writingClass = writingMode === 'vertical' ? 'writing-v' : undefined;
 
   return (
     <AnimatePresence>
@@ -155,7 +164,11 @@ const Content: FC<{
             disabled={!trapFocus}
             modal={false}
           >
-            <div ref={setContentRef} style={contentStyles}>
+            <div
+              className={writingClass}
+              ref={setContentRef}
+              style={contentStyles}
+            >
               <motion.div
                 animate="open"
                 exit="closed"

@@ -88,7 +88,8 @@ export const Switch: FC<Props> = ({
         <span
           aria-hidden
           className={cn(
-            'inline-flex h-7 w-12 items-center rounded-full transition-colors',
+            'inline-flex items-center rounded-full transition-colors',
+            'h-7 w-12 vertical:h-12 vertical:w-7',
             invalid && 'ring-2 ring-border-error',
             isSelected ? 'bg-primary-bg' : 'bg-bg-mute',
             disabledResolved && 'bg-bg-subtle',
@@ -97,8 +98,9 @@ export const Switch: FC<Props> = ({
         >
           <span
             className={cn(
-              'ml-0.5 size-5 rounded-full bg-bg-base shadow-xs transition-transform',
-              isSelected && 'translate-x-5',
+              'ms-0.5 size-5 rounded-full bg-bg-base shadow-xs transition-transform',
+              isSelected &&
+                'translate-x-5 vertical:translate-x-0 vertical:translate-y-5',
               disabledResolved && 'bg-bg-emphasize',
             )}
           />

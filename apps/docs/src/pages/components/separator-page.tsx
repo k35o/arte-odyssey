@@ -59,7 +59,7 @@ export function SeparatorPage() {
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview code='<Separator color="mute" />'>
-            <div className="w-full">
+            <div className="block-32 inline-full">
               <Separator color="mute" />
             </div>
           </ComponentPreview>
@@ -74,11 +74,11 @@ export function SeparatorPage() {
             code={`<Separator orientation="horizontal" />
 <Separator orientation="vertical" />`}
           >
-            <div className="flex w-full flex-col gap-6">
-              <div className="w-full">
+            <div className="flex flex-col gap-6 block-32 inline-full">
+              <div className="flex-1 inline-full">
                 <Separator orientation="horizontal" />
               </div>
-              <div className="flex h-16 items-center">
+              <div className="flex items-center block-16 inline-full">
                 <Separator orientation="vertical" />
               </div>
             </div>
@@ -95,14 +95,14 @@ export function SeparatorPage() {
 <Separator color="mute" />
 <Separator color="subtle" />`}
           >
-            <div className="flex w-full flex-col gap-6">
-              <div className="w-full">
+            <div className="flex flex-col gap-6 block-32 inline-full">
+              <div className="flex-1 inline-full">
                 <Separator color="base" />
               </div>
-              <div className="w-full">
+              <div className="flex-1 inline-full">
                 <Separator color="mute" />
               </div>
-              <div className="w-full">
+              <div className="flex-1 inline-full">
                 <Separator color="subtle" />
               </div>
             </div>

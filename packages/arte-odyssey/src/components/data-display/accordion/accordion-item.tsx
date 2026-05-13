@@ -10,7 +10,7 @@ export const AccordionItem: FC<
   const id = useId();
   return (
     <AccordionItemProvider defaultOpen={defaultOpen} id={id}>
-      <div>{children}</div>
+      <div className="vertical:h-full">{children}</div>
     </AccordionItemProvider>
   );
 };

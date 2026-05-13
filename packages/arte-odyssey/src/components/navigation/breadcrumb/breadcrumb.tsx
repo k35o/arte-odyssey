@@ -27,7 +27,7 @@ const Item: FC<PropsWithChildren> = ({ children }) => (
 );
 
 const Separator: FC = () => (
-  <li className="text-fg-mute">
+  <li className="text-fg-mute vertical:rotate-90">
     <ChevronIcon direction="right" size="sm" />
   </li>
 );

@@ -65,7 +65,7 @@ export const CheckboxCard: FC<Props> = ({
     <fieldset
       {...rest}
       className={cn(
-        'm-0 w-full min-w-0 border-0 p-0',
+        'm-0 min-w-0 border-0 p-0 inline-full',
         'grid gap-3',
         disabled && 'opacity-70',
       )}
@@ -81,7 +81,7 @@ export const CheckboxCard: FC<Props> = ({
         return (
           <label
             className={cn(
-              'flex w-full min-w-0 rounded-xl border bg-bg-base p-4 text-left transition-colors',
+              'flex min-w-0 rounded-xl border bg-bg-base p-4 text-left transition-colors inline-full',
               'has-[input:focus-visible]:outline-hidden has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-border-info',
               checked &&
                 'border-primary-border bg-primary-bg-subtle hover:bg-primary-bg-mute',
