@@ -1,5 +1,85 @@
 # @k8o/arte-odyssey
 
+## 9.1.0
+
+### Minor Changes
+
+- [#476](https://github.com/k35o/arte-odyssey/pull/476) [`b470d1e`](https://github.com/k35o/arte-odyssey/commit/b470d1e1e45f4b969dc567163e87f41e398a287b) Thanks [@k35o](https://github.com/k35o)! - オーバーレイ系コンポーネントの重なり順を司る z-index デザイントークンを追加した。これまで `Toast` が `z-50` を直接指定していたほかは z-index の管理が無く、複数のオーバーレイを混在させた際の重なり順が暗黙的だった。
+
+  3 層スケールで整理した:
+
+  - `z-overlay` (1000) — `Popover` / `DropdownMenu` / `ListBox` / `Tooltip` (trigger に紐付く浮遊 UI)
+  - `z-modal` (1300) — `Modal` / `Drawer` (`<dialog>` top-layer により実質はネイティブ制御だが、stacking context を持つ非ネイティブ実装に切り替えても破綻しないよう明示)
+  - `z-toast` (1500) — `Toast` (モーダルや浮遊 UI より上に必ず表示される)
+
+  公開 API:
+
+  - `@k8o/arte-odyssey/tokens` から `Z_INDICES` を export
+  - スタイルシートに CSS 変数 `--z-overlay` / `--z-modal` / `--z-toast` と Tailwind ユーティリティ `z-overlay` / `z-modal` / `z-toast` を追加
+
+- [#479](https://github.com/k35o/arte-odyssey/pull/479) [`c78669f`](https://github.com/k35o/arte-odyssey/commit/c78669fc974f0938766ab3bf1fc086bb53b4ffb5) Thanks [@k35o](https://github.com/k35o)! - 縦書き (vertical writing mode) を新しい特徴として追加。Tailwind の論理プロパティと組み合わせて、ライブラリ全体のコンポーネントが縦書き紙面でも自然に表示できるようにした。
+
+  ## Tailwind utility と variant
+
+  - `@utility writing-h` — 横書き (`writing-mode: horizontal-tb`) に戻す
+  - `@utility writing-v` — 縦書き (`writing-mode: vertical-rl`) を適用し、`text-orientation`・`text-underline-position`・`line-break`・`word-break` の推奨初期値も設定する
+  - `@utility writing-sideways-rl` — 表組みなどブロック単位で 90° 横倒しにする
+  - `@custom-variant vertical` — `.writing-v` 子孫で活性化し、`.writing-h` 子孫では無効化する variant。横書きデフォルトに対する上書きを宣言的に書ける
+
+  ```tsx
+  <div className="writing-v">
+    <p className="my-4 vertical:my-0" />
+  </div>
+  ```
+
+  ## コンポーネントの縦書き対応
+
+  - **Accordion**: chevron を 90° 回転、item を block-axis に伸ばし、区切り線を border-left に切り替え
+  - **Code**: 縦書きでは inline 表示に変えてカラースウォッチ周りの不自然な改行を解消
+  - **Table**: `sideways-rl` で 90° 横倒しの島として描画。行/caption の区切り線も論理に
+  - **Progress**: 論理サイズで両モード対応 (縦書きでは縦長 bar)
+  - **Separator**: `orientation` を論理向きの意味に変更し、寸法も `block-*` / `inline-*` で書き直し。`Horizontal` story を `Block`, `Vertical` story を `Inline` にリネーム
+  - **Breadcrumb / Pagination**: 進行方向の chevron を 90° 回転
+  - **Tabs**: 選択 indicator と List separator を block-end に配置 (横書きで下、縦書きで左)
+  - **Modal (center)**: 寸法を論理プロパティに置き換え、両モードで自然なアスペクト比
+  - **Drawer**: header+content の縦並びを両モードで維持
+  - **Popover** (および ListBox / DropdownMenu): portaled content に trigger の writing-mode を伝搬し、縦書き内でも variant が効く
+  - **Form 系** (TextField / Textarea / NumberField / PasswordInput / Select / Slider / Switch / Autocomplete / CheckboxCard / RadioCard): `inline-size` / `block-size` を中心にした論理サイズへ移行
+  - **Button**: `fullWidth` が縦書きでは content fit になるよう調整
+  - **RadioCard**: writing-mode を実行時に取得して、`vertical-rl` のとき左右キーの forward/backward を反転
+  - **Tabs**: `aria-orientation` を writing-mode から導出し、縦書きでは上下キー、横書きでは左右キーでタブ移動
+
+  ## Hook
+
+  - `useWritingMode(ref)` を追加。要素の `writing-mode` を `'horizontal' | 'vertical'` で返し、`ResizeObserver` で writing-mode 切替も追従する。`useEffect` / `useLayoutEffect` を呼び出し側から消すためのプリミティブ。
+
+  ## Storybook
+
+  - toolbar に「横書き / 縦書き」トグルを追加し、全 story を両モードで確認可能に
+
+### Patch Changes
+
+- [#477](https://github.com/k35o/arte-odyssey/pull/477) [`943d9e5`](https://github.com/k35o/arte-odyssey/commit/943d9e5bc58325b6b9d54b9495d95d99eb63e5d4) Thanks [@k35o](https://github.com/k35o)! - 全コンポーネントで `className` と `style` プロップを受け取れないようにした。
+
+  スタイルはコンポーネント内部の実装に閉じ、外部からのオーバーライド経路を廃止する。Tailwind の utility class を渡してデザインを上書きする使い方ができなくなるため、利用側の影響範囲は大きい。
+
+  対象コンポーネント:
+
+  - Buttons: `Button`, `IconButton`
+  - Data Display: `Card`, `InteractiveCard`, `Badge`, `Avatar`, `Heading`, `Code`, `Table.*`
+  - Feedback: `Alert`, `Progress`, `Skeleton`, `Spinner`
+  - Form: `Form`, `TextField`, `Textarea`, `Select`, `PasswordInput`, `Checkbox`, `Radio`, `Switch`, `NumberField`, `Slider`, `Autocomplete`, `FileField`, `CheckboxCard`, `RadioCard`, `CheckboxGroup`
+  - Layout: `Separator`
+  - Navigation: `Anchor`
+
+  `Table.Root` の `className` / `containerClassName` プロップも併せて削除した。
+
+- [#476](https://github.com/k35o/arte-odyssey/pull/476) [`59c9ea3`](https://github.com/k35o/arte-odyssey/commit/59c9ea3095d859f1739cf480781da1fcb475ee01) Thanks [@k35o](https://github.com/k35o)! - `Modal` 内で `Popover` / `DropdownMenu` / `ListBox` / `Tooltip` を使うと、それらの `FloatingPortal` が `document.body` 直下に portal されるため `<dialog>` の top-layer に隠れて見えない問題を修正した。
+
+  `Modal` が children を `PortalRootProvider` で自動ラップし、dialog 要素を portal root として配信するようにした。これにより `Modal` 内の Popover 系コンポーネントは何も書かずとも dialog の top-layer に乗って表示される。
+
+  これまで動作させるには手動で `<PortalRootProvider value={dialogRef}>` を書く必要があったが、その workaround は不要になる(残してあっても上書きされるだけで害はない)。
+
 ## 9.0.0
 
 ### Major Changes
