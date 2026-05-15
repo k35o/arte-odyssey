@@ -86,7 +86,7 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "storybook": "10.3.6",
-    "storybook-addon-mock-date": "2.0.0",
+    "storybook-addon-mock-date": "3.0.1",
     "tailwindcss": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:",
