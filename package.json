@@ -22,8 +22,8 @@
   "devDependencies": {
     "@changesets/changelog-github": "0.7.0",
     "@changesets/cli": "2.31.0",
-    "@commitlint/cli": "20.5.3",
-    "@commitlint/config-conventional": "20.5.3",
+    "@commitlint/cli": "21.0.0",
+    "@commitlint/config-conventional": "21.0.0",
     "@k8o/oxc-config": "0.1.2",
     "@oxlint/plugins": "1.63.0",
     "@types/node": "24.12.2",
