@@ -10,6 +10,7 @@ allowBuilds:
   esbuild: false
   geckodriver: false
   sharp: false
+
 blockExoticSubdeps: true
 
 catalog:
@@ -30,7 +31,5 @@ minimumReleaseAge: 10080
 
 minimumReleaseAgeExclude:
   - '@k8o/*'
-  - 'react@19.2.6'
-  - 'react-dom@19.2.6'
 
 verifyDepsBeforeRun: install
