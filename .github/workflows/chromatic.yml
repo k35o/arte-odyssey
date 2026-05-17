@@ -18,7 +18,7 @@ jobs:
       - name: Install
         uses: ./.github/composite-actions/install
       - name: Publish to Chromatic
-        uses: chromaui/action@a200f3ba3ff81232c47ac7942347fb212b1a67dc # v16.8.0
+        uses: chromaui/action@8d925269a481085d451544f6bd9aa2ab3af55b5d # v16.9.1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           onlyChanged: true
