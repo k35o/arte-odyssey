@@ -267,6 +267,23 @@ lock();
 unlock();
 ```
 
+### useWritingMode
+
+要素の `writing-mode` を検知し、`'horizontal'` または `'vertical'` を返す。`vertical-*` / `sideways-*` はすべて `'vertical'` として正規化される。ResizeObserver で監視し、SSR では `'horizontal'` を返す。
+
+```tsx
+const ref = useRef<HTMLDivElement>(null);
+const writingMode = useWritingMode(ref); // 'horizontal' | 'vertical'
+```
+
+引数:
+
+- `ref`: `RefObject<Element | null>`
+
+戻り値:
+
+- `'horizontal' | 'vertical'`
+
 ### useBreakpoint
 
 Tailwind ブレークポイントの判定。

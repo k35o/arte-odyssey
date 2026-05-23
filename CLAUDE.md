@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ArteOdyssey is a monorepo containing a React UI library (`@k8o/arte-odyssey`) and its documentation site, built with:
 
 - **Vite+** (`vp`) as unified toolchain (dev, build, test, lint, format, task runner)
-- **pnpm** for package management (v10.32.1, Node.js >=24.13.0)
+- **pnpm** for package management (v11.1.3, Node.js >=24.13.0)
 - **TypeScript** (strict mode, `noUncheckedIndexedAccess: true`)
 - **Oxlint/Oxfmt** for linting and formatting (via `vp check`)
 - **Tailwind CSS 4** with semantic design tokens

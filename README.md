@@ -26,12 +26,12 @@ ArteOdyssey includes design system documentation in the published npm package. W
 
 ## Development
 
-This is a monorepo managed with Turborepo and pnpm.
+This is a monorepo managed with [Vite+](https://vite.plus) (`vp`) and pnpm.
 
 ### Prerequisites
 
 - Node.js ≥24.13.0
-- pnpm 10.30.3
+- pnpm 11.1.3
 
 ### Setup
 
@@ -55,6 +55,8 @@ pnpm check:write
 ### Project Structure
 
 ```
+apps/
+  docs/                  # Documentation site (Vite + @funstack/router)
 packages/
   arte-odyssey/          # Main UI library package
 examples/

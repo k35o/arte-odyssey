@@ -28,8 +28,25 @@ import { Button } from '@k8o/arte-odyssey';
   startIcon={<Icon />}
   endIcon={<Icon />}
   disabled={false}
+  active={false}
 >
   ボタン
+</Button>
+```
+
+リンクとしてレンダーする場合は `renderItem` prop を使う。Next.js の `<Link>` などにも応用できる。
+
+```tsx
+<Button
+  color="gray"
+  variant="outlined"
+  renderItem={({ className, children }) => (
+    <a className={className} href="/page">
+      {children}
+    </a>
+  )}
+>
+  リンク
 </Button>
 ```
 
@@ -51,28 +68,30 @@ Props:
 - `size`: `'sm'` | `'md'` | `'lg'`
 - `label`: string（必須、aria-label として使用）
 
-### LinkButton
-
-リンクスタイルのボタン。Button と同じ `color` / `variant` props。
+リンクとしてレンダーする場合は `renderItem` prop を使う。`triggerProps` を `<a>` にスプレッドすると hover/focus 時に `label` が Tooltip として表示される。
 
 ```tsx
-import { LinkButton } from '@k8o/arte-odyssey';
-
-<LinkButton href="/page" color="gray" variant="outlined">
-  リンク
-</LinkButton>;
-```
-
-### IconLink
-
-アイコンのみのリンク。IconButton と同じ `bg` prop。
-
-```tsx
-import { IconLink } from '@k8o/arte-odyssey';
-
-<IconLink href="/home" bg="base" label="ホーム">
+<IconButton
+  bg="base"
+  label="ホーム"
+  renderItem={({
+    className,
+    children,
+    'aria-label': ariaLabel,
+    triggerProps,
+  }) => (
+    <a
+      aria-label={ariaLabel}
+      className={className}
+      href="/home"
+      {...triggerProps}
+    >
+      {children}
+    </a>
+  )}
+>
   <HomeIcon />
-</IconLink>;
+</IconButton>
 ```
 
 ### Anchor

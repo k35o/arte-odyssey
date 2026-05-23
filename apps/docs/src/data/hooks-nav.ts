@@ -10,6 +10,7 @@ export const hookCategories: NavCategory[] = [
       { name: 'useScrollDirection', path: '/hooks/use-scroll-direction' },
       { name: 'useScrollLock', path: '/hooks/use-scroll-lock' },
       { name: 'useWindowResize', path: '/hooks/use-window-resize' },
+      { name: 'useWritingMode', path: '/hooks/use-writing-mode' },
     ],
   },
   {

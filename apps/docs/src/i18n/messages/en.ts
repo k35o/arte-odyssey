@@ -308,6 +308,8 @@ export const en = {
     'A hook that detects hover state of an element.',
   'hooks.useControllableState.description':
     'A hook that manages controlled/uncontrolled component state.',
+  'hooks.useWritingMode.description':
+    "A hook that observes an element's writing-mode and returns either horizontal or vertical.",
   'helpers.description':
     'A catalog of helper functions provided by ArteOdyssey.',
   'helpers.categoryStyling': 'Styling',
