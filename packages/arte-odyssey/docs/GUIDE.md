@@ -137,12 +137,12 @@ import { Button, Card } from '@k8o/arte-odyssey';
 
 ## コンポーネント使用の原則
 
-### Button / LinkButton
+### Button
 
 `color` と `variant` で統一されたスタイル。ピル型（`rounded-full`）。
 
 ```tsx
-import { Button, LinkButton } from '@k8o/arte-odyssey';
+import { Button } from '@k8o/arte-odyssey';
 
 // プライマリアクション
 <Button color="primary" variant="contained">保存する</Button>
@@ -153,20 +153,39 @@ import { Button, LinkButton } from '@k8o/arte-odyssey';
 // テキストのみ
 <Button variant="skeleton">詳細を見る</Button>
 
-// リンクボタン（同じ props）
-<LinkButton href="/settings" color="gray">設定へ</LinkButton>
+// リンクとしてレンダーする（renderItem prop）
+<Button
+  color="gray"
+  renderItem={({ className, children }) => (
+    <a className={className} href="/settings">{children}</a>
+  )}
+>
+  設定へ
+</Button>
 ```
 
-### IconButton / IconLink
+### IconButton
 
 `bg` prop でスタイルを制御（`variant` ではない）。
 
 ```tsx
-import { IconButton, IconLink } from '@k8o/arte-odyssey';
+import { IconButton } from '@k8o/arte-odyssey';
 
 <IconButton bg="transparent" label="コピー"><CopyIcon /></IconButton>
 <IconButton bg="primary" label="送信"><SendIcon /></IconButton>
-<IconLink href="/home" bg="base" label="ホーム"><HomeIcon /></IconLink>
+
+// リンクとしてレンダーする（renderItem prop）
+<IconButton
+  bg="base"
+  label="ホーム"
+  renderItem={({ className, children, 'aria-label': ariaLabel, triggerProps }) => (
+    <a aria-label={ariaLabel} className={className} href="/home" {...triggerProps}>
+      {children}
+    </a>
+  )}
+>
+  <HomeIcon />
+</IconButton>
 ```
 
 ### Card / InteractiveCard

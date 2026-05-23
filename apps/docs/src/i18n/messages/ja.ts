@@ -310,6 +310,8 @@ export const ja = {
   'hooks.useHover.description': '要素のホバー状態を検出するフックです。',
   'hooks.useControllableState.description':
     'controlled/uncontrolledコンポーネントの状態を管理するフックです。',
+  'hooks.useWritingMode.description':
+    '要素のwriting-modeを監視し、horizontalかverticalを返すフックです。',
   'helpers.description': 'ArteOdysseyが提供するヘルパー関数の一覧です。',
   'helpers.categoryStyling': 'スタイリング',
   'helpers.categoryReact': 'React',

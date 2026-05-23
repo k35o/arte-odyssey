@@ -79,6 +79,7 @@ import { UseStepPage } from './pages/hooks/use-step-page';
 import { UseTimeoutPage } from './pages/hooks/use-timeout-page';
 import { UseWindowResizePage } from './pages/hooks/use-window-resize-page';
 import { UseWindowSizePage } from './pages/hooks/use-window-size-page';
+import { UseWritingModePage } from './pages/hooks/use-writing-mode-page';
 import { RootRedirect } from './pages/root-redirect';
 import { Theming } from './pages/theming';
 import { Router } from './router';
@@ -375,6 +376,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/hooks/use-window-size',
         component: <UseWindowSizePage />,
+      }),
+      route({
+        path: '/hooks/use-writing-mode',
+        component: <UseWritingModePage />,
       }),
       route({
         path: '/helpers',

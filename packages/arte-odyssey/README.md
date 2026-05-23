@@ -76,61 +76,71 @@ ArteOdyssey includes design system documentation in `docs/` directory. When inst
 
 ## Component Categories
 
-### Layout & Navigation
+### Buttons
 
-- **Accordion** - Collapsible content panels
+- **Button** - Primary action button (use `renderItem` to render as a link)
+- **IconButton** - Button with icon only (use `renderItem` to render as a link)
+
+### Navigation
+
+- **Anchor** - Text link with external-link awareness
 - **Breadcrumb** - Navigation path indicator
-- **Card** / **InteractiveCard** - Flexible content container (with hover interaction)
-- **Separator** - Visual content divider
+- **Pagination** - Page navigation controls
 - **Tabs** - Tab-based content organization
-- **ScrollLinked** - Scroll progress indicator
 
 ### Form Controls
 
 - **Autocomplete** - Search with suggestions
-- **Checkbox** - Binary selection input
+- **Checkbox** / **CheckboxCard** / **CheckboxGroup** - Multi-selection inputs
 - **FileField** - File upload with composite pattern
-- **FormControl** - Form field wrapper with label and validation
+- **Form** / **FormControl** - Form wrapper and field with label/validation
 - **NumberField** - Numeric input with controls
-- **Radio** - Single selection from options
-- **Slider** - Slider input control
+- **PasswordInput** - Password input with show/hide toggle
+- **Radio** / **RadioCard** - Single-selection inputs
 - **Select** - Dropdown selection
+- **Slider** - Slider input control
+- **Switch** - Toggle switch
 - **TextField** - Single-line text input
 - **Textarea** - Multi-line text input
 
-### Buttons & Links
+### Data Display
 
-- **Button** - Primary action button
-- **IconButton** - Button with icon only
-- **LinkButton** - Button styled as link
-- **Anchor** - External link component
-- **IconLink** - Link with icon
+- **Accordion** - Collapsible content panels
+- **Avatar** - User/entity avatar
+- **Badge** - Status/label indicator
+- **BaselineStatus** - Web standard support indicator
+- **Card** / **InteractiveCard** - Flexible content container (with hover interaction)
+- **Code** - Formatted code display
+- **Heading** - Typography heading component
+- **Table** - Tabular data display
 
-### Feedback & Status
+### Feedback
 
 - **Alert** - Important messages and notifications
-- **Toast** - Temporary notification messages
 - **Progress** - Progress indication
-- **BaselineStatus** - Web standard support indicator
+- **Skeleton** - Content loading placeholder
+- **Spinner** - Loading indicator
+- **ToastProvider** / **useToast** - Temporary notification messages
 
-### Overlays & Modals
+### Overlays
 
 - **Dialog** - Modal dialog boxes
 - **Drawer** - Slide-out panel
+- **DropdownMenu** - Action menu component
+- **ListBox** - Selectable list component
 - **Modal** - Overlay modal component
 - **Popover** - Floating content container
 - **Tooltip** - Contextual help text
-- **DropdownMenu** - Action menu component
 
-### Data Display
+### Layout
 
-- **Code** - Formatted code display
-- **Heading** - Typography heading component
-- **ListBox** - Selectable list component
+- **ScrollLinked** - Scroll progress indicator
+- **Separator** - Visual content divider
 
 ### Utilities
 
-- **ArteOdysseyProvider** - Context providers for the library
+- **ArteOdysseyProvider** - Root provider for the library
+- **PortalRootProvider** / **usePortalRoot** - Customize the portal mount root
 - **Icons** - Icon component collection
 
 ## Usage Examples
@@ -224,18 +234,27 @@ import { useLocalStorage } from '@k8o/arte-odyssey';
 
 The library includes several useful hooks:
 
+- **useBreakpoint** - Tailwind breakpoint matcher
 - **useClickAway** - Detect clicks outside an element
 - **useClient** - Client-side rendering detection
 - **useClipboard** - Clipboard operations
+- **useControllableState** - Controlled/uncontrolled state pattern
+- **useDebouncedTransition** - Rate-limited transition with `AbortSignal`
+- **useDeferredDebounce** - `useDeferredValue` with pending flag
+- **useDisclosure** - Open/close/toggle disclosure state
 - **useHash** - URL hash management
+- **useHover** - Element hover detection
+- **useIntersectionObserver** / **useInView** - Element visibility
 - **useInterval** - Interval timer management
-- **useLocalStorage** - Local storage with React state
-- **useResize** - Element resize detection
+- **useLocalStorage** / **useSessionStorage** - Web Storage with React state
+- **useResize** - Element resize detection (ResizeObserver)
 - **useScrollDirection** - Scroll direction detection
+- **useScrollLock** - Body/element scroll lock
 - **useStep** - Step-based state management
 - **useTimeout** - Timeout management
 - **useWindowResize** - Window resize events
 - **useWindowSize** - Window size tracking
+- **useWritingMode** - Detect horizontal/vertical `writing-mode`
 
 ## Accessibility
 

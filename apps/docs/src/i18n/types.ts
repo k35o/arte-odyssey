@@ -251,6 +251,7 @@ export const MESSAGE_KEYS = [
   'hooks.useScrollLock.bodyNotScrollableNote',
   'hooks.useHover.description',
   'hooks.useControllableState.description',
+  'hooks.useWritingMode.description',
   'helpers.description',
   'helpers.categoryStyling',
   'helpers.categoryReact',
