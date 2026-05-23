@@ -15,8 +15,8 @@ const parameters: PropItem[] = [
 
 const returnValue: PropItem[] = [
   {
-    name: "'horizontal' | 'vertical'",
-    types: ['WritingMode'],
+    name: 'writingMode',
+    types: ["'horizontal'", "'vertical'"],
     defaultValue: null,
   },
 ];
