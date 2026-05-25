@@ -64,12 +64,12 @@
     "@floating-ui/react": "0.27.19",
     "baseline-status": "1.1.1",
     "clsx": "2.1.1",
-    "lucide-react": "1.14.0",
-    "motion": "12.38.0",
-    "tailwind-merge": "3.5.0"
+    "lucide-react": "1.16.0",
+    "motion": "12.39.0",
+    "tailwind-merge": "3.6.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "5.1.2",
+    "@chromatic-com/storybook": "5.2.1",
     "@storybook/addon-a11y": "10.4.0",
     "@storybook/addon-docs": "10.4.0",
     "@storybook/addon-mcp": "0.6.0",
