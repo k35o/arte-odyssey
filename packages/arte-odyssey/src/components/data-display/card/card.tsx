@@ -13,7 +13,11 @@ export const Card: FC<CardProps> = ({
     {...rest}
     className={cn(
       'rounded-xl',
-      appearance === 'shadow' && 'shadow-sm',
+      // dark mode では shadow-sm がほぼ視認できないため、subtle な border で
+      // カード境界を補強する。light 時のレイアウト維持のため transparent な
+      // border を常時出しておく。
+      appearance === 'shadow' &&
+        'shadow-sm border border-transparent dark:border-border-subtle',
       appearance === 'bordered' && 'border border-border-mute',
       width === 'full' && 'w-full',
       width === 'fit' && 'w-fit',

@@ -249,6 +249,9 @@ export const BACK_DROP = 'rgb(0, 0, 0, 0.5)';
 
 // ---------------------------------------------------------------------------
 // Semantic tokens (light / dark)
+//
+// dark モードは「Dim 寄り」に調整: 純黒 (gray-950) ではなく gray-900 を bg-surface
+// として使い、長時間UIを見たときに目に優しい。
 // ---------------------------------------------------------------------------
 
 export type SemanticToken = {
@@ -269,9 +272,11 @@ export const FG_TOKENS: readonly SemanticToken[] = [
 ];
 
 export const BG_TOKENS: readonly SemanticToken[] = [
-  { name: 'bg-base', light: 'white', dark: 'gray-900' },
-  { name: 'bg-raised', light: 'white', dark: 'gray-800' },
-  { name: 'bg-surface', light: 'gray-50', dark: 'gray-950' },
+  // dark は Dim 寄りに調整。L差は5%程度に抑えつつ、Card 側で dark:border を
+  // 追加することで card 定義を確保する (GitHub/Twitter Dim 方式)。
+  { name: 'bg-base', light: 'white', dark: 'gray-800' },
+  { name: 'bg-raised', light: 'white', dark: 'gray-700' },
+  { name: 'bg-surface', light: 'gray-50', dark: 'gray-900' },
   { name: 'bg-subtle', light: 'gray-100', dark: 'gray-800' },
   { name: 'bg-mute', light: 'gray-200', dark: 'gray-700' },
   { name: 'bg-emphasize', light: 'gray-300', dark: 'gray-600' },
