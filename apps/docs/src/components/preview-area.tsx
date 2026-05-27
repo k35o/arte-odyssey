@@ -15,7 +15,7 @@ export const PreviewArea: FC<Props> = ({ children }) => {
   const locale = useLocale();
   const isVertical = locale === 'ja' && writingMode === 'vertical';
   return (
-    <div className="border-border-mute bg-bg-base relative border-b">
+    <div className="border-border-subtle bg-bg-surface relative border-b">
       {locale === 'ja' && (
         <div className="absolute top-2 right-2 z-10">
           <WritingModeSwitcher />
