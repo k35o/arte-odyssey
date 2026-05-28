@@ -4,7 +4,7 @@ const extractFunctionContent = (
   source: string,
   funcName: string,
 ): ColorMatch[] => {
-  const funcPattern = new RegExp(`${funcName}\\s*\\(`, 'gi');
+  const funcPattern = new RegExp(`${funcName}\\s*\\(`, 'giu');
   const matches: ColorMatch[] = [];
   let match = funcPattern.exec(source);
 
@@ -58,7 +58,7 @@ export function findAllColors(text: string): ColorMatch[] {
   }
 
   // HEX色を見つける
-  const hexPattern = /#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})(?=\s|;|,|$|\)|]|})/g;
+  const hexPattern = /#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})(?=\s|;|,|$|\)|\]|\})/gu;
   let hexMatch = hexPattern.exec(text);
   while (hexMatch !== null) {
     results.push({
@@ -111,7 +111,7 @@ export function findAllColors(text: string): ColorMatch[] {
 
       // 前後が英数字でないことを確認（完全一致のみ）
       const isWordBoundary = !(
-        /[a-zA-Z0-9]/.test(beforeChar) || /[a-zA-Z0-9]/.test(afterChar)
+        /[a-zA-Z0-9]/u.test(beforeChar) || /[a-zA-Z0-9]/u.test(afterChar)
       );
 
       if (isWordBoundary) {

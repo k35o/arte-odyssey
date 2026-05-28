@@ -232,8 +232,8 @@ ${renderDark()}
 
 ${renderTheme()}`;
 
-const __dirname = import.meta.dirname;
-const stylesDir = resolve(__dirname, '../src/styles');
+const scriptDir = import.meta.dirname;
+const stylesDir = resolve(scriptDir, '../src/styles');
 
 const base = readFileSync(resolve(stylesDir, 'base.css'), 'utf8').trimEnd();
 const utilities = readFileSync(
