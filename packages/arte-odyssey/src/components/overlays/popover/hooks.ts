@@ -107,8 +107,8 @@ export const usePopoverContent = () => {
       case 'listbox':
         return { id, ref, role: 'listbox' };
       default: {
-        const _exhaustive: never = popover.type;
-        return _exhaustive;
+        const exhaustive: never = popover.type;
+        return exhaustive;
       }
     }
   }, [popover.rootId, popover.type, ref]);
@@ -212,8 +212,8 @@ export const usePopoverTrigger = (): PopoverTriggerProps => {
           ref: popover.setTriggerRef,
         };
       default: {
-        const _exhaustive: never = popover.type;
-        return _exhaustive;
+        const exhaustive: never = popover.type;
+        return exhaustive;
       }
     }
   }, [popover]);
