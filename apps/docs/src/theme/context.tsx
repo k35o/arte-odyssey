@@ -37,6 +37,8 @@ const getServerSystemTheme = (): Theme => 'light';
 
 const applyTheme = (theme: Theme) => {
   const root = document.documentElement;
+  // 過去に保存されていた `sepia` クラスが残っていれば確実に外す
+  root.classList.remove('sepia');
   if (theme === 'dark') {
     root.classList.add('dark');
   } else {
@@ -44,8 +46,14 @@ const applyTheme = (theme: Theme) => {
   }
 };
 
+// localStorage に過去の `sepia` などの未知の値が残っていても安全に扱う
+const normalize = (value: string | null): Theme | null => {
+  if (value === 'light' || value === 'dark') return value;
+  return null;
+};
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [storedTheme, setStoredTheme] = useLocalStorage<Theme | null>(
+  const [storedRaw, setStoredTheme] = useLocalStorage<string | null>(
     STORAGE_KEY,
     null,
   );
@@ -54,6 +62,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     getSystemTheme,
     getServerSystemTheme,
   );
+  const storedTheme = normalize(storedRaw);
   const theme: Theme = storedTheme ?? systemTheme;
 
   useEffect(() => {

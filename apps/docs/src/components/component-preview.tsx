@@ -14,7 +14,7 @@ export const ComponentPreview: FC<Props> = ({
   code,
   lang = 'tsx',
 }) => (
-  <div className="flex flex-col overflow-hidden rounded-xl shadow-sm">
+  <div className="dark:border-border-subtle flex flex-col overflow-hidden rounded-xl border border-transparent shadow-sm">
     <PreviewArea>{children}</PreviewArea>
     <CodeBlock code={code} lang={lang} rounded="bottom" />
   </div>

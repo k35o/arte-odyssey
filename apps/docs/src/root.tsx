@@ -17,7 +17,8 @@ export default function Root({ children }: { children: ReactNode }) {
           {`const raw = localStorage.getItem('arte-odyssey-theme');
 let t = null;
 try { t = raw ? JSON.parse(raw) : null; } catch { t = raw; }
-if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme:dark)').matches)) {
+// 旧 sepia 値は廃止されたため light として扱う
+if (t === 'dark' || ((t !== 'light') && matchMedia('(prefers-color-scheme:dark)').matches)) {
   document.documentElement.classList.add('dark');
 }`}
         </script>
