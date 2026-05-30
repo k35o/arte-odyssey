@@ -243,7 +243,14 @@ pnpm add @json-render/core @json-render/react zod
 pnpm add @openuidev/react-lang zod
 ```
 
-Supported components (both frameworks): `Stack`, `Card`, `Button`, `Badge`, `Heading`, `Alert`, `Spinner`, `Separator`, `Tabs`, `TextField`, `Checkbox`, `Switch`, `Select`.
+Supported components (31, both frameworks):
+
+- **Layout / containers**: `Stack`, `Card`
+- **Buttons / nav**: `Button`, `IconButton`, `Anchor`, `Breadcrumb`, `Pagination`
+- **Display**: `Badge`, `Heading`, `Avatar`, `Code`, `Icon`, `Alert`, `Spinner`, `Progress`, `Skeleton`, `Separator`, `Tabs`, `Accordion`, `Table`
+- **Form**: `TextField`, `Textarea`, `PasswordInput`, `NumberField`, `Slider`, `Checkbox`, `Switch`, `Select`, `Radio`, `RadioCard`, `CheckboxCard`
+
+Components whose model is inherently imperative or stateful beyond declarative description are intentionally not exposed: overlays (`Dialog`, `Drawer`, `Modal`, `Popover`, `Tooltip`, `DropdownMenu`, `ListBox`), `Toast`, providers, `ScrollLinked`, `Autocomplete`, `FileField`, `Form`/`FormControl`, `CheckboxGroup`, and `BaselineStatus`. Use them imperatively in your own React tree alongside the generated UI.
 
 ### json-render (RSC-ready)
 
