@@ -36,7 +36,10 @@ export const CatalogCard: FC<{ item: NavItem; preview?: ReactNode }> = ({
         >
           {item.name}
         </LocaleAnchor>
-        <span className="text-fg-subtle group-hover:text-primary-fg -translate-x-1 opacity-0 transition duration-150 ease-out group-hover:translate-x-0 group-hover:opacity-100">
+        <span
+          aria-hidden
+          className="text-fg-subtle group-hover:text-primary-fg -translate-x-1 opacity-0 transition duration-150 ease-out group-hover:translate-x-0 group-hover:opacity-100"
+        >
           <ChevronIcon direction="right" size="sm" />
         </span>
       </div>
