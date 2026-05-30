@@ -32,7 +32,7 @@ const Separator: FC = () => (
   </li>
 );
 
-const _Link = <T extends string>({
+const Link = <T extends string>({
   href,
   current = false,
   children,
@@ -42,16 +42,16 @@ const _Link = <T extends string>({
   current?: boolean;
   component?: FC<{ href: T; className: string }>;
 }>) => {
-  const Link = component ?? 'a';
+  const Component = component ?? 'a';
   return current ? (
     <span className="text-fg-base">{children}</span>
   ) : (
-    <Link
+    <Component
       className="hover:text-fg-base focus-visible:ring-border-info underline transition-colors focus-visible:rounded-sm focus-visible:ring-2 focus-visible:outline-none"
       href={href}
     >
       {children}
-    </Link>
+    </Component>
   );
 };
 
@@ -59,5 +59,5 @@ export const Breadcrumb = {
   List,
   Item,
   Separator,
-  Link: _Link,
+  Link,
 } as const;

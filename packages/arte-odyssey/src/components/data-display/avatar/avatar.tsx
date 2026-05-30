@@ -23,7 +23,7 @@ const getInitials = (name?: string) => {
 
   const initials = name
     .trim()
-    .split(/\s+/)
+    .split(/\s+/u)
     .slice(0, 2)
     .map((part) => part.charAt(0).toUpperCase())
     .join('');

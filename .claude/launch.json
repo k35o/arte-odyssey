@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "docs", "dev"],
+      "port": 5173
+    },
+    {
+      "name": "example-vite",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "example-vite", "dev", "--port", "5174"],
+      "port": 5174
+    },
+    {
+      "name": "example-nextjs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "example-nextjs", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "storybook",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@k8o/arte-odyssey", "storybook"],
+      "port": 6006
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { toPrecision } from '../../../internal/to-precision';
 
-const FLOATING_POINT_REGEX = /^[Ee0-9+\-.]$/;
+const FLOATING_POINT_REGEX = /^[Ee0-9+\-.]$/u;
 
 const isInvalidCharacter = (value: string): boolean =>
   FLOATING_POINT_REGEX.test(value);
@@ -12,7 +12,7 @@ const sanitize = (value: string): string =>
     .join('');
 
 const parse = (value: string | number): number =>
-  Number.parseFloat(value.toString().replaceAll(/[^\w.-]+/g, ''));
+  Number.parseFloat(value.toString().replaceAll(/[^\w.-]+/gu, ''));
 
 const countDecimalPlaces = (value: number): number => {
   if (!Number.isFinite(value)) return 0;
