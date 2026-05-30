@@ -15,7 +15,9 @@ export const PreviewArea: FC<Props> = ({ children }) => {
   const locale = useLocale();
   const isVertical = locale === 'ja' && writingMode === 'vertical';
   return (
-    <div className="border-border-subtle bg-bg-surface relative border-b">
+    // bg-preview-bg matches the Shiki code block so the preview and code read
+    // as one panel (see --preview-bg in styles/globals.css).
+    <div className="border-border-subtle bg-preview-bg relative border-b">
       {locale === 'ja' && (
         <div className="absolute top-2 right-2 z-10">
           <WritingModeSwitcher />
