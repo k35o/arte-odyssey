@@ -40,6 +40,24 @@
         "default": "./dist/styles/tokens.mjs"
       }
     },
+    "./json-render": {
+      "import": {
+        "types": "./dist/integrations/json-render/catalog.d.mts",
+        "default": "./dist/integrations/json-render/catalog.mjs"
+      }
+    },
+    "./json-render/registry": {
+      "import": {
+        "types": "./dist/integrations/json-render/registry.d.mts",
+        "default": "./dist/integrations/json-render/registry.mjs"
+      }
+    },
+    "./openui": {
+      "import": {
+        "types": "./dist/integrations/openui.d.mts",
+        "default": "./dist/integrations/openui.mjs"
+      }
+    },
     "./styles.css": "./dist/styles/index.css"
   },
   "publishConfig": {
@@ -70,6 +88,9 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "5.2.1",
+    "@json-render/core": "0.19.0",
+    "@json-render/react": "0.19.0",
+    "@openuidev/react-lang": "0.2.6",
     "@storybook/addon-a11y": "10.4.0",
     "@storybook/addon-docs": "10.4.0",
     "@storybook/addon-mcp": "0.6.0",
@@ -92,14 +113,33 @@
     "vite": "catalog:",
     "vite-plus": "catalog:",
     "vitest": "catalog:",
-    "vitest-browser-react": "2.2.0"
+    "vitest-browser-react": "2.2.0",
+    "zod": "4.4.3"
   },
   "peerDependencies": {
+    "@json-render/core": ">=0.19.0",
+    "@json-render/react": ">=0.19.0",
+    "@openuidev/react-lang": ">=0.2.6",
     "@types/react": ">=19.0.0",
     "@types/react-dom": ">=19.0.0",
     "react": ">=19.0.0",
     "react-dom": ">=19.0.0",
     "tailwindcss": ">=4.0.0",
-    "typescript": ">=5.9.0"
+    "typescript": ">=5.9.0",
+    "zod": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@json-render/core": {
+      "optional": true
+    },
+    "@json-render/react": {
+      "optional": true
+    },
+    "@openuidev/react-lang": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
   }
 }
