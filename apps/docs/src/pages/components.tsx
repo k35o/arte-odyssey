@@ -1,23 +1,12 @@
 'use client';
 
-import { Heading, InteractiveCard, Separator } from '@k8o/arte-odyssey';
-import type { FC } from 'react';
+import { Heading, Separator } from '@k8o/arte-odyssey';
 
-import { LocaleAnchor } from '../components/locale-anchor';
+import { CatalogCard } from '../components/catalog-card';
+import { componentPreviews } from '../components/component-previews';
 import { T } from '../components/t';
 import { componentCategories } from '../data/components-nav';
-import type { NavItem } from '../data/nav-types';
 import { useTranslation } from '../i18n';
-
-const ComponentCard: FC<{ item: NavItem }> = ({ item }) => (
-  <LocaleAnchor path={item.path} unstyled>
-    <InteractiveCard appearance="shadow">
-      <div className="px-4 py-3">
-        <span className="text-fg-base text-sm font-medium">{item.name}</span>
-      </div>
-    </InteractiveCard>
-  </LocaleAnchor>
-);
 
 export function Components() {
   const { t } = useTranslation();
@@ -36,9 +25,13 @@ export function Components() {
           <Heading type="h2">
             <T k={category.titleKey} />
           </Heading>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+          <div className="grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {category.items.map((item) => (
-              <ComponentCard item={item} key={item.name} />
+              <CatalogCard
+                item={item}
+                key={item.name}
+                preview={componentPreviews[item.name]}
+              />
             ))}
           </div>
         </section>
