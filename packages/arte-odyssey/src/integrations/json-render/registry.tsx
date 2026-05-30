@@ -74,5 +74,99 @@ export const { registry } = defineRegistry(catalog, {
       const setValue = hasBinding ? setBound : setLocal;
       return ui.renderSelect(props, value, setValue);
     },
+
+    // 表示・データ駆動（状態なし）
+    Anchor: ({ props }) => ui.renderAnchor(props),
+    Avatar: ({ props }) => ui.renderAvatar(props),
+    Code: ({ props }) => ui.renderCode(props),
+    Progress: ({ props }) => ui.renderProgress(props),
+    Skeleton: ({ props }) => ui.renderSkeleton(props),
+    Icon: ({ props }) => ui.renderIcon(props),
+    IconButton: ({ props }) => ui.renderIconButton(props),
+    Accordion: ({ props }) => ui.renderAccordion(props),
+    Breadcrumb: ({ props }) => ui.renderBreadcrumb(props),
+    Table: ({ props }) => ui.renderTable(props),
+
+    // フォーム（文字列）
+    Textarea: ({ props, bindings }) => {
+      const path = bindings?.defaultValue;
+      const hasBinding = path !== undefined && path !== '';
+      const [bound, setBound] = useBoundProp<string>(props.defaultValue, path);
+      const [local, setLocal] = useState(props.defaultValue ?? '');
+      const value = hasBinding ? (bound ?? '') : local;
+      const setValue = hasBinding ? setBound : setLocal;
+      return ui.renderTextarea(props, value, setValue);
+    },
+    PasswordInput: ({ props, bindings }) => {
+      const path = bindings?.defaultValue;
+      const hasBinding = path !== undefined && path !== '';
+      const [bound, setBound] = useBoundProp<string>(props.defaultValue, path);
+      const [local, setLocal] = useState(props.defaultValue ?? '');
+      const value = hasBinding ? (bound ?? '') : local;
+      const setValue = hasBinding ? setBound : setLocal;
+      return ui.renderPasswordInput(props, value, setValue);
+    },
+    Radio: ({ props, bindings }) => {
+      const path = bindings?.defaultValue;
+      const hasBinding = path !== undefined && path !== '';
+      const [bound, setBound] = useBoundProp<string>(props.defaultValue, path);
+      const [local, setLocal] = useState(
+        props.defaultValue ?? props.options[0]?.value ?? '',
+      );
+      const value = hasBinding ? (bound ?? '') : local;
+      const setValue = hasBinding ? setBound : setLocal;
+      return ui.renderRadio(props, value, setValue);
+    },
+    RadioCard: ({ props, bindings }) => {
+      const path = bindings?.defaultValue;
+      const hasBinding = path !== undefined && path !== '';
+      const [bound, setBound] = useBoundProp<string>(props.defaultValue, path);
+      const [local, setLocal] = useState(
+        props.defaultValue ?? props.options[0]?.value ?? '',
+      );
+      const value = hasBinding ? (bound ?? '') : local;
+      const setValue = hasBinding ? setBound : setLocal;
+      return ui.renderRadioCard(props, value, setValue);
+    },
+
+    // フォーム（数値）
+    NumberField: ({ props, bindings }) => {
+      const path = bindings?.defaultValue;
+      const hasBinding = path !== undefined && path !== '';
+      const [bound, setBound] = useBoundProp<number>(props.defaultValue, path);
+      const [local, setLocal] = useState(props.defaultValue ?? 0);
+      const value = hasBinding ? (bound ?? 0) : local;
+      const setValue = hasBinding ? setBound : setLocal;
+      return ui.renderNumberField(props, value, setValue);
+    },
+    Slider: ({ props, bindings }) => {
+      const path = bindings?.defaultValue;
+      const hasBinding = path !== undefined && path !== '';
+      const [bound, setBound] = useBoundProp<number>(props.defaultValue, path);
+      const [local, setLocal] = useState(props.defaultValue ?? props.min ?? 0);
+      const value = hasBinding ? (bound ?? 0) : local;
+      const setValue = hasBinding ? setBound : setLocal;
+      return ui.renderSlider(props, value, setValue);
+    },
+
+    // フォーム（複数選択）
+    CheckboxCard: ({ props, bindings }) => {
+      const path = bindings?.defaultValue;
+      const hasBinding = path !== undefined && path !== '';
+      const [bound, setBound] = useBoundProp<string[]>(
+        props.defaultValue,
+        path,
+      );
+      const [local, setLocal] = useState(props.defaultValue ?? []);
+      const value = hasBinding ? (bound ?? []) : local;
+      const setValue = hasBinding ? setBound : setLocal;
+      return ui.renderCheckboxCard(props, value, setValue);
+    },
+
+    // ページネーション（ローカル状態）
+    Pagination: ({ props }) => {
+      const [page, setPage] = useState(1);
+      return ui.renderPagination(props, page, setPage);
+    },
   },
 });

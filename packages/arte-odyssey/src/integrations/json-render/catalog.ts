@@ -60,6 +60,70 @@ export const catalog = defineCatalog(schema, {
       props: s.tabsProps,
       description: 'タブ。各タブは label とテキスト content を持つ。',
     },
+    Accordion: {
+      props: s.accordionProps,
+      description:
+        '開閉できるアコーディオン。各項目は title とテキスト content。',
+    },
+    Breadcrumb: {
+      props: s.breadcrumbProps,
+      description: 'パンくずリスト。',
+    },
+    Table: {
+      props: s.tableProps,
+      description: 'テーブル。columns（見出し）と rows（行ごとのセル文字列）。',
+    },
+    Anchor: { props: s.anchorProps, description: 'テキストリンク。' },
+    Avatar: {
+      props: s.avatarProps,
+      description: 'アバター（画像 or イニシャル）。',
+    },
+    Code: { props: s.codeProps, description: 'インラインのコード/値表示。' },
+    Progress: { props: s.progressProps, description: '進捗バー。' },
+    Skeleton: {
+      props: s.skeletonProps,
+      description: 'ローディングのプレースホルダ。',
+    },
+    Icon: { props: s.iconProps, description: 'アイコン（name で指定）。' },
+    IconButton: {
+      props: s.iconButtonProps,
+      description: 'アイコンのみのボタン（label は必須・ツールチップ）。',
+    },
+    Textarea: {
+      props: s.textareaProps,
+      description:
+        '複数行テキスト入力。defaultValue を $bindState で束縛できる。',
+    },
+    PasswordInput: {
+      props: s.passwordInputProps,
+      description: 'パスワード入力。defaultValue を $bindState で束縛できる。',
+    },
+    NumberField: {
+      props: s.numberFieldProps,
+      description: '数値入力。defaultValue を $bindState で束縛できる。',
+    },
+    Slider: {
+      props: s.sliderProps,
+      description: 'スライダー。defaultValue を $bindState で束縛できる。',
+    },
+    Radio: {
+      props: s.radioProps,
+      description: '単一選択ラジオ。defaultValue を $bindState で束縛できる。',
+    },
+    RadioCard: {
+      props: s.radioCardProps,
+      description:
+        'カード型の単一選択。defaultValue を $bindState で束縛できる。',
+    },
+    CheckboxCard: {
+      props: s.checkboxCardProps,
+      description:
+        'カード型の複数選択。defaultValue を $bindState で束縛できる。',
+    },
+    Pagination: {
+      props: s.paginationProps,
+      description: 'ページネーション。現在ページを $bindState で束縛できる。',
+    },
   },
   actions: {},
 });
