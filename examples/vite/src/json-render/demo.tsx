@@ -22,7 +22,114 @@ const spec = {
         'sep',
         'form',
         'card',
+        'showcase',
       ],
+    },
+    showcase: {
+      type: 'Card',
+      props: { appearance: 'bordered' },
+      children: ['showcaseInner'],
+    },
+    showcaseInner: {
+      type: 'Stack',
+      props: { direction: 'column', gap: 'md' },
+      children: [
+        'crumbs',
+        'meta',
+        'prog',
+        'table',
+        'accordion',
+        'radio',
+        'slider',
+        'qty',
+        'pager',
+      ],
+    },
+    crumbs: {
+      type: 'Breadcrumb',
+      props: {
+        items: [
+          { label: 'Home', href: '/' },
+          { label: 'Settings', href: '/settings' },
+          { label: 'Profile', current: true },
+        ],
+      },
+      children: [],
+    },
+    meta: {
+      type: 'Stack',
+      props: { direction: 'row', gap: 'sm', align: 'center' },
+      children: ['ava', 'spark', 'docLink'],
+    },
+    ava: { type: 'Avatar', props: { name: 'Koki Sakano' }, children: [] },
+    spark: { type: 'Icon', props: { name: 'sparkles' }, children: [] },
+    docLink: {
+      type: 'Anchor',
+      props: {
+        text: 'ドキュメント',
+        href: 'https://example.com',
+        openInNewTab: true,
+      },
+      children: [],
+    },
+    prog: {
+      type: 'Progress',
+      props: { progress: 70, maxProgress: 100, label: '完了度' },
+      children: [],
+    },
+    table: {
+      type: 'Table',
+      props: {
+        caption: 'プラン比較',
+        columns: [{ label: 'プラン' }, { label: '料金', align: 'right' }],
+        rows: [
+          ['Free', '¥0'],
+          ['Pro', '¥1,000'],
+        ],
+      },
+      children: [],
+    },
+    accordion: {
+      type: 'Accordion',
+      props: {
+        items: [
+          {
+            title: 'よくある質問1',
+            content: '回答テキスト1。',
+            defaultOpen: true,
+          },
+          { title: 'よくある質問2', content: '回答テキスト2。' },
+        ],
+      },
+      children: [],
+    },
+    radio: {
+      type: 'Radio',
+      props: {
+        name: 'theme',
+        label: 'テーマ',
+        options: [
+          { value: 'light', label: 'ライト' },
+          { value: 'dark', label: 'ダーク' },
+        ],
+        defaultValue: 'dark',
+      },
+      children: [],
+    },
+    slider: {
+      type: 'Slider',
+      props: { name: 'volume', defaultValue: 40, min: 0, max: 100 },
+      children: [],
+    },
+    qty: {
+      type: 'NumberField',
+      props: { name: 'qty', defaultValue: 3, min: 0, max: 10 },
+      children: [],
+    },
+    pager: {
+      type: 'Pagination',
+      props: { name: 'page', totalPages: 5 },
+      children: [],
     },
     card: {
       type: 'Card',
