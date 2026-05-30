@@ -41,7 +41,7 @@ function useSideNavConfig(): SideNavConfig | null {
   const { pathname } = location;
 
   // /ja/components/button → match, /ja/components → no match
-  if (/^\/[^/]+\/components\/.+/.test(pathname)) {
+  if (/^\/[^/]+\/components\/.+/u.test(pathname)) {
     return {
       categories: componentCategories,
       titleKey: 'nav.components',
@@ -50,7 +50,7 @@ function useSideNavConfig(): SideNavConfig | null {
   }
 
   // /ja/hooks/use-click-away → match, /ja/hooks → no match
-  if (/^\/[^/]+\/hooks\/.+/.test(pathname)) {
+  if (/^\/[^/]+\/hooks\/.+/u.test(pathname)) {
     return {
       categories: hookCategories,
       titleKey: 'nav.hooks',
@@ -59,7 +59,7 @@ function useSideNavConfig(): SideNavConfig | null {
   }
 
   // /ja/helpers/cn → match, /ja/helpers → no match
-  if (/^\/[^/]+\/helpers\/.+/.test(pathname)) {
+  if (/^\/[^/]+\/helpers\/.+/u.test(pathname)) {
     return {
       categories: helperCategories,
       titleKey: 'nav.helpers',
