@@ -230,6 +230,72 @@ import { useClickAway } from '@k8o/arte-odyssey';
 import { useLocalStorage } from '@k8o/arte-odyssey';
 ```
 
+## Generative UI integrations
+
+ArteOdyssey ships official adapters so an LLM can generate UIs using these components, via either [json-render](https://json-render.dev) or [OpenUI](https://www.openui.com). Each adapter constrains the model to ArteOdyssey components with prop schemas locked to the design tokens, so generated UIs stay on-brand. Component-specific `renderItem` render props are bridged internally — the model only ever sees flat data (e.g. `href`).
+
+These integrations are exposed as optional subpath exports. Install the framework you use (they are optional peer dependencies):
+
+```bash
+# json-render
+pnpm add @json-render/core @json-render/react zod
+# OpenUI
+pnpm add @openuidev/react-lang zod
+```
+
+Supported components (both frameworks): `Stack`, `Card`, `Button`, `Badge`, `Heading`, `Alert`, `Spinner`, `Separator`, `Tabs`, `TextField`, `Checkbox`, `Switch`, `Select`.
+
+### json-render (RSC-ready)
+
+The catalog (schemas / prompt) and the registry (rendering) are split so the catalog is **server-safe** — you can generate the system prompt in a React Server Component, and render on the client.
+
+```tsx
+// Server Component: prompt generation
+import { catalog } from '@k8o/arte-odyssey/json-render';
+
+const systemPrompt = catalog.prompt(); // safe on the server
+```
+
+```tsx
+// Client Component: rendering
+'use client';
+import { registry } from '@k8o/arte-odyssey/json-render/registry';
+import { JSONUIProvider, Renderer } from '@json-render/react';
+
+export function GenUi({ spec }: { spec: unknown }) {
+  return (
+    <JSONUIProvider registry={registry}>
+      <Renderer registry={registry} spec={spec} />
+    </JSONUIProvider>
+  );
+}
+```
+
+| Export                                   | Side           | Contents                         |
+| ---------------------------------------- | -------------- | -------------------------------- |
+| `@k8o/arte-odyssey/json-render`          | server-safe    | `catalog` (schemas + `prompt()`) |
+| `@k8o/arte-odyssey/json-render/registry` | `'use client'` | `registry` (rendering)           |
+
+### OpenUI
+
+```tsx
+'use client';
+import { library } from '@k8o/arte-odyssey/openui';
+import { Renderer } from '@openuidev/react-lang';
+
+export function GenUi({ response }: { response: string }) {
+  return <Renderer library={library} response={response} />;
+}
+```
+
+Generate the system prompt at build time with the OpenUI CLI, or call `library.prompt()` in the same client bundle.
+
+> **Notes**
+>
+> - Make sure `@k8o/arte-odyssey/styles.css` is loaded and the app is wrapped in `ArteOdysseyProvider`.
+> - `Tabs` panels are text content (`tabs: [{ label, content }]`); rich-component panels are a future enhancement.
+> - In OpenUI, `Card` can contain a `Stack`, but `Stack` cannot nest another `Stack` (the framework does not support self-referential schemas). json-render nests freely (slots-based).
+
 ## Custom Hooks
 
 The library includes several useful hooks:
