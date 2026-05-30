@@ -1,0 +1,149 @@
+import type { Spec } from '@json-render/core';
+import { JSONUIProvider, Renderer } from '@json-render/react';
+import { registry } from '@k8o/arte-odyssey/json-render/registry';
+
+/**
+ * 公式アダプタの registry（`@k8o/arte-odyssey/json-render/registry`・'use client'）を
+ * そのまま使う。プロンプト生成だけならサーバー安全な `.../json-render`（catalog）。
+ * spec（UIツリー）は実運用では LLM が生成する。ここでは手書き。
+ * Stack は slots なので入れ子（横並びグループ）が自由にできる。
+ */
+const spec = {
+  root: 'root',
+  elements: {
+    root: {
+      type: 'Stack',
+      props: { direction: 'column', gap: 'lg' },
+      children: [
+        'heading',
+        'alert',
+        'actions',
+        'badges',
+        'sep',
+        'form',
+        'card',
+      ],
+    },
+    card: {
+      type: 'Card',
+      props: { appearance: 'bordered' },
+      children: ['cardInner'],
+    },
+    cardInner: {
+      type: 'Stack',
+      props: { direction: 'column', gap: 'md' },
+      children: ['plan', 'tabs'],
+    },
+    plan: {
+      type: 'Select',
+      props: {
+        name: 'plan',
+        options: [
+          { value: 'free', label: 'Free' },
+          { value: 'pro', label: 'Pro' },
+          { value: 'team', label: 'Team' },
+        ],
+        defaultValue: 'pro',
+      },
+      children: [],
+    },
+    tabs: {
+      type: 'Tabs',
+      props: {
+        label: '詳細',
+        tabs: [
+          {
+            label: '概要',
+            content: 'json-render から Tabs を描画しています。',
+          },
+          { label: '料金', content: 'Pro プランは月額 1,000 円です。' },
+        ],
+      },
+      children: [],
+    },
+    heading: {
+      type: 'Heading',
+      props: { text: 'プロフィール設定', level: 'h3' },
+      children: [],
+    },
+    alert: {
+      type: 'Alert',
+      props: {
+        status: 'info',
+        message: 'この画面は JSON spec から描画されています',
+      },
+      children: [],
+    },
+    actions: {
+      type: 'Stack',
+      props: { direction: 'row', gap: 'sm' },
+      children: ['save', 'cancel', 'help'],
+    },
+    save: { type: 'Button', props: { label: '保存' }, children: [] },
+    cancel: {
+      type: 'Button',
+      props: { label: 'キャンセル', variant: 'outlined', color: 'secondary' },
+      children: [],
+    },
+    help: {
+      type: 'Button',
+      props: {
+        label: 'ヘルプ',
+        variant: 'outlined',
+        color: 'gray',
+        href: 'https://example.com',
+      },
+      children: [],
+    },
+    badges: {
+      type: 'Stack',
+      props: { direction: 'row', gap: 'sm' },
+      children: ['b-on', 'b-hold', 'b-err'],
+    },
+    'b-on': {
+      type: 'Badge',
+      props: { text: '有効', tone: 'success' },
+      children: [],
+    },
+    'b-hold': {
+      type: 'Badge',
+      props: { text: '保留', tone: 'warning', variant: 'outline' },
+      children: [],
+    },
+    'b-err': {
+      type: 'Badge',
+      props: { text: 'エラー', tone: 'error' },
+      children: [],
+    },
+    sep: { type: 'Separator', props: {}, children: [] },
+    form: {
+      type: 'Stack',
+      props: { direction: 'column', gap: 'md' },
+      children: ['nickname', 'agree', 'notify'],
+    },
+    nickname: {
+      type: 'TextField',
+      props: { name: 'nickname', placeholder: 'ニックネーム' },
+      children: [],
+    },
+    agree: {
+      type: 'Checkbox',
+      props: { name: 'agree', label: '規約に同意する' },
+      children: [],
+    },
+    notify: {
+      type: 'Switch',
+      props: { name: 'notify', label: '通知を受け取る', defaultChecked: true },
+      children: [],
+    },
+  },
+  // 手書きデモのためのキャスト（通常は LLM 生成 + スキーマ検証で型が付く）
+} as unknown as Spec;
+
+export function JsonRenderDemo() {
+  return (
+    <JSONUIProvider registry={registry}>
+      <Renderer registry={registry} spec={spec} />
+    </JSONUIProvider>
+  );
+}
