@@ -1,14 +1,15 @@
 /* eslint-disable import/max-dependencies -- Generative UI 統合の描画集約モジュールのため、多数のコンポーネントを束ねる */
 'use client';
 
-import { Fragment, type FC, type ReactNode } from 'react';
+import { Fragment, type FC, type ReactNode, useState } from 'react';
 
 import { Button } from '../components/buttons/button';
 import { IconButton } from '../components/buttons/icon-button';
 import { Accordion } from '../components/data-display/accordion';
 import { Avatar } from '../components/data-display/avatar';
 import { Badge } from '../components/data-display/badge';
-import { Card } from '../components/data-display/card';
+import { BaselineStatus } from '../components/data-display/baseline-status';
+import { Card, InteractiveCard } from '../components/data-display/card';
 import { Code } from '../components/data-display/code';
 import { Heading } from '../components/data-display/heading';
 import { Table } from '../components/data-display/table';
@@ -16,8 +17,14 @@ import { Alert } from '../components/feedback/alert';
 import { Progress } from '../components/feedback/progress';
 import { Skeleton } from '../components/feedback/skeleton';
 import { Spinner } from '../components/feedback/spinner';
+import { ToastProvider, useToast } from '../components/feedback/toast';
+import { Autocomplete } from '../components/form/autocomplete';
 import { Checkbox } from '../components/form/checkbox';
 import { CheckboxCard } from '../components/form/checkbox-card';
+import { CheckboxGroup } from '../components/form/checkbox-group';
+import { FileField } from '../components/form/file-field';
+import { Form } from '../components/form/form';
+import { FormControl } from '../components/form/form-control';
 import { NumberField } from '../components/form/number-field';
 import { PasswordInput } from '../components/form/password-input';
 import { Radio } from '../components/form/radio';
@@ -43,34 +50,56 @@ import {
   TableIcon,
   TagIcon,
 } from '../components/icons';
+import { ScrollLinked } from '../components/layout/scroll-linked';
 import { Separator } from '../components/layout/separator';
 import { Anchor } from '../components/navigation/anchor';
 import { Breadcrumb } from '../components/navigation/breadcrumb';
 import { Pagination } from '../components/navigation/pagination';
 import { Tabs } from '../components/navigation/tabs';
+import { Dialog } from '../components/overlays/dialog';
+import { Drawer } from '../components/overlays/drawer';
+import { DropdownMenu } from '../components/overlays/dropdown-menu';
+import { ListBox } from '../components/overlays/list-box';
+import { Modal } from '../components/overlays/modal';
+import { Popover } from '../components/overlays/popover';
+import { Tooltip } from '../components/overlays/tooltip';
 import { cn } from '../helpers/cn';
 import type {
   AccordionProps,
   AlertProps,
   AnchorProps,
+  AutocompleteProps,
   AvatarProps,
   BadgeProps,
+  BaselineStatusProps,
   BreadcrumbProps,
   ButtonProps,
   CardProps,
   CheckboxCardProps,
+  CheckboxGroupProps,
   CheckboxProps,
   CodeProps,
+  DialogProps,
+  DrawerProps,
+  DropdownMenuProps,
+  FileFieldProps,
+  FormControlProps,
+  FormProps,
   HeadingProps,
   IconButtonProps,
   IconName,
   IconProps,
+  InteractiveCardProps,
+  ListBoxProps,
+  ModalProps,
   NumberFieldProps,
   PaginationProps,
   PasswordInputProps,
+  PopoverProps,
   ProgressProps,
   RadioCardProps,
   RadioProps,
+  ScrollLinkedProps,
   SelectProps,
   SeparatorProps,
   SkeletonProps,
@@ -82,6 +111,8 @@ import type {
   TabsProps,
   TextareaProps,
   TextFieldProps,
+  ToastProps,
+  TooltipProps,
 } from './schemas';
 
 // 生成 UI で使えるアイコン（schemas.ts の iconName と対応）。
@@ -632,3 +663,349 @@ export function renderTable(props: TableProps): ReactNode {
     </Table.Root>
   );
 }
+
+// ---------------------------------------------------------------------------
+// containers (children を持つ追加分)
+// ---------------------------------------------------------------------------
+
+export function renderInteractiveCard(
+  props: InteractiveCardProps,
+  children: ReactNode,
+): ReactNode {
+  return (
+    <InteractiveCard appearance={u(props.appearance)} width={u(props.width)}>
+      {children}
+    </InteractiveCard>
+  );
+}
+
+export function renderForm(props: FormProps, children: ReactNode): ReactNode {
+  return <Form action={u(props.action)}>{children}</Form>;
+}
+
+// ---------------------------------------------------------------------------
+// overlays（自己完結ウィジェット: トリガーボタン＋コンテンツ、開閉は内部 state）
+// ---------------------------------------------------------------------------
+
+export const ModalWidget: FC<{ props: ModalProps; children: ReactNode }> = ({
+  props,
+  children,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+        size="md"
+        variant="contained"
+      >
+        {props.triggerLabel}
+      </Button>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+        type={u(props.type)}
+      >
+        <Dialog.Root>
+          <Dialog.Header
+            onClose={() => {
+              setIsOpen(false);
+            }}
+            title={props.title}
+          />
+          <Dialog.Content>{children}</Dialog.Content>
+        </Dialog.Root>
+      </Modal>
+    </>
+  );
+};
+
+export const DialogWidget: FC<{ props: DialogProps; children: ReactNode }> = ({
+  props,
+  children,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      >
+        {props.triggerLabel}
+      </Button>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+        type="center"
+      >
+        <Dialog.Root>
+          <Dialog.Header
+            onClose={() => {
+              setIsOpen(false);
+            }}
+            title={props.title}
+          />
+          <Dialog.Content>{children}</Dialog.Content>
+        </Dialog.Root>
+      </Modal>
+    </>
+  );
+};
+
+export const DrawerWidget: FC<{ props: DrawerProps; children: ReactNode }> = ({
+  props,
+  children,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+        variant="outlined"
+      >
+        {props.triggerLabel}
+      </Button>
+      <Drawer
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+        side={u(props.side)}
+        title={props.title}
+      >
+        {children}
+      </Drawer>
+    </>
+  );
+};
+
+export function renderPopover(
+  props: PopoverProps,
+  children: ReactNode,
+): ReactNode {
+  return (
+    <Popover.Root>
+      <Popover.Trigger
+        renderItem={(triggerProps) => (
+          <Button {...triggerProps} variant="outlined">
+            {props.triggerLabel}
+          </Button>
+        )}
+      />
+      <Popover.Content
+        renderItem={({ id, ref }) => (
+          <div
+            className="bg-bg-raised text-fg-base rounded-lg p-4 shadow-md"
+            id={id}
+            ref={ref}
+          >
+            {children}
+          </div>
+        )}
+      />
+    </Popover.Root>
+  );
+}
+
+export function renderTooltip(props: TooltipProps): ReactNode {
+  return (
+    <Tooltip.Root>
+      <Tooltip.Trigger
+        renderItem={(triggerProps) => (
+          <Button {...triggerProps} variant="outlined">
+            {props.label}
+          </Button>
+        )}
+      />
+      <Tooltip.Content>{props.text}</Tooltip.Content>
+    </Tooltip.Root>
+  );
+}
+
+export function renderDropdownMenu(props: DropdownMenuProps): ReactNode {
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger text={props.triggerLabel} />
+      <DropdownMenu.Content>
+        {props.items.map((item) => (
+          <DropdownMenu.Item
+            key={item.label}
+            label={item.label}
+            onClick={() => {
+              /* no-op: 生成 UI ではローカルメニューのみ */
+            }}
+          />
+        ))}
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// leaf / data 追加分
+// ---------------------------------------------------------------------------
+
+export function renderScrollLinked(_props: ScrollLinkedProps): ReactNode {
+  return <ScrollLinked />;
+}
+
+export function renderBaselineStatus(props: BaselineStatusProps): ReactNode {
+  return <BaselineStatus featureId={props.featureId} />;
+}
+
+// ---------------------------------------------------------------------------
+// Toast: トースト発火ボタンを生成 UI から扱うためのウィジェット。
+// ToastProvider はラッパー側で巻く必要があるため、ローカルにも 1 段被せる。
+// ---------------------------------------------------------------------------
+
+const ToastTriggerInner: FC<{ props: ToastProps }> = ({ props }) => {
+  const { onOpen } = useToast();
+  return (
+    <Button
+      onClick={() => {
+        onOpen(props.status, props.message);
+      }}
+      variant="outlined"
+    >
+      {props.triggerLabel}
+    </Button>
+  );
+};
+
+export const ToastWidget: FC<{ props: ToastProps }> = ({ props }) => (
+  <ToastProvider>
+    <ToastTriggerInner props={props} />
+  </ToastProvider>
+);
+
+// ---------------------------------------------------------------------------
+// form 追加分
+// ---------------------------------------------------------------------------
+
+export function renderListBox(
+  props: ListBoxProps,
+  value: string,
+  onSelect: (next: string) => void,
+): ReactNode {
+  const options = props.options.map((o) => ({ key: o.value, label: o.label }));
+  return (
+    <ListBox.Root
+      onSelect={onSelect}
+      options={options}
+      value={value === '' ? undefined : value}
+    >
+      <ListBox.Trigger />
+      <ListBox.Content />
+    </ListBox.Root>
+  );
+}
+
+export function renderCheckboxGroup(
+  props: CheckboxGroupProps,
+  value: string[],
+  onChange: (next: string[]) => void,
+): ReactNode {
+  return (
+    <CheckboxGroup.Root name={props.name} onChange={onChange} value={value}>
+      {props.options.map((option) => (
+        <CheckboxGroup.Item
+          itemValue={option.value}
+          key={option.value}
+          label={option.label}
+        />
+      ))}
+    </CheckboxGroup.Root>
+  );
+}
+
+export function renderAutocomplete(
+  props: AutocompleteProps,
+  value: string[],
+  onChange: (next: string[]) => void,
+): ReactNode {
+  // Autocomplete は id 必須。name または name から生成する（生成 UI では name でユニーク）。
+  return (
+    <Autocomplete
+      disabled={u(props.disabled)}
+      id={`ac-${props.name}`}
+      invalid={u(props.invalid)}
+      name={props.name}
+      onChange={onChange}
+      options={props.options}
+      value={value}
+    />
+  );
+}
+
+export const FileFieldWidget: FC<{ props: FileFieldProps }> = ({ props }) => (
+  <FileField.Root maxFiles={u(props.maxFiles)} multiple={u(props.multiple)}>
+    <FileField.Trigger
+      renderItem={({ onClick, disabled }) => (
+        <Button disabled={disabled} onClick={onClick} variant="outlined">
+          ファイルを選択
+        </Button>
+      )}
+    />
+    <FileField.ItemList clearable={u(props.clearable)} />
+  </FileField.Root>
+);
+
+// FormControl: text/textarea/password のいずれかの入力をラベル＋ヘルプ/エラー付きで包む。
+// 自己完結ウィジェット（入力値はローカル state）。
+export const FormControlWidget: FC<{ props: FormControlProps }> = ({
+  props,
+}) => {
+  const [value, setValue] = useState(props.defaultValue ?? '');
+  const fieldType = u(props.fieldType) ?? 'text';
+  return (
+    <FormControl
+      errorText={u(props.errorText)}
+      helpText={u(props.helpText)}
+      invalid={u(props.invalid)}
+      label={props.label}
+      renderInput={(inputProps) =>
+        fieldType === 'textarea' ? (
+          <Textarea
+            {...inputProps}
+            name={props.name}
+            onChange={(event) => {
+              setValue(event.target.value);
+            }}
+            placeholder={u(props.placeholder)}
+            value={value}
+          />
+        ) : fieldType === 'password' ? (
+          <PasswordInput
+            {...inputProps}
+            name={props.name}
+            onChange={(event) => {
+              setValue(event.target.value);
+            }}
+            placeholder={u(props.placeholder)}
+            value={value}
+          />
+        ) : (
+          <TextField
+            {...inputProps}
+            name={props.name}
+            onChange={(event) => {
+              setValue(event.target.value);
+            }}
+            placeholder={u(props.placeholder)}
+            value={value}
+          />
+        )
+      }
+      required={u(props.required)}
+    />
+  );
+};

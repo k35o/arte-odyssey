@@ -324,6 +324,103 @@ const Pagination = defineComponent({
   component: PaginationView,
 });
 
+// --- leaf / overlay 追加 ---
+
+const Tooltip = defineComponent({
+  name: 'Tooltip',
+  description: 'ツールチップ。ホバー/フォーカスで表示。',
+  props: s.tooltipProps,
+  component: ({ props }) => ui.renderTooltip(props),
+});
+
+const DropdownMenu = defineComponent({
+  name: 'DropdownMenu',
+  description: 'ドロップダウンメニュー。',
+  props: s.dropdownMenuProps,
+  component: ({ props }) => ui.renderDropdownMenu(props),
+});
+
+const Toast = defineComponent({
+  name: 'Toast',
+  description: 'トースト通知。triggerLabel のボタンで発火。',
+  props: s.toastProps,
+  component: ({ props }) => <ui.ToastWidget props={props} />,
+});
+
+const ScrollLinkedComp = defineComponent({
+  name: 'ScrollLinked',
+  description: 'ページスクロール進捗バー（fixed top）。',
+  props: s.scrollLinkedProps,
+  component: ({ props }) => ui.renderScrollLinked(props),
+});
+
+const BaselineStatusComp = defineComponent({
+  name: 'BaselineStatus',
+  description: 'Web feature の Baseline ステータス表示。',
+  props: s.baselineStatusProps,
+  component: ({ props }) => ui.renderBaselineStatus(props),
+});
+
+// --- フォーム追加（FC で hook を呼ぶ） ---
+
+const ListBoxView: FC<ComponentRenderProps<s.ListBoxProps>> = ({ props }) => {
+  const field = useStateField<string>(
+    `listbox-${props.options[0]?.value ?? ''}`,
+    props.defaultValue ?? props.options[0]?.value ?? '',
+  );
+  return ui.renderListBox(props, field.value, field.setValue);
+};
+
+const CheckboxGroupView: FC<ComponentRenderProps<s.CheckboxGroupProps>> = ({
+  props,
+}) => {
+  const field = useStateField<string[]>(props.name, props.defaultValue ?? []);
+  return ui.renderCheckboxGroup(props, field.value, field.setValue);
+};
+
+const AutocompleteView: FC<ComponentRenderProps<s.AutocompleteProps>> = ({
+  props,
+}) => {
+  const field = useStateField<string[]>(props.name, props.defaultValue ?? []);
+  return ui.renderAutocomplete(props, field.value, field.setValue);
+};
+
+const ListBox = defineComponent({
+  name: 'ListBox',
+  description: 'ポップアップ型の単一選択リスト。',
+  props: s.listBoxProps,
+  component: ListBoxView,
+});
+
+const CheckboxGroupComp = defineComponent({
+  name: 'CheckboxGroup',
+  description: 'チェックボックスグループ。name でフォーム状態に束縛。',
+  props: s.checkboxGroupProps,
+  component: CheckboxGroupView,
+});
+
+const Autocomplete = defineComponent({
+  name: 'Autocomplete',
+  description: 'タグ風の複数選択オートコンプリート。',
+  props: s.autocompleteProps,
+  component: AutocompleteView,
+});
+
+const FileFieldComp = defineComponent({
+  name: 'FileField',
+  description: 'ファイル選択フィールド（自己完結ウィジェット）。',
+  props: s.fileFieldProps,
+  component: ({ props }) => <ui.FileFieldWidget props={props} />,
+});
+
+const FormControlComp = defineComponent({
+  name: 'FormControl',
+  description:
+    'ラベル＋ヘルプ/エラー付きフィールド（text/textarea/password）。',
+  props: s.formControlProps,
+  component: ({ props }) => <ui.FormControlWidget props={props} />,
+});
+
 // コンテナの子要素描画（Stack / Card 共通）。位置で固定なので index キーで問題ない。
 const renderChildren = (
   children: ReadonlyArray<{ typeName: string }>,
@@ -368,6 +465,16 @@ const childRefs = [
   RadioCard.ref,
   CheckboxCard.ref,
   Pagination.ref,
+  Tooltip.ref,
+  DropdownMenu.ref,
+  Toast.ref,
+  ScrollLinkedComp.ref,
+  BaselineStatusComp.ref,
+  ListBox.ref,
+  CheckboxGroupComp.ref,
+  Autocomplete.ref,
+  FileFieldComp.ref,
+  FormControlComp.ref,
 ] as const;
 
 const Stack = defineComponent({
@@ -383,23 +490,109 @@ const Stack = defineComponent({
   ),
 });
 
+// Stack を含めた汎用 child refs（コンテナの中身として使う）。
+const containerChildRefs = [...childRefs, Stack.ref] as const;
+
 // Card は leaf / form に加えて Stack も内包できる（Stack より後に定義）。
 const Card = defineComponent({
   name: 'Card',
   description: 'コンテンツをまとめるカード（コンテナ）。Stack も入れられる。',
   props: s.cardProps.extend({
-    children: z
-      .array(z.union([...childRefs, Stack.ref]))
-      .describe('カード内の子要素'),
+    children: z.array(z.union(containerChildRefs)).describe('カード内の子要素'),
   }),
   component: ({ props, renderNode }) =>
     ui.renderCard(props, renderChildren(props.children, renderNode)),
+});
+
+// InteractiveCard も Card と同じ children を受ける。
+const InteractiveCardComp = defineComponent({
+  name: 'InteractiveCard',
+  description: 'ホバーアニメーション付きのカード。',
+  props: s.interactiveCardProps.extend({
+    children: z.array(z.union(containerChildRefs)).describe('カード内の子要素'),
+  }),
+  component: ({ props, renderNode }) =>
+    ui.renderInteractiveCard(props, renderChildren(props.children, renderNode)),
+});
+
+// Form: 縦並びのフォームラッパー。
+const FormComp = defineComponent({
+  name: 'Form',
+  description: 'フォーム要素のラッパー（縦並びレイアウト）。',
+  props: s.formProps.extend({
+    children: z.array(z.union(containerChildRefs)).describe('フォーム内の要素'),
+  }),
+  component: ({ props, renderNode }) =>
+    ui.renderForm(props, renderChildren(props.children, renderNode)),
+});
+
+// オーバーレイ系（自己完結ウィジェット）。children はモーダル内に描画される。
+const Modal = defineComponent({
+  name: 'Modal',
+  description: 'モーダルダイアログ。triggerLabel のボタンで開く。',
+  props: s.modalProps.extend({
+    children: z.array(z.union(containerChildRefs)).describe('モーダル内の要素'),
+  }),
+  component: ({ props, renderNode }) => (
+    <ui.ModalWidget props={props}>
+      {renderChildren(props.children, renderNode)}
+    </ui.ModalWidget>
+  ),
+});
+
+const Dialog = defineComponent({
+  name: 'Dialog',
+  description: 'センターダイアログ。triggerLabel のボタンで開く。',
+  props: s.dialogProps.extend({
+    children: z
+      .array(z.union(containerChildRefs))
+      .describe('ダイアログ内の要素'),
+  }),
+  component: ({ props, renderNode }) => (
+    <ui.DialogWidget props={props}>
+      {renderChildren(props.children, renderNode)}
+    </ui.DialogWidget>
+  ),
+});
+
+const Drawer = defineComponent({
+  name: 'Drawer',
+  description: 'サイドドロワー。triggerLabel のボタンで開く。',
+  props: s.drawerProps.extend({
+    children: z.array(z.union(containerChildRefs)).describe('ドロワー内の要素'),
+  }),
+  component: ({ props, renderNode }) => (
+    <ui.DrawerWidget props={props}>
+      {renderChildren(props.children, renderNode)}
+    </ui.DrawerWidget>
+  ),
+});
+
+const Popover = defineComponent({
+  name: 'Popover',
+  description: 'ポップオーバー。triggerLabel のボタンで開閉。',
+  props: s.popoverProps.extend({
+    children: z
+      .array(z.union(containerChildRefs))
+      .describe('ポップオーバー内の要素'),
+  }),
+  component: ({ props, renderNode }) =>
+    ui.renderPopover(props, renderChildren(props.children, renderNode)),
 });
 
 export const library = createLibrary({
   components: [
     Stack,
     Card,
+    InteractiveCardComp,
+    FormComp,
+    Modal,
+    Dialog,
+    Drawer,
+    Popover,
+    Tooltip,
+    DropdownMenu,
+    Toast,
     Button,
     IconButton,
     Badge,
@@ -413,6 +606,8 @@ export const library = createLibrary({
     Progress,
     Skeleton,
     Separator,
+    ScrollLinkedComp,
+    BaselineStatusComp,
     Tabs,
     Accordion,
     Breadcrumb,
@@ -429,6 +624,11 @@ export const library = createLibrary({
     RadioCard,
     CheckboxCard,
     Pagination,
+    ListBox,
+    CheckboxGroupComp,
+    Autocomplete,
+    FileFieldComp,
+    FormControlComp,
   ],
   root: 'Stack',
 });

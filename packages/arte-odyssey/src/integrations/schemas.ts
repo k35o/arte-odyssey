@@ -294,6 +294,104 @@ export const paginationProps = z.object({
   disabled: z.boolean().optional(),
 });
 
+// --- コンテナ系（children を持つ。OpenUI では children を別途 extend する） ---
+
+export const interactiveCardProps = z.object({
+  width: z.enum(['full', 'fit']).optional(),
+  appearance: z.enum(['shadow', 'bordered']).optional(),
+});
+
+export const formProps = z.object({
+  action: z.string().optional().describe('送信先 URL（任意）'),
+});
+
+export const modalProps = z.object({
+  triggerLabel: z.string().describe('モーダルを開くボタンの文言'),
+  title: z.string(),
+  type: z.enum(['center', 'bottom', 'right', 'left']).optional(),
+});
+
+export const dialogProps = z.object({
+  triggerLabel: z.string().describe('ダイアログを開くボタンの文言'),
+  title: z.string(),
+});
+
+export const drawerProps = z.object({
+  triggerLabel: z.string().describe('ドロワーを開くボタンの文言'),
+  title: z.string(),
+  side: z.enum(['left', 'right']).optional(),
+});
+
+export const popoverProps = z.object({
+  triggerLabel: z.string().describe('ポップオーバーを開くボタンの文言'),
+});
+
+// --- leaf / data 系 ---
+
+export const scrollLinkedProps = z.object({});
+
+export const baselineStatusProps = z.object({
+  featureId: z.string().describe('Web feature の ID'),
+});
+
+export const tooltipProps = z.object({
+  label: z.string().describe('ツールチップを表示するトリガーの文言'),
+  text: z.string().describe('ツールチップの内容'),
+});
+
+export const dropdownMenuProps = z.object({
+  triggerLabel: z.string(),
+  items: z
+    .array(z.object({ label: z.string() }))
+    .min(1)
+    .describe('メニュー項目'),
+});
+
+export const toastProps = z.object({
+  triggerLabel: z.string().describe('トーストを表示するボタンの文言'),
+  status: z.enum(['success', 'info', 'warning', 'error']),
+  message: z.string(),
+});
+
+// --- フォーム系 ---
+
+export const listBoxProps = z.object({
+  options: z.array(z.object({ value: z.string(), label: z.string() })).min(1),
+  defaultValue: z.string().optional(),
+});
+
+export const checkboxGroupProps = z.object({
+  name: z.string(),
+  options: z.array(z.object({ value: z.string(), label: z.string() })).min(1),
+  defaultValue: z.array(z.string()).optional(),
+});
+
+export const autocompleteProps = z.object({
+  name: z.string(),
+  options: z.array(z.object({ value: z.string(), label: z.string() })).min(1),
+  defaultValue: z.array(z.string()).optional(),
+  invalid: z.boolean().optional(),
+  disabled: z.boolean().optional(),
+});
+
+export const fileFieldProps = z.object({
+  multiple: z.boolean().optional(),
+  maxFiles: z.number().optional(),
+  clearable: z.boolean().optional(),
+});
+
+export const formControlProps = z.object({
+  label: z.string(),
+  fieldType: z.enum(['text', 'textarea', 'password']).optional(),
+  name: z.string(),
+  placeholder: z.string().optional(),
+  defaultValue: z.string().optional(),
+  helpText: z.string().optional(),
+  errorText: z.string().optional(),
+  required: z.boolean().optional(),
+  invalid: z.boolean().optional(),
+});
+
 export type ButtonProps = z.infer<typeof buttonProps>;
 export type BadgeProps = z.infer<typeof badgeProps>;
 export type HeadingProps = z.infer<typeof headingProps>;
@@ -326,3 +424,19 @@ export type RadioProps = z.infer<typeof radioProps>;
 export type RadioCardProps = z.infer<typeof radioCardProps>;
 export type CheckboxCardProps = z.infer<typeof checkboxCardProps>;
 export type PaginationProps = z.infer<typeof paginationProps>;
+export type InteractiveCardProps = z.infer<typeof interactiveCardProps>;
+export type FormProps = z.infer<typeof formProps>;
+export type ModalProps = z.infer<typeof modalProps>;
+export type DialogProps = z.infer<typeof dialogProps>;
+export type DrawerProps = z.infer<typeof drawerProps>;
+export type PopoverProps = z.infer<typeof popoverProps>;
+export type ScrollLinkedProps = z.infer<typeof scrollLinkedProps>;
+export type BaselineStatusProps = z.infer<typeof baselineStatusProps>;
+export type TooltipProps = z.infer<typeof tooltipProps>;
+export type DropdownMenuProps = z.infer<typeof dropdownMenuProps>;
+export type ToastProps = z.infer<typeof toastProps>;
+export type ListBoxProps = z.infer<typeof listBoxProps>;
+export type CheckboxGroupProps = z.infer<typeof checkboxGroupProps>;
+export type AutocompleteProps = z.infer<typeof autocompleteProps>;
+export type FileFieldProps = z.infer<typeof fileFieldProps>;
+export type FormControlProps = z.infer<typeof formControlProps>;

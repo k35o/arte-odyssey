@@ -168,5 +168,68 @@ export const { registry } = defineRegistry(catalog, {
       const [page, setPage] = useState(1);
       return ui.renderPagination(props, page, setPage);
     },
+
+    // コンテナ追加
+    InteractiveCard: ({ props, children }) =>
+      ui.renderInteractiveCard(props, children),
+    Form: ({ props, children }) => ui.renderForm(props, children),
+
+    // オーバーレイ（自己完結ウィジェット）
+    Modal: ({ props, children }) => (
+      <ui.ModalWidget props={props}>{children}</ui.ModalWidget>
+    ),
+    Dialog: ({ props, children }) => (
+      <ui.DialogWidget props={props}>{children}</ui.DialogWidget>
+    ),
+    Drawer: ({ props, children }) => (
+      <ui.DrawerWidget props={props}>{children}</ui.DrawerWidget>
+    ),
+    Popover: ({ props, children }) => ui.renderPopover(props, children),
+    Tooltip: ({ props }) => ui.renderTooltip(props),
+    DropdownMenu: ({ props }) => ui.renderDropdownMenu(props),
+    Toast: ({ props }) => <ui.ToastWidget props={props} />,
+
+    // leaf 追加
+    ScrollLinked: ({ props }) => ui.renderScrollLinked(props),
+    BaselineStatus: ({ props }) => ui.renderBaselineStatus(props),
+
+    // フォーム追加
+    ListBox: ({ props, bindings }) => {
+      const path = bindings?.defaultValue;
+      const hasBinding = path !== undefined && path !== '';
+      const [bound, setBound] = useBoundProp<string>(props.defaultValue, path);
+      const [local, setLocal] = useState(
+        props.defaultValue ?? props.options[0]?.value ?? '',
+      );
+      const value = hasBinding ? (bound ?? '') : local;
+      const setValue = hasBinding ? setBound : setLocal;
+      return ui.renderListBox(props, value, setValue);
+    },
+    CheckboxGroup: ({ props, bindings }) => {
+      const path = bindings?.defaultValue;
+      const hasBinding = path !== undefined && path !== '';
+      const [bound, setBound] = useBoundProp<string[]>(
+        props.defaultValue,
+        path,
+      );
+      const [local, setLocal] = useState(props.defaultValue ?? []);
+      const value = hasBinding ? (bound ?? []) : local;
+      const setValue = hasBinding ? setBound : setLocal;
+      return ui.renderCheckboxGroup(props, value, setValue);
+    },
+    Autocomplete: ({ props, bindings }) => {
+      const path = bindings?.defaultValue;
+      const hasBinding = path !== undefined && path !== '';
+      const [bound, setBound] = useBoundProp<string[]>(
+        props.defaultValue,
+        path,
+      );
+      const [local, setLocal] = useState(props.defaultValue ?? []);
+      const value = hasBinding ? (bound ?? []) : local;
+      const setValue = hasBinding ? setBound : setLocal;
+      return ui.renderAutocomplete(props, value, setValue);
+    },
+    FileField: ({ props }) => <ui.FileFieldWidget props={props} />,
+    FormControl: ({ props }) => <ui.FormControlWidget props={props} />,
   },
 });
