@@ -243,14 +243,15 @@ pnpm add @json-render/core @json-render/react zod
 pnpm add @openuidev/react-lang zod
 ```
 
-Supported components (31, both frameworks):
+Supported components (**all 47**, both frameworks):
 
-- **Layout / containers**: `Stack`, `Card`
+- **Layout / containers**: `Stack`, `Card`, `InteractiveCard`, `Form`
 - **Buttons / nav**: `Button`, `IconButton`, `Anchor`, `Breadcrumb`, `Pagination`
-- **Display**: `Badge`, `Heading`, `Avatar`, `Code`, `Icon`, `Alert`, `Spinner`, `Progress`, `Skeleton`, `Separator`, `Tabs`, `Accordion`, `Table`
-- **Form**: `TextField`, `Textarea`, `PasswordInput`, `NumberField`, `Slider`, `Checkbox`, `Switch`, `Select`, `Radio`, `RadioCard`, `CheckboxCard`
+- **Display**: `Badge`, `Heading`, `Avatar`, `Code`, `Icon`, `Alert`, `Spinner`, `Progress`, `Skeleton`, `Separator`, `Tabs`, `Accordion`, `Table`, `BaselineStatus`, `ScrollLinked`
+- **Overlays (self-contained widgets)**: `Modal`, `Dialog`, `Drawer`, `Popover`, `Tooltip`, `DropdownMenu`, `Toast`
+- **Form**: `TextField`, `Textarea`, `PasswordInput`, `NumberField`, `Slider`, `Checkbox`, `Switch`, `Select`, `Radio`, `RadioCard`, `CheckboxCard`, `ListBox`, `CheckboxGroup`, `Autocomplete`, `FileField`, `FormControl`
 
-Components whose model is inherently imperative or stateful beyond declarative description are intentionally not exposed: overlays (`Dialog`, `Drawer`, `Modal`, `Popover`, `Tooltip`, `DropdownMenu`, `ListBox`), `Toast`, providers, `ScrollLinked`, `Autocomplete`, `FileField`, `Form`/`FormControl`, `CheckboxGroup`, and `BaselineStatus`. Use them imperatively in your own React tree alongside the generated UI.
+Overlays are exposed as **self-contained widgets**: a `Modal`/`Dialog`/`Drawer`/`Popover` declares its own trigger button via `triggerLabel`, manages open/close internally, and renders the supplied children inside the surface. This lets a model generate UIs that include overlays without modelling imperative open/close state. `Tooltip`/`DropdownMenu`/`Toast` follow the same self-contained pattern (trigger + content).
 
 ### json-render (RSC-ready)
 
