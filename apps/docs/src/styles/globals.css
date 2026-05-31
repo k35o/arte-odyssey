@@ -1,2 +1,19 @@
 @import 'tailwindcss';
 @import '../../../../packages/arte-odyssey/src/styles/index.css';
+
+/*
+ * Background shared by the live preview area and the Shiki code block so they
+ * read as one panel. Values mirror the Shiki themes used in CodeBlock
+ * (min-light / min-dark); #1f1f1f is darker than any gray token.
+ */
+:root {
+  --preview-bg: #ffffff;
+}
+
+.dark {
+  --preview-bg: #1f1f1f;
+}
+
+@theme inline {
+  --color-preview-bg: var(--preview-bg);
+}
