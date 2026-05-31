@@ -23,7 +23,60 @@ const spec = {
         'form',
         'card',
         'showcase',
+        'overlays',
       ],
+    },
+    overlays: {
+      type: 'Stack',
+      props: { direction: 'row', gap: 'sm' },
+      children: ['tip', 'dropdown', 'toast', 'modalBtn', 'popBtn'],
+    },
+    tip: {
+      type: 'Tooltip',
+      props: { label: 'ヒント', text: 'ホバーで説明が出ます' },
+      children: [],
+    },
+    dropdown: {
+      type: 'DropdownMenu',
+      props: {
+        triggerLabel: 'メニュー',
+        items: [{ label: '編集' }, { label: '削除' }],
+      },
+      children: [],
+    },
+    toast: {
+      type: 'Toast',
+      props: {
+        triggerLabel: '通知を表示',
+        status: 'success',
+        message: '保存しました',
+      },
+      children: [],
+    },
+    modalBtn: {
+      type: 'Modal',
+      props: { triggerLabel: 'モーダルを開く', title: '確認' },
+      children: ['modalBody'],
+    },
+    modalBody: {
+      type: 'Alert',
+      props: { status: 'info', message: 'モーダルの中身も生成 UI で記述' },
+      children: [],
+    },
+    popBtn: {
+      type: 'Popover',
+      props: { triggerLabel: '詳細' },
+      children: ['popBody'],
+    },
+    popBody: {
+      type: 'Stack',
+      props: { direction: 'column', gap: 'sm' },
+      children: ['popText'],
+    },
+    popText: {
+      type: 'Code',
+      props: { code: 'ポップオーバー内のコード' },
+      children: [],
     },
     showcase: {
       type: 'Card',
