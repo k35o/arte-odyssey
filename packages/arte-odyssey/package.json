@@ -47,10 +47,10 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "build": "pnpm generate:css && vp pack && pnpm build:css",
+    "build": "vp pack && pnpm build:css",
     "build:css": "mkdir -p dist/styles && cp src/styles/index.css dist/styles/index.css",
-    "generate:css": "node scripts/generate-css.ts",
-    "prepare": "pnpm generate:css",
+    "generate:tokens": "tailwind-token-extractor src/styles/index.css -o src/styles/tokens.generated.ts",
+    "check:tokens": "tailwind-token-extractor check src/styles/index.css -o src/styles/tokens.generated.ts",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
     "test": "vitest run",
@@ -87,6 +87,7 @@
     "react-dom": "catalog:",
     "storybook": "10.4.0",
     "storybook-addon-mock-date": "3.0.1",
+    "tailwind-token-extractor": "0.1.1",
     "tailwindcss": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:",
