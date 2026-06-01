@@ -1,9 +1,9 @@
 'use client';
 
 import { Card } from '@k8o/arte-odyssey';
-import type { SemanticToken } from '@k8o/arte-odyssey/tokens';
 
 import { useTheme } from '../theme/context';
+import type { SemanticToken } from '../theme/design-tokens';
 
 export function TokenCard({
   token,

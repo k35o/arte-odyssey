@@ -1,4 +1,8 @@
 import { Card, Heading, Separator } from '@k8o/arte-odyssey';
+
+import { CodeBlock } from '../components/code-block';
+import { T } from '../components/t';
+import { TokenCard } from '../components/token-card';
 import {
   BG_TOKENS,
   BORDER_TOKENS,
@@ -18,11 +22,7 @@ import {
   TEXT_SIZES,
   Z_INDICES,
   lineHeightToNumber,
-} from '@k8o/arte-odyssey/tokens';
-
-import { CodeBlock } from '../components/code-block';
-import { T } from '../components/t';
-import { TokenCard } from '../components/token-card';
+} from '../theme/design-tokens';
 
 const Z_INDEX_USAGE = {
   overlay: 'Popover, DropdownMenu, ListBox, Tooltip',
