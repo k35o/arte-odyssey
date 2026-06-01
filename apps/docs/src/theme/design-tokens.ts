@@ -31,11 +31,11 @@ import { tokens } from './design-tokens.generated';
 
 type Scalar = string | number;
 
-// `tokens` is emitted `as const`; view it as indexable records for adapting.
-const VARS = tokens.vars as unknown as Record<
-  string,
-  Scalar | { light: Scalar; dark: Scalar }
->;
+type VarValue = Scalar | { light: Scalar; dark: Scalar };
+
+// `tokens` is emitted `as const`; index it through a Map so a missing key surfaces
+// as `undefined` (handled below) rather than a silent lookup.
+const VARS = new Map<string, VarValue>(Object.entries(tokens.vars));
 const THEME = tokens.theme as unknown as Record<
   string,
   Record<string, unknown>
@@ -43,9 +43,15 @@ const THEME = tokens.theme as unknown as Record<
 
 // Read a scalar var. Semantic vars carry { light, dark }; palette/z-index never
 // do, but the union type does — narrow it (falling back to `light`) so we never
-// stringify a raw object.
+// stringify a raw object. Throws on a missing key so stale generated data is
+// caught at build time instead of rendering the literal string "undefined".
 const scalar = (key: string): string => {
-  const value = VARS[key];
+  const value = VARS.get(key);
+  if (value === undefined) {
+    throw new Error(
+      `design-tokens: missing CSS variable --${key}; regenerate design-tokens.generated.ts`,
+    );
+  }
   return typeof value === 'object' ? String(value.light) : String(value);
 };
 
@@ -76,13 +82,21 @@ type GeneratedText = {
 };
 const TEXT = tokens.theme.text as unknown as Record<string, GeneratedText>;
 
+// Prefer the precomputed numeric line-height; fall back to a numeric raw value.
+// Throw (rather than silently using 0) if neither is present, to catch drift.
+const lineHeightOf = (name: string, t: GeneratedText): number => {
+  if (t.lineHeightNumber !== undefined) return t.lineHeightNumber;
+  if (typeof t.lineHeight === 'number') return t.lineHeight;
+  throw new Error(
+    `design-tokens: text size "${name}" has no numeric line-height; regenerate design-tokens.generated.ts`,
+  );
+};
+
 export const TEXT_SIZES: readonly TextSize[] = Object.entries(TEXT).map(
   ([name, t]) => ({
     name,
     fontSize: t.value,
-    lineHeight:
-      t.lineHeightNumber ??
-      (typeof t.lineHeight === 'number' ? t.lineHeight : 0),
+    lineHeight: lineHeightOf(name, t),
   }),
 );
 

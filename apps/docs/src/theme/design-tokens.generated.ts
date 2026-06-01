@@ -199,6 +199,10 @@ export const tokens = {
         light: 'oklch(0.41 0.22 305)',
         dark: 'oklch(0.9 0.082 305)',
       },
+      'preview-bg': {
+        light: '#ffffff',
+        dark: '#1f1f1f',
+      },
     },
     container: {
       '3xs': '16rem',
@@ -633,13 +637,16 @@ export const tokens = {
       light: 'oklch(0.41 0.22 305)',
       dark: 'oklch(0.9 0.082 305)',
     },
+    'preview-bg': {
+      light: '#ffffff',
+      dark: '#1f1f1f',
+    },
   },
 } as const;
 
 export const meta = {
-  source:
-    '/Users/kokisakano/k35o/arte-odyssey/apps/docs/src/styles/globals.css',
-  tailwindVersion: '4.2.4',
+  source: 'apps/docs/src/styles/globals.css',
+  tailwindVersion: '4.3.0',
   unresolved: ['--font-noto-sans-jp', '--font-m-plus-2'],
 } as const;
 
