@@ -60,6 +60,3 @@ next-env.d.ts
 settings.local.json
 
 .plan
-
-# Auto-generated from src/styles/tokens.ts + base.css + utilities.css
-packages/arte-odyssey/src/styles/index.css

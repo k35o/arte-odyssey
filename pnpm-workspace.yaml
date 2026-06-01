@@ -31,5 +31,6 @@ minimumReleaseAge: 10080
 
 minimumReleaseAgeExclude:
   - '@k8o/*'
+  - 'tailwind-token-extractor'
 
 verifyDepsBeforeRun: install
