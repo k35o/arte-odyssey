@@ -190,6 +190,18 @@ export const iconButtonProps = z.object({
   bg: z.enum(['transparent', 'base', 'primary', 'secondary']).optional(),
 });
 
+// 追加引数が必要なため `Icon`（汎用）から切り出した独立コンポーネント。
+
+export const chevronIconProps = z.object({
+  direction: z.enum(['up', 'down', 'left', 'right']),
+  size: z.enum(['sm', 'md', 'lg']).optional(),
+});
+
+export const statusIconProps = z.object({
+  status: z.enum(['success', 'info', 'warning', 'error']),
+  size: z.enum(['sm', 'md', 'lg']).optional(),
+});
+
 export const anchorProps = z.object({
   text: z.string(),
   href: safeUrl,
@@ -470,6 +482,8 @@ export type TabsProps = z.infer<typeof tabsProps>;
 export type IconName = z.infer<typeof iconName>;
 export type IconProps = z.infer<typeof iconProps>;
 export type IconButtonProps = z.infer<typeof iconButtonProps>;
+export type ChevronIconProps = z.infer<typeof chevronIconProps>;
+export type StatusIconProps = z.infer<typeof statusIconProps>;
 export type AnchorProps = z.infer<typeof anchorProps>;
 export type AvatarProps = z.infer<typeof avatarProps>;
 export type CodeProps = z.infer<typeof codeProps>;

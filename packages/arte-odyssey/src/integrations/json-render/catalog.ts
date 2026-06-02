@@ -85,6 +85,15 @@ export const catalog = defineCatalog(schema, {
       description: 'ローディングのプレースホルダ。',
     },
     Icon: { props: s.iconProps, description: 'アイコン（name で指定）。' },
+    ChevronIcon: {
+      props: s.chevronIconProps,
+      description: '矢印アイコン。direction で向きを指定。',
+    },
+    StatusIcon: {
+      props: s.statusIconProps,
+      description:
+        'ステータスを表すアイコン（success/info/warning/error）。装飾用途で、メッセージ表示なら Alert を使う。',
+    },
     IconButton: {
       props: s.iconButtonProps,
       description: 'アイコンのみのボタン（label は必須・ツールチップ）。',

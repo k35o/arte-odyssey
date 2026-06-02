@@ -37,12 +37,14 @@ import { Textarea } from '../components/form/textarea';
 import {
   AccessibilityIcon,
   AIIcon,
+  AlertIcon,
   ArteOdyssey,
   AtomIcon,
   BadIcon,
   BlogIcon,
   BoringIcon,
   CheckIcon,
+  ChevronIcon,
   CloseIcon,
   ColorContrastIcon,
   ColorInfoIcon,
@@ -116,6 +118,7 @@ import type {
   CheckboxCardProps,
   CheckboxGroupProps,
   CheckboxProps,
+  ChevronIconProps,
   CodeProps,
   DialogProps,
   DrawerProps,
@@ -144,6 +147,7 @@ import type {
   SliderProps,
   SpinnerProps,
   StackProps,
+  StatusIconProps,
   SwitchProps,
   TableProps,
   TabsProps,
@@ -619,6 +623,20 @@ export function renderPagination(
 export function renderIcon(props: IconProps): ReactNode {
   const IconComponent = iconMap[props.name];
   return <IconComponent size={u(props.size) ?? 'md'} />;
+}
+
+// 汎用 Icon に乗せられない、追加引数が必要なアイコンを独立コンポーネントとして公開する。
+export function renderChevronIcon(props: ChevronIconProps): ReactNode {
+  return (
+    <ChevronIcon direction={props.direction} size={u(props.size) ?? 'md'} />
+  );
+}
+
+// arte-odyssey の AlertIcon を「StatusIcon」として公開（status は文脈と分かるが、
+// 生成 UI 利用者からは AlertIcon という名前だと「Alert コンポーネントを使え」と
+// 誤解されやすいため改名）。
+export function renderStatusIcon(props: StatusIconProps): ReactNode {
+  return <AlertIcon size={u(props.size) ?? 'md'} status={props.status} />;
 }
 
 export function renderIconButton(props: IconButtonProps): ReactNode {

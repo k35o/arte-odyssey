@@ -240,6 +240,21 @@ const Icon = defineComponent({
   component: ({ props }) => ui.renderIcon(props),
 });
 
+const ChevronIconComp = defineComponent({
+  name: 'ChevronIcon',
+  description: '矢印アイコン。direction で向きを指定。',
+  props: s.chevronIconProps,
+  component: ({ props }) => ui.renderChevronIcon(props),
+});
+
+const StatusIcon = defineComponent({
+  name: 'StatusIcon',
+  description:
+    'ステータスを表すアイコン（success/info/warning/error）。装飾用途で、メッセージ表示なら Alert を使う。',
+  props: s.statusIconProps,
+  component: ({ props }) => ui.renderStatusIcon(props),
+});
+
 const IconButton = defineComponent({
   name: 'IconButton',
   description: 'アイコンのみのボタン（label は必須）。',
@@ -444,6 +459,8 @@ const childRefs = [
   Avatar.ref,
   Code.ref,
   Icon.ref,
+  ChevronIconComp.ref,
+  StatusIcon.ref,
   Alert.ref,
   Spinner.ref,
   Progress.ref,
@@ -601,6 +618,8 @@ export const library = createLibrary({
     Avatar,
     Code,
     Icon,
+    ChevronIconComp,
+    StatusIcon,
     Alert,
     Spinner,
     Progress,
