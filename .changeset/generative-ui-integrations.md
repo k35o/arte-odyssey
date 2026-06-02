@@ -1,5 +1,5 @@
 ---
-'@k8o/arte-odyssey': minor
+'@k8o/arte-odyssey': major
 ---
 
 Generative UI 統合（json-render / OpenUI）の公式アダプタを追加した。LLM が ArteOdyssey のコンポーネントで UI を生成できるよう、props を Zod + デザイントークンの enum に制約したカタログ/ライブラリを同梱する。
