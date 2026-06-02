@@ -1,7 +1,7 @@
 /* eslint-disable import/max-dependencies -- Generative UI 統合の描画集約モジュールのため、多数のコンポーネントを束ねる */
 'use client';
 
-import { Fragment, type FC, type ReactNode, useState } from 'react';
+import { Fragment, type FC, type ReactNode, useId, useState } from 'react';
 
 import { Button } from '../components/buttons/button';
 import { IconButton } from '../components/buttons/icon-button';
@@ -225,8 +225,12 @@ export function renderCard(props: CardProps, children: ReactNode): ReactNode {
 // tabs（テキストパネルのデータ駆動版）
 // ---------------------------------------------------------------------------
 
-export function renderTabs(props: TabsProps): ReactNode {
-  const ids = props.tabs.map((_, index) => `tab-${index}`) as [
+// Tabs は ARIA の `aria-controls` / `aria-labelledby` で ID を参照するため、
+// 同一ページに複数描画されても衝突しないよう `useId()` で生成する必要がある。
+// （生成 UI では Tabs が複数並ぶケースは普通にあり得る）。
+export const TabsView: FC<{ props: TabsProps }> = ({ props }) => {
+  const baseId = useId();
+  const ids = props.tabs.map((_, index) => `${baseId}-tab-${index}`) as [
     string,
     ...string[],
   ];
@@ -246,6 +250,10 @@ export function renderTabs(props: TabsProps): ReactNode {
       ))}
     </Tabs.Root>
   );
+};
+
+export function renderTabs(props: TabsProps): ReactNode {
+  return <TabsView props={props} />;
 }
 
 // ---------------------------------------------------------------------------
@@ -951,7 +959,7 @@ export const FileFieldWidget: FC<{ props: FileFieldProps }> = ({ props }) => (
     <FileField.Trigger
       renderItem={({ onClick, disabled }) => (
         <Button disabled={disabled} onClick={onClick} variant="outlined">
-          ファイルを選択
+          {u(props.triggerLabel) ?? 'ファイルを選択'}
         </Button>
       )}
     />

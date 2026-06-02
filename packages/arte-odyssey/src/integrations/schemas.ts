@@ -386,6 +386,10 @@ export const autocompleteProps = z.object({
 });
 
 export const fileFieldProps = z.object({
+  triggerLabel: z
+    .string()
+    .optional()
+    .describe('ファイル選択ボタンの文言（未指定なら "ファイルを選択"）'),
   multiple: z.boolean().optional(),
   maxFiles: z.number().optional(),
   clearable: z.boolean().optional(),
