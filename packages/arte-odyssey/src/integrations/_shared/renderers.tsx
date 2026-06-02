@@ -525,12 +525,15 @@ export function renderSlider(
   );
 }
 
-export function renderRadio(
-  props: RadioProps,
-  value: string,
-  onChange: (next: string) => void,
-): ReactNode {
-  const labelId = `${props.name}-label`;
+// Radio / RadioCard は `aria-labelledby` の宛先 ID を持つ必要があるが、
+// `${name}-label` は同じ name の別 Renderer が同居すると衝突する。
+// `useId()` でユニーク化するため FC として実装する。
+const RadioView: FC<{
+  props: RadioProps;
+  value: string;
+  onChange: (next: string) => void;
+}> = ({ props, value, onChange }) => {
+  const labelId = useId();
   return (
     <div className="flex flex-col gap-1">
       <span className="text-fg-base text-sm font-medium" id={labelId}>
@@ -548,14 +551,14 @@ export function renderRadio(
       />
     </div>
   );
-}
+};
 
-export function renderRadioCard(
-  props: RadioCardProps,
-  value: string,
-  onChange: (next: string) => void,
-): ReactNode {
-  const labelId = `${props.name}-label`;
+const RadioCardView: FC<{
+  props: RadioCardProps;
+  value: string;
+  onChange: (next: string) => void;
+}> = ({ props, value, onChange }) => {
+  const labelId = useId();
   return (
     <div className="flex flex-col gap-1">
       <span className="text-fg-base text-sm font-medium" id={labelId}>
@@ -574,6 +577,22 @@ export function renderRadioCard(
       />
     </div>
   );
+};
+
+export function renderRadio(
+  props: RadioProps,
+  value: string,
+  onChange: (next: string) => void,
+): ReactNode {
+  return <RadioView onChange={onChange} props={props} value={value} />;
+}
+
+export function renderRadioCard(
+  props: RadioCardProps,
+  value: string,
+  onChange: (next: string) => void,
+): ReactNode {
+  return <RadioCardView onChange={onChange} props={props} value={value} />;
 }
 
 export function renderCheckboxCard(
@@ -1023,16 +1042,18 @@ export function renderCheckboxGroup(
   );
 }
 
-export function renderAutocomplete(
-  props: AutocompleteProps,
-  value: string[],
-  onChange: (next: string[]) => void,
-): ReactNode {
-  // Autocomplete は id 必須。name または name から生成する（生成 UI では name でユニーク）。
+// Autocomplete は本体側で `id` が必須。`name` ベースだと同 name の Autocomplete が
+// 複数の Renderer に同居したときに id が衝突するので `useId()` でユニーク化する。
+const AutocompleteView: FC<{
+  props: AutocompleteProps;
+  value: string[];
+  onChange: (next: string[]) => void;
+}> = ({ props, value, onChange }) => {
+  const id = useId();
   return (
     <Autocomplete
       disabled={u(props.disabled)}
-      id={`ac-${props.name}`}
+      id={id}
       invalid={u(props.invalid)}
       name={props.name}
       onChange={onChange}
@@ -1040,6 +1061,14 @@ export function renderAutocomplete(
       value={value}
     />
   );
+};
+
+export function renderAutocomplete(
+  props: AutocompleteProps,
+  value: string[],
+  onChange: (next: string[]) => void,
+): ReactNode {
+  return <AutocompleteView onChange={onChange} props={props} value={value} />;
 }
 
 export const FileFieldWidget: FC<{ props: FileFieldProps }> = ({ props }) => (

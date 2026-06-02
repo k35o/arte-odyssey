@@ -401,7 +401,9 @@ export const interactiveCardProps = z.object({
 });
 
 export const formProps = z.object({
-  action: z.string().optional().describe('送信先 URL（任意）'),
+  // href と同じく `javascript:` 等を弾く必要がある
+  // （`<form action="javascript:...">` も submit 時にスクリプトを実行する）。
+  action: safeUrl.optional().describe('送信先 URL（任意）'),
 });
 
 export const modalProps = z.object({
