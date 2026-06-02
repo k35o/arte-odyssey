@@ -35,12 +35,14 @@ import type { Badge } from '../components/data-display/badge';
 import type { Heading } from '../components/data-display/heading';
 import type { Alert } from '../components/feedback/alert';
 import type { Spinner } from '../components/feedback/spinner';
+import type { Grid } from '../components/layout/grid';
 import type { Separator } from '../components/layout/separator';
 import type { Stack } from '../components/layout/stack';
 import type {
   alertProps,
   badgeProps,
   buttonProps,
+  gridProps,
   headingProps,
   iconButtonProps,
   separatorProps,
@@ -178,6 +180,19 @@ const _Stack_justify: AssertSubset<
   ZProp<typeof stackProps, 'justify'>
 > = true;
 
+const _Grid_cols: AssertSubset<
+  Prop<typeof Grid, 'cols'>,
+  ZProp<typeof gridProps, 'cols'>
+> = true;
+const _Grid_minItemSize: AssertSubset<
+  Prop<typeof Grid, 'minItemSize'>,
+  ZProp<typeof gridProps, 'minItemSize'>
+> = true;
+const _Grid_gap: AssertSubset<
+  Prop<typeof Grid, 'gap'>,
+  ZProp<typeof gridProps, 'gap'>
+> = true;
+
 // 未使用変数のリント警告を抑制（type-only assertion なので参照だけしておく）。
 export const _typeSyncAsserts = [
   _Button_variant,
@@ -202,4 +217,7 @@ export const _typeSyncAsserts = [
   _Stack_gap,
   _Stack_align,
   _Stack_justify,
+  _Grid_cols,
+  _Grid_minItemSize,
+  _Grid_gap,
 ] as const;

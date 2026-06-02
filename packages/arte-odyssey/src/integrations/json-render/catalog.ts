@@ -19,6 +19,12 @@ export const catalog = defineCatalog(schema, {
       slots: ['default'],
       description: '子要素を縦/横に等間隔で並べるレイアウトコンテナ。',
     },
+    Grid: {
+      props: s.gridProps,
+      slots: ['default'],
+      description:
+        '子要素をグリッド状に並べる。cols（1〜6 / auto-fill / auto-fit）と gap、auto-fill/fit 時は minItemSize で各セルの最小サイズを制御。',
+    },
     Button: {
       props: s.buttonProps,
       description: 'アクションボタン。href を指定するとリンク（<a>）になる。',

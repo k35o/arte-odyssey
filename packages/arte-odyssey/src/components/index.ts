@@ -30,6 +30,7 @@ export { Switch } from './form/switch';
 export { TextField } from './form/text-field';
 export { Textarea } from './form/textarea';
 export * from './icons';
+export { Grid, type GridProps } from './layout/grid';
 export { ScrollLinked } from './layout/scroll-linked';
 export { Separator } from './layout/separator';
 export { Stack, type StackProps } from './layout/stack';

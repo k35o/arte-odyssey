@@ -90,6 +90,7 @@ import {
   ViewIcon,
   ViewOffIcon,
 } from '../components/icons';
+import { Grid } from '../components/layout/grid';
 import { ScrollLinked } from '../components/layout/scroll-linked';
 import { Separator } from '../components/layout/separator';
 import { Stack } from '../components/layout/stack';
@@ -120,6 +121,7 @@ import type {
   CheckboxProps,
   ChevronIconProps,
   CodeProps,
+  GridProps,
   DialogProps,
   DrawerProps,
   DropdownMenuProps,
@@ -350,6 +352,18 @@ export function renderStack(props: StackProps, children: ReactNode): ReactNode {
     >
       {children}
     </Stack>
+  );
+}
+
+export function renderGrid(props: GridProps, children: ReactNode): ReactNode {
+  return (
+    <Grid
+      cols={u(props.cols)}
+      gap={u(props.gap)}
+      minItemSize={u(props.minItemSize)}
+    >
+      {children}
+    </Grid>
   );
 }
 

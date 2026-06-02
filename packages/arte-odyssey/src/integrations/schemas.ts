@@ -64,6 +64,36 @@ export const stackProps = z.object({
   justify: z.enum(['start', 'center', 'end', 'between']).optional(),
 });
 
+export const gridProps = z.object({
+  cols: z
+    .union([
+      z.literal(1),
+      z.literal(2),
+      z.literal(3),
+      z.literal(4),
+      z.literal(5),
+      z.literal(6),
+      z.literal('auto-fill'),
+      z.literal('auto-fit'),
+    ])
+    .optional()
+    .describe(
+      '列数（1〜6 の固定列、または "auto-fill" / "auto-fit" の自動列）',
+    ),
+  minItemSize: z
+    .union([
+      z.literal(24),
+      z.literal(32),
+      z.literal(40),
+      z.literal(48),
+      z.literal(64),
+      z.literal(80),
+    ])
+    .optional()
+    .describe('cols が auto-fill/auto-fit のときの各セルの最小サイズ'),
+  gap: z.enum(['none', 'sm', 'md', 'lg', 'xl']).optional(),
+});
+
 export const textFieldProps = z.object({
   name: z.string(),
   placeholder: z.string().optional(),
@@ -473,6 +503,7 @@ export type AlertProps = z.infer<typeof alertProps>;
 export type SpinnerProps = z.infer<typeof spinnerProps>;
 export type SeparatorProps = z.infer<typeof separatorProps>;
 export type StackProps = z.infer<typeof stackProps>;
+export type GridProps = z.infer<typeof gridProps>;
 export type TextFieldProps = z.infer<typeof textFieldProps>;
 export type CheckboxProps = z.infer<typeof checkboxProps>;
 export type SwitchProps = z.infer<typeof switchProps>;

@@ -504,8 +504,19 @@ const Stack = defineComponent({
     ui.renderStack(props, renderChildren(props.children, renderNode)),
 });
 
-// Stack を含めた汎用 child refs（コンテナの中身として使う）。
-const containerChildRefs = [...childRefs, Stack.ref] as const;
+const Grid = defineComponent({
+  name: 'Grid',
+  description:
+    '子要素をグリッド状に並べる。cols（1〜6 / auto-fill / auto-fit）と gap、auto-fill/fit 時は minItemSize で各セルの最小サイズを制御。',
+  props: s.gridProps.extend({
+    children: z.array(z.union(childRefs)).describe('グリッド内の子要素'),
+  }),
+  component: ({ props, renderNode }) =>
+    ui.renderGrid(props, renderChildren(props.children, renderNode)),
+});
+
+// Stack / Grid を含めた汎用 child refs（コンテナの中身として使う）。
+const containerChildRefs = [...childRefs, Stack.ref, Grid.ref] as const;
 
 // Card は leaf / form に加えて Stack も内包できる（Stack より後に定義）。
 const Card = defineComponent({
@@ -597,6 +608,7 @@ const Popover = defineComponent({
 export const library = createLibrary({
   components: [
     Stack,
+    Grid,
     Card,
     InteractiveCardComp,
     FormComp,
