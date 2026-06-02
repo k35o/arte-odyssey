@@ -11,13 +11,13 @@
     "check:write": "vp check --fix"
   },
   "dependencies": {
-    "@funstack/router": "1.1.0",
+    "@funstack/router": "1.1.1",
     "@funstack/static": "1.2.0",
     "@k8o/arte-odyssey": "workspace:^",
     "@tailwindcss/vite": "catalog:",
-    "motion": "12.39.0",
-    "react-error-boundary": "6.1.1",
-    "shiki": "4.0.2",
+    "motion": "12.40.0",
+    "react-error-boundary": "6.1.2",
+    "shiki": "4.1.0",
     "tailwindcss": "catalog:"
   },
   "devDependencies": {
@@ -26,6 +26,6 @@
     "@vitejs/plugin-react": "6.0.2",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "vite": "8.0.13"
+    "vite": "8.0.14"
   }
 }

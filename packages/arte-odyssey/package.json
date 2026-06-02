@@ -83,7 +83,7 @@
     "baseline-status": "1.1.1",
     "clsx": "2.1.1",
     "lucide-react": "1.16.0",
-    "motion": "12.39.0",
+    "motion": "12.40.0",
     "tailwind-merge": "3.6.0"
   },
   "devDependencies": {
@@ -107,7 +107,7 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "storybook": "10.4.0",
-    "storybook-addon-mock-date": "3.0.1",
+    "storybook-addon-mock-date": "3.0.2",
     "tailwind-token-extractor": "0.1.1",
     "tailwindcss": "catalog:",
     "vite": "catalog:",
