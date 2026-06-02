@@ -92,6 +92,7 @@ import {
 } from '../components/icons';
 import { ScrollLinked } from '../components/layout/scroll-linked';
 import { Separator } from '../components/layout/separator';
+import { Stack } from '../components/layout/stack';
 import { Anchor } from '../components/navigation/anchor';
 import { Breadcrumb } from '../components/navigation/breadcrumb';
 import { Pagination } from '../components/navigation/pagination';
@@ -103,7 +104,6 @@ import { ListBox } from '../components/overlays/list-box';
 import { Modal } from '../components/overlays/modal';
 import { Popover } from '../components/overlays/popover';
 import { Tooltip } from '../components/overlays/tooltip';
-import { cn } from '../helpers/cn';
 import type {
   AccordionProps,
   AlertProps,
@@ -340,36 +340,16 @@ export function renderTabs(props: TabsProps): ReactNode {
 // layout
 // ---------------------------------------------------------------------------
 
-const gapClass = {
-  none: 'gap-0',
-  sm: 'gap-2',
-  md: 'gap-4',
-  lg: 'gap-6',
-  xl: 'gap-8',
-} as const;
-const alignClass = {
-  start: 'items-start',
-  center: 'items-center',
-  end: 'items-end',
-  stretch: 'items-stretch',
-} as const;
-const justifyClass = {
-  start: 'justify-start',
-  center: 'justify-center',
-  end: 'justify-end',
-  between: 'justify-between',
-} as const;
-
-/** Stack コンテナの className。children は各 FW が描画して渡す。 */
-export function stackClassName(props: StackProps): string {
-  const align = u(props.align);
-  const justify = u(props.justify);
-  return cn(
-    'flex',
-    props.direction === 'row' ? 'flex-row' : 'flex-col',
-    gapClass[u(props.gap) ?? 'md'],
-    align && alignClass[align],
-    justify && justifyClass[justify],
+export function renderStack(props: StackProps, children: ReactNode): ReactNode {
+  return (
+    <Stack
+      align={u(props.align)}
+      direction={u(props.direction)}
+      gap={u(props.gap)}
+      justify={u(props.justify)}
+    >
+      {children}
+    </Stack>
   );
 }
 

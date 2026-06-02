@@ -32,6 +32,7 @@ export { Textarea } from './form/textarea';
 export * from './icons';
 export { ScrollLinked } from './layout/scroll-linked';
 export { Separator } from './layout/separator';
+export { Stack, type StackProps } from './layout/stack';
 export { Anchor } from './navigation/anchor';
 export { Breadcrumb } from './navigation/breadcrumb';
 export { Pagination } from './navigation/pagination';

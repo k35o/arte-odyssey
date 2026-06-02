@@ -15,9 +15,7 @@ import { catalog } from './catalog';
  */
 export const { registry } = defineRegistry(catalog, {
   components: {
-    Stack: ({ props, children }) => (
-      <div className={ui.stackClassName(props)}>{children}</div>
-    ),
+    Stack: ({ props, children }) => ui.renderStack(props, children),
     Card: ({ props, children }) => ui.renderCard(props, children),
     Button: ({ props }) => ui.renderButton(props),
     Badge: ({ props }) => ui.renderBadge(props),

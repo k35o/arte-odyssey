@@ -500,11 +500,8 @@ const Stack = defineComponent({
   props: s.stackProps.extend({
     children: z.array(z.union(childRefs)).describe('並べる子要素'),
   }),
-  component: ({ props, renderNode }) => (
-    <div className={ui.stackClassName(props)}>
-      {renderChildren(props.children, renderNode)}
-    </div>
-  ),
+  component: ({ props, renderNode }) =>
+    ui.renderStack(props, renderChildren(props.children, renderNode)),
 });
 
 // Stack を含めた汎用 child refs（コンテナの中身として使う）。
