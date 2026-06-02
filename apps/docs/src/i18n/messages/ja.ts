@@ -199,6 +199,17 @@ export const ja = {
   'components.separator.description': '区切り線',
   'components.separator.orientationsTitle': '方向',
   'components.separator.colorsTitle': 'カラー',
+  'components.stack.description':
+    '子要素を縦または横に等間隔で並べるレイアウトプリミティブ',
+  'components.stack.directionTitle': '方向',
+  'components.stack.gapTitle': '間隔',
+  'components.stack.alignTitle': '整列と分配',
+  'components.grid.description':
+    'CSS グリッドで子要素を並べるレイアウトプリミティブ。列数固定、auto-fill / auto-fit に対応',
+  'components.grid.colsTitle': '列数指定',
+  'components.grid.autoFillTitle': 'Auto-fill',
+  'components.grid.autoFillDescription':
+    'cols="auto-fill" / "auto-fit" のとき、minItemSize で各セルの最小幅を指定するとグリッドがレスポンシブにリフローする。',
   'components.tabs.description': 'タブ切り替え',
   'components.tabs.defaultSelectedTitle': 'デフォルト選択',
   'components.breadcrumb.description': 'ナビゲーションのパンくずリスト',
