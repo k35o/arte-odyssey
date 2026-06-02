@@ -23,6 +23,7 @@ import { DropdownMenuPage } from './pages/components/dropdown-menu-page';
 import { FileFieldPage } from './pages/components/file-field-page';
 import { FormControlPage } from './pages/components/form-control-page';
 import { FormPage } from './pages/components/form-page';
+import { GridPage } from './pages/components/grid-page';
 import { HeadingPage } from './pages/components/heading-page';
 import { IconButtonPage } from './pages/components/icon-button-page';
 import { IconsPage } from './pages/components/icons-page';
@@ -41,6 +42,7 @@ import { SeparatorPage } from './pages/components/separator-page';
 import { SkeletonPage } from './pages/components/skeleton-page';
 import { SliderPage } from './pages/components/slider-page';
 import { SpinnerPage } from './pages/components/spinner-page';
+import { StackPage } from './pages/components/stack-page';
 import { SwitchPage } from './pages/components/switch-page';
 import { TablePage } from './pages/components/table-page';
 import { TabsPage } from './pages/components/tabs-page';
@@ -260,6 +262,14 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/separator',
         component: <SeparatorPage />,
+      }),
+      route({
+        path: '/components/stack',
+        component: <StackPage />,
+      }),
+      route({
+        path: '/components/grid',
+        component: <GridPage />,
       }),
       route({
         path: '/components/tabs',

@@ -212,6 +212,17 @@ export const en = {
   'components.separator.description': 'A separator / divider component.',
   'components.separator.orientationsTitle': 'Orientations',
   'components.separator.colorsTitle': 'Colors',
+  'components.stack.description':
+    'Layout primitive that arranges children in a row or column with consistent gaps.',
+  'components.stack.directionTitle': 'Direction',
+  'components.stack.gapTitle': 'Gap',
+  'components.stack.alignTitle': 'Align & justify',
+  'components.grid.description':
+    'Layout primitive that arranges children on a CSS grid, with a fixed column count or auto-fill / auto-fit.',
+  'components.grid.colsTitle': 'Fixed columns',
+  'components.grid.autoFillTitle': 'Auto-fill',
+  'components.grid.autoFillDescription':
+    'With cols="auto-fill" or "auto-fit", minItemSize controls the minimum width of each cell so the grid reflows responsively.',
   'components.tabs.description': 'A tab switching component.',
   'components.tabs.defaultSelectedTitle': 'Default Selected',
   'components.breadcrumb.description': 'A breadcrumb navigation component.',

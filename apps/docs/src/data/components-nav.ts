@@ -240,6 +240,16 @@ export const componentCategories: NavCategory[] = [
     titleKey: 'components.categoryLayout',
     items: [
       {
+        name: 'Stack',
+        path: '/components/stack',
+        descKey: 'components.stack.description',
+      },
+      {
+        name: 'Grid',
+        path: '/components/grid',
+        descKey: 'components.grid.description',
+      },
+      {
         name: 'Separator',
         path: '/components/separator',
         descKey: 'components.separator.description',
