@@ -66,7 +66,7 @@
   },
   "scripts": {
     "build": "vp pack && pnpm build:css",
-    "build:css": "mkdir -p dist/styles && cp src/styles/index.css dist/styles/index.css",
+    "build:css": "mkdir -p dist/styles && cp src/styles/*.css dist/styles/",
     "generate:tokens": "tailwind-token-extractor src/styles/index.css -o src/styles/tokens.generated.ts",
     "check:tokens": "tailwind-token-extractor check src/styles/index.css -o src/styles/tokens.generated.ts",
     "storybook": "storybook dev -p 6006 --no-open",

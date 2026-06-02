@@ -1,5 +1,9 @@
-@import 'tailwindcss';
-@source '../components';
+/**
+ * Base layer & custom variants.
+ *
+ * Imported by `index.css`. Part of the token source of truth —
+ * run `pnpm generate:tokens` after editing.
+ */
 
 @layer base {
   body:has(dialog[open]) {

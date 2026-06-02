@@ -1,3 +1,10 @@
+/**
+ * Custom utilities.
+ *
+ * Imported by `index.css`. Part of the token source of truth —
+ * run `pnpm generate:tokens` after editing.
+ */
+
 @utility grid-cols-auto-fill-* {
   grid-template-columns: repeat(
     auto-fill,
@@ -40,4 +47,16 @@
 
 @utility writing-sideways-rl {
   writing-mode: sideways-rl;
+}
+
+@utility z-overlay {
+  z-index: var(--z-overlay);
+}
+
+@utility z-modal {
+  z-index: var(--z-modal);
+}
+
+@utility z-toast {
+  z-index: var(--z-toast);
 }
