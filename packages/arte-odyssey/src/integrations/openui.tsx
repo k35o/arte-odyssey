@@ -365,7 +365,7 @@ const BaselineStatusComp = defineComponent({
 
 const ListBoxView: FC<ComponentRenderProps<s.ListBoxProps>> = ({ props }) => {
   const field = useStateField<string>(
-    `listbox-${props.options[0]?.value ?? ''}`,
+    props.name,
     props.defaultValue ?? props.options[0]?.value ?? '',
   );
   return ui.renderListBox(props, field.value, field.setValue);

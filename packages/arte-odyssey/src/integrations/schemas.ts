@@ -10,13 +10,23 @@ import { z } from 'zod';
  * enum でデザイントークンの値に制約することで、生成 UI が崩れないようにする。
  */
 
+/**
+ * LLM 生成の `href` は `<a href>` に直接渡るため、`javascript:` や `data:` の
+ * スキームが通ると XSS になる。`http(s)://` 始まり、または `/` から始まる
+ * 相対パスのみを許可する。`z.url()` は `javascript:` を拒否しないため正規表現で
+ * 明示的にブロックしている。
+ */
+const safeUrl = z
+  .string()
+  .regex(/^(https?:\/\/|\/)/u, '外部 URL（http/https）または相対 URL のみ許可');
+
 export const buttonProps = z.object({
   label: z.string(),
   variant: z.enum(['contained', 'outlined', 'skeleton']).optional(),
   color: z.enum(['primary', 'secondary', 'gray']).optional(),
   size: z.enum(['sm', 'md', 'lg']).optional(),
   fullWidth: z.boolean().optional(),
-  href: z.string().optional(),
+  href: safeUrl.optional(),
 });
 
 export const badgeProps = z.object({
@@ -135,7 +145,7 @@ export const iconButtonProps = z.object({
 
 export const anchorProps = z.object({
   text: z.string(),
-  href: z.string(),
+  href: safeUrl,
   openInNewTab: z.boolean().optional(),
 });
 
@@ -183,7 +193,7 @@ export const breadcrumbProps = z.object({
     .array(
       z.object({
         label: z.string(),
-        href: z.string().optional(),
+        href: safeUrl.optional(),
         current: z.boolean().optional(),
       }),
     )
@@ -356,6 +366,7 @@ export const toastProps = z.object({
 // --- フォーム系 ---
 
 export const listBoxProps = z.object({
+  name: z.string(),
   options: z.array(z.object({ value: z.string(), label: z.string() })).min(1),
   defaultValue: z.string().optional(),
 });
