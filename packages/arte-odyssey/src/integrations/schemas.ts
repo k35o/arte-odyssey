@@ -113,22 +113,69 @@ export const tabsProps = z.object({
     .describe('各タブのラベルとテキストパネル'),
 });
 
-// 生成 UI で使えるアイコン名（size のみで描画できる安全なものに限定）。
+// 生成 UI で使えるアイコン名。
+// arte-odyssey が公開する `FC<IconProps>`（size のみで描画できる）系のアイコンを
+// すべて網羅する。`ChevronIcon` (direction 必須) と `AlertIcon` (status 必須) は
+// 追加引数が必要なため意図的に除外している（必要なら Stack + 個別 Icon で代替）。
 export const iconName = z.enum([
+  // 基本操作・通知
   'plus',
   'minus',
   'check',
   'close',
+  'copy',
+  'send',
   'mail',
+  'subscribe',
+  'rss',
+  'history',
+  'update-date',
+  'publish-date',
+  // ナビゲーション・リンク
   'link',
   'external-link',
-  'send',
-  'copy',
-  'tag',
+  'location',
+  'navigation-menu',
   'list',
   'table',
-  'location',
+  'form',
+  // 表示
+  'view',
+  'view-off',
+  'light-mode',
+  'dark-mode',
+  'palette',
+  'color-contrast',
+  'color-info',
+  'mixed-color',
+  'horizontal-writing',
+  'vertical-writing',
+  'tag',
+  // 内容カテゴリ
+  'blog',
+  'news',
+  'slide',
   'sparkles',
+  'ai',
+  'atom',
+  'accessibility',
+  'shield-check',
+  'prepare',
+  'informative',
+  // 評価・感情
+  'good',
+  'bad',
+  'easy',
+  'difficult',
+  'interesting',
+  'boring',
+  'shallow',
+  // カスタム（ブランド）
+  'arte-odyssey',
+  'logo',
+  'github',
+  'twitter',
+  'qiita',
 ]);
 
 export const iconProps = z.object({
