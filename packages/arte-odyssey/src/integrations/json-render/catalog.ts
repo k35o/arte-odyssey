@@ -1,7 +1,7 @@
 import { defineCatalog } from '@json-render/core';
 import { schema } from '@json-render/react/schema';
 
-import * as s from '../schemas';
+import * as s from '../_shared/schemas';
 
 /**
  * `@k8o/arte-odyssey/json-render`（サーバー安全）

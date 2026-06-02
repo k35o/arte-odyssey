@@ -3,37 +3,37 @@
 
 import { Fragment, type FC, type ReactNode, useId, useState } from 'react';
 
-import { Button } from '../components/buttons/button';
-import { IconButton } from '../components/buttons/icon-button';
-import { Accordion } from '../components/data-display/accordion';
-import { Avatar } from '../components/data-display/avatar';
-import { Badge } from '../components/data-display/badge';
-import { BaselineStatus } from '../components/data-display/baseline-status';
-import { Card, InteractiveCard } from '../components/data-display/card';
-import { Code } from '../components/data-display/code';
-import { Heading } from '../components/data-display/heading';
-import { Table } from '../components/data-display/table';
-import { Alert } from '../components/feedback/alert';
-import { Progress } from '../components/feedback/progress';
-import { Skeleton } from '../components/feedback/skeleton';
-import { Spinner } from '../components/feedback/spinner';
-import { ToastProvider, useToast } from '../components/feedback/toast';
-import { Autocomplete } from '../components/form/autocomplete';
-import { Checkbox } from '../components/form/checkbox';
-import { CheckboxCard } from '../components/form/checkbox-card';
-import { CheckboxGroup } from '../components/form/checkbox-group';
-import { FileField } from '../components/form/file-field';
-import { Form } from '../components/form/form';
-import { FormControl } from '../components/form/form-control';
-import { NumberField } from '../components/form/number-field';
-import { PasswordInput } from '../components/form/password-input';
-import { Radio } from '../components/form/radio';
-import { RadioCard } from '../components/form/radio-card';
-import { Select } from '../components/form/select';
-import { Slider } from '../components/form/slider';
-import { Switch } from '../components/form/switch';
-import { TextField } from '../components/form/text-field';
-import { Textarea } from '../components/form/textarea';
+import { Button } from '../../components/buttons/button';
+import { IconButton } from '../../components/buttons/icon-button';
+import { Accordion } from '../../components/data-display/accordion';
+import { Avatar } from '../../components/data-display/avatar';
+import { Badge } from '../../components/data-display/badge';
+import { BaselineStatus } from '../../components/data-display/baseline-status';
+import { Card, InteractiveCard } from '../../components/data-display/card';
+import { Code } from '../../components/data-display/code';
+import { Heading } from '../../components/data-display/heading';
+import { Table } from '../../components/data-display/table';
+import { Alert } from '../../components/feedback/alert';
+import { Progress } from '../../components/feedback/progress';
+import { Skeleton } from '../../components/feedback/skeleton';
+import { Spinner } from '../../components/feedback/spinner';
+import { ToastProvider, useToast } from '../../components/feedback/toast';
+import { Autocomplete } from '../../components/form/autocomplete';
+import { Checkbox } from '../../components/form/checkbox';
+import { CheckboxCard } from '../../components/form/checkbox-card';
+import { CheckboxGroup } from '../../components/form/checkbox-group';
+import { FileField } from '../../components/form/file-field';
+import { Form } from '../../components/form/form';
+import { FormControl } from '../../components/form/form-control';
+import { NumberField } from '../../components/form/number-field';
+import { PasswordInput } from '../../components/form/password-input';
+import { Radio } from '../../components/form/radio';
+import { RadioCard } from '../../components/form/radio-card';
+import { Select } from '../../components/form/select';
+import { Slider } from '../../components/form/slider';
+import { Switch } from '../../components/form/switch';
+import { TextField } from '../../components/form/text-field';
+import { Textarea } from '../../components/form/textarea';
 import {
   AccessibilityIcon,
   AIIcon,
@@ -89,22 +89,22 @@ import {
   VerticalWritingIcon,
   ViewIcon,
   ViewOffIcon,
-} from '../components/icons';
-import { Grid } from '../components/layout/grid';
-import { ScrollLinked } from '../components/layout/scroll-linked';
-import { Separator } from '../components/layout/separator';
-import { Stack } from '../components/layout/stack';
-import { Anchor } from '../components/navigation/anchor';
-import { Breadcrumb } from '../components/navigation/breadcrumb';
-import { Pagination } from '../components/navigation/pagination';
-import { Tabs } from '../components/navigation/tabs';
-import { Dialog } from '../components/overlays/dialog';
-import { Drawer } from '../components/overlays/drawer';
-import { DropdownMenu } from '../components/overlays/dropdown-menu';
-import { ListBox } from '../components/overlays/list-box';
-import { Modal } from '../components/overlays/modal';
-import { Popover } from '../components/overlays/popover';
-import { Tooltip } from '../components/overlays/tooltip';
+} from '../../components/icons';
+import { Grid } from '../../components/layout/grid';
+import { ScrollLinked } from '../../components/layout/scroll-linked';
+import { Separator } from '../../components/layout/separator';
+import { Stack } from '../../components/layout/stack';
+import { Anchor } from '../../components/navigation/anchor';
+import { Breadcrumb } from '../../components/navigation/breadcrumb';
+import { Pagination } from '../../components/navigation/pagination';
+import { Tabs } from '../../components/navigation/tabs';
+import { Dialog } from '../../components/overlays/dialog';
+import { Drawer } from '../../components/overlays/drawer';
+import { DropdownMenu } from '../../components/overlays/dropdown-menu';
+import { ListBox } from '../../components/overlays/list-box';
+import { Modal } from '../../components/overlays/modal';
+import { Popover } from '../../components/overlays/popover';
+import { Tooltip } from '../../components/overlays/tooltip';
 import type {
   AccordionProps,
   AlertProps,

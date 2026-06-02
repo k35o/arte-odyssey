@@ -3,7 +3,7 @@
 import { defineRegistry, useBoundProp } from '@json-render/react';
 import { useState } from 'react';
 
-import * as ui from '../renderers';
+import * as ui from '../_shared/renderers';
 import { catalog } from './catalog';
 
 /**

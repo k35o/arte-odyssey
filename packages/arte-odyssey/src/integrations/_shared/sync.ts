@@ -29,15 +29,15 @@
 import type { FC } from 'react';
 import type { z } from 'zod';
 
-import type { Button } from '../components/buttons/button';
-import type { IconButton } from '../components/buttons/icon-button';
-import type { Badge } from '../components/data-display/badge';
-import type { Heading } from '../components/data-display/heading';
-import type { Alert } from '../components/feedback/alert';
-import type { Spinner } from '../components/feedback/spinner';
-import type { Grid } from '../components/layout/grid';
-import type { Separator } from '../components/layout/separator';
-import type { Stack } from '../components/layout/stack';
+import type { Button } from '../../components/buttons/button';
+import type { IconButton } from '../../components/buttons/icon-button';
+import type { Badge } from '../../components/data-display/badge';
+import type { Heading } from '../../components/data-display/heading';
+import type { Alert } from '../../components/feedback/alert';
+import type { Spinner } from '../../components/feedback/spinner';
+import type { Grid } from '../../components/layout/grid';
+import type { Separator } from '../../components/layout/separator';
+import type { Stack } from '../../components/layout/stack';
 import type {
   alertProps,
   badgeProps,

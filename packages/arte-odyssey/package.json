@@ -54,8 +54,8 @@
     },
     "./openui": {
       "import": {
-        "types": "./dist/integrations/openui.d.mts",
-        "default": "./dist/integrations/openui.mjs"
+        "types": "./dist/integrations/openui/library.d.mts",
+        "default": "./dist/integrations/openui/library.mjs"
       }
     },
     "./styles.css": "./dist/styles/index.css"

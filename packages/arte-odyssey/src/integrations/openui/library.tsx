@@ -1,17 +1,29 @@
 'use client';
 
-import {
-  type ComponentRenderProps,
-  createLibrary,
-  defineComponent,
-  useStateField,
-} from '@openuidev/react-lang';
-import type { FC, ReactNode } from 'react';
+import { createLibrary, defineComponent } from '@openuidev/react-lang';
+import type { ReactNode } from 'react';
 import { Fragment } from 'react';
 import { z } from 'zod';
 
-import * as ui from './renderers';
-import * as s from './schemas';
+import * as ui from '../_shared/renderers';
+import * as s from '../_shared/schemas';
+import {
+  AutocompleteView,
+  CheckboxCardView,
+  CheckboxGroupView,
+  CheckboxView,
+  ListBoxView,
+  NumberFieldView,
+  PaginationView,
+  PasswordInputView,
+  RadioCardView,
+  RadioView,
+  SelectView,
+  SliderView,
+  SwitchView,
+  TextareaView,
+  TextFieldView,
+} from './form-views';
 
 /**
  * `@k8o/arte-odyssey/openui`（'use client'）
@@ -78,97 +90,7 @@ const Tabs = defineComponent({
   component: ({ props }) => ui.renderTabs(props),
 });
 
-// フォームは OpenUI の form state（name で識別）に接続する。
-// hook を使うため、rules-of-hooks を満たす大文字始まりの関数コンポーネントにする。
-const TextFieldView: FC<ComponentRenderProps<s.TextFieldProps>> = ({
-  props,
-}) => {
-  const field = useStateField<string>(props.name, props.defaultValue ?? '');
-  return ui.renderTextField(props, field.value, field.setValue);
-};
-
-const CheckboxView: FC<ComponentRenderProps<s.CheckboxProps>> = ({ props }) => {
-  const field = useStateField<boolean>(
-    props.name,
-    props.defaultChecked ?? false,
-  );
-  return ui.renderCheckbox(props, field.value, field.setValue);
-};
-
-const SwitchView: FC<ComponentRenderProps<s.SwitchProps>> = ({ props }) => {
-  const field = useStateField<boolean>(
-    props.name,
-    props.defaultChecked ?? false,
-  );
-  return ui.renderSwitch(props, field.value, field.setValue);
-};
-
-const SelectView: FC<ComponentRenderProps<s.SelectProps>> = ({ props }) => {
-  const field = useStateField<string>(
-    props.name,
-    props.defaultValue ?? props.options[0]?.value ?? '',
-  );
-  return ui.renderSelect(props, field.value, field.setValue);
-};
-
-const TextareaView: FC<ComponentRenderProps<s.TextareaProps>> = ({ props }) => {
-  const field = useStateField<string>(props.name, props.defaultValue ?? '');
-  return ui.renderTextarea(props, field.value, field.setValue);
-};
-
-const PasswordInputView: FC<ComponentRenderProps<s.PasswordInputProps>> = ({
-  props,
-}) => {
-  const field = useStateField<string>(props.name, props.defaultValue ?? '');
-  return ui.renderPasswordInput(props, field.value, field.setValue);
-};
-
-const NumberFieldView: FC<ComponentRenderProps<s.NumberFieldProps>> = ({
-  props,
-}) => {
-  const field = useStateField<number>(props.name, props.defaultValue ?? 0);
-  return ui.renderNumberField(props, field.value, field.setValue);
-};
-
-const SliderView: FC<ComponentRenderProps<s.SliderProps>> = ({ props }) => {
-  const field = useStateField<number>(
-    props.name,
-    props.defaultValue ?? props.min ?? 0,
-  );
-  return ui.renderSlider(props, field.value, field.setValue);
-};
-
-const RadioView: FC<ComponentRenderProps<s.RadioProps>> = ({ props }) => {
-  const field = useStateField<string>(
-    props.name,
-    props.defaultValue ?? props.options[0]?.value ?? '',
-  );
-  return ui.renderRadio(props, field.value, field.setValue);
-};
-
-const RadioCardView: FC<ComponentRenderProps<s.RadioCardProps>> = ({
-  props,
-}) => {
-  const field = useStateField<string>(
-    props.name,
-    props.defaultValue ?? props.options[0]?.value ?? '',
-  );
-  return ui.renderRadioCard(props, field.value, field.setValue);
-};
-
-const CheckboxCardView: FC<ComponentRenderProps<s.CheckboxCardProps>> = ({
-  props,
-}) => {
-  const field = useStateField<string[]>(props.name, props.defaultValue ?? []);
-  return ui.renderCheckboxCard(props, field.value, field.setValue);
-};
-
-const PaginationView: FC<ComponentRenderProps<s.PaginationProps>> = ({
-  props,
-}) => {
-  const field = useStateField<number>(props.name, 1);
-  return ui.renderPagination(props, field.value, field.setValue);
-};
+// フォーム状態接続 FC は ./form-views へ切り出し済み（rules-of-hooks のため）。
 
 const TextField = defineComponent({
   name: 'TextField',
@@ -377,28 +299,6 @@ const BaselineStatusComp = defineComponent({
 });
 
 // --- フォーム追加（FC で hook を呼ぶ） ---
-
-const ListBoxView: FC<ComponentRenderProps<s.ListBoxProps>> = ({ props }) => {
-  const field = useStateField<string>(
-    props.name,
-    props.defaultValue ?? props.options[0]?.value ?? '',
-  );
-  return ui.renderListBox(props, field.value, field.setValue);
-};
-
-const CheckboxGroupView: FC<ComponentRenderProps<s.CheckboxGroupProps>> = ({
-  props,
-}) => {
-  const field = useStateField<string[]>(props.name, props.defaultValue ?? []);
-  return ui.renderCheckboxGroup(props, field.value, field.setValue);
-};
-
-const AutocompleteView: FC<ComponentRenderProps<s.AutocompleteProps>> = ({
-  props,
-}) => {
-  const field = useStateField<string[]>(props.name, props.defaultValue ?? []);
-  return ui.renderAutocomplete(props, field.value, field.setValue);
-};
 
 const ListBox = defineComponent({
   name: 'ListBox',
