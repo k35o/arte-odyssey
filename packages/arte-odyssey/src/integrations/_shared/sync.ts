@@ -31,23 +31,43 @@ import type { z } from 'zod';
 
 import type { Button } from '../../components/buttons/button';
 import type { IconButton } from '../../components/buttons/icon-button';
+import type { Avatar } from '../../components/data-display/avatar';
 import type { Badge } from '../../components/data-display/badge';
+import type { Card } from '../../components/data-display/card';
 import type { Heading } from '../../components/data-display/heading';
 import type { Alert } from '../../components/feedback/alert';
+import type { Skeleton } from '../../components/feedback/skeleton';
 import type { Spinner } from '../../components/feedback/spinner';
+import type { Toast as ToastComponent } from '../../components/feedback/toast/toast';
+import type { FormControl } from '../../components/form/form-control';
+import type { AlertIcon, ChevronIcon } from '../../components/icons';
 import type { Grid } from '../../components/layout/grid';
 import type { Separator } from '../../components/layout/separator';
 import type { Stack } from '../../components/layout/stack';
+import type { Breadcrumb } from '../../components/navigation/breadcrumb';
+import type { Drawer } from '../../components/overlays/drawer';
+import type { Modal } from '../../components/overlays/modal';
 import type {
   alertProps,
+  avatarProps,
   badgeProps,
+  breadcrumbProps,
   buttonProps,
+  cardProps,
+  chevronIconProps,
+  drawerProps,
+  formControlProps,
   gridProps,
   headingProps,
   iconButtonProps,
+  interactiveCardProps,
+  modalProps,
   separatorProps,
+  skeletonProps,
   spinnerProps,
   stackProps,
+  statusIconProps,
+  toastProps,
 } from './schemas';
 
 /** Sub が Sup のサブタイプかを要求する。違反すると `true` が `never` に代入できず型エラー。 */
@@ -193,6 +213,107 @@ const _Grid_gap: AssertSubset<
   ZProp<typeof gridProps, 'gap'>
 > = true;
 
+// ---------------------------------------------------------------------------
+// Card / InteractiveCard
+// ---------------------------------------------------------------------------
+
+const _Card_width: AssertSubset<
+  Prop<typeof Card, 'width'>,
+  ZProp<typeof cardProps, 'width'>
+> = true;
+const _Card_appearance: AssertSubset<
+  Prop<typeof Card, 'appearance'>,
+  ZProp<typeof cardProps, 'appearance'>
+> = true;
+// InteractiveCard は Card と同じ CardProps を使う（本体側で型を共有）ので、
+// Card 側の assertion で実質的にカバーされる。zod 側だけ別 schema を持つ。
+const _InteractiveCard_width: AssertSubset<
+  Prop<typeof Card, 'width'>,
+  ZProp<typeof interactiveCardProps, 'width'>
+> = true;
+const _InteractiveCard_appearance: AssertSubset<
+  Prop<typeof Card, 'appearance'>,
+  ZProp<typeof interactiveCardProps, 'appearance'>
+> = true;
+
+// ---------------------------------------------------------------------------
+// Avatar / Skeleton
+// ---------------------------------------------------------------------------
+
+const _Avatar_size: AssertSubset<
+  Prop<typeof Avatar, 'size'>,
+  ZProp<typeof avatarProps, 'size'>
+> = true;
+
+const _Skeleton_shape: AssertSubset<
+  Prop<typeof Skeleton, 'shape'>,
+  ZProp<typeof skeletonProps, 'shape'>
+> = true;
+const _Skeleton_size: AssertSubset<
+  Prop<typeof Skeleton, 'size'>,
+  ZProp<typeof skeletonProps, 'size'>
+> = true;
+
+// ---------------------------------------------------------------------------
+// Breadcrumb (compound — List の size を検査)
+// ---------------------------------------------------------------------------
+
+const _Breadcrumb_size: AssertSubset<
+  Prop<typeof Breadcrumb.List, 'size'>,
+  ZProp<typeof breadcrumbProps, 'size'>
+> = true;
+
+// ---------------------------------------------------------------------------
+// FormControl (fieldType は generic UI 側で導入した独自値)
+// ---------------------------------------------------------------------------
+
+// FormControl の本体は `labelAs?: 'label' | 'legend'` を持つが integration では使わない。
+// integration が独自に `fieldType` を持つので本体との一致比較は行わず、本体側の
+// `label` 必須 prop だけ subset 検査する。
+const _FormControl_label: AssertSubset<
+  Prop<typeof FormControl, 'label'>,
+  ZProp<typeof formControlProps, 'label'>
+> = true;
+
+// ---------------------------------------------------------------------------
+// Modal / Drawer
+// ---------------------------------------------------------------------------
+
+const _Modal_type: AssertSubset<
+  Prop<typeof Modal, 'type'>,
+  ZProp<typeof modalProps, 'type'>
+> = true;
+
+const _Drawer_side: AssertSubset<
+  Prop<typeof Drawer, 'side'>,
+  ZProp<typeof drawerProps, 'side'>
+> = true;
+
+// ---------------------------------------------------------------------------
+// Toast (integration が triggerLabel/status/message を直接持つので、本体 ToastType
+//        の `status` だけ subset 検査する。Toast は `<Toast id status message>` で、
+//        本体の Toast コンポーネントの `status` Prop と一致する必要がある)
+// ---------------------------------------------------------------------------
+
+const _Toast_status: AssertSubset<
+  Prop<typeof ToastComponent, 'status'>,
+  ZProp<typeof toastProps, 'status'>
+> = true;
+
+// ---------------------------------------------------------------------------
+// ChevronIcon / StatusIcon (= AlertIcon)
+// ---------------------------------------------------------------------------
+
+const _ChevronIcon_direction: AssertSubset<
+  Prop<typeof ChevronIcon, 'direction'>,
+  ZProp<typeof chevronIconProps, 'direction'>
+> = true;
+
+const _StatusIcon_status: AssertSubset<
+  Prop<typeof AlertIcon, 'status'>,
+  ZProp<typeof statusIconProps, 'status'>
+> = true;
+
 // 未使用変数のリント警告を抑制（type-only assertion なので参照だけしておく）。
 export const _typeSyncAsserts = [
   _Button_variant,
@@ -220,4 +341,18 @@ export const _typeSyncAsserts = [
   _Grid_cols,
   _Grid_minItemSize,
   _Grid_gap,
+  _Card_width,
+  _Card_appearance,
+  _InteractiveCard_width,
+  _InteractiveCard_appearance,
+  _Avatar_size,
+  _Skeleton_shape,
+  _Skeleton_size,
+  _Breadcrumb_size,
+  _FormControl_label,
+  _Modal_type,
+  _Drawer_side,
+  _Toast_status,
+  _ChevronIcon_direction,
+  _StatusIcon_status,
 ] as const;
