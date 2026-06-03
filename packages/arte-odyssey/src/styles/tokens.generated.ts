@@ -630,6 +630,184 @@ export const tokens = {
       dark: 'oklch(0.9 0.082 305)',
     },
   },
+  refs: {
+    'fg-base': {
+      light: 'gray-900',
+      dark: 'gray-50',
+    },
+    'fg-subtle': {
+      light: 'gray-400',
+      dark: 'gray-500',
+    },
+    'fg-mute': {
+      light: 'gray-700',
+      dark: 'gray-300',
+    },
+    'fg-inverse': {
+      light: 'gray-50',
+      dark: 'gray-900',
+    },
+    'fg-info': {
+      light: 'blue-800',
+      dark: 'blue-200',
+    },
+    'fg-success': {
+      light: 'green-800',
+      dark: 'green-200',
+    },
+    'fg-warning': {
+      light: 'yellow-800',
+      dark: 'yellow-200',
+    },
+    'fg-error': {
+      light: 'red-800',
+      dark: 'red-200',
+    },
+    'bg-base': {
+      light: 'white',
+      dark: 'gray-800',
+    },
+    'bg-raised': {
+      light: 'white',
+      dark: 'gray-700',
+    },
+    'bg-surface': {
+      light: 'gray-50',
+      dark: 'gray-900',
+    },
+    'bg-subtle': {
+      light: 'gray-100',
+      dark: 'gray-800',
+    },
+    'bg-mute': {
+      light: 'gray-200',
+      dark: 'gray-700',
+    },
+    'bg-emphasize': {
+      light: 'gray-300',
+      dark: 'gray-600',
+    },
+    'bg-inverse': {
+      light: 'gray-900',
+      dark: 'white',
+    },
+    'bg-info': {
+      light: 'blue-100',
+      dark: 'blue-900',
+    },
+    'bg-success': {
+      light: 'green-100',
+      dark: 'green-900',
+    },
+    'bg-warning': {
+      light: 'yellow-100',
+      dark: 'yellow-900',
+    },
+    'bg-error': {
+      light: 'red-100',
+      dark: 'red-900',
+    },
+    'border-base': {
+      light: 'gray-400',
+      dark: 'gray-600',
+    },
+    'border-subtle': {
+      light: 'gray-100',
+      dark: 'gray-700',
+    },
+    'border-mute': {
+      light: 'gray-200',
+      dark: 'gray-600',
+    },
+    'border-emphasize': {
+      light: 'gray-500',
+      dark: 'gray-500',
+    },
+    'border-inverse': {
+      light: 'gray-700',
+      dark: 'gray-300',
+    },
+    'border-info': {
+      light: 'blue-500',
+      dark: 'blue-400',
+    },
+    'border-success': {
+      light: 'green-500',
+      dark: 'green-400',
+    },
+    'border-warning': {
+      light: 'yellow-500',
+      dark: 'yellow-400',
+    },
+    'border-error': {
+      light: 'red-500',
+      dark: 'red-400',
+    },
+    'primary-fg': {
+      light: 'teal-800',
+      dark: 'teal-300',
+    },
+    'primary-bg': {
+      light: 'teal-200',
+      dark: 'teal-800',
+    },
+    'primary-bg-subtle': {
+      light: 'teal-50',
+      dark: 'teal-950',
+    },
+    'primary-bg-mute': {
+      light: 'teal-100',
+      dark: 'teal-900',
+    },
+    'primary-bg-emphasize': {
+      light: 'teal-300',
+      dark: 'teal-700',
+    },
+    'primary-border': {
+      light: 'teal-500',
+      dark: 'teal-500',
+    },
+    'secondary-fg': {
+      light: 'cyan-800',
+      dark: 'cyan-300',
+    },
+    'secondary-bg': {
+      light: 'cyan-200',
+      dark: 'cyan-800',
+    },
+    'secondary-bg-subtle': {
+      light: 'cyan-50',
+      dark: 'cyan-950',
+    },
+    'secondary-bg-mute': {
+      light: 'cyan-100',
+      dark: 'cyan-900',
+    },
+    'secondary-bg-emphasize': {
+      light: 'cyan-300',
+      dark: 'cyan-700',
+    },
+    'secondary-border': {
+      light: 'cyan-500',
+      dark: 'cyan-500',
+    },
+    'group-primary': {
+      light: 'teal-800',
+      dark: 'teal-200',
+    },
+    'group-secondary': {
+      light: 'cyan-800',
+      dark: 'cyan-200',
+    },
+    'group-tertiary': {
+      light: 'pink-800',
+      dark: 'pink-200',
+    },
+    'group-quaternary': {
+      light: 'purple-800',
+      dark: 'purple-200',
+    },
+  },
 } as const;
 
 export const meta = {
@@ -643,6 +821,7 @@ export const meta = {
 
 export type ThemeNamespace = keyof typeof tokens.theme;
 export type VarName = keyof typeof tokens.vars;
+export type RefName = keyof typeof tokens.refs;
 export type AnimateToken = keyof typeof tokens.theme.animate;
 export type AspectToken = keyof typeof tokens.theme.aspect;
 export type BlurToken = keyof typeof tokens.theme.blur;

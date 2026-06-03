@@ -307,8 +307,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2(storybook@10.4.1(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@testing-library/dom@10.4.1)(@types/react@19.2.15)(prettier@2.8.8)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(vite-plus@0.1.22(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))))
       tailwind-token-extractor:
-        specifier: 0.1.1
-        version: 0.1.1(@tailwindcss/node@4.3.0)(tailwindcss@4.3.0)
+        specifier: 0.2.0
+        version: 0.2.0(@tailwindcss/node@4.3.0)(tailwindcss@4.3.0)
       tailwindcss:
         specifier: 'catalog:'
         version: 4.3.0
@@ -3620,8 +3620,8 @@ packages:
   tailwind-merge@3.6.0:
     resolution: {integrity: sha512-uxL7qAVQriqRQPAyK3pj66VqskWqoZ37PW94jwOTwNfq/z9oyu1V+eqrZqtR2+fCiXdYOZe/Modt8GtvqNzu+w==}
 
-  tailwind-token-extractor@0.1.1:
-    resolution: {integrity: sha512-wQnMO6d95+gfbEUGisaoGGlkj22+PqGPiXSKXa9psIhNVQGytppn8H8crwrRgCSjFWGAOuweRsDZLGIt7hSQiw==}
+  tailwind-token-extractor@0.2.0:
+    resolution: {integrity: sha512-KIsdGIiveTwLyg0VO1G47vXCO4OiMkypcBIZUf/uro+BtzloGgH6E/clPuNnupoCsaZoLb0BzolbN3HkIMeGzQ==}
     engines: {node: '>=24.14.1'}
     hasBin: true
     peerDependencies:
@@ -6929,7 +6929,7 @@ snapshots:
 
   tailwind-merge@3.6.0: {}
 
-  tailwind-token-extractor@0.1.1(@tailwindcss/node@4.3.0)(tailwindcss@4.3.0):
+  tailwind-token-extractor@0.2.0(@tailwindcss/node@4.3.0)(tailwindcss@4.3.0):
     dependencies:
       '@tailwindcss/node': 4.3.0
       cac: 7.0.0
