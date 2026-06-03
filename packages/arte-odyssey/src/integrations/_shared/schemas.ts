@@ -37,7 +37,8 @@ import type { Modal } from '../../components/overlays/modal';
  * - LLM 向けに独自抽象を入れている prop（`label`, `text`, `href`, `tabs`,
  *   `items` 等）は中間型に手書きする。
  * - 本体に存在する prop は `ComponentProps<typeof X>['key']` で参照することで、
- *   本体の enum を縮めたときに自動追従する。
+ *   本体の enum を縮めたときに自動追従する。enum を「広げた」ときの追従漏れは
+ *   satisfies では検知できないため、末尾の CoversComponent 型で別途検査する。
  *
  * enum 値はトークン由来の固定値に制約することで、生成 UI が崩れないように
  * している。
@@ -270,13 +271,8 @@ export const cardProps = z.object({
   appearance: z.enum(['shadow', 'bordered']).optional(),
 }) satisfies z.ZodType<CardIntegrationProps>;
 
-// InteractiveCard は本体側で Card と同じ Props を共有しているため、
-// 中間型も同形で OK。
-type InteractiveCardIntegrationProps = CardIntegrationProps;
-export const interactiveCardProps = z.object({
-  width: z.enum(['full', 'fit']).optional(),
-  appearance: z.enum(['shadow', 'bordered']).optional(),
-}) satisfies z.ZodType<InteractiveCardIntegrationProps>;
+// InteractiveCard は本体側で Card と同じ Props を共有するため schema も共有する。
+export const interactiveCardProps = cardProps;
 
 // ---------------------------------------------------------------------------
 // feedback
@@ -442,6 +438,7 @@ export const breadcrumbProps = z.object({
 type PaginationIntegrationProps = {
   name: string;
   totalPages: number;
+  defaultPage?: number;
   prevLabel?: string;
   nextLabel?: string;
   disabled?: boolean;
@@ -449,6 +446,7 @@ type PaginationIntegrationProps = {
 export const paginationProps = z.object({
   name: z.string(),
   totalPages: z.number(),
+  defaultPage: z.number().optional(),
   prevLabel: z.string().optional(),
   nextLabel: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -487,15 +485,7 @@ export const textFieldProps = z.object({
   readOnly: z.boolean().optional(),
 }) satisfies z.ZodType<TextFieldIntegrationProps>;
 
-type TextareaIntegrationProps = TextFieldIntegrationProps;
-export const textareaProps = z.object({
-  name: z.string(),
-  placeholder: z.string().optional(),
-  defaultValue: z.string().optional(),
-  invalid: z.boolean().optional(),
-  disabled: z.boolean().optional(),
-  readOnly: z.boolean().optional(),
-}) satisfies z.ZodType<TextareaIntegrationProps>;
+export const textareaProps = textFieldProps;
 
 type PasswordInputIntegrationProps = {
   name: string;
@@ -531,16 +521,7 @@ export const numberFieldProps = z.object({
   disabled: z.boolean().optional(),
 }) satisfies z.ZodType<NumberFieldIntegrationProps>;
 
-type SliderIntegrationProps = NumberFieldIntegrationProps;
-export const sliderProps = z.object({
-  name: z.string(),
-  defaultValue: z.number().optional(),
-  min: z.number().optional(),
-  max: z.number().optional(),
-  step: z.number().optional(),
-  invalid: z.boolean().optional(),
-  disabled: z.boolean().optional(),
-}) satisfies z.ZodType<SliderIntegrationProps>;
+export const sliderProps = numberFieldProps;
 
 type CheckboxIntegrationProps = {
   name: string;
@@ -580,12 +561,14 @@ type SelectIntegrationProps = {
   invalid?: boolean;
   disabled?: boolean;
 };
+const selectOption = z.object({ value: z.string(), label: z.string() });
+const radioCardOption = selectOption.extend({
+  description: z.string().optional(),
+  disabled: z.boolean().optional(),
+});
 export const selectProps = z.object({
   name: z.string(),
-  options: z
-    .array(z.object({ value: z.string(), label: z.string() }))
-    .min(1)
-    .describe('選択肢（value / label）'),
+  options: z.array(selectOption).min(1).describe('選択肢（value / label）'),
   defaultValue: z.string().optional(),
   invalid: z.boolean().optional(),
   disabled: z.boolean().optional(),
@@ -601,7 +584,7 @@ type RadioIntegrationProps = {
 export const radioProps = z.object({
   name: z.string(),
   label: z.string(),
-  options: z.array(z.object({ value: z.string(), label: z.string() })).min(1),
+  options: z.array(selectOption).min(1),
   defaultValue: z.string().optional(),
   disabled: z.boolean().optional(),
 }) satisfies z.ZodType<RadioIntegrationProps>;
@@ -621,16 +604,7 @@ type RadioCardIntegrationProps = {
 export const radioCardProps = z.object({
   name: z.string(),
   label: z.string(),
-  options: z
-    .array(
-      z.object({
-        value: z.string(),
-        label: z.string(),
-        description: z.string().optional(),
-        disabled: z.boolean().optional(),
-      }),
-    )
-    .min(1),
+  options: z.array(radioCardOption).min(1),
   defaultValue: z.string().optional(),
   invalid: z.boolean().optional(),
   disabled: z.boolean().optional(),
@@ -645,16 +619,7 @@ type CheckboxCardIntegrationProps = {
 };
 export const checkboxCardProps = z.object({
   name: z.string(),
-  options: z
-    .array(
-      z.object({
-        value: z.string(),
-        label: z.string(),
-        description: z.string().optional(),
-        disabled: z.boolean().optional(),
-      }),
-    )
-    .min(1),
+  options: z.array(radioCardOption).min(1),
   defaultValue: z.array(z.string()).optional(),
   invalid: z.boolean().optional(),
   disabled: z.boolean().optional(),
@@ -667,7 +632,7 @@ type ListBoxIntegrationProps = {
 };
 export const listBoxProps = z.object({
   name: z.string(),
-  options: z.array(z.object({ value: z.string(), label: z.string() })).min(1),
+  options: z.array(selectOption).min(1),
   defaultValue: z.string().optional(),
 }) satisfies z.ZodType<ListBoxIntegrationProps>;
 
@@ -678,7 +643,7 @@ type CheckboxGroupIntegrationProps = {
 };
 export const checkboxGroupProps = z.object({
   name: z.string(),
-  options: z.array(z.object({ value: z.string(), label: z.string() })).min(1),
+  options: z.array(selectOption).min(1),
   defaultValue: z.array(z.string()).optional(),
 }) satisfies z.ZodType<CheckboxGroupIntegrationProps>;
 
@@ -691,7 +656,7 @@ type AutocompleteIntegrationProps = {
 };
 export const autocompleteProps = z.object({
   name: z.string(),
-  options: z.array(z.object({ value: z.string(), label: z.string() })).min(1),
+  options: z.array(selectOption).min(1),
   defaultValue: z.array(z.string()).optional(),
   invalid: z.boolean().optional(),
   disabled: z.boolean().optional(),
@@ -855,3 +820,170 @@ export type CheckboxGroupProps = z.infer<typeof checkboxGroupProps>;
 export type AutocompleteProps = z.infer<typeof autocompleteProps>;
 export type FileFieldProps = z.infer<typeof fileFieldProps>;
 export type FormControlProps = z.infer<typeof formControlProps>;
+
+// ---------------------------------------------------------------------------
+// widening 検査
+//
+// satisfies は enum の narrowing しか検知しない。本体が値を追加したときの
+// 追従漏れを塞ぐため、本体ユニオンが schema の enum に被覆されているかを型で
+// 検査する。本体に値が増えると AssertCovered の制約違反でコンパイルが止まる。
+// ---------------------------------------------------------------------------
+
+type CoversComponent<Component, Zod> = [
+  Exclude<NonNullable<Component>, Zod>,
+] extends [never]
+  ? true
+  : { readonly __missingFromZodEnum: Exclude<NonNullable<Component>, Zod> };
+type AssertCovered<T extends true> = T;
+
+export type _EnumCoverage = [
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Button>['variant'],
+      ButtonProps['variant']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Button>['color'],
+      ButtonProps['color']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<ComponentProps<typeof Button>['size'], ButtonProps['size']>
+  >,
+  AssertCovered<
+    CoversComponent<ComponentProps<typeof Badge>['tone'], BadgeProps['tone']>
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Badge>['variant'],
+      BadgeProps['variant']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<ComponentProps<typeof Badge>['size'], BadgeProps['size']>
+  >,
+  AssertCovered<
+    CoversComponent<ComponentProps<typeof Card>['width'], CardProps['width']>
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Card>['appearance'],
+      CardProps['appearance']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Alert>['status'],
+      AlertProps['status']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Separator>['orientation'],
+      SeparatorProps['orientation']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Separator>['color'],
+      SeparatorProps['color']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<ComponentProps<typeof Modal>['type'], ModalProps['type']>
+  >,
+  AssertCovered<
+    CoversComponent<ComponentProps<typeof Drawer>['side'], DrawerProps['side']>
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Heading>['type'],
+      HeadingProps['level']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<ComponentProps<typeof Avatar>['size'], AvatarProps['size']>
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Spinner>['size'],
+      SpinnerProps['size']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Skeleton>['shape'],
+      SkeletonProps['shape']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Skeleton>['size'],
+      SkeletonProps['size']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof IconButton>['size'],
+      IconButtonProps['size']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof IconButton>['bg'],
+      IconButtonProps['bg']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof ChevronIcon>['direction'],
+      ChevronIconProps['direction']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof AlertIcon>['status'],
+      StatusIconProps['status']
+    >
+  >,
+  // ChevronIcon / AlertIcon の size は本体が xs〜3xl まで持つが、生成 UI では
+  // iconName と同様 sm/md/lg の安全な部分集合に意図的に絞るため被覆検査しない。
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Stack>['direction'],
+      StackProps['direction']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<ComponentProps<typeof Stack>['gap'], StackProps['gap']>
+  >,
+  AssertCovered<
+    CoversComponent<ComponentProps<typeof Stack>['align'], StackProps['align']>
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Stack>['justify'],
+      StackProps['justify']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<ComponentProps<typeof Grid>['cols'], GridProps['cols']>
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Grid>['minItemSize'],
+      GridProps['minItemSize']
+    >
+  >,
+  AssertCovered<
+    CoversComponent<ComponentProps<typeof Grid>['gap'], GridProps['gap']>
+  >,
+  AssertCovered<
+    CoversComponent<
+      ComponentProps<typeof Breadcrumb.List>['size'],
+      BreadcrumbProps['size']
+    >
+  >,
+];
