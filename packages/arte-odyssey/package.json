@@ -108,7 +108,7 @@
     "react-dom": "catalog:",
     "storybook": "10.4.1",
     "storybook-addon-mock-date": "3.0.2",
-    "tailwind-token-extractor": "0.1.1",
+    "tailwind-token-extractor": "0.2.0",
     "tailwindcss": "catalog:",
     "vite": "catalog:",
     "vite-plus": "catalog:",

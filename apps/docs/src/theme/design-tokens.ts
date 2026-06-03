@@ -1,44 +1,29 @@
 /**
  * Docs-only design-token view.
  *
- * The token VALUES come from `@k8o/arte-odyssey/tokens` (extracted from the
- * design system's CSS by `tailwind-token-extractor`). Presentation metadata that
- * does NOT exist in CSS — palette hue/description, the semantic ShadeRef tables,
- * and the spacing display scale — lives here, since it is a documentation
- * concern rather than part of the library's public token API.
+ * Everything derivable comes from `@k8o/arte-odyssey/tokens` (extracted from the
+ * design system's CSS by `tailwind-token-extractor`):
+ *   - palette families / shades / hue ← `tokens.vars` (`teal-500` keys, oklch hue)
+ *   - semantic → palette mappings     ← `tokens.refs` (the symbolic var() targets)
+ *   - typography / scales / z-index   ← `tokens.theme` / `tokens.vars`
+ *
+ * Only genuinely authored knowledge is hand-written here: the palette
+ * descriptions (design rationale, not in CSS) and the spacing display scale
+ * (a multiplicative view of the single `--spacing` unit).
  */
 import { tokens } from '@k8o/arte-odyssey/tokens';
 
-export const SHADES = [
-  50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950,
-] as const;
-export type Shade = (typeof SHADES)[number];
-
-export const PALETTE_PREFIXES = [
-  'gray',
-  'red',
-  'pink',
-  'purple',
-  'cyan',
-  'blue',
-  'teal',
-  'green',
-  'yellow',
-  'orange',
-] as const;
-export type PalettePrefix = (typeof PALETTE_PREFIXES)[number];
-
-export type ShadeRef = `${PalettePrefix}-${Shade}` | 'white';
+export type Shade = number;
 
 export type PaletteFamily = {
   name: string;
-  prefix: PalettePrefix;
+  prefix: string;
   hue: number;
   description: string;
   shades: Record<Shade, string>;
 };
 
-export type SemanticToken = { name: string; light: ShadeRef; dark: ShadeRef };
+export type SemanticToken = { name: string; light: string; dark: string };
 export type TextSize = { name: string; fontSize: string; lineHeight: number };
 export type NamedScale = { name: string; value: string };
 export type SpacingStep = { step: number; rem: string; px: string };
@@ -52,6 +37,7 @@ const THEME = tokens.theme as unknown as Record<
   string,
   Record<string, unknown>
 >;
+const REFS = tokens.refs as Record<string, { light: string; dark: string }>;
 
 const scalarVar = (key: string): string => {
   const value = VARS.get(key);
@@ -69,97 +55,74 @@ const namedScale = (group: Record<string, unknown> | undefined): NamedScale[] =>
     value: String(value),
   }));
 
-// --- palette (hue/description = metadata, shade values = extracted) -----------
-const PALETTE_META: ReadonlyArray<Omit<PaletteFamily, 'shades'>> = [
-  {
-    name: 'Gray',
-    prefix: 'gray',
-    hue: 235,
-    description: 'H: 235 (sky blue tint), minimal chroma for branded neutral',
-  },
-  { name: 'Red', prefix: 'red', hue: 25, description: 'H: 25' },
-  { name: 'Pink', prefix: 'pink', hue: 350, description: 'H: 350' },
-  { name: 'Purple', prefix: 'purple', hue: 305, description: 'H: 305' },
-  { name: 'Cyan', prefix: 'cyan', hue: 210, description: 'H: 210 (Secondary)' },
-  { name: 'Blue', prefix: 'blue', hue: 260, description: 'H: 260' },
-  { name: 'Teal', prefix: 'teal', hue: 180, description: 'H: 180 (Primary)' },
-  { name: 'Green', prefix: 'green', hue: 150, description: 'H: 150' },
-  { name: 'Yellow', prefix: 'yellow', hue: 90, description: 'H: 90' },
-  { name: 'Orange', prefix: 'orange', hue: 55, description: 'H: 55' },
-];
+// --- palette (families/shades/hue derived; descriptions authored) -------------
+/** Design rationale that does not exist in CSS; keyed by palette prefix. */
+const PALETTE_DESCRIPTIONS: Record<string, string> = {
+  gray: 'sky blue tint, minimal chroma for branded neutral',
+  cyan: 'Secondary',
+  teal: 'Primary',
+};
 
-export const PALETTE: readonly PaletteFamily[] = PALETTE_META.map((family) => ({
-  name: family.name,
-  prefix: family.prefix,
-  hue: family.hue,
-  description: family.description,
-  shades: Object.fromEntries(
-    SHADES.map((shade) => [shade, scalarVar(`${family.prefix}-${shade}`)]),
-  ) as Record<Shade, string>,
-}));
+const valueOf = (v: VarValue): string =>
+  typeof v === 'object' ? String(v.light) : String(v);
+const isColor = (s: string): boolean => /^(oklch|rgb|hsl|#)/iu.test(s);
+const hueOf = (oklch: string): number => {
+  const m = /^oklch\(\s*\S+\s+\S+\s+(-?[\d.]+)/iu.exec(oklch.trim());
+  return m?.[1] === undefined ? Number.NaN : Number(m[1]);
+};
+const capitalize = (s: string): string =>
+  s.charAt(0).toUpperCase() + s.slice(1);
 
-// --- semantic tokens (ShadeRef labels = metadata; swatch uses live CSS var) ---
-export const FG_TOKENS: readonly SemanticToken[] = [
-  { name: 'fg-base', light: 'gray-900', dark: 'gray-50' },
-  { name: 'fg-subtle', light: 'gray-400', dark: 'gray-500' },
-  { name: 'fg-mute', light: 'gray-700', dark: 'gray-300' },
-  { name: 'fg-inverse', light: 'gray-50', dark: 'gray-900' },
-  { name: 'fg-info', light: 'blue-800', dark: 'blue-200' },
-  { name: 'fg-success', light: 'green-800', dark: 'green-200' },
-  { name: 'fg-warning', light: 'yellow-800', dark: 'yellow-200' },
-  { name: 'fg-error', light: 'red-800', dark: 'red-200' },
-];
+// Scan the raw var layer for `<prefix>-<shade>` color entries (e.g. `teal-500`),
+// preserving CSS source order for families/shades. Hue is constant within a
+// family, so it is read from the first shade encountered.
+const PALETTE_SHADE_RE = /^([a-z]+)-(\d+)$/u;
+const shadeSet = new Set<number>();
+const prefixOrder: string[] = [];
+const hueByPrefix = new Map<string, number>();
+for (const [name, value] of VARS) {
+  const m = PALETTE_SHADE_RE.exec(name);
+  const prefix = m?.[1];
+  const shade = m?.[2];
+  if (prefix === undefined || shade === undefined) continue;
+  const color = valueOf(value);
+  if (!isColor(color)) continue;
+  shadeSet.add(Number(shade));
+  if (!prefixOrder.includes(prefix)) {
+    prefixOrder.push(prefix);
+    hueByPrefix.set(prefix, hueOf(color));
+  }
+}
 
-export const BG_TOKENS: readonly SemanticToken[] = [
-  { name: 'bg-base', light: 'white', dark: 'gray-800' },
-  { name: 'bg-raised', light: 'white', dark: 'gray-700' },
-  { name: 'bg-surface', light: 'gray-50', dark: 'gray-900' },
-  { name: 'bg-subtle', light: 'gray-100', dark: 'gray-800' },
-  { name: 'bg-mute', light: 'gray-200', dark: 'gray-700' },
-  { name: 'bg-emphasize', light: 'gray-300', dark: 'gray-600' },
-  { name: 'bg-inverse', light: 'gray-900', dark: 'white' },
-  { name: 'bg-info', light: 'blue-100', dark: 'blue-900' },
-  { name: 'bg-success', light: 'green-100', dark: 'green-900' },
-  { name: 'bg-warning', light: 'yellow-100', dark: 'yellow-900' },
-  { name: 'bg-error', light: 'red-100', dark: 'red-900' },
-];
+export const SHADES: readonly Shade[] = [...shadeSet].toSorted((a, b) => a - b);
+export const PALETTE_PREFIXES: readonly string[] = prefixOrder;
 
-export const BORDER_TOKENS: readonly SemanticToken[] = [
-  { name: 'border-base', light: 'gray-400', dark: 'gray-600' },
-  { name: 'border-subtle', light: 'gray-100', dark: 'gray-700' },
-  { name: 'border-mute', light: 'gray-200', dark: 'gray-600' },
-  { name: 'border-emphasize', light: 'gray-500', dark: 'gray-500' },
-  { name: 'border-inverse', light: 'gray-700', dark: 'gray-300' },
-  { name: 'border-info', light: 'blue-500', dark: 'blue-400' },
-  { name: 'border-success', light: 'green-500', dark: 'green-400' },
-  { name: 'border-warning', light: 'yellow-500', dark: 'yellow-400' },
-  { name: 'border-error', light: 'red-500', dark: 'red-400' },
-];
+export const PALETTE: readonly PaletteFamily[] = PALETTE_PREFIXES.map(
+  (prefix) => ({
+    name: capitalize(prefix),
+    prefix,
+    hue: hueByPrefix.get(prefix) ?? Number.NaN,
+    description: PALETTE_DESCRIPTIONS[prefix] ?? '',
+    shades: Object.fromEntries(
+      SHADES.map((shade) => [shade, scalarVar(`${prefix}-${shade}`)]),
+    ) as Record<Shade, string>,
+  }),
+);
 
-export const PRIMARY_TOKENS: readonly SemanticToken[] = [
-  { name: 'primary-fg', light: 'teal-800', dark: 'teal-300' },
-  { name: 'primary-bg', light: 'teal-200', dark: 'teal-800' },
-  { name: 'primary-bg-subtle', light: 'teal-50', dark: 'teal-950' },
-  { name: 'primary-bg-mute', light: 'teal-100', dark: 'teal-900' },
-  { name: 'primary-bg-emphasize', light: 'teal-300', dark: 'teal-700' },
-  { name: 'primary-border', light: 'teal-500', dark: 'teal-500' },
-];
+// --- semantic tokens (mapping derived from tokens.refs) -----------------------
+// Each entry is `{ name, light, dark }` where light/dark are the palette shade
+// the semantic var aliases in that mode — recovered from the CSS, not hand-kept.
+const semanticTokens = (prefix: string): readonly SemanticToken[] =>
+  Object.entries(REFS)
+    .filter(([name]) => name.startsWith(prefix))
+    .map(([name, ref]) => ({ name, light: ref.light, dark: ref.dark }));
 
-export const SECONDARY_TOKENS: readonly SemanticToken[] = [
-  { name: 'secondary-fg', light: 'cyan-800', dark: 'cyan-300' },
-  { name: 'secondary-bg', light: 'cyan-200', dark: 'cyan-800' },
-  { name: 'secondary-bg-subtle', light: 'cyan-50', dark: 'cyan-950' },
-  { name: 'secondary-bg-mute', light: 'cyan-100', dark: 'cyan-900' },
-  { name: 'secondary-bg-emphasize', light: 'cyan-300', dark: 'cyan-700' },
-  { name: 'secondary-border', light: 'cyan-500', dark: 'cyan-500' },
-];
-
-export const GROUP_TOKENS: readonly SemanticToken[] = [
-  { name: 'group-primary', light: 'teal-800', dark: 'teal-200' },
-  { name: 'group-secondary', light: 'cyan-800', dark: 'cyan-200' },
-  { name: 'group-tertiary', light: 'pink-800', dark: 'pink-200' },
-  { name: 'group-quaternary', light: 'purple-800', dark: 'purple-200' },
-];
+export const FG_TOKENS = semanticTokens('fg-');
+export const BG_TOKENS = semanticTokens('bg-');
+export const BORDER_TOKENS = semanticTokens('border-');
+export const PRIMARY_TOKENS = semanticTokens('primary-');
+export const SECONDARY_TOKENS = semanticTokens('secondary-');
+export const GROUP_TOKENS = semanticTokens('group-');
 
 // --- typography / scales (values extracted) -----------------------------------
 type GeneratedText = {
@@ -203,11 +166,9 @@ export const BREAKPOINTS: readonly Breakpoint[] = Object.entries(
   THEME['breakpoint'] ?? {},
 ).map(([name, rem]) => ({ name, rem: String(rem), px: remToPx(String(rem)) }));
 
-const Z_ORDER = ['overlay', 'modal', 'toast'] as const;
-export const Z_INDICES: readonly NamedScale[] = Z_ORDER.map((name) => ({
-  name,
-  value: scalarVar(`z-${name}`),
-}));
+export const Z_INDICES: readonly NamedScale[] = Object.keys(tokens.vars)
+  .filter((name) => name.startsWith('z-'))
+  .map((name) => ({ name: name.slice(2), value: scalarVar(name) }));
 
 /** Display scale for docs — not derivable from CSS. */
 export const SPACING_SCALE: readonly SpacingStep[] = [
