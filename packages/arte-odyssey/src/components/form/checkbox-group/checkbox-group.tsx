@@ -67,7 +67,6 @@ const Root: FC<RootProps> = ({
     defaultValue: defaultValue ?? [],
     onChange,
   });
-  void required;
 
   const toggleValue = useCallback(
     (targetValue: string) => {
@@ -94,6 +93,7 @@ const Root: FC<RootProps> = ({
     <fieldset
       {...rest}
       aria-invalid={invalid}
+      aria-required={required}
       className={cn('flex flex-col gap-2', disabled && 'cursor-not-allowed')}
     >
       <CheckboxGroupContext value={contextValue}>
