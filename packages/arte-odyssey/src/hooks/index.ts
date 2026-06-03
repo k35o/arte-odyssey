@@ -2,7 +2,10 @@ export { useClickAway } from './click-away';
 export { useClient } from './client';
 export { useClipboard } from './clipboard';
 export { useControllableState } from './controllable-state';
-export { useDebouncedTransition } from './debounced-transition';
+export {
+  type DebouncedAction,
+  useDebouncedTransition,
+} from './debounced-transition';
 export { useDeferredDebounce } from './deferred-debounce';
 export { useDisclosure } from './disclosure';
 export { useHash } from './hash';
