@@ -137,7 +137,7 @@ export const catalog = defineCatalog(schema, {
     },
     Pagination: {
       props: s.paginationProps,
-      description: 'ページネーション。現在ページを $bindState で束縛できる。',
+      description: 'ページネーション。defaultPage を $bindState で束縛できる。',
     },
     InteractiveCard: {
       props: s.interactiveCardProps,
