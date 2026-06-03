@@ -2,6 +2,7 @@
 
 import type { FC, PropsWithChildren } from 'react';
 
+import { FOCUS_RING_NO_BORDER } from '../../_internal/focus-ring';
 import { ChevronIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
 import { useItemId, useOpen, useToggleOpen } from './context';
@@ -18,7 +19,7 @@ export const AccordionButton: FC<PropsWithChildren> = ({ children }) => {
       className={cn(
         'flex w-full cursor-pointer items-center justify-between rounded-md p-4 text-fg-base transition-colors vertical:h-full',
         'hover:bg-primary-bg-subtle hover:text-primary-fg',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-info',
+        FOCUS_RING_NO_BORDER,
       )}
       id={`${id}-button`}
       onClick={toggleOpen}

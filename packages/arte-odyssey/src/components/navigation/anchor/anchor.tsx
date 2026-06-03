@@ -35,7 +35,7 @@ export const Anchor = <T extends string>({
   const isExternal = href.startsWith('http');
   const type = !isExternal && !openInNewTab ? 'internal' : 'external';
   const baseClassName =
-    'text-fg-info underline transition-colors hover:text-fg-info/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-info focus-visible:rounded-sm';
+    'text-fg-info underline transition-colors hover:text-fg-info/80 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info focus-visible:rounded-sm';
   const props =
     type === 'internal'
       ? {

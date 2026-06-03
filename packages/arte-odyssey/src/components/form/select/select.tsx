@@ -4,6 +4,7 @@ import type { FC, SelectHTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import type { Option } from '../../../types/variables';
+import { FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
 import { ChevronIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
 
@@ -26,7 +27,7 @@ export const Select: FC<Props> = ({
         invalid && 'border-border-error',
         (disabled || pending) &&
           'cursor-not-allowed border-border-mute bg-bg-mute',
-        'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
+        FOCUS_RING_WITHIN,
       )}
     >
       <select

@@ -17,10 +17,13 @@ import {
 } from 'react';
 import { useFormStatus } from 'react-dom';
 
-import { useControllableState } from '../../../hooks/controllable-state';
-import { useDeferredDebounce } from '../../../hooks/deferred-debounce';
-import { useDisclosure } from '../../../hooks/disclosure';
+import {
+  useControllableState,
+  useDeferredDebounce,
+  useDisclosure,
+} from '../../../hooks';
 import type { Option } from '../../../types/variables';
+import { FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
@@ -145,7 +148,7 @@ export const Autocomplete: FC<Props> = ({
     <div
       className={cn(
         'relative rounded-xl border border-border-base bg-bg-base inline-full',
-        'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
+        FOCUS_RING_WITHIN,
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute hover:has-disabled:has-hover:bg-bg-mute',
       )}

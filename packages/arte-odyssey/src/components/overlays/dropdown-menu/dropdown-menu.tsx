@@ -100,7 +100,7 @@ const Item: FC<{ onClick: MouseEventHandler; label: string }> = ({
       className={cn(
         'w-full px-2 py-1 text-left transition-colors',
         'hover:bg-bg-subtle',
-        'focus-visible:bg-bg-subtle focus-visible:outline-none',
+        'focus-visible:bg-bg-subtle focus-visible:outline-hidden',
       )}
       type="button"
       {...props}

@@ -3,6 +3,7 @@
 import { type FC, type InputHTMLAttributes, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import { FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
 import { ChevronIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
 import { useControllableState } from './../../../hooks/controllable-state';
@@ -83,7 +84,7 @@ export const NumberField: FC<Props> = ({
     <div
       className={cn(
         'relative flex h-12 w-full items-center justify-between gap-2 rounded-xl border border-border-base bg-bg-base vertical:h-auto vertical:w-12',
-        'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
+        FOCUS_RING_WITHIN,
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute hover:has-disabled:has-hover:bg-bg-mute',
       )}
@@ -146,7 +147,7 @@ export const NumberField: FC<Props> = ({
       />
       <div
         aria-hidden="true"
-        className="vertical:inset-e-auto vertical:bottom-1 vertical:h-auto vertical:w-full vertical:flex-row vertical:px-1 vertical:py-0 absolute end-1 flex h-full flex-col py-1"
+        className="vertical:inset-e-auto vertical:bottom-1 vertical:h-auto vertical:w-full vertical:flex-row vertical:px-1 vertical:py-0 absolute inset-e-1 flex h-full flex-col py-1"
       >
         <button
           className={cn(

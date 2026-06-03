@@ -5,6 +5,7 @@ import type { FC, HTMLProps, MouseEvent, ReactNode } from 'react';
 import { useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import { FOCUS_RING } from '../../_internal/focus-ring';
 import { Tooltip, type TooltipTriggerProps } from '../../overlays/tooltip';
 import { chain } from './../../../helpers/chain';
 import { cn } from './../../../helpers/cn';
@@ -73,7 +74,7 @@ export const IconButton: FC<Props> = ({
 
   const className = cn(
     'inline-flex rounded-full transition-colors',
-    'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+    FOCUS_RING,
     (bg === 'transparent' || bg === 'base') &&
       'hover:bg-bg-subtle active:bg-bg-mute',
     bg === 'base' && 'bg-bg-base',

@@ -8,6 +8,7 @@ import type {
 } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import { FOCUS_RING_PEER } from '../../_internal/focus-ring';
 import { CheckIcon } from '../../icons';
 import { useCheckboxGroupContext } from '../checkbox-group/checkbox-group';
 import { cn } from './../../../helpers/cn';
@@ -108,7 +109,7 @@ export const Checkbox: FC<Props> = ({
         aria-hidden
         className={cn(
           'inline-flex size-5 items-center justify-center rounded-md border-2 transition-colors',
-          'peer-focus-visible:border-transparent peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info',
+          FOCUS_RING_PEER,
           disabledResolved && 'border-border-mute bg-bg-mute',
           checked
             ? 'border-border-base bg-primary-bg text-fg-base'

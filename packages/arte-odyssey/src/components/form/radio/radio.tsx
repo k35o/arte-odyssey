@@ -9,6 +9,7 @@ import type {
 import { useFormStatus } from 'react-dom';
 
 import type { Option } from '../../../types/variables';
+import { FOCUS_RING_PEER } from '../../_internal/focus-ring';
 import { cn } from './../../../helpers/cn';
 import { useControllableState } from './../../../hooks/controllable-state';
 
@@ -98,7 +99,7 @@ export const Radio: FC<Props> = ({
             aria-hidden
             className={cn(
               'inline-flex size-5 items-center justify-center rounded-full border-2 transition-colors',
-              'peer-focus-visible:border-transparent peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info',
+              FOCUS_RING_PEER,
               selectedValue === option.value
                 ? 'border-border-base bg-primary-bg'
                 : 'border-border-mute bg-bg-base',
