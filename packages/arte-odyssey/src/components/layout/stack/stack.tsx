@@ -1,23 +1,16 @@
 import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
 
+import { GAP_CLASS, type GapSize } from '../_shared/gap';
 import { cn } from './../../../helpers/cn';
 
 export type StackProps = PropsWithChildren<
   {
     direction?: 'row' | 'column';
-    gap?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+    gap?: GapSize;
     align?: 'start' | 'center' | 'end' | 'stretch';
     justify?: 'start' | 'center' | 'end' | 'between';
   } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'style'>
 >;
-
-const GAP_CLASS = {
-  none: 'gap-0',
-  sm: 'gap-2',
-  md: 'gap-4',
-  lg: 'gap-6',
-  xl: 'gap-8',
-} as const;
 
 const ALIGN_CLASS = {
   start: 'items-start',

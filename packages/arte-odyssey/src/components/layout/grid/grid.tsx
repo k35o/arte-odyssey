@@ -1,5 +1,6 @@
 import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
 
+import { GAP_CLASS, type GapSize } from '../_shared/gap';
 import { cn } from './../../../helpers/cn';
 
 export type GridProps = PropsWithChildren<
@@ -11,17 +12,9 @@ export type GridProps = PropsWithChildren<
     cols?: 1 | 2 | 3 | 4 | 5 | 6 | 'auto-fill' | 'auto-fit';
     /** `cols` が `auto-fill` / `auto-fit` のときの各セルの最小サイズ（Tailwind spacing）。 */
     minItemSize?: 24 | 32 | 40 | 48 | 64 | 80;
-    gap?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+    gap?: GapSize;
   } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'style'>
 >;
-
-const GAP_CLASS = {
-  none: 'gap-0',
-  sm: 'gap-2',
-  md: 'gap-4',
-  lg: 'gap-6',
-  xl: 'gap-8',
-} as const;
 
 const COLS_CLASS = {
   1: 'grid-cols-1',
