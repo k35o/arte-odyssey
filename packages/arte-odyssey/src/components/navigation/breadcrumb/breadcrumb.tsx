@@ -47,7 +47,7 @@ const Link = <T extends string>({
     <span className="text-fg-base">{children}</span>
   ) : (
     <Component
-      className="hover:text-fg-base focus-visible:ring-border-info underline transition-colors focus-visible:rounded-sm focus-visible:ring-2 focus-visible:outline-none"
+      className="hover:text-fg-base focus-visible:ring-border-info underline transition-colors focus-visible:rounded-sm focus-visible:ring-2 focus-visible:outline-hidden"
       href={href}
     >
       {children}

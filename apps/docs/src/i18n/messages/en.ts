@@ -131,8 +131,6 @@ export const en = {
   'components.passwordInput.controlledTitle': 'Controlled',
   'components.passwordInput.disabledTitle': 'Disabled',
   'components.radio.description': 'A radio button group.',
-  'components.radioGroup.description':
-    'A group component for mutually exclusive radio options.',
   'components.radio.disabledTitle': 'Disabled',
   'components.radio.defaultValueTitle': 'Default Value',
   'components.radioCard.description':
@@ -173,6 +171,8 @@ export const en = {
   'components.badge.interactiveTitle': 'Interactive',
   'components.card.description': 'A card for grouping content.',
   'components.card.widthTitle': 'Width',
+  'components.card.interactiveDescription':
+    'A card that scales on hover and active. Use it to make the whole card a link or button.',
   'components.code.description': 'An inline code display component.',
   'components.code.colorDetectionTitle': 'Color Detection',
   'components.table.description':
@@ -235,11 +235,9 @@ export const en = {
   'components.icons.description':
     'A catalog of icon components provided by ArteOdyssey.',
   'components.icons.sizesTitle': 'Sizes',
-  'components.errorBoundary.description': 'An error boundary component.',
   'components.common.basicUsageTitle': 'Basic Usage',
   'components.modal.typesTitle': 'Types',
   'components.toast.useToastTitle': 'useToast Hook',
-  'components.errorBoundary.fallbackRenderTitle': 'Fallback with Reset',
   'components.popover.placementTitle': 'Placement',
   'components.tooltip.placementTitle': 'Placement',
   'components.listBox.sizesTitle': 'Sizes',
@@ -254,8 +252,6 @@ export const en = {
   'components.breadcrumb.currentPageTitle': 'Current Page',
   'components.toast.closeAllTitle': 'Close All',
   'components.scrollLinked.windowScrollTitle': 'Window Scroll',
-  'components.errorBoundary.fallbackComponentTitle': 'FallbackComponent',
-  'components.errorBoundary.resetKeysTitle': 'Reset Keys',
   'hooks.description': 'A catalog of custom hooks provided by ArteOdyssey.',
   'hooks.categoryDomInteraction': 'DOM Interaction',
   'hooks.categoryStateStorage': 'State & Storage',

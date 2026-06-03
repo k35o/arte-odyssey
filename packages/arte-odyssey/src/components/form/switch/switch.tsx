@@ -6,6 +6,7 @@ import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
 import { useControllableState } from '../../../hooks/controllable-state';
+import { FOCUS_RING_PEER_NO_BORDER } from '../../_internal/focus-ring';
 
 type BaseProps = {
   invalid?: boolean;
@@ -93,7 +94,8 @@ export const Switch: FC<Props> = ({
             invalid && 'ring-2 ring-border-error',
             isSelected ? 'bg-primary-bg' : 'bg-bg-mute',
             disabledResolved && 'bg-bg-subtle',
-            'peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info peer-focus-visible:ring-offset-2',
+            FOCUS_RING_PEER_NO_BORDER,
+            'peer-focus-visible:ring-offset-2',
           )}
         >
           <span

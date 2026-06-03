@@ -86,6 +86,7 @@ export default defineConfig({
             'src/helpers/**/*.test.{ts,tsx}',
             'src/internal/**/*.test.{ts,tsx}',
             'src/components/**/*.test.ts',
+            'src/integrations/**/*.test.{ts,tsx}',
           ],
           includeSource: [
             'src/helpers/**/*.{ts,tsx}',

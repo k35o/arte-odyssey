@@ -117,7 +117,7 @@ export const CheckboxCardView: FC<
 export const PaginationView: FC<ComponentRenderProps<s.PaginationProps>> = ({
   props,
 }) => {
-  const field = useStateField<number>(props.name, 1);
+  const field = useStateField<number>(props.name, props.defaultPage ?? 1);
   return ui.renderPagination(props, field.value, field.setValue);
 };
 

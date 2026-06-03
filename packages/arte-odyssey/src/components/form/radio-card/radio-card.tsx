@@ -12,6 +12,7 @@ import { useId, useRef } from 'react';
 
 import { cn } from '../../../helpers/cn';
 import { useControllableState } from '../../../hooks/controllable-state';
+import { FOCUS_RING_NO_BORDER } from '../../_internal/focus-ring';
 
 export type RadioCardOption = Readonly<{
   value: string;
@@ -120,7 +121,7 @@ export const RadioCard: FC<Props> = ({
             aria-pressed={checked}
             className={cn(
               'flex min-w-0 rounded-xl border bg-bg-base p-4 text-left transition-colors inline-full',
-              'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+              FOCUS_RING_NO_BORDER,
               checked &&
                 'border-primary-border bg-primary-bg-subtle hover:bg-primary-bg-mute',
               invalid

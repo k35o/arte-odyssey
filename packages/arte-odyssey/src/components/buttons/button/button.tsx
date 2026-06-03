@@ -4,6 +4,7 @@ import type { FC, HTMLProps, MouseEvent, ReactNode } from 'react';
 import { useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import { FOCUS_RING } from '../../_internal/focus-ring';
 import { Spinner } from '../../feedback/spinner/spinner';
 import { cn } from './../../../helpers/cn';
 
@@ -83,7 +84,7 @@ export const Button: FC<Props> = ({
       'border-transparent bg-transparent text-fg-mute hover:bg-bg-subtle hover:text-fg-base active:bg-bg-mute active:text-fg-base':
         variant === 'skeleton',
     },
-    'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+    FOCUS_RING,
     size === 'sm' && 'px-3 py-1 text-sm',
     size === 'md' && 'px-4 py-2 text-md',
     size === 'lg' && 'px-6 py-3 text-lg',

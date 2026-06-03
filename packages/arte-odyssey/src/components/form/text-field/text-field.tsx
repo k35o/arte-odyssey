@@ -3,6 +3,7 @@
 import type { FC, InputHTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import { FOCUS_RING } from '../../_internal/focus-ring';
 import { cn } from './../../../helpers/cn';
 
 type Props = {
@@ -23,7 +24,7 @@ export const TextField: FC<Props> = ({
         'aria-invalid:border-border-error',
         'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute hover:disabled:bg-bg-mute',
         'read-only:cursor-not-allowed read-only:bg-bg-subtle',
-        'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+        FOCUS_RING,
       )}
       readOnly={pending || readOnly}
       type="text"

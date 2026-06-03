@@ -5,6 +5,10 @@ import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
 import { useDisclosure } from '../../../hooks/disclosure';
+import {
+  FOCUS_RING_NO_BORDER,
+  FOCUS_RING_WITHIN,
+} from '../../_internal/focus-ring';
 import { ViewIcon, ViewOffIcon } from '../../icons';
 
 type Props = {
@@ -32,7 +36,7 @@ export const PasswordInput: FC<Props> = ({
         invalid && 'border-border-error',
         (disabled || pending) &&
           'cursor-not-allowed border-border-mute bg-bg-mute',
-        'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
+        FOCUS_RING_WITHIN,
       )}
     >
       <input
@@ -52,7 +56,7 @@ export const PasswordInput: FC<Props> = ({
         aria-label={isVisible ? hideLabel : showLabel}
         className={cn(
           'me-2 inline-flex shrink-0 items-center justify-center rounded-md p-1 text-fg-mute transition-colors',
-          'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+          FOCUS_RING_NO_BORDER,
           !disabled && !pending && 'hover:bg-bg-mute hover:text-fg-base',
           (disabled || pending) && 'cursor-not-allowed text-fg-mute/70',
         )}

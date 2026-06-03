@@ -36,9 +36,9 @@ src/components/<name>/
 
 ### Boolean Props
 
-- **状態を表す boolean** → `is` prefix を付ける: `isOpen`, `isDisabled`, `isInvalid`, `isRequired`, `isExternal`
+- **状態を表す boolean** → `is` prefix を付ける: `isOpen`, `isDisabled`, `isRequired`, `isExternal`
 - **モード・バリアントを表す boolean** → prefix なし: `interactive`, `animate`, `current`, `fullWidth`, `multiple`
-- **ネイティブ HTML 属性** → そのまま: `disabled`, `checked`, `required`
+- **ネイティブ HTML 属性 / ARIA 状態に 1:1 対応する boolean** → そのまま: `disabled`, `checked`, `required`, `invalid`（`aria-invalid` にそのまま渡るため `is` prefix を付けない）
 
 ## Component Authoring Patterns
 

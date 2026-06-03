@@ -1,7 +1,14 @@
 /* eslint-disable import/max-dependencies -- Generative UI 統合の描画集約モジュールのため、多数のコンポーネントを束ねる */
 'use client';
 
-import { Fragment, type FC, type ReactNode, useId, useState } from 'react';
+import {
+  type ComponentProps,
+  Fragment,
+  type FC,
+  type ReactNode,
+  useId,
+  useState,
+} from 'react';
 
 import { Button } from '../../components/buttons/button';
 import { IconButton } from '../../components/buttons/icon-button';
@@ -527,18 +534,29 @@ export function renderSlider(
 
 // Radio / RadioCard は `aria-labelledby` の宛先 ID を持つ必要があるが、
 // `${name}-label` は同じ name の別 Renderer が同居すると衝突する。
-// `useId()` でユニーク化するため FC として実装する。
-const RadioView: FC<{
-  props: RadioProps;
-  value: string;
-  onChange: (next: string) => void;
-}> = ({ props, value, onChange }) => {
+// `useId()` でユニーク化したラベルを子に渡す共有ラッパー。
+const LabeledField: FC<{
+  label: string;
+  children: (labelId: string) => ReactNode;
+}> = ({ label, children }) => {
   const labelId = useId();
   return (
     <div className="flex flex-col gap-1">
       <span className="text-fg-base text-sm font-medium" id={labelId}>
-        {props.label}
+        {label}
       </span>
+      {children(labelId)}
+    </div>
+  );
+};
+
+const RadioView: FC<{
+  props: RadioProps;
+  value: string;
+  onChange: (next: string) => void;
+}> = ({ props, value, onChange }) => (
+  <LabeledField label={props.label}>
+    {(labelId) => (
       <Radio
         aria-labelledby={labelId}
         disabled={u(props.disabled)}
@@ -549,21 +567,17 @@ const RadioView: FC<{
         options={props.options}
         value={value}
       />
-    </div>
-  );
-};
+    )}
+  </LabeledField>
+);
 
 const RadioCardView: FC<{
   props: RadioCardProps;
   value: string;
   onChange: (next: string) => void;
-}> = ({ props, value, onChange }) => {
-  const labelId = useId();
-  return (
-    <div className="flex flex-col gap-1">
-      <span className="text-fg-base text-sm font-medium" id={labelId}>
-        {props.label}
-      </span>
+}> = ({ props, value, onChange }) => (
+  <LabeledField label={props.label}>
+    {(labelId) => (
       <RadioCard
         aria-labelledby={labelId}
         disabled={u(props.disabled)}
@@ -575,9 +589,9 @@ const RadioCardView: FC<{
         options={props.options}
         value={value}
       />
-    </div>
-  );
-};
+    )}
+  </LabeledField>
+);
 
 export function renderRadio(
   props: RadioProps,
@@ -802,35 +816,39 @@ export function renderForm(props: FormProps, children: ReactNode): ReactNode {
 // overlays（自己完結ウィジェット: トリガーボタン＋コンテンツ、開閉は内部 state）
 // ---------------------------------------------------------------------------
 
-export const ModalWidget: FC<{ props: ModalProps; children: ReactNode }> = ({
-  props,
-  children,
-}) => {
+// Modal/Dialog ウィジェットはトリガーボタン＋Modal＋Dialog の骨格を共有する。
+// 差分はトリガーボタンの見た目と Modal の type のみ。
+const OverlayWidget: FC<{
+  triggerLabel: string;
+  title: string;
+  type: ModalProps['type'];
+  buttonProps?: Pick<ComponentProps<typeof Button>, 'size' | 'variant'>;
+  children: ReactNode;
+}> = ({ triggerLabel, title, type, buttonProps, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Button
+        {...buttonProps}
         onClick={() => {
           setIsOpen(true);
         }}
-        size="md"
-        variant="contained"
       >
-        {props.triggerLabel}
+        {triggerLabel}
       </Button>
       <Modal
         isOpen={isOpen}
         onClose={() => {
           setIsOpen(false);
         }}
-        type={u(props.type)}
+        type={type}
       >
         <Dialog.Root>
           <Dialog.Header
             onClose={() => {
               setIsOpen(false);
             }}
-            title={props.title}
+            title={title}
           />
           <Dialog.Content>{children}</Dialog.Content>
         </Dialog.Root>
@@ -839,40 +857,32 @@ export const ModalWidget: FC<{ props: ModalProps; children: ReactNode }> = ({
   );
 };
 
+export const ModalWidget: FC<{ props: ModalProps; children: ReactNode }> = ({
+  props,
+  children,
+}) => (
+  <OverlayWidget
+    buttonProps={{ size: 'md', variant: 'contained' }}
+    title={props.title}
+    triggerLabel={props.triggerLabel}
+    type={u(props.type)}
+  >
+    {children}
+  </OverlayWidget>
+);
+
 export const DialogWidget: FC<{ props: DialogProps; children: ReactNode }> = ({
   props,
   children,
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <>
-      <Button
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
-        {props.triggerLabel}
-      </Button>
-      <Modal
-        isOpen={isOpen}
-        onClose={() => {
-          setIsOpen(false);
-        }}
-        type="center"
-      >
-        <Dialog.Root>
-          <Dialog.Header
-            onClose={() => {
-              setIsOpen(false);
-            }}
-            title={props.title}
-          />
-          <Dialog.Content>{children}</Dialog.Content>
-        </Dialog.Root>
-      </Modal>
-    </>
-  );
-};
+}) => (
+  <OverlayWidget
+    title={props.title}
+    triggerLabel={props.triggerLabel}
+    type="center"
+  >
+    {children}
+  </OverlayWidget>
+);
 
 export const DrawerWidget: FC<{ props: DrawerProps; children: ReactNode }> = ({
   props,

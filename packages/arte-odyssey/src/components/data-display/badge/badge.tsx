@@ -1,6 +1,7 @@
 import type { FC, HTMLAttributes } from 'react';
 
 import { cn } from '../../../helpers/cn';
+import { FOCUS_RING_NO_BORDER } from '../../_internal/focus-ring';
 
 type Props = {
   text: string;
@@ -19,8 +20,7 @@ export const Badge: FC<Props> = ({
   ...rest
 }) => {
   const interactiveClassName = cn(
-    interactive &&
-      'cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+    interactive && `cursor-pointer ${FOCUS_RING_NO_BORDER}`,
     interactive &&
       tone === 'neutral' &&
       variant === 'solid' &&

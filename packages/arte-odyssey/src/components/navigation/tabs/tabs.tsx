@@ -10,11 +10,12 @@ import {
   useId,
   useMemo,
   useRef,
-  useState,
 } from 'react';
 
+import { FOCUS_RING } from '../../_internal/focus-ring';
 import { cn } from './../../../helpers/cn';
 import { createSafeContext } from './../../../helpers/create-safe-context';
+import { useControllableState } from './../../../hooks/controllable-state';
 import {
   useWritingMode,
   type WritingMode,
@@ -34,25 +35,29 @@ const [TabsProvider, useTabsState] = createSafeContext<TabsContext>(
 const Root: FC<
   PropsWithChildren<{
     defaultSelectedId?: string | null;
+    selectedId?: string;
+    onChange?: (id: string) => void;
     ids: [string, ...string[]];
   }>
-> = ({ defaultSelectedId = null, ids, children }) => {
+> = ({ defaultSelectedId = null, selectedId, onChange, ids, children }) => {
   const defaultIndex =
     defaultSelectedId !== null && defaultSelectedId !== ''
       ? ids.indexOf(defaultSelectedId)
       : 0;
-  const [selectedId, setSelectedId] = useState<string>(
-    defaultSelectedId ?? ids[defaultIndex] ?? ids[0],
-  );
+  const [currentId, setSelectedId] = useControllableState<string>({
+    value: selectedId,
+    defaultValue: defaultSelectedId ?? ids[defaultIndex] ?? ids[0],
+    onChange,
+  });
   const rootId = useId();
   const contextValue = useMemo<TabsContext>(
     () => ({
       rootId,
       ids,
-      selectedId,
+      selectedId: currentId,
       setSelectedId,
     }),
-    [rootId, ids, selectedId],
+    [rootId, ids, currentId, setSelectedId],
   );
 
   return (
@@ -131,7 +136,7 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
       className={cn(
         'relative cursor-pointer rounded-lg p-2 transition-colors',
         selectedId !== id && 'hover:bg-primary-bg-subtle hover:text-primary-fg',
-        'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+        FOCUS_RING,
       )}
       id={`${rootId}-tab-${id}`}
       onClick={() => {
@@ -155,7 +160,7 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
     >
       {selectedId === id && (
         <motion.div
-          className="bg-primary-border absolute start-0 end-0 -inset-be-0.5 block-1"
+          className="bg-primary-border absolute inset-s-0 inset-e-0 -inset-be-0.5 block-1"
           layoutId={`${rootId}-underline`}
         />
       )}
@@ -174,10 +179,7 @@ const Panel: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
   return (
     <div
       aria-labelledby={`${rootId}-tab-${id}`}
-      className={cn(
-        'grow rounded-lg p-2',
-        'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
-      )}
+      className={cn('grow rounded-lg p-2', FOCUS_RING)}
       id={`${rootId}-panel-${id}`}
       role="tabpanel"
     >
