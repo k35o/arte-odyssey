@@ -78,7 +78,7 @@ export const Slider: FC<Props> = ({
         <span
           aria-hidden
           className={cn(
-            'bg-primary-bg absolute start-0 inset-be-0 block-full inline-(--slider-progress) rounded-full',
+            'bg-primary-bg absolute inset-s-0 inset-be-0 block-full inline-(--slider-progress) rounded-full',
             invalid && 'bg-bg-error',
           )}
         />
