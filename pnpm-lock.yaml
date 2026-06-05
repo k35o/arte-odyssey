@@ -61,7 +61,7 @@ importers:
         version: 21.0.1
       '@k8o/oxc-config':
         specifier: 0.1.3
-        version: 0.1.3(oxfmt@0.52.0(vite-plus@0.1.23(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))))(oxlint-tailwindcss@0.8.0(@oxlint/plugins@1.67.0))(oxlint@1.67.0(oxlint-tsgolint@0.23.0)(vite-plus@0.1.23(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))))
+        version: 0.1.3(oxfmt@0.52.0(vite-plus@0.1.23(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))))(oxlint-tailwindcss@1.0.1(@oxlint/plugins@1.67.0))(oxlint@1.67.0(oxlint-tsgolint@0.23.0)(vite-plus@0.1.23(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))))
       '@oxlint/plugins':
         specifier: 1.67.0
         version: 1.67.0
@@ -75,8 +75,8 @@ importers:
         specifier: latest
         version: 9.0.1(typescript@6.0.3)
       oxlint-tailwindcss:
-        specifier: 0.8.0
-        version: 0.8.0(@oxlint/plugins@1.67.0)
+        specifier: 1.0.1
+        version: 1.0.1(@oxlint/plugins@1.67.0)
       playwright:
         specifier: 1.60.0
         version: 1.60.0
@@ -3235,8 +3235,8 @@ packages:
       vite-plus:
         optional: true
 
-  oxlint-tailwindcss@0.8.0:
-    resolution: {integrity: sha512-vfWnQ9S3AZXb9oqQPxilz9UlUcFvuKKJh7mT7vHw0lyHQVpKPOx117oS5y1/FuSAGSJAZa1gUeXCFNF8Ax28jA==}
+  oxlint-tailwindcss@1.0.1:
+    resolution: {integrity: sha512-58Db12Cfk+D9qZo2fBiWthWjaNGh+x4Nzvw/B+pPx1ByYjda+wcybZswLuE+xIcV70DroQvDVR2IHuierqc9YQ==}
     engines: {node: '>=20'}
     peerDependencies:
       '@oxlint/plugins': '>=1.43.0'
@@ -4639,11 +4639,11 @@ snapshots:
     transitivePeerDependencies:
       - zod
 
-  '@k8o/oxc-config@0.1.3(oxfmt@0.52.0(vite-plus@0.1.23(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))))(oxlint-tailwindcss@0.8.0(@oxlint/plugins@1.67.0))(oxlint@1.67.0(oxlint-tsgolint@0.23.0)(vite-plus@0.1.23(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))))':
+  '@k8o/oxc-config@0.1.3(oxfmt@0.52.0(vite-plus@0.1.23(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))))(oxlint-tailwindcss@1.0.1(@oxlint/plugins@1.67.0))(oxlint@1.67.0(oxlint-tsgolint@0.23.0)(vite-plus@0.1.23(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))))':
     optionalDependencies:
       oxfmt: 0.52.0(vite-plus@0.1.23(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0)))
       oxlint: 1.67.0(oxlint-tsgolint@0.23.0)(vite-plus@0.1.23(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0)))
-      oxlint-tailwindcss: 0.8.0(@oxlint/plugins@1.67.0)
+      oxlint-tailwindcss: 1.0.1(@oxlint/plugins@1.67.0)
 
   '@lit-labs/ssr-dom-shim@1.6.0': {}
 
@@ -6510,7 +6510,7 @@ snapshots:
       '@oxfmt/binding-win32-x64-msvc': 0.52.0
       vite-plus: 0.1.23(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))
 
-  oxlint-tailwindcss@0.8.0(@oxlint/plugins@1.67.0):
+  oxlint-tailwindcss@1.0.1(@oxlint/plugins@1.67.0):
     dependencies:
       '@oxlint/plugins': 1.67.0
       '@tailwindcss/node': 4.3.0

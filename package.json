@@ -29,7 +29,7 @@
     "@types/node": "24.12.4",
     "agent-browser": "0.27.0",
     "cosmiconfig": "latest",
-    "oxlint-tailwindcss": "0.8.0",
+    "oxlint-tailwindcss": "1.0.1",
     "playwright": "1.60.0",
     "typescript": "6.0.3",
     "vite-plus": "catalog:"
