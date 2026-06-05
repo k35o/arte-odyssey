@@ -1,5 +1,13 @@
+import { fileURLToPath } from 'node:url';
+
 import { fmt, react, tailwind, test } from '@k8o/oxc-config';
 import { defineConfig } from 'vite-plus';
+
+// oxlint-tailwindcss v1 resolves `entryPoint` relative to oxlint's working
+// directory (each package dir under `vp run -r check`), so absolute paths
+// resolved from this config keep it portable across packages and machines.
+const cssEntry = (path: string) =>
+  fileURLToPath(new URL(path, import.meta.url));
 
 export default defineConfig({
   fmt: {
@@ -43,6 +51,25 @@ export default defineConfig({
     },
     settings: {
       react: { version: '19.2.5' },
+      // oxlint-tailwindcss v1 は明示的な Tailwind エントリポイントが必須。
+      // arte-odyssey は src/styles/index.css が単一ソース。docs / examples は
+      // それを取り込んだ各自の globals.css を使う。
+      tailwindcss: {
+        entryPoint: [
+          {
+            files: '**/apps/docs/**',
+            use: cssEntry('./apps/docs/src/styles/globals.css'),
+          },
+          {
+            files: '**/examples/nextjs/**',
+            use: cssEntry('./examples/nextjs/src/app/globals.css'),
+          },
+          {
+            files: '**',
+            use: cssEntry('./packages/arte-odyssey/src/styles/index.css'),
+          },
+        ],
+      },
     },
     overrides: [
       {
