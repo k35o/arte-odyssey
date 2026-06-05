@@ -309,14 +309,18 @@ export const Autocomplete: FC<Props> = ({
               isPending && 'opacity-60',
             )}
             id={`${id}_listbox`}
+            role="listbox"
           >
             {filteredOptions.length === 0 && (
-              <li className="text-fg-mute px-3 py-2">該当なし</li>
+              <li className="text-fg-mute px-3 py-2" role="presentation">
+                該当なし
+              </li>
             )}
             {filteredOptions.map((option, idx) => {
               const selected = currentValue.includes(option.value);
               return (
                 <li
+                  aria-selected={selected}
                   className={cn(
                     'cursor-pointer px-3 py-2 transition-colors',
                     selected && 'bg-primary-bg-subtle text-primary-fg',
@@ -327,6 +331,7 @@ export const Autocomplete: FC<Props> = ({
                   )}
                   id={`${id}_option_${option.value}`}
                   key={option.value}
+                  role="option"
                   onClick={(e) => {
                     e.stopPropagation();
                     reset();

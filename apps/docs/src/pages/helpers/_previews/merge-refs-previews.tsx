@@ -17,6 +17,7 @@ export function MergeRefsPreview() {
   return (
     <div className="flex flex-col gap-3">
       <input
+        aria-label="Sample input"
         className="border-border-mute rounded-lg border px-3 py-2 text-sm"
         placeholder="Type something..."
         ref={mergeRefs(internalRef, externalRef)}
