@@ -98,6 +98,7 @@ export const CheckboxCard: FC<Props> = ({
               aria-describedby={
                 hasDescription ? `${optionId}-description` : undefined
               }
+              aria-labelledby={`${optionId}-label`}
               checked={checked}
               className="sr-only"
               disabled={optionDisabled}
@@ -114,7 +115,12 @@ export const CheckboxCard: FC<Props> = ({
               </span>
             ) : null}
             <span className="flex min-w-0 flex-1 flex-col gap-1">
-              <span className="text-fg-base font-medium">{option.label}</span>
+              <span
+                className="text-fg-base font-medium"
+                id={`${optionId}-label`}
+              >
+                {option.label}
+              </span>
               {hasDescription ? (
                 <span
                   className="text-fg-mute text-sm"

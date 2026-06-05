@@ -7,29 +7,34 @@ type RestProps = Omit<
   'href' | 'children' | 'target' | 'rel' | 'className' | 'style'
 >;
 
+type RenderAnchorProps<T extends string> = {
+  type: 'internal' | 'external';
+  href: NoInfer<T>;
+  className: string;
+  target?: string;
+  rel?: string;
+  children: ReactNode;
+} & RestProps;
+
 type Props<T extends string> = {
   href: T;
   children: ReactNode;
   openInNewTab?: boolean;
-  renderAnchor?: (
-    props: {
-      type: 'internal' | 'external';
-      href: NoInfer<T>;
-      className: string;
-      target?: string;
-      rel?: string;
-      children: ReactNode;
-    } & RestProps,
-  ) => ReactNode;
+  renderAnchor?: (props: RenderAnchorProps<T>) => ReactNode;
 } & RestProps;
+
+// Stable module-level reference so it is not re-created on every render
+// (default prop function expressions break referential equality).
+const defaultRenderAnchor = ({
+  children: anchorChildren,
+  ...rest
+}: RenderAnchorProps<string>): ReactNode => <a {...rest}>{anchorChildren}</a>;
 
 export const Anchor = <T extends string>({
   href,
   children,
   openInNewTab = false,
-  renderAnchor = ({ children: anchorChildren, ...rest }) => (
-    <a {...rest}>{anchorChildren}</a>
-  ),
+  renderAnchor = defaultRenderAnchor,
   ...rest
 }: Props<T>) => {
   const isExternal = href.startsWith('http');

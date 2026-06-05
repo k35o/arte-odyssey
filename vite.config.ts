@@ -25,6 +25,22 @@ export default defineConfig({
     options: {
       reportUnusedDisableDirectives: 'error',
     },
+    rules: {
+      // 非セマンティック要素への意図的な role 付与を許容する。
+      // avatar/code の role="img" は子要素を持つラッパー (img タグ化は不可)、
+      // progress の role="progressbar" はスタイル付き div、separator は span 設計。
+      'jsx-a11y/prefer-tag-over-role': 'off',
+      // type="text" の input は combobox/spinbutton の暗黙 role を持たないため、
+      // autocomplete/number-field の明示 role は冗長ではない (ルールの誤検知)。
+      'jsx-a11y/no-redundant-roles': 'off',
+      // listbox/option など ARIA 複合ウィジェットでは ul/li に widget role を
+      // 付与するのが正規パターン (標準 eslint-plugin-jsx-a11y も許容)。
+      // oxlint は過剰に検出するため無効化。
+      'jsx-a11y/no-noninteractive-element-to-interactive-role': 'off',
+      // ErrorBoundary の fallbackRender などレンダープロップを許容する
+      // (コンポーネント定義ではなく描画関数。実コンポーネントの入れ子定義は引き続き検出)。
+      'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
+    },
     settings: {
       react: { version: '19.2.5' },
     },
