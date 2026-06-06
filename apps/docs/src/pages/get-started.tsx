@@ -112,7 +112,7 @@ function MyComponent() {
           <li className="list-disc">React &gt;= 19.0.0</li>
           <li className="list-disc">React DOM &gt;= 19.0.0</li>
           <li className="list-disc">Tailwind CSS &gt;= 4.0.0</li>
-          <li className="list-disc">TypeScript &gt;= 5.9.0</li>
+          <li className="list-disc">TypeScript &gt;= 6.0.0</li>
         </ul>
       </section>
 
