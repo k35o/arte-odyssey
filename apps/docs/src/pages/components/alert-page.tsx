@@ -9,7 +9,7 @@ import { STORYBOOK_URL } from '../../constants';
 
 const alertProps: PropItem[] = [
   {
-    name: 'status',
+    name: 'tone',
     types: ["'success'", "'info'", "'warning'", "'error'"],
     defaultValue: null,
   },
@@ -58,8 +58,8 @@ export function AlertPage() {
           <Heading type="h2">
             <T k="components.common.usageTitle" />
           </Heading>
-          <ComponentPreview code='<Alert message="This is an info alert." status="info" />'>
-            <Alert message="This is an info alert." status="info" />
+          <ComponentPreview code='<Alert message="This is an info alert." tone="info" />'>
+            <Alert message="This is an info alert." tone="info" />
           </ComponentPreview>
         </div>
 
@@ -69,18 +69,15 @@ export function AlertPage() {
             <T k="components.alert.statusesTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Alert message="Operation completed successfully." status="success" />
-<Alert message="Here is some useful information." status="info" />
-<Alert message="Please proceed with caution." status="warning" />
-<Alert message="Something went wrong." status="error" />`}
+            code={`<Alert message="Operation completed successfully." tone="success" />
+<Alert message="Here is some useful information." tone="info" />
+<Alert message="Please proceed with caution." tone="warning" />
+<Alert message="Something went wrong." tone="error" />`}
           >
-            <Alert
-              message="Operation completed successfully."
-              status="success"
-            />
-            <Alert message="Here is some useful information." status="info" />
-            <Alert message="Please proceed with caution." status="warning" />
-            <Alert message="Something went wrong." status="error" />
+            <Alert message="Operation completed successfully." tone="success" />
+            <Alert message="Here is some useful information." tone="info" />
+            <Alert message="Please proceed with caution." tone="warning" />
+            <Alert message="Something went wrong." tone="error" />
           </ComponentPreview>
         </div>
 
@@ -96,7 +93,7 @@ export function AlertPage() {
     "Password must include a number.",
     "Password must include a special character.",
   ]}
-  status="error"
+  tone="error"
 />`}
           >
             <Alert
@@ -105,7 +102,7 @@ export function AlertPage() {
                 'Password must include a number.',
                 'Password must include a special character.',
               ]}
-              status="error"
+              tone="error"
             />
           </ComponentPreview>
         </div>

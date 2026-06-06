@@ -83,7 +83,7 @@ export function AlertDialogPreview() {
                   onClick={() => {
                     setIsOpen(false);
                   }}
-                  variant="outlined"
+                  variant="outline"
                 >
                   Cancel
                 </Button>

@@ -22,9 +22,11 @@ type MenuContext = {
   selectedIndex: number | null;
   handleSelect: (index: number) => void;
   itemElementsRef: RefObject<Array<HTMLElement | null>>;
+  // `color` は HTML の装飾属性。floating-ui は設定しないため除外し、
+  // IconButton/Button 側の `color`（union 型）と spread 時に衝突しないようにする。
   getTriggerProps: (
     userProps?: HTMLProps<HTMLElement>,
-  ) => HTMLAttributes<HTMLElement>;
+  ) => Omit<HTMLAttributes<HTMLElement>, 'color'>;
   getContentProps: (
     userProps?: HTMLProps<HTMLElement>,
   ) => HTMLAttributes<HTMLElement>;

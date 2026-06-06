@@ -12,11 +12,18 @@ type Props = {
   type?: 'button' | 'submit';
   size?: 'sm' | 'md' | 'lg';
   color?: 'primary' | 'secondary' | 'gray';
-  variant?: 'contained' | 'outlined' | 'skeleton';
+  variant?: 'solid' | 'outline' | 'skeleton';
   fullWidth?: boolean;
   isActive?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
+  /**
+   * クリック時の処理。`onAction` は非同期処理を `useTransition` で包み、保留中は
+   * 自動でスピナーを表示する糖衣。素のクリックイベント（`event` が必要、
+   * `preventDefault` したい等）は `onClick` を使う。両者は併用可能で、
+   * `onClick` → `onAction` の順に実行される（`onClick` が `preventDefault`
+   * した場合は `onAction` をスキップ）。
+   */
   onAction?: () => void | Promise<void>;
   renderItem?: (props: { className: string; children: ReactNode }) => ReactNode;
 } & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type' | 'className' | 'style'>;
@@ -27,7 +34,7 @@ export const Button: FC<Props> = ({
   type = 'button',
   size = 'md',
   color = 'primary',
-  variant = 'contained',
+  variant = 'solid',
   disabled = false,
   fullWidth = false,
   isActive = false,
@@ -70,17 +77,17 @@ export const Button: FC<Props> = ({
     'rounded-full border-2 text-center font-bold transition-colors',
     {
       'border-transparent bg-primary-bg text-primary-fg hover:bg-primary-bg-emphasize/80 active:bg-primary-bg-emphasize':
-        variant === 'contained' && color === 'primary',
+        variant === 'solid' && color === 'primary',
       'border-transparent bg-secondary-bg text-secondary-fg hover:bg-secondary-bg-emphasize/80 active:bg-secondary-bg-emphasize':
-        variant === 'contained' && color === 'secondary',
+        variant === 'solid' && color === 'secondary',
       'border-transparent bg-bg-subtle text-fg-base hover:bg-bg-mute/80 active:bg-bg-mute':
-        variant === 'contained' && color === 'gray',
+        variant === 'solid' && color === 'gray',
       'border-primary-border bg-bg-base text-primary-fg hover:bg-bg-subtle active:bg-bg-mute':
-        variant === 'outlined' && color === 'primary',
+        variant === 'outline' && color === 'primary',
       'border-secondary-border bg-bg-base text-secondary-fg hover:bg-bg-subtle active:bg-bg-mute':
-        variant === 'outlined' && color === 'secondary',
+        variant === 'outline' && color === 'secondary',
       'border-border-base bg-bg-base text-fg-base hover:bg-bg-subtle active:bg-bg-mute':
-        variant === 'outlined' && color === 'gray',
+        variant === 'outline' && color === 'gray',
       'border-transparent bg-transparent text-fg-mute hover:bg-bg-subtle hover:text-fg-base active:bg-bg-mute active:text-fg-base':
         variant === 'skeleton',
     },
@@ -118,13 +125,13 @@ export const Button: FC<Props> = ({
       aria-busy={isPending || undefined}
       className={cn(baseClassName, 'cursor-pointer', {
         'cursor-not-allowed opacity-35 hover:bg-primary-bg active:bg-primary-bg':
-          isDisabled && variant === 'contained' && color === 'primary',
+          isDisabled && variant === 'solid' && color === 'primary',
         'cursor-not-allowed opacity-35 hover:bg-secondary-bg active:bg-secondary-bg':
-          isDisabled && variant === 'contained' && color === 'secondary',
+          isDisabled && variant === 'solid' && color === 'secondary',
         'cursor-not-allowed opacity-35 hover:bg-bg-subtle active:bg-bg-subtle':
-          isDisabled && variant === 'contained' && color === 'gray',
+          isDisabled && variant === 'solid' && color === 'gray',
         'cursor-not-allowed bg-bg-base opacity-35':
-          isDisabled && variant === 'outlined',
+          isDisabled && variant === 'outline',
         'cursor-not-allowed bg-transparent text-fg-mute opacity-35':
           isDisabled && variant === 'skeleton',
       })}

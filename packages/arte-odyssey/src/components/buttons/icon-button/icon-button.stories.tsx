@@ -39,20 +39,20 @@ export const Disabled: Story = {
   },
 };
 
-export const BgBase: Story = {
+export const ColorBase: Story = {
   args: {
-    bg: 'base',
+    color: 'base',
   },
 };
 
-export const BgPrimary: Story = {
+export const ColorPrimary: Story = {
   args: {
-    bg: 'primary',
+    color: 'primary',
   },
 };
 
-export const BgSecondary: Story = {
+export const ColorSecondary: Story = {
   args: {
-    bg: 'secondary',
+    color: 'secondary',
   },
 };

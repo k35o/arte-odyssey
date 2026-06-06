@@ -18,8 +18,8 @@ import { ButtonAsLinkPreview } from './_previews/button-previews';
 const buttonProps: PropItem[] = [
   {
     name: 'variant',
-    types: ["'contained'", "'outlined'", "'skeleton'"],
-    defaultValue: "'contained'",
+    types: ["'solid'", "'outline'", "'skeleton'"],
+    defaultValue: "'solid'",
   },
   {
     name: 'color',
@@ -93,11 +93,11 @@ export function ButtonPage() {
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Button variant="contained" color="primary">
+            code={`<Button variant="solid" color="primary">
   Click me
 </Button>`}
           >
-            <Button color="primary" variant="contained">
+            <Button color="primary" variant="solid">
               Click me
             </Button>
           </ComponentPreview>
@@ -109,12 +109,12 @@ export function ButtonPage() {
             <T k="components.button.variantsTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Button variant="contained">Contained</Button>
-<Button variant="outlined">Outlined</Button>
+            code={`<Button variant="solid">Solid</Button>
+<Button variant="outline">Outline</Button>
 <Button variant="skeleton">Skeleton</Button>`}
           >
-            <Button variant="contained">Contained</Button>
-            <Button variant="outlined">Outlined</Button>
+            <Button variant="solid">Solid</Button>
+            <Button variant="outline">Outline</Button>
             <Button variant="skeleton">Skeleton</Button>
           </ComponentPreview>
         </div>

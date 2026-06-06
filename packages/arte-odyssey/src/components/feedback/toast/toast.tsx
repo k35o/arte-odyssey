@@ -9,13 +9,13 @@ import { useToast } from './context';
 
 type ToastProps = {
   id: string;
-  status: Status;
+  tone: Status;
   message: string;
 };
 
 const DELAY_MS = 5000;
 
-export const Toast: FC<ToastProps> = ({ id, status, message }) => {
+export const Toast: FC<ToastProps> = ({ id, tone, message }) => {
   const { onClose } = useToast();
 
   useTimeout(
@@ -25,5 +25,5 @@ export const Toast: FC<ToastProps> = ({ id, status, message }) => {
     DELAY_MS,
   );
 
-  return <Alert message={message} status={status} />;
+  return <Alert message={message} tone={tone} />;
 };

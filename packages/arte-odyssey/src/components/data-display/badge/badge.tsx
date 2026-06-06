@@ -5,7 +5,7 @@ import { FOCUS_RING_NO_BORDER } from '../../_internal/focus-ring';
 
 type Props = {
   text: string;
-  size?: 'sm' | 'md';
+  size?: 'sm' | 'md' | 'lg';
   interactive?: boolean;
   tone?: 'neutral' | 'info' | 'success' | 'warning' | 'error';
   variant?: 'solid' | 'outline';
@@ -67,6 +67,7 @@ export const Badge: FC<Props> = ({
     'inline-flex items-center rounded-full border font-medium transition-colors',
     size === 'sm' && 'px-2 py-0.5 text-xs',
     size === 'md' && 'px-2.5 py-1 text-xs',
+    size === 'lg' && 'px-3 py-1.5 text-sm',
     tone === 'neutral' &&
       variant === 'solid' &&
       'border-border-mute bg-bg-mute text-fg-base',

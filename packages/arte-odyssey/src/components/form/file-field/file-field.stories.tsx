@@ -114,7 +114,7 @@ export const ShowWebkitRelativePath: Story = {
     <FileField.Root {...args}>
       <FileField.Trigger
         renderItem={({ disabled, onClick }) => (
-          <Button disabled={disabled} onClick={onClick} variant="outlined">
+          <Button disabled={disabled} onClick={onClick} variant="outline">
             ファイルを選択
           </Button>
         )}
@@ -134,7 +134,7 @@ export const OnlyTrigger: Story = {
     <FileField.Root {...args}>
       <FileField.Trigger
         renderItem={({ disabled, onClick }) => (
-          <Button disabled={disabled} onClick={onClick} variant="outlined">
+          <Button disabled={disabled} onClick={onClick} variant="outline">
             ファイルを選択
           </Button>
         )}

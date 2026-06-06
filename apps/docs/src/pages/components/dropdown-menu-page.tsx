@@ -31,8 +31,8 @@ const dropdownMenuTriggerProps: PropItem[] = [
   },
   {
     name: 'variant',
-    types: ["'contained'", "'outlined'", "'skeleton'"],
-    defaultValue: "'contained'",
+    types: ["'solid'", "'outline'", "'skeleton'"],
+    defaultValue: "'solid'",
   },
 ];
 

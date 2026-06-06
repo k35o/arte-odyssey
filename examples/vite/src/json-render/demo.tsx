@@ -48,7 +48,7 @@ const spec = {
       type: 'Toast',
       props: {
         triggerLabel: '通知を表示',
-        status: 'success',
+        tone: 'success',
         message: '保存しました',
       },
       children: [],
@@ -60,7 +60,7 @@ const spec = {
     },
     modalBody: {
       type: 'Alert',
-      props: { status: 'info', message: 'モーダルの中身も生成 UI で記述' },
+      props: { tone: 'info', message: 'モーダルの中身も生成 UI で記述' },
       children: [],
     },
     popBtn: {
@@ -229,7 +229,7 @@ const spec = {
     alert: {
       type: 'Alert',
       props: {
-        status: 'info',
+        tone: 'info',
         message: 'この画面は JSON spec から描画されています',
       },
       children: [],
@@ -242,14 +242,14 @@ const spec = {
     save: { type: 'Button', props: { label: '保存' }, children: [] },
     cancel: {
       type: 'Button',
-      props: { label: 'キャンセル', variant: 'outlined', color: 'secondary' },
+      props: { label: 'キャンセル', variant: 'outline', color: 'secondary' },
       children: [],
     },
     help: {
       type: 'Button',
       props: {
         label: 'ヘルプ',
-        variant: 'outlined',
+        variant: 'outline',
         color: 'gray',
         href: 'https://example.com',
       },

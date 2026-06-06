@@ -5,7 +5,7 @@ import { cn } from './../../../helpers/cn';
 import type { Status } from './../../../types/variables';
 
 type Props = {
-  status: Status;
+  tone: Status;
   message: string | string[];
 } & Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -19,28 +19,28 @@ const STATUS_LABEL = {
   error: 'エラー',
 } as const satisfies Record<Status, string>;
 
-export const Alert: FC<Props> = ({ status, message, ...rest }) => (
+export const Alert: FC<Props> = ({ tone, message, ...rest }) => (
   <div
     {...rest}
     className={cn(
       'flex items-center gap-3 rounded-lg p-4',
-      status === 'success' && 'bg-bg-success',
-      status === 'info' && 'bg-bg-info',
-      status === 'warning' && 'bg-bg-warning',
-      status === 'error' && 'bg-bg-error',
+      tone === 'success' && 'bg-bg-success',
+      tone === 'info' && 'bg-bg-info',
+      tone === 'warning' && 'bg-bg-warning',
+      tone === 'error' && 'bg-bg-error',
     )}
-    role={status === 'error' || status === 'warning' ? 'alert' : 'status'}
+    role={tone === 'error' || tone === 'warning' ? 'alert' : 'status'}
   >
     <span
       className={cn(
-        status === 'success' && 'text-fg-success',
-        status === 'info' && 'text-fg-info',
-        status === 'warning' && 'text-fg-warning',
-        status === 'error' && 'text-fg-error',
+        tone === 'success' && 'text-fg-success',
+        tone === 'info' && 'text-fg-info',
+        tone === 'warning' && 'text-fg-warning',
+        tone === 'error' && 'text-fg-error',
       )}
     >
-      <AlertIcon size="md" status={status} />
-      <span className="sr-only">{STATUS_LABEL[status]}</span>
+      <AlertIcon size="md" status={tone} />
+      <span className="sr-only">{STATUS_LABEL[tone]}</span>
     </span>
     {Array.isArray(message) ? (
       message.length > 1 ? (

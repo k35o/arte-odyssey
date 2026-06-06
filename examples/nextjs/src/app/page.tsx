@@ -22,7 +22,7 @@ const spec = {
     alert: {
       type: 'Alert',
       props: {
-        status: 'success',
+        tone: 'success',
         message: 'registry はクライアント、catalog はサーバーで動いています',
       },
       children: [],
@@ -37,7 +37,7 @@ const spec = {
       type: 'Button',
       props: {
         label: 'ヘルプ',
-        variant: 'outlined',
+        variant: 'outline',
         href: 'https://example.com',
       },
       children: [],

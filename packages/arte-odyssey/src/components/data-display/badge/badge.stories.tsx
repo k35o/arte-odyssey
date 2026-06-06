@@ -15,6 +15,16 @@ type Story = StoryObj<typeof Badge>;
 
 export const Default: Story = {};
 
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <Badge size="sm" text="Small" />
+      <Badge size="md" text="Medium" />
+      <Badge size="lg" text="Large" />
+    </div>
+  ),
+};
+
 export const Tones: Story = {
   render: () => (
     <div className="flex flex-wrap gap-3">

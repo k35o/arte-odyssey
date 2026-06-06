@@ -285,7 +285,7 @@ export function renderHeading(props: HeadingProps): ReactNode {
 }
 
 export function renderAlert(props: AlertProps): ReactNode {
-  return <Alert message={props.message} status={props.status} />;
+  return <Alert message={props.message} tone={props.tone} />;
 }
 
 export function renderSpinner(props: SpinnerProps): ReactNode {
@@ -661,7 +661,7 @@ export function renderStatusIcon(props: StatusIconProps): ReactNode {
 export function renderIconButton(props: IconButtonProps): ReactNode {
   const IconComponent = iconMap[props.icon];
   return (
-    <IconButton bg={u(props.bg)} label={props.label} size={u(props.size)}>
+    <IconButton color={u(props.color)} label={props.label} size={u(props.size)}>
       <IconComponent size={u(props.size) ?? 'md'} />
     </IconButton>
   );
@@ -854,7 +854,7 @@ export const ModalWidget: FC<{ props: ModalProps; children: ReactNode }> = ({
   children,
 }) => (
   <OverlayWidget
-    buttonProps={{ size: 'md', variant: 'contained' }}
+    buttonProps={{ size: 'md', variant: 'solid' }}
     title={props.title}
     triggerLabel={props.triggerLabel}
     type={u(props.type)}
@@ -887,7 +887,7 @@ export const DrawerWidget: FC<{ props: DrawerProps; children: ReactNode }> = ({
         onClick={() => {
           setIsOpen(true);
         }}
-        variant="outlined"
+        variant="outline"
       >
         {props.triggerLabel}
       </Button>
@@ -913,7 +913,7 @@ export function renderPopover(
     <Popover.Root>
       <Popover.Trigger
         renderItem={(triggerProps) => (
-          <Button {...triggerProps} variant="outlined">
+          <Button {...triggerProps} variant="outline">
             {props.triggerLabel}
           </Button>
         )}
@@ -938,7 +938,7 @@ export function renderTooltip(props: TooltipProps): ReactNode {
     <Tooltip.Root>
       <Tooltip.Trigger
         renderItem={(triggerProps) => (
-          <Button {...triggerProps} variant="outlined">
+          <Button {...triggerProps} variant="outline">
             {props.label}
           </Button>
         )}
@@ -989,9 +989,9 @@ const ToastTriggerInner: FC<{ props: ToastProps }> = ({ props }) => {
   return (
     <Button
       onClick={() => {
-        onOpen(props.status, props.message);
+        onOpen(props.tone, props.message);
       }}
-      variant="outlined"
+      variant="outline"
     >
       {props.triggerLabel}
     </Button>
@@ -1077,7 +1077,7 @@ export const FileFieldWidget: FC<{ props: FileFieldProps }> = ({ props }) => (
   <FileField.Root maxFiles={u(props.maxFiles)} multiple={u(props.multiple)}>
     <FileField.Trigger
       renderItem={({ onClick, disabled }) => (
-        <Button disabled={disabled} onClick={onClick} variant="outlined">
+        <Button disabled={disabled} onClick={onClick} variant="outline">
           {u(props.triggerLabel) ?? 'ファイルを選択'}
         </Button>
       )}
