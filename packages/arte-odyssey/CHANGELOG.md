@@ -1,5 +1,153 @@
 # @k8o/arte-odyssey
 
+## 10.0.0
+
+### Major Changes
+
+- [#499](https://github.com/k35o/arte-odyssey/pull/499) [`8b5f9f2`](https://github.com/k35o/arte-odyssey/commit/8b5f9f28e065bada9238058decc31310789ba71a) Thanks [@k35o](https://github.com/k35o)! - Design tokens are now derived from `src/styles/index.css` — the single source of truth — via [`tailwind-token-extractor`](https://www.npmjs.com/package/tailwind-token-extractor), instead of being hand-maintained in `tokens.ts` and generating the CSS from it.
+
+  **BREAKING**: `@k8o/arte-odyssey/tokens` now exposes the fully-resolved extractor output — `tokens` (`{ theme, vars }`), `meta`, and the derived key-union types — instead of the curated `PALETTE` / `FG_TOKENS` / `TEXT_SIZES` / `RADII` / … arrays. The values are complete (including surviving Tailwind defaults) and always in sync with the CSS. Presentation-only metadata (palette hue/description, semantic ShadeRef tables, the spacing display scale) now lives in the docs app.
+
+  `scripts/generate-css.ts` (`pnpm generate:css`) is retired; run `pnpm generate:tokens` after editing `index.css`, and `pnpm check:tokens` guards against drift in CI.
+
+- [#497](https://github.com/k35o/arte-odyssey/pull/497) [`b4bed72`](https://github.com/k35o/arte-odyssey/commit/b4bed720dc2b527385c956a2b1e09af4aabe8549) Thanks [@k35o](https://github.com/k35o)! - Generative UI 統合（json-render / OpenUI）の公式アダプタを追加した。LLM が ArteOdyssey のコンポーネントで UI を生成できるよう、props を Zod + デザイントークンの enum に制約したカタログ/ライブラリを同梱する。
+
+  ## 追加した subpath export
+
+  | export                                   | 種別           | 内容                               |
+  | ---------------------------------------- | -------------- | ---------------------------------- |
+  | `@k8o/arte-odyssey/json-render`          | サーバー安全   | `catalog`（スキーマ + `prompt()`） |
+  | `@k8o/arte-odyssey/json-render/registry` | `'use client'` | `registry`（描画）                 |
+  | `@k8o/arte-odyssey/openui`               | `'use client'` | `library`（描画）                  |
+
+  依存（json-render / OpenUI / zod）は **optional peerDependencies** なので、統合を使う利用者だけが追加すればよい。
+
+  ## 特徴
+
+  - **RSC 対応**: json-render はカタログ（スキーマ/プロンプト）と registry（描画）を分離し、catalog をサーバーコンポーネントから `catalog.prompt()` で利用できる。Next.js App Router で検証済み。
+  - **render props の橋渡し**: `Button` の `renderItem` などの関数 prop はアダプタ内部で組み立て、JSON/DSL には平たい値（`href` 等）だけを見せる。コンポーネント側は無改造。
+  - **トークン制約**: `gap` / `color` / `variant` などを enum で制約し、生成 UI がデザインシステムから外れないようにする。
+  - **対応コンポーネント（全 47 種）**: Stack, Card, InteractiveCard, Form, Modal, Dialog, Drawer, Popover, Tooltip, DropdownMenu, Toast, Button, IconButton, Badge, Heading, Anchor, Avatar, Code, Icon, Alert, Spinner, Progress, Skeleton, Separator, ScrollLinked, BaselineStatus, Tabs, Accordion, Breadcrumb, Table, TextField, Textarea, PasswordInput, NumberField, Slider, Checkbox, Switch, Select, Radio, RadioCard, CheckboxCard, Pagination, ListBox, CheckboxGroup, Autocomplete, FileField, FormControl。フォーム系は各フレームワークの状態機構（json-render: `useBoundProp` / OpenUI: `useStateField`）に接続。Tabs / Accordion / Table / Breadcrumb はデータ駆動。
+  - **オーバーレイの扱い**: Modal/Dialog/Drawer/Popover/Tooltip/DropdownMenu/Toast は「トリガーボタン＋コンテンツ」の **自己完結ウィジェット** として実装。`triggerLabel` を指定するだけで開閉ボタンが組み込まれ、children がサーフェス内に描画される。命令的な開閉制御を生成 UI から扱える形にした。
+
+  詳細は README の「Generative UI integrations」を参照。
+
+- [#516](https://github.com/k35o/arte-odyssey/pull/516) [`69bdbed`](https://github.com/k35o/arte-odyssey/commit/69bdbedc1128477d3f3adaca7c03868207f29369) Thanks [@k35o](https://github.com/k35o)! - 依存・設定の前提を更新（v10 の締め）。
+
+  **BREAKING**: `peerDependencies.typescript` を `>=5.9.0` → `>=6.0.0` に引き上げ。型定義は TypeScript 6 系を前提とする。
+
+  - `peerDependencies.zod`（optional）を `>=4.0.0` → `>=4.4.0` に引き上げ（内部利用 API に合わせて SoT を統一）。
+  - ルート `tsconfig.json` に `forceConsistentCasingInFileNames: true` を追加（非破壊）。
+  - `engines.node` は `>=24.13.0` を維持。
+
+- [#517](https://github.com/k35o/arte-odyssey/pull/517) [`5b98483`](https://github.com/k35o/arte-odyssey/commit/5b98483130f5ac025c7914f7fe4d071778420108) Thanks [@k35o](https://github.com/k35o)! - フォームコンポーネントの `onChange` を値型シグネチャに統一。イベント型と値型の混在、`ListBox` の `onSelect` 別名を解消した。第 1 引数を「その要素の意味的な値」とし、実 `<input>` を持つコンポーネントは第 2 引数で本物の DOM イベントも渡す。
+
+  **BREAKING**:
+
+  - `Checkbox` / `Switch`: `ChangeEventHandler<HTMLInputElement>` → `(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void`
+  - `Radio`: `ChangeEventHandler<HTMLInputElement>` → `(value: string, event: ChangeEvent<HTMLInputElement>) => void`
+  - `RadioCard`: `ChangeEventHandler<HTMLInputElement>` → `(value: string) => void`（`<button>` 駆動で change イベントが存在しないため値のみ）
+  - `FileField`: `ChangeEventHandler<HTMLInputElement>` → `(files: FileList | null, event?: ChangeEvent<HTMLInputElement>) => void`（プログラム的なファイル削除時は `event` が `undefined`）
+  - `ListBox.Root`: `onSelect` を `onChange: (key: string) => void` にリネーム
+
+  `Slider` / `NumberField` / `Autocomplete` / `CheckboxCard` / `CheckboxGroup` / `Tabs` は既に値型のため変更なし。`TextField` / `Textarea` / `Select` / `PasswordInput` はネイティブ `<input>` 互換のため従来どおりイベント型 `onChange` を維持する。
+
+  > 値だけ使う場合は第 1 引数のみ受け取れば良い（`(value) => void` は `(value, event) => void` に代入可能）。`preventDefault` や `currentTarget` 等が必要なときは第 2 引数の本物の DOM イベントを使う。
+
+  ```tsx
+  // v9
+  <Checkbox onChange={(e) => setChecked(e.target.checked)} />
+  // v10（値だけ / イベントも）
+  <Checkbox onChange={(checked) => setChecked(checked)} />
+  <Checkbox onChange={(checked, event) => { event.stopPropagation(); setChecked(checked); }} />
+
+  // v9
+  <ListBox.Root onSelect={(key) => setKey(key)} options={options} value={value}>
+  // v10
+  <ListBox.Root onChange={(key) => setKey(key)} options={options} value={value}>
+  ```
+
+- [#519](https://github.com/k35o/arte-odyssey/pull/519) [`1281372`](https://github.com/k35o/arte-odyssey/commit/1281372e0315e3d39305e9d161076249e11effec) Thanks [@k35o](https://github.com/k35o)! - オーバーレイ／開閉系コンポーネントの controllable パターンを統一（`Modal` / `Tabs` に `Drawer` / `Accordion.Item` を揃える）。
+
+  **BREAKING**:
+
+  - `Drawer`: `isOpen`（必須）+ `onClose`（必須）の full controlled から、`isOpen?` + `defaultOpen?` + `onClose?` の controllable に変更。`isOpen` を渡さなければ `defaultOpen` による uncontrolled 動作になる。閉じるボタンは内部で `<dialog>.close()` を呼ぶため、controlled / uncontrolled の双方で動作する。
+
+  ```tsx
+  // v9: isOpen が必須（uncontrolled 不可）
+  <Drawer isOpen={open} onClose={() => setOpen(false)} title="...">...</Drawer>
+
+  // v10: uncontrolled も可。controlled は従来どおり動作
+  <Drawer defaultOpen title="...">...</Drawer>
+  <Drawer isOpen={open} onClose={() => setOpen(false)} title="...">...</Drawer>
+  ```
+
+  **追加（非破壊）**:
+
+  - `Accordion.Item` を controllable 化。従来の `defaultOpen?`（uncontrolled）に加え、`isOpen?` + `onChange?: (isOpen: boolean) => void` で制御可能になった。
+
+  開閉状態の命名は「真偽の状態 = `isOpen` / 初期値 = `defaultOpen`」で全オーバーレイ横断に統一（`packages/arte-odyssey/CLAUDE.md` の命名規約に準拠）。
+
+- [#518](https://github.com/k35o/arte-odyssey/pull/518) [`43e26dc`](https://github.com/k35o/arte-odyssey/commit/43e26dcb8172683c254fdad7412e766e549411f8) Thanks [@k35o](https://github.com/k35o)! - `variant` / `size` / 色系 prop の語彙をコンポーネント横断で統一。
+
+  **BREAKING**:
+
+  - `Button` の `variant` を `'contained' | 'outlined' | 'skeleton'` → `'solid' | 'outline' | 'skeleton'` にリネーム（`Badge` の `solid` / `outline` に合わせる）。`DropdownMenu.Trigger` も連動。
+  - `IconButton` の色軸 prop を `bg` → `color` にリネーム（`Button` の `color` と prop 名を統一）。値は `'transparent' | 'base' | 'primary' | 'secondary'` のまま（背景の塗り方を表す）。
+  - `Alert` / `Toast` の `status` prop を `tone` にリネーム（`Badge` の `tone` に合わせて semantic status 色の prop 名を統一）。`useToast().onOpen(tone, message)` は位置引数のため呼び出し側は無変更。
+
+  **追加（非破壊）**:
+
+  - `Badge` に `size="lg"` を追加（`sm | md | lg` の標準スケールに揃える）。
+
+  ```tsx
+  // v9 → v10
+  <Button variant="contained" /> → <Button variant="solid" />
+  <Button variant="outlined" /> → <Button variant="outline" />
+  <IconButton bg="base" label="..." /> → <IconButton color="base" label="..." />
+  <Alert status="success" message="..." /> → <Alert tone="success" message="..." />
+  ```
+
+  > `AlertIcon` の `status`（表示するアイコンの種類を選ぶ軸）、`Button.color`（`primary | secondary | gray` のアクセント色）、`Separator.color` / `Table.tone`（装飾系）は意味が異なるため対象外。
+
+### Minor Changes
+
+- [#493](https://github.com/k35o/arte-odyssey/pull/493) [`78fd050`](https://github.com/k35o/arte-odyssey/commit/78fd050bcebef5214aaeb541b5d34d4f36845d07) Thanks [@k35o](https://github.com/k35o)! - dark モードを「Dim 寄り」に調整し、Card に dark 専用の subtle border を追加した。
+
+  ## dark モードの色味調整
+
+  `tokens.ts` の semantic token (dark) を 1 段ずつ明るくシフトし、純黒に寄り過ぎていた dark モードを「長時間 UI を見ても疲れにくい Dim 寄り」のトーンに変更した。light モードや palette ファミリーには影響しない。
+
+  | token        | before              | after               |
+  | ------------ | ------------------- | ------------------- |
+  | `bg-surface` | `gray-950` (L=0.18) | `gray-900` (L=0.25) |
+  | `bg-base`    | `gray-900` (L=0.25) | `gray-800` (L=0.30) |
+  | `bg-raised`  | `gray-800` (L=0.30) | `gray-700` (L=0.42) |
+
+  ## Card に dark mode 用 subtle border
+
+  `appearance="shadow"` (デフォルト) の Card は `shadow-sm` で elevation を表現していたが、これは dark mode 下ではほぼ視認できない。dark mode のみ `border-border-subtle` の薄いボーダーを出すよう調整し、Dim 寄りで L 差が縮まったカードも自然に浮かぶようにした。
+
+  light mode の見た目に影響しないよう、常時 `border border-transparent` を出してレイアウトずれが起きないようにしてある。
+
+- [#509](https://github.com/k35o/arte-odyssey/pull/509) [`fa0baec`](https://github.com/k35o/arte-odyssey/commit/fa0baeca5a03cb4f96b144fe88a925db6342ccaf) Thanks [@k35o](https://github.com/k35o)! - `Tabs.Root` now accepts a controlled `selectedId` / `onChange` pair (via `useControllableState`), matching the form components' controlled pattern. The `DebouncedAction` callback type is now exported from the package root, and the `json-render` `Pagination` schema gains a bindable `defaultPage` so its `$bindState` contract works.
+
+  Accessibility: interactive elements that used `focus-visible:outline-none` now use `outline-hidden`, preserving the focus affordance under forced-colors / high-contrast mode. `CheckboxGroup`'s `required` prop is now reflected as `aria-required`.
+
+  Internally, the generative-UI integration schemas are deduplicated and gain a compile-time guard that fails the build when a component prop enum widens without the integration following, the json-render registry bindings are consolidated, and shared focus-ring / gap styles are centralized.
+
+### Patch Changes
+
+- [#511](https://github.com/k35o/arte-odyssey/pull/511) [`c3740e2`](https://github.com/k35o/arte-odyssey/commit/c3740e29095dc3daf7e1665b26d9bc87bdb8283b) Thanks [@renovate](https://github.com/apps/renovate)! - Accessibility: `Autocomplete` now exposes its dropdown as a proper `listbox` with `option` items (`aria-selected` reflects each selection), and `CheckboxCard` associates every control with its visible label via `aria-labelledby`. `Anchor`'s default `renderAnchor` is now a stable module-level reference so it is not re-created on each render.
+
+- [#490](https://github.com/k35o/arte-odyssey/pull/490) [`c15b1a2`](https://github.com/k35o/arte-odyssey/commit/c15b1a223f1046ae4552054edc4bbeb015d49bd1) Thanks [@k35o](https://github.com/k35o)! - npm パッケージに同梱されるドキュメントを実装に追従させた。
+
+  `packages/arte-odyssey/docs/GUIDE.md` および `references/components.md` から、すでに削除済みの `LinkButton` / `IconLink` の記述を除去し、代わりに `Button` / `IconButton` の `renderItem` prop でリンク化するパターンを記載した。`references/hooks.md` には `useWritingMode` の説明を追加した。
+
+  `README.md` のコンポーネント一覧・カスタムフック一覧も、実際の export と一致するよう全面的に書き直した（`Pagination` / `Switch` / `CheckboxGroup` / `PasswordInput` / `Badge` / `Spinner` / `Skeleton` / `Table` / `Avatar` / `Heading` / `PortalRootProvider` などを追加、`useBreakpoint` / `useControllableState` / `useDebouncedTransition` / `useDeferredDebounce` / `useDisclosure` / `useHover` / `useIntersectionObserver` / `useInView` / `useScrollLock` / `useSessionStorage` / `useWritingMode` を追加）。
+
+  実装変更は含まないが、AI コーディングアシスタント向けのガイドが npm パッケージに同梱されているため patch として扱う。
+
 ## 9.1.0
 
 ### Minor Changes

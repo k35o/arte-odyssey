@@ -1,5 +1,12 @@
 # example-nextjs
 
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [[`8b5f9f2`](https://github.com/k35o/arte-odyssey/commit/8b5f9f28e065bada9238058decc31310789ba71a), [`78fd050`](https://github.com/k35o/arte-odyssey/commit/78fd050bcebef5214aaeb541b5d34d4f36845d07), [`b4bed72`](https://github.com/k35o/arte-odyssey/commit/b4bed720dc2b527385c956a2b1e09af4aabe8549), [`c3740e2`](https://github.com/k35o/arte-odyssey/commit/c3740e29095dc3daf7e1665b26d9bc87bdb8283b), [`c15b1a2`](https://github.com/k35o/arte-odyssey/commit/c15b1a223f1046ae4552054edc4bbeb015d49bd1), [`fa0baec`](https://github.com/k35o/arte-odyssey/commit/fa0baeca5a03cb4f96b144fe88a925db6342ccaf), [`69bdbed`](https://github.com/k35o/arte-odyssey/commit/69bdbedc1128477d3f3adaca7c03868207f29369), [`5b98483`](https://github.com/k35o/arte-odyssey/commit/5b98483130f5ac025c7914f7fe4d071778420108), [`1281372`](https://github.com/k35o/arte-odyssey/commit/1281372e0315e3d39305e9d161076249e11effec), [`43e26dc`](https://github.com/k35o/arte-odyssey/commit/43e26dcb8172683c254fdad7412e766e549411f8)]:
+  - @k8o/arte-odyssey@10.0.0
+
 ## 0.1.10
 
 ### Patch Changes
