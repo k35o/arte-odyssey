@@ -1,9 +1,15 @@
 'use client';
 
-import { createContext, type FC, type PropsWithChildren, use } from 'react';
+import {
+  createContext,
+  type FC,
+  type PropsWithChildren,
+  use,
+  useCallback,
+} from 'react';
 
 import { createSafeContext } from '../../../helpers/create-safe-context';
-import { useDisclosure } from '../../../hooks/disclosure';
+import { useControllableState } from '../../../hooks/controllable-state';
 
 const OpenContext = createContext(false);
 
@@ -21,14 +27,23 @@ export const useOpen = (): boolean => use(OpenContext);
 
 export const AccordionItemProvider: FC<
   PropsWithChildren<{
+    isOpen?: boolean;
     defaultOpen?: boolean;
+    onChange?: (isOpen: boolean) => void;
     id: string;
   }>
-> = ({ defaultOpen = false, id, children }) => {
-  const { isOpen, toggle } = useDisclosure(defaultOpen);
+> = ({ isOpen, defaultOpen = false, onChange, id, children }) => {
+  const [open, setOpen] = useControllableState({
+    value: isOpen,
+    defaultValue: defaultOpen,
+    onChange,
+  });
+  const toggle = useCallback(() => {
+    setOpen((prev) => !prev);
+  }, [setOpen]);
 
   return (
-    <OpenContext value={isOpen}>
+    <OpenContext value={open}>
       <ToggleOpenContext value={toggle}>
         <ItemIdContext value={id}>{children}</ItemIdContext>
       </ToggleOpenContext>

@@ -1,6 +1,12 @@
 'use client';
 
-import { type FC, type PropsWithChildren, type ReactNode, useId } from 'react';
+import {
+  type FC,
+  type PropsWithChildren,
+  type ReactNode,
+  useId,
+  useRef,
+} from 'react';
 
 import { cn } from '../../../helpers/cn';
 import { IconButton } from '../../buttons/icon-button';
@@ -11,15 +17,23 @@ import { Modal } from '../modal';
 export const Drawer: FC<
   PropsWithChildren<{
     title: ReactNode;
-    isOpen: boolean;
-    onClose: () => void;
+    isOpen?: boolean;
+    defaultOpen?: boolean;
+    onClose?: () => void;
     side?: 'left' | 'right';
   }>
-> = ({ title, isOpen, onClose, side = 'right', children }) => {
+> = ({ title, isOpen, defaultOpen, onClose, side = 'right', children }) => {
   const rootId = useId();
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} type={side}>
+    <Modal
+      defaultOpen={defaultOpen}
+      isOpen={isOpen}
+      onClose={onClose}
+      ref={dialogRef}
+      type={side}
+    >
       <section
         aria-describedby={`${rootId}-content`}
         aria-labelledby={`${rootId}-header`}
@@ -45,7 +59,7 @@ export const Drawer: FC<
               label="閉じる"
               onClick={(e) => {
                 e.stopPropagation();
-                onClose();
+                dialogRef.current?.close();
               }}
               tooltipDisabled
             >

@@ -1,6 +1,45 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useState } from 'react';
 
 import { Accordion } from '.';
+
+const ControlledAccordion = () => {
+  const [openId, setOpenId] = useState<string | null>('first');
+  const items = [
+    {
+      id: 'first',
+      title: '最初の項目',
+      body: '外部 state で開閉を制御しています。',
+    },
+    {
+      id: 'second',
+      title: '2番目の項目',
+      body: 'isOpen と onChange で 1 つだけ開く挙動を実現できます。',
+    },
+  ];
+  return (
+    <Accordion.Root>
+      {items.map((item) => (
+        <Accordion.Item
+          isOpen={openId === item.id}
+          key={item.id}
+          onChange={(open) => {
+            setOpenId(open ? item.id : null);
+          }}
+        >
+          <h3>
+            <Accordion.Button>
+              <p className="text-lg">{item.title}</p>
+            </Accordion.Button>
+          </h3>
+          <Accordion.Panel>
+            <p>{item.body}</p>
+          </Accordion.Panel>
+        </Accordion.Item>
+      ))}
+    </Accordion.Root>
+  );
+};
 
 const meta: Meta<typeof Accordion.Root> = {
   title: 'components/data-display/accordion',
@@ -98,4 +137,8 @@ export const Primary: Story = {
       </Accordion.Item>
     </Accordion.Root>
   ),
+};
+
+export const Controlled: Story = {
+  render: () => <ControlledAccordion />,
 };
