@@ -34,11 +34,11 @@ const Root: FC<
     placement?: Placement;
     options: Option[];
     value: Option['key'] | undefined;
-    onSelect: (key: Option['key']) => void;
+    onChange: (key: Option['key']) => void;
   }>
-> = ({ children, placement = 'bottom', options, value, onSelect }) => (
+> = ({ children, placement = 'bottom', options, value, onChange }) => (
   <Popover.Root flipDisabled placement={placement} type="listbox">
-    <MenuProvider onSelect={onSelect} options={options} value={value}>
+    <MenuProvider onChange={onChange} options={options} value={value}>
       {children}
     </MenuProvider>
   </Popover.Root>
@@ -48,9 +48,9 @@ const MenuProvider: FC<
   PropsWithChildren<{
     options: Option[];
     value: Option['key'] | undefined;
-    onSelect: (key: Option['key']) => void;
+    onChange: (key: Option['key']) => void;
   }>
-> = ({ children, options, onSelect, value }) => {
+> = ({ children, options, onChange, value }) => {
   const selectedIndex = options.findIndex((option) => option.key === value);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const itemElementsRef = useRef<Array<HTMLElement | null>>([]);
@@ -71,7 +71,7 @@ const MenuProvider: FC<
   const handleSelect = (index: number) => {
     const key = options[index]?.key;
     if (key !== undefined && key !== '') {
-      onSelect(key);
+      onChange(key);
     }
   };
 

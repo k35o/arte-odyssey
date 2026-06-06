@@ -16,7 +16,7 @@ const radioCardProps: PropItem[] = [
   { name: 'value', types: ['string'], defaultValue: null },
   {
     name: 'onChange',
-    types: ['ChangeEventHandler<HTMLInputElement>'],
+    types: ['(value: string) => void'],
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['string'], defaultValue: null },
@@ -92,7 +92,7 @@ const [value, setValue] = useState('pro');
   disabled={false}
   invalid={false}
   aria-labelledby="plan-label"
-  onChange={(event) => setValue(event.target.value)}
+  onChange={(value) => setValue(value)}
   options={options}
   value={value}
 />`}

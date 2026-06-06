@@ -1,6 +1,6 @@
 'use client';
 
-import type { ChangeEventHandler, FC, InputHTMLAttributes } from 'react';
+import type { ChangeEvent, FC, InputHTMLAttributes } from 'react';
 import { useId } from 'react';
 import { useFormStatus } from 'react-dom';
 
@@ -26,14 +26,14 @@ type BaseProps = {
 
 type ControlledProps = {
   value: boolean;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: never;
 };
 
 type UncontrolledProps = {
   defaultChecked?: boolean;
   value?: never;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
@@ -80,7 +80,7 @@ export const Switch: FC<Props> = ({
           id={inputId}
           onChange={(event) => {
             setSelected(event.target.checked);
-            onChange?.(event);
+            onChange?.(event.target.checked, event);
           }}
           required={required}
           role="switch"

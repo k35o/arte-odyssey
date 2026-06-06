@@ -21,7 +21,7 @@ const listBoxRootProps: PropItem[] = [
   { name: 'options', types: ['Option[]'], defaultValue: null },
   { name: 'value', types: ['string', 'undefined'], defaultValue: null },
   {
-    name: 'onSelect',
+    name: 'onChange',
     types: ['(key: string) => void'],
     defaultValue: null,
   },
@@ -99,7 +99,7 @@ export function ListBoxPage() {
 const [selected, setSelected] = useState<string>();
 
 <ListBox.Root
-  onSelect={(key) => setSelected(key)}
+  onChange={(key) => setSelected(key)}
   options={OPTIONS}
   value={selected}
 >
@@ -117,17 +117,17 @@ const [selected, setSelected] = useState<string>();
             <T k="components.listBox.sizesTitle" />
           </Heading>
           <ComponentPreview
-            code={`<ListBox.Root onSelect={onSelect} options={OPTIONS} value={value}>
+            code={`<ListBox.Root onChange={onChange} options={OPTIONS} value={value}>
   <ListBox.Trigger size="sm" />
   <ListBox.Content />
 </ListBox.Root>
 
-<ListBox.Root onSelect={onSelect} options={OPTIONS} value={value}>
+<ListBox.Root onChange={onChange} options={OPTIONS} value={value}>
   <ListBox.Trigger size="md" />
   <ListBox.Content />
 </ListBox.Root>
 
-<ListBox.Root onSelect={onSelect} options={OPTIONS} value={value}>
+<ListBox.Root onChange={onChange} options={OPTIONS} value={value}>
   <ListBox.Trigger size="lg" />
   <ListBox.Content />
 </ListBox.Root>`}
@@ -144,7 +144,7 @@ const [selected, setSelected] = useState<string>();
           <ComponentPreview
             code={`import { ListIcon } from '@k8o/arte-odyssey';
 
-<ListBox.Root onSelect={onSelect} options={OPTIONS} value={value}>
+<ListBox.Root onChange={onChange} options={OPTIONS} value={value}>
   <ListBox.TriggerIcon icon={<ListIcon />} />
   <ListBox.Content />
 </ListBox.Root>`}

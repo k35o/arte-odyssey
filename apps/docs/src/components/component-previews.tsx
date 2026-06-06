@@ -331,7 +331,7 @@ export const componentPreviews: Record<string, ReactNode> = {
   ListBox: (
     <div className="w-56">
       <ListBox.Root
-        onSelect={() => undefined}
+        onChange={() => undefined}
         options={listBoxOptions}
         value="apple"
       >

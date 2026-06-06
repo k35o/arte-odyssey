@@ -408,9 +408,7 @@ export function renderCheckbox(
       disabled={u(props.disabled)}
       label={props.label}
       name={props.name}
-      onChange={(event) => {
-        onChange(event.target.checked);
-      }}
+      onChange={onChange}
       value={checked}
     />
   );
@@ -427,9 +425,7 @@ export function renderSwitch(
       invalid={u(props.invalid)}
       label={props.label}
       name={props.name}
-      onChange={(event) => {
-        onChange(event.target.checked);
-      }}
+      onChange={onChange}
       required={u(props.required)}
       value={checked}
     />
@@ -561,9 +557,7 @@ const RadioView: FC<{
         aria-labelledby={labelId}
         disabled={u(props.disabled)}
         name={props.name}
-        onChange={(event) => {
-          onChange(event.target.value);
-        }}
+        onChange={onChange}
         options={props.options}
         value={value}
       />
@@ -583,9 +577,7 @@ const RadioCardView: FC<{
         disabled={u(props.disabled)}
         invalid={u(props.invalid)}
         name={props.name}
-        onChange={(event) => {
-          onChange(event.target.value);
-        }}
+        onChange={onChange}
         options={props.options}
         value={value}
       />
@@ -1019,12 +1011,12 @@ export const ToastWidget: FC<{ props: ToastProps }> = ({ props }) => (
 export function renderListBox(
   props: ListBoxProps,
   value: string,
-  onSelect: (next: string) => void,
+  onChange: (next: string) => void,
 ): ReactNode {
   const options = props.options.map((o) => ({ key: o.value, label: o.label }));
   return (
     <ListBox.Root
-      onSelect={onSelect}
+      onChange={onChange}
       options={options}
       value={value === '' ? undefined : value}
     >

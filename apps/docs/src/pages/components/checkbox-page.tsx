@@ -19,7 +19,7 @@ const checkboxProps: PropItem[] = [
   { name: 'value', types: ['boolean'], defaultValue: null },
   {
     name: 'onChange',
-    types: ['ChangeEventHandler'],
+    types: ['(checked: boolean) => void'],
     defaultValue: null,
   },
   { name: 'defaultChecked', types: ['boolean'], defaultValue: null },
@@ -104,7 +104,7 @@ export function CheckboxPage() {
 
 <Checkbox
   label="Controlled checkbox"
-  onChange={(e) => setChecked(e.target.checked)}
+  onChange={(checked) => setChecked(checked)}
   value={checked}
 />`}
           >

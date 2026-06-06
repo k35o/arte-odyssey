@@ -23,7 +23,9 @@ const fileFieldProps: PropItem[] = [
   { name: 'maxFiles', types: ['number'], defaultValue: null },
   {
     name: 'onChange',
-    types: ['ChangeEventHandler'],
+    types: [
+      '(files: FileList | null, event?: ChangeEvent<HTMLInputElement>) => void',
+    ],
     defaultValue: null,
   },
 ];

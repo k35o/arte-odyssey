@@ -1,11 +1,6 @@
 'use client';
 
-import type {
-  ChangeEvent,
-  ChangeEventHandler,
-  FC,
-  InputHTMLAttributes,
-} from 'react';
+import type { ChangeEvent, FC, InputHTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { FOCUS_RING_PEER } from '../../_internal/focus-ring';
@@ -31,14 +26,14 @@ type BaseProps = {
 
 type ControlledProps = {
   value: boolean;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: never;
 };
 
 type UncontrolledProps = {
   defaultChecked?: boolean;
   value?: never;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
@@ -72,11 +67,12 @@ export const Checkbox: FC<Props> = ({
     ? groupContext.currentValue.includes(groupItemValue)
     : internalChecked;
 
-  const setChecked = (nextChecked: boolean) => {
+  const setChecked = (
+    nextChecked: boolean,
+    event: ChangeEvent<HTMLInputElement>,
+  ) => {
     setInternalChecked(nextChecked);
-    onChange?.({
-      target: { checked: nextChecked },
-    } as ChangeEvent<HTMLInputElement>);
+    onChange?.(nextChecked, event);
   };
 
   return (
@@ -100,7 +96,7 @@ export const Checkbox: FC<Props> = ({
             return;
           }
 
-          setChecked(event.target.checked);
+          setChecked(event.target.checked, event);
         }}
         type="checkbox"
         value={groupContext ? groupItemValue : undefined}
