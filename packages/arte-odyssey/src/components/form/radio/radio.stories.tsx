@@ -36,8 +36,8 @@ const DefaultRender = (props: ComponentProps<typeof Radio>) => {
       </p>
       <Radio
         {...radioProps}
-        onChange={(event) => {
-          setValue(event.target.value);
+        onChange={(nextValue) => {
+          setValue(nextValue);
         }}
         value={value}
       />

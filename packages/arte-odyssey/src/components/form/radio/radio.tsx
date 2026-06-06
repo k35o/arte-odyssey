@@ -1,11 +1,6 @@
 'use client';
 
-import type {
-  ChangeEvent,
-  ChangeEventHandler,
-  FC,
-  HTMLAttributes,
-} from 'react';
+import type { ChangeEvent, FC, HTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import type { Option } from '../../../types/variables';
@@ -25,14 +20,14 @@ type BaseProps = {
 
 type ControlledProps = {
   value: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: (value: string, event: ChangeEvent<HTMLInputElement>) => void;
   defaultValue?: never;
 };
 
 type UncontrolledProps = {
   defaultValue?: string;
   value?: never;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: (value: string, event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
@@ -57,11 +52,12 @@ export const Radio: FC<Props> = ({
   const isControlled = value !== undefined;
   const disabledResolved = disabled || pending;
 
-  const selectValue = (nextValue: string) => {
+  const selectValue = (
+    nextValue: string,
+    event: ChangeEvent<HTMLInputElement>,
+  ) => {
     setSelectedValue(nextValue);
-    onChange?.({
-      target: { value: nextValue },
-    } as ChangeEvent<HTMLInputElement>);
+    onChange?.(nextValue, event);
   };
 
   return (
@@ -89,8 +85,8 @@ export const Radio: FC<Props> = ({
             className="peer sr-only"
             disabled={disabledResolved}
             name={name ?? labelledbyId}
-            onChange={() => {
-              selectValue(option.value);
+            onChange={(event) => {
+              selectValue(option.value, event);
             }}
             type="radio"
             value={option.value}

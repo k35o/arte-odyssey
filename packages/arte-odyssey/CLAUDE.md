@@ -40,6 +40,17 @@ src/components/<name>/
 - **モード・バリアントを表す boolean** → prefix なし: `interactive`, `animate`, `current`, `fullWidth`, `multiple`
 - **ネイティブ HTML 属性 / ARIA 状態に 1:1 対応する boolean** → そのまま: `disabled`, `checked`, `required`, `invalid`（`aria-invalid` にそのまま渡るため `is` prefix を付けない）
 
+### イベントハンドラの値型
+
+フォーム系コンポーネントの `onChange` は、ネイティブ要素をそのまま薄くラップするもの（`TextField` / `Textarea` / `Select` / `PasswordInput`）を除き、**第1引数にその要素の意味的な値**を取る（イベントオブジェクトではなく値）。実 `<input>` を持つコンポーネントは、汎用性のため**第2引数で本物の DOM イベント**も渡す:
+
+- `Checkbox` / `Switch`: `(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void`
+- `Radio`: `(value: string, event: ChangeEvent<HTMLInputElement>) => void`
+- `FileField`: `(files: FileList | null, event?: ChangeEvent<HTMLInputElement>) => void`（プログラム的削除時は `event` 無し）
+- `RadioCard`（`<button>` 駆動で change イベントが無い）/ `ListBox`: 値のみ（`(value) => void` / `(key) => void`）
+
+第2引数は後方互換に追加でき（`(value) => void` は `(value, event) => void` に代入可能）、利用側は値だけ使うなら第1引数のみ受け取れば良い。
+
 ## Component Authoring Patterns
 
 ### Standard Component

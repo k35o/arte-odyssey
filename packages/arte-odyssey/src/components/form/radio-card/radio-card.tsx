@@ -1,8 +1,6 @@
 'use client';
 
 import type {
-  ChangeEvent,
-  ChangeEventHandler,
   FC,
   FieldsetHTMLAttributes,
   KeyboardEvent,
@@ -38,14 +36,14 @@ type BaseProps = {
 
 type ControlledProps = {
   value: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: (value: string) => void;
   defaultValue?: never;
 };
 
 type UncontrolledProps = {
   defaultValue?: string;
   value?: never;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: (value: string) => void;
 };
 
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
@@ -72,9 +70,7 @@ export const RadioCard: FC<Props> = ({
 
   const selectValue = (nextValue: string) => {
     setCurrentValue(nextValue);
-    onChange?.({
-      target: { value: nextValue },
-    } as ChangeEvent<HTMLInputElement>);
+    onChange?.(nextValue);
   };
 
   const focusIndex = (index: number) => {

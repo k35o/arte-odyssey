@@ -28,8 +28,8 @@ const DefaultRender = (props: ComponentProps<typeof Switch>) => {
       required={props.required}
       label={props.label}
       name={props.name}
-      onChange={(event) => {
-        setValue(event.target.checked);
+      onChange={(checked) => {
+        setValue(checked);
       }}
       value={value}
     />

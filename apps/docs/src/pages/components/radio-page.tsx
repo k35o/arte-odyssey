@@ -15,7 +15,7 @@ const radioProps: PropItem[] = [
   { name: 'value', types: ['string'], defaultValue: null },
   {
     name: 'onChange',
-    types: ['ChangeEventHandler<HTMLInputElement>'],
+    types: ['(value: string) => void'],
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['string'], defaultValue: null },
@@ -104,7 +104,7 @@ const options = [
 <Radio
   disabled={false}
   aria-labelledby="radio-controlled-label"
-  onChange={(event) => setValue(event.target.value)}
+  onChange={(value) => setValue(value)}
   options={options}
   value={value}
 />`}

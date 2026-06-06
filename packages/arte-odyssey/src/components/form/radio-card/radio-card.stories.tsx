@@ -57,8 +57,8 @@ const DefaultRender = (props: ComponentProps<typeof RadioCard>) => {
         aria-labelledby={props['aria-labelledby']}
         disabled={props.disabled}
         invalid={props.invalid}
-        onChange={(event) => {
-          setValue(event.target.value);
+        onChange={(nextValue) => {
+          setValue(nextValue);
         }}
         options={props.options}
         value={value}

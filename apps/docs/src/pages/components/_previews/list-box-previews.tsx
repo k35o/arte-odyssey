@@ -16,7 +16,7 @@ export function ListBoxBasicPreview() {
   return (
     <div className="w-56">
       <ListBox.Root
-        onSelect={(key: string) => {
+        onChange={(key: string) => {
           setSelected(key);
         }}
         options={OPTIONS}
@@ -37,7 +37,7 @@ export function ListBoxSizesPreview() {
     <div className="flex flex-wrap items-start gap-4">
       <div className="w-44">
         <ListBox.Root
-          onSelect={(key: string) => {
+          onChange={(key: string) => {
             setSm(key);
           }}
           options={OPTIONS}
@@ -49,7 +49,7 @@ export function ListBoxSizesPreview() {
       </div>
       <div className="w-48">
         <ListBox.Root
-          onSelect={(key: string) => {
+          onChange={(key: string) => {
             setMd(key);
           }}
           options={OPTIONS}
@@ -61,7 +61,7 @@ export function ListBoxSizesPreview() {
       </div>
       <div className="w-56">
         <ListBox.Root
-          onSelect={(key: string) => {
+          onChange={(key: string) => {
             setLg(key);
           }}
           options={OPTIONS}
@@ -79,7 +79,7 @@ export function ListBoxTriggerIconPreview() {
   const [selected, setSelected] = useState<string>();
   return (
     <ListBox.Root
-      onSelect={(key: string) => {
+      onChange={(key: string) => {
         setSelected(key);
       }}
       options={OPTIONS}

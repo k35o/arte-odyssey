@@ -2,7 +2,6 @@
 
 import type {
   ChangeEvent,
-  ChangeEventHandler,
   FC,
   InputHTMLAttributes,
   PropsWithChildren,
@@ -38,7 +37,12 @@ type RootProps = PropsWithChildren<
     invalid?: boolean;
     maxFiles?: number;
     defaultValue?: File[];
-    onChange?: ChangeEventHandler<HTMLInputElement>;
+    // event はファイル選択（input の change）時に渡る。プログラム的なファイル
+    // 削除では change イベントが存在しないため undefined になる。
+    onChange?: (
+      files: FileList | null,
+      event?: ChangeEvent<HTMLInputElement>,
+    ) => void;
     webkitDirectory?: boolean;
   } & Omit<
     InputHTMLAttributes<HTMLInputElement>,
@@ -72,7 +76,7 @@ const Root = ({
 
   const onFilesChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      onChange?.(event);
+      onChange?.(event.target.files, event);
 
       const files = Array.from(event.target.files ?? []);
       const newFiles = files.map((file) => ({
@@ -104,12 +108,7 @@ const Root = ({
         }
         inputRef.current.files = dataTransfer.files;
 
-        const event = new Event('change', { bubbles: true });
-        Object.defineProperty(event, 'target', {
-          writable: false,
-          value: inputRef.current,
-        });
-        onChange(event as unknown as ChangeEvent<HTMLInputElement>);
+        onChange(dataTransfer.files);
       }
     },
     [acceptedFiles, onChange],

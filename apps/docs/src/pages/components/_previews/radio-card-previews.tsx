@@ -36,8 +36,8 @@ export function RadioCardControlledPreview() {
         disabled={false}
         invalid={false}
         aria-labelledby="radio-card-preview-label"
-        onChange={(event) => {
-          setValue(event.target.value);
+        onChange={(nextValue) => {
+          setValue(nextValue);
         }}
         options={options}
         value={value}

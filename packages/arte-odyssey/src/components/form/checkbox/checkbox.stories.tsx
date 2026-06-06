@@ -22,8 +22,8 @@ const DefaultRender = (props: ComponentProps<typeof Checkbox>) => {
     <Checkbox
       disabled={props.disabled}
       label={props.label}
-      onChange={(e) => {
-        setValue(e.target.checked);
+      onChange={(checked) => {
+        setValue(checked);
       }}
       value={value}
     />

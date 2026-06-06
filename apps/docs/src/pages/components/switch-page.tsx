@@ -17,7 +17,7 @@ const switchProps: PropItem[] = [
   { name: 'value', types: ['boolean'], defaultValue: null },
   {
     name: 'onChange',
-    types: ['ChangeEventHandler<HTMLInputElement>'],
+    types: ['(checked: boolean) => void'],
     defaultValue: null,
   },
   { name: 'defaultChecked', types: ['boolean'], defaultValue: null },
@@ -112,7 +112,7 @@ export function SwitchPage() {
   invalid={false}
   required={false}
   label="Controlled switch"
-  onChange={(event) => setValue(event.target.checked)}
+  onChange={(checked) => setValue(checked)}
   value={value}
 />`}
           >

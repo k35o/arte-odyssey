@@ -21,8 +21,8 @@ export function RadioControlledPreview() {
         defaultValue={undefined}
         disabled={false}
         aria-labelledby="radio-controlled-label"
-        onChange={(event) => {
-          setValue(event.target.value);
+        onChange={(nextValue) => {
+          setValue(nextValue);
         }}
         options={options}
         value={value}

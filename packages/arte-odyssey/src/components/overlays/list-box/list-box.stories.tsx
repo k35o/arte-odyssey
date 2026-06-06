@@ -40,7 +40,7 @@ const DefaultRender = () => {
   return (
     <div className="w-56">
       <ListBox.Root
-        onSelect={(key: string) => {
+        onChange={(key: string) => {
           setSelected(key);
         }}
         options={OPTIONS}
