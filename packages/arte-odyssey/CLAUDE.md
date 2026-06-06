@@ -40,6 +40,16 @@ src/components/<name>/
 - **モード・バリアントを表す boolean** → prefix なし: `interactive`, `animate`, `current`, `fullWidth`, `multiple`
 - **ネイティブ HTML 属性 / ARIA 状態に 1:1 対応する boolean** → そのまま: `disabled`, `checked`, `required`, `invalid`（`aria-invalid` にそのまま渡るため `is` prefix を付けない）
 
+### Controllable Props（開閉・選択などの状態）
+
+開閉・選択といった「制御可能な状態」を持つコンポーネントは、controlled / uncontrolled の両対応（controllable）を基本とし、prop 名を横断で統一する。`useControllableState` を流用する。
+
+- **状態（controlled）**: 真偽の開閉は `isOpen`、選択値は `selectedId` / `value` など意味的な名前。
+- **初期値（uncontrolled）**: `defaultOpen` / `defaultValue` / `defaultSelectedId`。
+- **変更通知**: `onChange?: (next) => void`（開閉専用の閉じ操作は `onClose?`）。
+
+例: `Modal` / `Drawer` は `isOpen?` + `defaultOpen?` + `onClose?`、`Tabs.Root` は `selectedId?` + `defaultSelectedId?` + `onChange?`、`Accordion.Item` は `isOpen?` + `defaultOpen?` + `onChange?`。
+
 ### イベントハンドラの値型
 
 フォーム系コンポーネントの `onChange` は、ネイティブ要素をそのまま薄くラップするもの（`TextField` / `Textarea` / `Select` / `PasswordInput`）を除き、**第1引数にその要素の意味的な値**を取る（イベントオブジェクトではなく値）。実 `<input>` を持つコンポーネントは、汎用性のため**第2引数で本物の DOM イベント**も渡す:
