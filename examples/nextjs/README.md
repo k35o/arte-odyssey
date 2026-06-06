@@ -116,7 +116,7 @@ export default function Home() {
         onClick={() => setCount((c) => c + 1)}
         size="md"
         startIcon={<PlusIcon />}
-        variant="contained"
+        variant="solid"
       >
         カウントを増加
       </Button>

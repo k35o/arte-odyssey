@@ -31,7 +31,7 @@ export const ErrorFallback: FC<ErrorFallbackProps> = ({
         <Heading type="h2">{t('error.title')}</Heading>
         <p className="text-fg-mute text-sm">{t('error.description')}</p>
       </div>
-      <Button onClick={resetErrorBoundary} variant="outlined">
+      <Button onClick={resetErrorBoundary} variant="outline">
         {t('error.retry')}
       </Button>
     </div>

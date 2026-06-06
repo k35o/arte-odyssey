@@ -160,7 +160,7 @@ const Trigger: FC<{
           fullWidth
           size={size}
           type="button"
-          variant="contained"
+          variant="solid"
         >
           {label}
         </Button>

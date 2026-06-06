@@ -37,17 +37,17 @@ type Story = StoryObj<typeof ToastProvider>;
 export const Primary: Story = {};
 
 export const ToastSuccess: Story = {
-  render: () => <Toast id="1" message="成功しました" status="success" />,
+  render: () => <Toast id="1" message="成功しました" tone="success" />,
 };
 
 export const ToasInfo: Story = {
-  render: () => <Toast id="1" message="情報です" status="info" />,
+  render: () => <Toast id="1" message="情報です" tone="info" />,
 };
 
 export const ToastError: Story = {
-  render: () => <Toast id="1" message="失敗しました" status="error" />,
+  render: () => <Toast id="1" message="失敗しました" tone="error" />,
 };
 
 export const ToastWarning: Story = {
-  render: () => <Toast id="1" message="警告です" status="warning" />,
+  render: () => <Toast id="1" message="警告です" tone="warning" />,
 };

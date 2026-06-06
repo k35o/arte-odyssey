@@ -100,7 +100,7 @@ export function Home() {
           )}
           size="md"
           startIcon={<GitHubIcon />}
-          variant="outlined"
+          variant="outline"
         >
           {t('home.github')}
         </Button>
@@ -117,7 +117,7 @@ export function Home() {
           )}
           size="md"
           startIcon={<BlogIcon />}
-          variant="contained"
+          variant="solid"
         >
           {t('home.storybook')}
         </Button>

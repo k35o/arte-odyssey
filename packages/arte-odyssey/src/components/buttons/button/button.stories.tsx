@@ -26,16 +26,16 @@ export const Secondary: Story = {
   },
 };
 
-export const Outlined: Story = {
+export const Outline: Story = {
   args: {
-    variant: 'outlined',
+    variant: 'outline',
   },
 };
 
-export const OutlinedSecondary: Story = {
+export const OutlineSecondary: Story = {
   args: {
     color: 'secondary',
-    variant: 'outlined',
+    variant: 'outline',
   },
 };
 
@@ -51,10 +51,10 @@ export const Gray: Story = {
   },
 };
 
-export const OutlinedGray: Story = {
+export const OutlineGray: Story = {
   args: {
     color: 'gray',
-    variant: 'outlined',
+    variant: 'outline',
   },
 };
 
@@ -87,9 +87,9 @@ export const Disabled: Story = {
     disabled: true,
   },
 };
-export const DisabledOutlined: Story = {
+export const DisabledOutline: Story = {
   args: {
-    variant: 'outlined',
+    variant: 'outline',
     disabled: true,
   },
 };

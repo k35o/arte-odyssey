@@ -21,7 +21,7 @@ const iconButtonProps: PropItem[] = [
     defaultValue: "'md'",
   },
   {
-    name: 'bg',
+    name: 'color',
     types: ["'transparent'", "'base'", "'primary'", "'secondary'"],
     defaultValue: "'transparent'",
   },
@@ -133,29 +133,29 @@ export function IconButtonPage() {
             <T k="components.iconButton.backgroundsTitle" />
           </Heading>
           <ComponentPreview
-            code={`<IconButton bg="transparent" label="Close">
+            code={`<IconButton color="transparent" label="Close">
   <CloseIcon size="sm" />
 </IconButton>
-<IconButton bg="base" label="Close">
+<IconButton color="base" label="Close">
   <CloseIcon size="sm" />
 </IconButton>
-<IconButton bg="primary" label="Close">
+<IconButton color="primary" label="Close">
   <CloseIcon size="sm" />
 </IconButton>
-<IconButton bg="secondary" label="Close">
+<IconButton color="secondary" label="Close">
   <CloseIcon size="sm" />
 </IconButton>`}
           >
-            <IconButton bg="transparent" label="Close">
+            <IconButton color="transparent" label="Close">
               <CloseIcon size="sm" />
             </IconButton>
-            <IconButton bg="base" label="Close">
+            <IconButton color="base" label="Close">
               <CloseIcon size="sm" />
             </IconButton>
-            <IconButton bg="primary" label="Close">
+            <IconButton color="primary" label="Close">
               <CloseIcon size="sm" />
             </IconButton>
-            <IconButton bg="secondary" label="Close">
+            <IconButton color="secondary" label="Close">
               <CloseIcon size="sm" />
             </IconButton>
           </ComponentPreview>

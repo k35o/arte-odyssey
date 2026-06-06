@@ -139,7 +139,7 @@ import { Modal } from '@k8o/arte-odyssey';`}
           <Button
             color="gray"
             onClick={() => setIsOpen(false)}
-            variant="outlined"
+            variant="outline"
           >
             Cancel
           </Button>

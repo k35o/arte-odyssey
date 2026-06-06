@@ -278,7 +278,7 @@ export const componentPreviews: Record<string, ReactNode> = {
     </div>
   ),
   Heading: <Heading type="h2">Section Title</Heading>,
-  Alert: <Alert message="This is an info alert." status="info" />,
+  Alert: <Alert message="This is an info alert." tone="info" />,
   Skeleton: (
     <div className="w-40">
       <Skeleton />

@@ -15,10 +15,16 @@ export type IconButtonTriggerProps = Partial<TooltipTriggerProps>;
 
 type Props = {
   size?: 'sm' | 'md' | 'lg';
-  bg?: 'transparent' | 'base' | 'primary' | 'secondary';
+  color?: 'transparent' | 'base' | 'primary' | 'secondary';
   label: string;
   tooltipPlacement?: Placement;
   tooltipDisabled?: boolean;
+  /**
+   * クリック時の処理。`onAction` は非同期処理を `useTransition` で包み、保留中は
+   * `aria-busy` を立てる糖衣。素のクリックイベントが必要なら `onClick` を使う。
+   * 両者は併用可能で `onClick` → `onAction` の順に実行される（`onClick` が
+   * `preventDefault` した場合は `onAction` をスキップ）。
+   */
   onAction?: () => void | Promise<void>;
   renderItem?: (props: {
     className: string;
@@ -38,7 +44,7 @@ const joinIds = (
 export const IconButton: FC<Props> = ({
   ref,
   size = 'md',
-  bg = 'transparent',
+  color = 'transparent',
   label,
   tooltipPlacement = 'top',
   tooltipDisabled = false,
@@ -75,13 +81,13 @@ export const IconButton: FC<Props> = ({
   const className = cn(
     'inline-flex rounded-full transition-colors',
     FOCUS_RING,
-    (bg === 'transparent' || bg === 'base') &&
+    (color === 'transparent' || color === 'base') &&
       'hover:bg-bg-subtle active:bg-bg-mute',
-    bg === 'base' && 'bg-bg-base',
-    bg === 'transparent' && 'bg-transparent',
-    bg === 'primary' &&
+    color === 'base' && 'bg-bg-base',
+    color === 'transparent' && 'bg-transparent',
+    color === 'primary' &&
       'bg-primary-bg hover:bg-primary-bg-emphasize/80 active:bg-primary-bg-emphasize',
-    bg === 'secondary' &&
+    color === 'secondary' &&
       'bg-secondary-bg hover:bg-secondary-bg-emphasize/80 active:bg-secondary-bg-emphasize',
     size === 'sm' && 'p-1',
     size === 'md' && 'p-2',

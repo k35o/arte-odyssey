@@ -68,7 +68,7 @@ type ButtonIntegrationProps = {
 };
 export const buttonProps = z.object({
   label: z.string(),
-  variant: z.enum(['contained', 'outlined', 'skeleton']).optional(),
+  variant: z.enum(['solid', 'outline', 'skeleton']).optional(),
   color: z.enum(['primary', 'secondary', 'gray']).optional(),
   size: z.enum(['sm', 'md', 'lg']).optional(),
   fullWidth: z.boolean().optional(),
@@ -144,13 +144,13 @@ type IconButtonIntegrationProps = {
   icon: z.infer<typeof iconName>;
   label: ComponentProps<typeof IconButton>['label'];
   size?: ComponentProps<typeof IconButton>['size'];
-  bg?: ComponentProps<typeof IconButton>['bg'];
+  color?: ComponentProps<typeof IconButton>['color'];
 };
 export const iconButtonProps = z.object({
   icon: iconName,
   label: z.string(),
   size: z.enum(['sm', 'md', 'lg']).optional(),
-  bg: z.enum(['transparent', 'base', 'primary', 'secondary']).optional(),
+  color: z.enum(['transparent', 'base', 'primary', 'secondary']).optional(),
 }) satisfies z.ZodType<IconButtonIntegrationProps>;
 
 type ChevronIconIntegrationProps = {
@@ -185,7 +185,7 @@ export const badgeProps = z.object({
   text: z.string(),
   tone: z.enum(['neutral', 'info', 'success', 'warning', 'error']).optional(),
   variant: z.enum(['solid', 'outline']).optional(),
-  size: z.enum(['sm', 'md']).optional(),
+  size: z.enum(['sm', 'md', 'lg']).optional(),
 }) satisfies z.ZodType<BadgeIntegrationProps>;
 
 type HeadingIntegrationProps = {
@@ -279,11 +279,11 @@ export const interactiveCardProps = cardProps;
 // ---------------------------------------------------------------------------
 
 type AlertIntegrationProps = {
-  status: ComponentProps<typeof Alert>['status'];
+  tone: ComponentProps<typeof Alert>['tone'];
   message: ComponentProps<typeof Alert>['message'];
 };
 export const alertProps = z.object({
-  status: z.enum(['success', 'info', 'warning', 'error']),
+  tone: z.enum(['success', 'info', 'warning', 'error']),
   message: z.union([z.string(), z.array(z.string())]),
 }) satisfies z.ZodType<AlertIntegrationProps>;
 
@@ -322,12 +322,12 @@ export const skeletonProps = z.object({
 
 type ToastIntegrationProps = {
   triggerLabel: string;
-  status: 'success' | 'info' | 'warning' | 'error';
+  tone: 'success' | 'info' | 'warning' | 'error';
   message: string;
 };
 export const toastProps = z.object({
   triggerLabel: z.string().describe('トーストを表示するボタンの文言'),
-  status: z.enum(['success', 'info', 'warning', 'error']),
+  tone: z.enum(['success', 'info', 'warning', 'error']),
   message: z.string(),
 }) satisfies z.ZodType<ToastIntegrationProps>;
 
@@ -874,10 +874,7 @@ export type _EnumCoverage = [
     >
   >,
   AssertCovered<
-    CoversComponent<
-      ComponentProps<typeof Alert>['status'],
-      AlertProps['status']
-    >
+    CoversComponent<ComponentProps<typeof Alert>['tone'], AlertProps['tone']>
   >,
   AssertCovered<
     CoversComponent<
@@ -932,8 +929,8 @@ export type _EnumCoverage = [
   >,
   AssertCovered<
     CoversComponent<
-      ComponentProps<typeof IconButton>['bg'],
-      IconButtonProps['bg']
+      ComponentProps<typeof IconButton>['color'],
+      IconButtonProps['color']
     >
   >,
   AssertCovered<

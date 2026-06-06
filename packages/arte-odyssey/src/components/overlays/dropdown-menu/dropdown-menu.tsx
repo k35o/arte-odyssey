@@ -114,7 +114,7 @@ const Trigger: FC<{
   text: string;
   size?: ComponentProps<typeof Button>['size'];
   variant?: ComponentProps<typeof Button>['variant'];
-}> = ({ text, size = 'md', variant = 'contained' }) => {
+}> = ({ text, size = 'md', variant = 'solid' }) => {
   const getTriggerProps = useMenuTrigger();
 
   return (
@@ -145,7 +145,7 @@ const IconTrigger: FC<{
     <Popover.Trigger
       renderItem={(props) => (
         <IconButton
-          bg="base"
+          color="base"
           label={label}
           tooltipDisabled
           {...getTriggerProps(props)}

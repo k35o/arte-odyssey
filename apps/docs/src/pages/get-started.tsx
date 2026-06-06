@@ -90,7 +90,7 @@ function MyComponent() {
   return (
     <div>
       <Heading type="h1">Hello ArteOdyssey</Heading>
-      <Button variant="contained">Click me</Button>
+      <Button variant="solid">Click me</Button>
     </div>
   );
 }`}

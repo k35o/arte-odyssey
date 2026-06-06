@@ -85,7 +85,7 @@ export const ToastProvider: FC<
                       aria-atomic
                       className="shadow-lg"
                       role={
-                        toast.status === 'error' || toast.status === 'warning'
+                        toast.tone === 'error' || toast.tone === 'warning'
                           ? 'alert'
                           : 'status'
                       }

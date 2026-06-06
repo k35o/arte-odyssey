@@ -12,35 +12,35 @@ type Story = StoryObj<typeof Alert>;
 
 export const Success: Story = {
   args: {
-    status: 'success',
+    tone: 'success',
     message: 'Success',
   },
 };
 
 export const Info: Story = {
   args: {
-    status: 'info',
+    tone: 'info',
     message: 'Info',
   },
 };
 
 export const Warning: Story = {
   args: {
-    status: 'warning',
+    tone: 'warning',
     message: 'Warning',
   },
 };
 
 export const Error: Story = {
   args: {
-    status: 'error',
+    tone: 'error',
     message: 'Error',
   },
 };
 
 export const ArrayMessage: Story = {
   args: {
-    status: 'error',
+    tone: 'error',
     message: [
       'メールアドレスの形式が正しくありません',
       'パスワードは8文字以上で入力してください',
@@ -51,7 +51,7 @@ export const ArrayMessage: Story = {
 
 export const SingleArrayMessage: Story = {
   args: {
-    status: 'success',
+    tone: 'success',
     message: ['Success'],
   },
 };

@@ -9,7 +9,7 @@ const MAX_TOAST_COUNT = 5;
 
 export type ToastType = {
   id: string;
-  status: Status;
+  tone: Status;
   message: string;
 };
 
@@ -21,9 +21,9 @@ export const useToast = () => {
   const setToasts = useSetToast();
 
   const onOpen = useCallback(
-    (status: Status, message: string) => {
+    (tone: Status, message: string) => {
       setToasts((prev) => {
-        const next = [...prev, { id: crypto.randomUUID(), status, message }];
+        const next = [...prev, { id: crypto.randomUUID(), tone, message }];
         return next.slice(-MAX_TOAST_COUNT);
       });
     },
