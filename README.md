@@ -4,7 +4,7 @@ A modern, TypeScript-first React UI component library built with performance and
 
 ## Features
 
-- **Modern Stack**: Built with React 19, TypeScript 5.9+, and Tailwind CSS 4+
+- **Modern Stack**: Built with React 19, TypeScript 6+, and Tailwind CSS 4+
 - **Accessible**: WCAG compliant components with full keyboard navigation
 - **Performant**: Optimized bundle size with tree-shakeable components
 - **Developer Friendly**: Comprehensive TypeScript support and Storybook documentation

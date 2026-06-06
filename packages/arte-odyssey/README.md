@@ -23,7 +23,7 @@ npm install react react-dom typescript tailwindcss
 Required versions:
 
 - React ≥19.0.0
-- TypeScript ≥5.9.0
+- TypeScript ≥6.0.0
 - Tailwind CSS ≥4.0.0
 
 ## Quick Start
