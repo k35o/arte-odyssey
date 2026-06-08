@@ -16,3 +16,7 @@
 @import './tokens.css';
 @import './utilities.css';
 @source '../components';
+/* The json-render / openui integrations' renderers emit utility classes too
+   (e.g. card padding), so they must be scanned alongside components — else a
+   class only used in a renderer (not in any component) is never generated. */
+@source '../integrations';

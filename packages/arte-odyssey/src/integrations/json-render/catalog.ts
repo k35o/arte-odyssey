@@ -17,7 +17,8 @@ export const catalog = defineCatalog(schema, {
     Stack: {
       props: s.stackProps,
       slots: ['default'],
-      description: '子要素を縦/横に等間隔で並べるレイアウトコンテナ。',
+      description:
+        '子要素を縦/横に等間隔で並べるレイアウトコンテナ。gap で子要素間の間隔、padding（none〜xl）で内側の余白を付ける。セクションに余白が欲しいときは padding を指定する。',
     },
     Grid: {
       props: s.gridProps,
@@ -32,7 +33,8 @@ export const catalog = defineCatalog(schema, {
     Card: {
       props: s.cardProps,
       slots: ['default'],
-      description: 'コンテンツをまとめるカード（コンテナ）。',
+      description:
+        'コンテンツをまとめるカード（コンテナ）。内側 padding は size（sm/md/lg、デフォルト md）で決まる。中身を Stack で囲む場合に重ねて padding を指定する必要はない。',
     },
     Badge: { props: s.badgeProps, description: 'ステータスやラベルのバッジ。' },
     Heading: { props: s.headingProps, description: '見出し（h1〜h6）。' },
@@ -142,7 +144,8 @@ export const catalog = defineCatalog(schema, {
     InteractiveCard: {
       props: s.interactiveCardProps,
       slots: ['default'],
-      description: 'ホバーアニメーション付きのカード。',
+      description:
+        'ホバーアニメーション付きのカード。Card と同様に内側 padding は size（sm/md/lg、デフォルト md）で決まる。',
     },
     Form: {
       props: s.formProps,

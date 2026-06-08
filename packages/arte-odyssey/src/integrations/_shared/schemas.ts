@@ -265,10 +265,14 @@ export const tableProps = z.object({
 type CardIntegrationProps = {
   width?: ComponentProps<typeof Card>['width'];
   appearance?: ComponentProps<typeof Card>['appearance'];
+  // Integration-only: the bare Card has no padding, so `size` drives the
+  // generated card's inner padding (sm/md/lg). Hand-written abstraction.
+  size?: 'sm' | 'md' | 'lg';
 };
 export const cardProps = z.object({
   width: z.enum(['full', 'fit']).optional(),
   appearance: z.enum(['shadow', 'bordered']).optional(),
+  size: z.enum(['sm', 'md', 'lg']).optional(),
 }) satisfies z.ZodType<CardIntegrationProps>;
 
 // InteractiveCard は本体側で Card と同じ Props を共有するため schema も共有する。
@@ -347,12 +351,14 @@ export const separatorProps = z.object({
 type StackIntegrationProps = {
   direction?: ComponentProps<typeof Stack>['direction'];
   gap?: ComponentProps<typeof Stack>['gap'];
+  padding?: ComponentProps<typeof Stack>['padding'];
   align?: ComponentProps<typeof Stack>['align'];
   justify?: ComponentProps<typeof Stack>['justify'];
 };
 export const stackProps = z.object({
   direction: z.enum(['row', 'column']).optional(),
   gap: z.enum(['none', 'sm', 'md', 'lg', 'xl']).optional(),
+  padding: z.enum(['none', 'sm', 'md', 'lg', 'xl']).optional(),
   align: z.enum(['start', 'center', 'end', 'stretch']).optional(),
   justify: z.enum(['start', 'center', 'end', 'between']).optional(),
 }) satisfies z.ZodType<StackIntegrationProps>;

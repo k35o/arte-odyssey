@@ -302,10 +302,19 @@ export function renderSeparator(props: SeparatorProps): ReactNode {
 // containers (children は各 FW が描画して渡す)
 // ---------------------------------------------------------------------------
 
+// The bare Card has no padding and the generative catalog has no className
+// escape hatch, so map the integration `size` to a sensible inner padding
+// (default md). Mirrors the size→padding convention in Chakra / Fluent / Radix.
+const CARD_PADDING_CLASS = {
+  sm: 'p-4',
+  md: 'p-6',
+  lg: 'p-8',
+} as const satisfies Record<'sm' | 'md' | 'lg', string>;
+
 export function renderCard(props: CardProps, children: ReactNode): ReactNode {
   return (
     <Card appearance={u(props.appearance)} width={u(props.width)}>
-      {children}
+      <div className={CARD_PADDING_CLASS[props.size ?? 'md']}>{children}</div>
     </Card>
   );
 }
@@ -356,6 +365,7 @@ export function renderStack(props: StackProps, children: ReactNode): ReactNode {
       direction={u(props.direction)}
       gap={u(props.gap)}
       justify={u(props.justify)}
+      padding={u(props.padding)}
     >
       {children}
     </Stack>
@@ -793,9 +803,11 @@ export function renderInteractiveCard(
   props: InteractiveCardProps,
   children: ReactNode,
 ): ReactNode {
+  // Same as `renderCard`: the card surface has no padding, so `size` drives
+  // the inner padding (the generative catalog has no className escape).
   return (
     <InteractiveCard appearance={u(props.appearance)} width={u(props.width)}>
-      {children}
+      <div className={CARD_PADDING_CLASS[props.size ?? 'md']}>{children}</div>
     </InteractiveCard>
   );
 }
