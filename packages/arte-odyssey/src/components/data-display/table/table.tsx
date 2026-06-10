@@ -30,7 +30,7 @@ type EmptyStateProps = {
 };
 
 const Root: FC<RootProps> = ({ children }) => (
-  <div className="border-border-mute bg-bg-base vertical:writing-sideways-rl vertical:h-fit vertical:w-fit w-full overflow-x-auto rounded-lg border">
+  <div className="border-border-mute bg-bg-base vertical:writing-sideways-rl vertical:size-fit w-full overflow-x-auto rounded-lg border">
     <table className="min-w-full border-collapse text-left text-sm">
       {children}
     </table>
