@@ -1,10 +1,4 @@
-import {
-  Anchor,
-  Card,
-  Heading,
-  InteractiveCard,
-  Separator,
-} from '@k8o/arte-odyssey';
+import { Anchor, Card, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
@@ -23,6 +17,11 @@ const cardProps: PropItem[] = [
     name: 'width',
     types: ["'full'", "'fit'"],
     defaultValue: "'full'",
+  },
+  {
+    name: 'interactive',
+    types: ['boolean'],
+    defaultValue: 'false',
   },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];
@@ -97,28 +96,24 @@ export function CardPage() {
           </ComponentPreview>
         </div>
 
-        {/* InteractiveCard */}
+        {/* Interactive */}
         <div className="flex flex-col gap-4">
-          <Heading type="h3">InteractiveCard</Heading>
+          <Heading type="h3">Interactive</Heading>
           <p className="text-fg-mute">
             <T k="components.card.interactiveDescription" />
           </p>
-          <CodeBlock
-            code="import { InteractiveCard } from '@k8o/arte-odyssey';"
-            lang="ts"
-          />
           <ComponentPreview
-            code={`<InteractiveCard>
+            code={`<Card interactive>
   <a className="block p-6" href="https://example.com">
     Hover to scale up
   </a>
-</InteractiveCard>`}
+</Card>`}
           >
-            <InteractiveCard>
+            <Card interactive>
               <a className="block p-6" href="https://example.com">
                 Hover to scale up
               </a>
-            </InteractiveCard>
+            </Card>
           </ComponentPreview>
         </div>
 
@@ -149,16 +144,6 @@ export function CardPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits="HTMLAttributes<HTMLDivElement>"
-          items={cardProps}
-        />
-      </section>
-      <Separator color="mute" />
-
-      {/* InteractiveCard Props */}
-      <section className="flex flex-col gap-4">
-        <Heading type="h2">InteractiveCard Props</Heading>
         <PropsTable
           inherits="HTMLAttributes<HTMLDivElement>"
           items={cardProps}

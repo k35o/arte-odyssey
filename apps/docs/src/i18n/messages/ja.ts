@@ -166,7 +166,7 @@ export const ja = {
   'components.card.description': 'コンテンツをまとめるカード',
   'components.card.widthTitle': 'Width',
   'components.card.interactiveDescription':
-    'ホバー・アクティブ時にスケールするカード。カード全体をリンクやボタンにする際に使う。',
+    'interactive を付けるとホバー・アクティブ時にスケールする。カード全体をリンクやボタンにする際に使う。',
   'components.code.description': 'インラインのコード表示',
   'components.code.colorDetectionTitle': 'カラー検出',
   'components.table.description':

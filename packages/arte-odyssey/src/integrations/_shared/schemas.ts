@@ -265,6 +265,7 @@ export const tableProps = z.object({
 type CardIntegrationProps = {
   width?: ComponentProps<typeof Card>['width'];
   appearance?: ComponentProps<typeof Card>['appearance'];
+  interactive?: ComponentProps<typeof Card>['interactive'];
   // Integration-only: the bare Card has no padding, so `size` drives the
   // generated card's inner padding (sm/md/lg). Hand-written abstraction.
   size?: 'sm' | 'md' | 'lg';
@@ -272,11 +273,9 @@ type CardIntegrationProps = {
 export const cardProps = z.object({
   width: z.enum(['full', 'fit']).optional(),
   appearance: z.enum(['shadow', 'bordered']).optional(),
+  interactive: z.boolean().optional(),
   size: z.enum(['sm', 'md', 'lg']).optional(),
 }) satisfies z.ZodType<CardIntegrationProps>;
-
-// InteractiveCard は本体側で Card と同じ Props を共有するため schema も共有する。
-export const interactiveCardProps = cardProps;
 
 // ---------------------------------------------------------------------------
 // feedback
@@ -810,7 +809,6 @@ export type PaginationProps = z.infer<typeof paginationProps>;
 export type GridProps = z.infer<typeof gridProps>;
 export type ChevronIconProps = z.infer<typeof chevronIconProps>;
 export type StatusIconProps = z.infer<typeof statusIconProps>;
-export type InteractiveCardProps = z.infer<typeof interactiveCardProps>;
 export type FormProps = z.infer<typeof formProps>;
 export type ModalProps = z.infer<typeof modalProps>;
 export type DialogProps = z.infer<typeof dialogProps>;

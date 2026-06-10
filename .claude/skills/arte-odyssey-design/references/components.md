@@ -100,29 +100,20 @@ Props:
 ```tsx
 import { Card } from '@k8o/arte-odyssey';
 
-<Card variant="primary" width="full" appearance="shadow">
+<Card width="full" appearance="shadow">
   <div className="p-6">コンテンツ</div>
+</Card>
+
+// クリック可能なカード（ホバーでスケールアップ）
+<Card interactive>
+  <div className="p-6">ホバーでスケールアップ</div>
 </Card>
 ```
 
 Props:
-- `variant`: `'primary'` | `'secondary'`
 - `width`: `'full'` | `'fit'`
 - `appearance`: `'shadow'` | `'bordered'` — shadow はシャドウ付き、bordered はボーダーのみ
-
-### InteractiveCard
-
-ホバー・クリック操作可能なカード。Card と同じ Props。
-
-```tsx
-import { InteractiveCard } from '@k8o/arte-odyssey';
-
-<InteractiveCard variant="primary">
-  <div className="p-6">ホバーでスケールアップ</div>
-</InteractiveCard>
-```
-
-- `hover:scale-[1.02]`, `active:scale-[0.98]` のスケール変化付き
+- `interactive`: boolean — `hover:scale-[1.02]`, `active:scale-[0.98]` のスケール変化付き
 
 ### Tabs
 

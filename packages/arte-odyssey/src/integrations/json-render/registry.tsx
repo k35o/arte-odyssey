@@ -169,8 +169,6 @@ export const { registry } = defineRegistry(catalog, {
     },
 
     // コンテナ追加
-    InteractiveCard: ({ props, children }) =>
-      ui.renderInteractiveCard(props, children),
     Form: ({ props, children }) => ui.renderForm(props, children),
 
     // オーバーレイ（自己完結ウィジェット）

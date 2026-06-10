@@ -188,22 +188,22 @@ import { IconButton } from '@k8o/arte-odyssey';
 </IconButton>
 ```
 
-### Card / InteractiveCard
+### Card
 
 シャドウで浮かせるのが基本。ページ背景 `bg-subtle` の上に白カード。
 
 ```tsx
-import { Card, InteractiveCard } from '@k8o/arte-odyssey';
+import { Card } from '@k8o/arte-odyssey';
 
 // 静的カード（シャドウで浮かせる）
 <Card appearance="shadow">
   <div className="p-8">カードのコンテンツ</div>
 </Card>
 
-// クリック可能なカード（ホバーでスケールアップ）
-<InteractiveCard appearance="shadow">
+// クリック可能なカード（interactive でホバー時にスケールアップ）
+<Card appearance="shadow" interactive>
   <div className="p-8">コンテンツ</div>
-</InteractiveCard>
+</Card>
 ```
 
 ### フォーム

@@ -172,7 +172,7 @@ export const en = {
   'components.card.description': 'A card for grouping content.',
   'components.card.widthTitle': 'Width',
   'components.card.interactiveDescription':
-    'A card that scales on hover and active. Use it to make the whole card a link or button.',
+    'With the interactive prop, the card scales on hover and active. Use it to make the whole card a link or button.',
   'components.code.description': 'An inline code display component.',
   'components.code.colorDetectionTitle': 'Color Detection',
   'components.table.description':

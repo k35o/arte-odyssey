@@ -34,7 +34,7 @@ export const catalog = defineCatalog(schema, {
       props: s.cardProps,
       slots: ['default'],
       description:
-        'コンテンツをまとめるカード（コンテナ）。内側 padding は size（sm/md/lg、デフォルト md）で決まる。中身を Stack で囲む場合に重ねて padding を指定する必要はない。',
+        'コンテンツをまとめるカード（コンテナ）。内側 padding は size（sm/md/lg、デフォルト md）で決まる。中身を Stack で囲む場合に重ねて padding を指定する必要はない。interactive を付けるとホバー時にスケールする。',
     },
     Badge: { props: s.badgeProps, description: 'ステータスやラベルのバッジ。' },
     Heading: { props: s.headingProps, description: '見出し（h1〜h6）。' },
@@ -140,12 +140,6 @@ export const catalog = defineCatalog(schema, {
     Pagination: {
       props: s.paginationProps,
       description: 'ページネーション。defaultPage を $bindState で束縛できる。',
-    },
-    InteractiveCard: {
-      props: s.interactiveCardProps,
-      slots: ['default'],
-      description:
-        'ホバーアニメーション付きのカード。Card と同様に内側 padding は size（sm/md/lg、デフォルト md）で決まる。',
     },
     Form: {
       props: s.formProps,

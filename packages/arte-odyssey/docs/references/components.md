@@ -185,29 +185,29 @@ Props (Tabs.Root):
 - `ids`: `[string, ...string[]]`（必須）
 - `defaultSelectedId`: string | null
 
-### Card / InteractiveCard
+### Card
 
 コンテンツをグループ化するカード。
 
 ```tsx
-import { Card, InteractiveCard } from '@k8o/arte-odyssey';
+import { Card } from '@k8o/arte-odyssey';
 
 // 静的カード
-<Card variant="primary" width="full" appearance="shadow">
+<Card width="full" appearance="shadow">
   <div className="p-6">コンテンツ</div>
 </Card>
 
 // クリック可能なカード（hover:scale-[1.02], active:scale-[0.98]）
-<InteractiveCard appearance="bordered">
+<Card appearance="bordered" interactive>
   <div className="p-6">コンテンツ</div>
-</InteractiveCard>
+</Card>
 ```
 
 Props:
 
-- `variant`: `'primary'` | `'secondary'`
 - `width`: `'full'` | `'fit'`
 - `appearance`: `'shadow'` | `'bordered'`
+- `interactive`: boolean
 
 ### Separator
 

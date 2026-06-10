@@ -16,7 +16,7 @@ import { Accordion } from '../../components/data-display/accordion';
 import { Avatar } from '../../components/data-display/avatar';
 import { Badge } from '../../components/data-display/badge';
 import { BaselineStatus } from '../../components/data-display/baseline-status';
-import { Card, InteractiveCard } from '../../components/data-display/card';
+import { Card } from '../../components/data-display/card';
 import { Code } from '../../components/data-display/code';
 import { Heading } from '../../components/data-display/heading';
 import { Table } from '../../components/data-display/table';
@@ -139,7 +139,6 @@ import type {
   IconButtonProps,
   IconName,
   IconProps,
-  InteractiveCardProps,
   ListBoxProps,
   ModalProps,
   NumberFieldProps,
@@ -313,7 +312,11 @@ const CARD_PADDING_CLASS = {
 
 export function renderCard(props: CardProps, children: ReactNode): ReactNode {
   return (
-    <Card appearance={u(props.appearance)} width={u(props.width)}>
+    <Card
+      appearance={u(props.appearance)}
+      interactive={u(props.interactive)}
+      width={u(props.width)}
+    >
       <div className={CARD_PADDING_CLASS[props.size ?? 'md']}>{children}</div>
     </Card>
   );
@@ -798,19 +801,6 @@ export function renderTable(props: TableProps): ReactNode {
 // ---------------------------------------------------------------------------
 // containers (children を持つ追加分)
 // ---------------------------------------------------------------------------
-
-export function renderInteractiveCard(
-  props: InteractiveCardProps,
-  children: ReactNode,
-): ReactNode {
-  // Same as `renderCard`: the card surface has no padding, so `size` drives
-  // the inner padding (the generative catalog has no className escape).
-  return (
-    <InteractiveCard appearance={u(props.appearance)} width={u(props.width)}>
-      <div className={CARD_PADDING_CLASS[props.size ?? 'md']}>{children}</div>
-    </InteractiveCard>
-  );
-}
 
 export function renderForm(props: FormProps, children: ReactNode): ReactNode {
   return <Form action={u(props.action)}>{children}</Form>;
