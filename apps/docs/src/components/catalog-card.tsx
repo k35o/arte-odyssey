@@ -8,7 +8,7 @@ import { LocaleAnchor } from './locale-anchor';
 import { T } from './t';
 
 const cardClass =
-  'group bg-bg-base focus-within:ring-border-info relative flex flex-col overflow-hidden rounded-xl shadow-sm transition-transform hover:scale-[1.02] focus-within:ring-2';
+  'group bg-bg-base focus-within:ring-border-info relative flex flex-col overflow-hidden rounded-xl shadow-sm motion-safe:transition-transform hover:motion-safe:scale-[1.02] focus-within:ring-2';
 
 export const CatalogCard: FC<{ item: NavItem; preview?: ReactNode }> = ({
   item,

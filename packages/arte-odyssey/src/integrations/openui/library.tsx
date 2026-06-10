@@ -421,23 +421,13 @@ const containerChildRefs = [...childRefs, Stack.ref, Grid.ref] as const;
 // Card は leaf / form に加えて Stack も内包できる（Stack より後に定義）。
 const Card = defineComponent({
   name: 'Card',
-  description: 'コンテンツをまとめるカード（コンテナ）。Stack も入れられる。',
+  description:
+    'コンテンツをまとめるカード（コンテナ）。Stack も入れられる。interactive を付けるとホバー時にスケールする。',
   props: s.cardProps.extend({
     children: z.array(z.union(containerChildRefs)).describe('カード内の子要素'),
   }),
   component: ({ props, renderNode }) =>
     ui.renderCard(props, renderChildren(props.children, renderNode)),
-});
-
-// InteractiveCard も Card と同じ children を受ける。
-const InteractiveCardComp = defineComponent({
-  name: 'InteractiveCard',
-  description: 'ホバーアニメーション付きのカード。',
-  props: s.interactiveCardProps.extend({
-    children: z.array(z.union(containerChildRefs)).describe('カード内の子要素'),
-  }),
-  component: ({ props, renderNode }) =>
-    ui.renderInteractiveCard(props, renderChildren(props.children, renderNode)),
 });
 
 // Form: 縦並びのフォームラッパー。
@@ -510,7 +500,6 @@ export const library = createLibrary({
     Stack,
     Grid,
     Card,
-    InteractiveCardComp,
     FormComp,
     Modal,
     Dialog,

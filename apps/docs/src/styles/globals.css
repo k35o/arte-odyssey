@@ -4,7 +4,8 @@
 /*
  * Background shared by the live preview area and the Shiki code block so they
  * read as one panel. Values mirror the Shiki themes used in CodeBlock
- * (min-light / min-dark); #1f1f1f is darker than any gray token.
+ * (min-light / min-dark); #1f1f1f sits between bg-surface (gray-950) and
+ * bg-base (gray-800), so cards still read against it.
  */
 :root {
   --preview-bg: #ffffff;

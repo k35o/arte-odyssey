@@ -208,8 +208,8 @@
 
   --bg-base: var(--gray-800);
   --bg-raised: var(--gray-700);
-  --bg-surface: var(--gray-900);
-  --bg-subtle: var(--gray-800);
+  --bg-surface: var(--gray-950);
+  --bg-subtle: var(--gray-900);
   --bg-mute: var(--gray-700);
   --bg-emphasize: var(--gray-600);
   --bg-inverse: var(--white);

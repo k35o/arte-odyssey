@@ -109,7 +109,7 @@ ArteOdyssey includes design system documentation in `docs/` directory. When inst
 - **Avatar** - User/entity avatar
 - **Badge** - Status/label indicator
 - **BaselineStatus** - Web standard support indicator
-- **Card** / **InteractiveCard** - Flexible content container (with hover interaction)
+- **Card** - Flexible content container (hover interaction via `interactive`)
 - **Code** - Formatted code display
 - **Heading** - Typography heading component
 - **Table** - Tabular data display
@@ -243,9 +243,9 @@ pnpm add @json-render/core @json-render/react zod
 pnpm add @openuidev/react-lang zod
 ```
 
-Supported components (**all 47**, both frameworks):
+Supported components (**all 46**, both frameworks):
 
-- **Layout / containers**: `Stack`, `Card`, `InteractiveCard`, `Form`
+- **Layout / containers**: `Stack`, `Card`, `Form`
 - **Buttons / nav**: `Button`, `IconButton`, `Anchor`, `Breadcrumb`, `Pagination`
 - **Display**: `Badge`, `Heading`, `Avatar`, `Code`, `Icon`, `Alert`, `Spinner`, `Progress`, `Skeleton`, `Separator`, `Tabs`, `Accordion`, `Table`, `BaselineStatus`, `ScrollLinked`
 - **Overlays (self-contained widgets)**: `Modal`, `Dialog`, `Drawer`, `Popover`, `Tooltip`, `DropdownMenu`, `Toast`

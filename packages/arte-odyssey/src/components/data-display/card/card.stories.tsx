@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Button } from '../../buttons/button';
 import { Card } from './card';
-import { InteractiveCard } from './interactive-card';
 
 const meta: Meta<typeof Card> = {
   title: 'components/data-display/card',
@@ -28,15 +27,15 @@ export const Primary: Story = {
 export const Interactive: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      <InteractiveCard>
+      <Card interactive>
         <a className="block p-4" href="https://example.com">
           <h3 className="font-bold">カード全体がリンク</h3>
           <p className="text-fg-mute mt-2 text-sm">
             カード全体をクリックして遷移します。
           </p>
         </a>
-      </InteractiveCard>
-      <InteractiveCard>
+      </Card>
+      <Card interactive>
         <div className="flex flex-col gap-3 p-4">
           <h3 className="font-bold">カード内にボタンとリンク</h3>
           <p className="text-fg-mute text-sm">
@@ -58,7 +57,7 @@ export const Interactive: Story = {
             </Button>
           </nav>
         </div>
-      </InteractiveCard>
+      </Card>
     </div>
   ),
 };
