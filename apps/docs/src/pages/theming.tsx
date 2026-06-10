@@ -193,7 +193,7 @@ export function Theming() {
           <Heading type="h3">
             <T k="theming.textSizesTitle" />
           </Heading>
-          <Card appearance="bordered">
+          <Card>
             <div className="flex flex-col gap-3 p-4">
               {TEXT_SIZES.map((size) => {
                 const ratio = lineHeightToNumber(size.lineHeight);
@@ -223,7 +223,7 @@ export function Theming() {
           <Heading type="h3">
             <T k="theming.fontWeightsTitle" />
           </Heading>
-          <Card appearance="bordered">
+          <Card>
             <div className="flex flex-col gap-3 p-4">
               {FONT_WEIGHTS.map((weight) => (
                 <div className="flex items-baseline gap-4" key={weight.name}>
@@ -250,7 +250,7 @@ export function Theming() {
           <Heading type="h3">
             <T k="theming.letterSpacingTitle" />
           </Heading>
-          <Card appearance="bordered">
+          <Card>
             <div className="flex flex-col gap-3 p-4">
               {LETTER_SPACINGS.map((ls) => (
                 <div className="flex items-baseline gap-4" key={ls.name}>
@@ -274,7 +274,7 @@ export function Theming() {
           <Heading type="h3">
             <T k="theming.lineHeightTitle" />
           </Heading>
-          <Card appearance="bordered">
+          <Card>
             <div className="flex flex-col gap-3 p-4">
               {LINE_HEIGHTS.map((lh) => (
                 <div className="flex items-center gap-4" key={lh.name}>
@@ -357,7 +357,7 @@ export function Theming() {
         <p className="text-fg-mute">
           <T k="theming.spacingDescription" />
         </p>
-        <Card appearance="bordered">
+        <Card>
           <div className="flex flex-col gap-2 p-4">
             {SPACING_SCALE.map((space) => (
               <div className="flex items-center gap-3" key={space.step}>
@@ -386,7 +386,7 @@ export function Theming() {
         <p className="text-fg-mute">
           <T k="theming.breakpointsDescription" />
         </p>
-        <Card appearance="bordered">
+        <Card>
           <div className="flex flex-col gap-2 p-4">
             {BREAKPOINTS.map((bp) => (
               <div className="flex items-center gap-4" key={bp.name}>
@@ -411,7 +411,7 @@ export function Theming() {
         <p className="text-fg-mute">
           <T k="theming.zIndexDescription" />
         </p>
-        <Card appearance="bordered">
+        <Card>
           <div className="flex flex-col gap-2 p-4">
             {Z_INDICES.map((z) => (
               <div className="flex items-center gap-4" key={z.name}>

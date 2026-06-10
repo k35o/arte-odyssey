@@ -135,7 +135,7 @@ export function StackPage() {
             <T k="components.stack.alignTitle" />
           </Heading>
           <ComponentPreview code='<Stack direction="row" align="center" justify="between">…</Stack>'>
-            <div className="bg-bg-subtle rounded-lg px-3 py-3">
+            <div className="bg-bg-mute rounded-lg p-3">
               <Stack align="center" direction="row" gap="md" justify="between">
                 <Badge text="L" tone="info" />
                 <Badge text="C" tone="success" />
