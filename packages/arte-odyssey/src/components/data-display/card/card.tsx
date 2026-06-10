@@ -1,7 +1,12 @@
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
 import { cn } from './../../../helpers/cn';
-import type { CardProps } from './type';
+
+type CardProps = {
+  width?: 'full' | 'fit';
+  appearance?: 'shadow' | 'bordered';
+  interactive?: boolean;
+} & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
 
 export const Card: FC<CardProps> = ({
   children,
