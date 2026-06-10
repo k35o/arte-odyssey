@@ -72,11 +72,11 @@ export const tokens = {
       },
       'bg-surface': {
         light: 'oklch(0.975 0.001 235)',
-        dark: 'oklch(0.25 0.0015 235)',
+        dark: 'oklch(0.18 0.001 235)',
       },
       'bg-subtle': {
         light: 'oklch(0.945 0.0015 235)',
-        dark: 'oklch(0.3 0.002 235)',
+        dark: 'oklch(0.25 0.0015 235)',
       },
       'bg-mute': {
         light: 'oklch(0.9 0.003 235)',
@@ -500,11 +500,11 @@ export const tokens = {
     },
     'bg-surface': {
       light: 'oklch(0.975 0.001 235)',
-      dark: 'oklch(0.25 0.0015 235)',
+      dark: 'oklch(0.18 0.001 235)',
     },
     'bg-subtle': {
       light: 'oklch(0.945 0.0015 235)',
-      dark: 'oklch(0.3 0.002 235)',
+      dark: 'oklch(0.25 0.0015 235)',
     },
     'bg-mute': {
       light: 'oklch(0.9 0.003 235)',
@@ -673,11 +673,11 @@ export const tokens = {
     },
     'bg-surface': {
       light: 'gray-50',
-      dark: 'gray-900',
+      dark: 'gray-950',
     },
     'bg-subtle': {
       light: 'gray-100',
-      dark: 'gray-800',
+      dark: 'gray-900',
     },
     'bg-mute': {
       light: 'gray-200',
