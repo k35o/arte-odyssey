@@ -11,7 +11,12 @@ const meta: Meta<typeof ScrollLinked> = {
 export default meta;
 type Story = StoryObj<typeof ScrollLinked>;
 
-export const NoScroll: Story = {};
+export const NoScroll: Story = {
+  // The progress bar is driven by a motion spring (not CSS animation), so
+  // its resting state is not pixel-deterministic — and with no scroll the
+  // screenshot is a blank page anyway.
+  parameters: { vrt: { skip: true } },
+};
 
 export const Scroll: Story = {
   decorators: [

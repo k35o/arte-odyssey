@@ -5,6 +5,9 @@ import { BaselineStatus } from './baseline-status';
 const meta: Meta<typeof BaselineStatus> = {
   title: 'components/data-display/baseline-status',
   component: BaselineStatus,
+  // The baseline-status web component fetches live feature data over the
+  // network, so its rendering is not deterministic enough for VRT.
+  parameters: { vrt: { skip: true } },
 };
 
 export default meta;

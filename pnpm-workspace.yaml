@@ -31,6 +31,7 @@ minimumReleaseAge: 10080
 
 minimumReleaseAgeExclude:
   - '@k8o/*'
+  - 'storybook-addon-vrt'
   - 'tailwind-token-extractor'
 
 verifyDepsBeforeRun: install

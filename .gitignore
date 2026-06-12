@@ -60,3 +60,6 @@ next-env.d.ts
 settings.local.json
 
 .plan
+
+# Visual regression testing
+.vrt/
