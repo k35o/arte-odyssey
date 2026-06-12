@@ -74,6 +74,19 @@ jobs:
           path: packages/arte-odyssey/.vrt
           retention-days: 14
 
+      # トークン未登録の間はスキップされ、artifactのみのフォールバックになる
+      - name: Publish report to Cloudflare Pages
+        if: github.event_name == 'pull_request' && steps.baseline.outputs.found == 'true' && secrets.CLOUDFLARE_API_TOKEN != ''
+        id: pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 31074c2d041f3ceb8a5bb3fc51dd3bfa
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          npx -y wrangler@4 pages project create arte-odyssey-vrt --production-branch=main 2>/dev/null || true
+          npx -y wrangler@4 pages deploy packages/arte-odyssey/.vrt --project-name=arte-odyssey-vrt --branch="pr-$PR_NUMBER" --commit-dirty=true
+          echo "url=https://pr-$PR_NUMBER.arte-odyssey-vrt.pages.dev/report.html" >> "$GITHUB_OUTPUT"
+
       - name: Comment summary on PR
         if: github.event_name == 'pull_request'
         env:
@@ -81,8 +94,9 @@ jobs:
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPORT_URL: ${{ steps.pages.outputs.url }}
         run: |
-          node .github/scripts/vrt-comment.mjs arte-odyssey=packages/arte-odyssey/.vrt/report.json > comment.md
+          node .github/scripts/vrt-comment.mjs "arte-odyssey=packages/arte-odyssey/.vrt/report.json=$REPORT_URL" > comment.md
           marker='<!-- vrt-report -->'
           comment_id=$(gh api "repos/$REPO/issues/$PR_NUMBER/comments" --paginate --jq ".[] | select(.body | startswith(\"$marker\")) | .id" | head -n1)
           if [ -n "$comment_id" ]; then
