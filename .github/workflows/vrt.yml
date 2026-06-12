@@ -1,0 +1,116 @@
+name: VRT
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: vrt-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  actions: read
+
+jobs:
+  vrt:
+    name: VRT
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Install
+        uses: ./.github/composite-actions/install
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install
+
+      - name: Capture story screenshots
+        run: pnpm --filter @k8o/arte-odyssey test:vrt
+
+      # main: 撮影結果を次回のPR比較用ベースラインとして保存する
+      - name: Upload baseline
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: vrt-baseline
+          path: packages/arte-odyssey/.vrt/actual
+          retention-days: 30
+
+      # PR: mainの最新ベースラインを取得する（無ければ比較をスキップ）
+      - name: Download baseline from main
+        if: github.event_name == 'pull_request'
+        id: baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          run_id=$(gh api "repos/$REPO/actions/workflows/vrt.yml/runs?branch=main&status=success&per_page=1" --jq '.workflow_runs[0].id // empty')
+          if [ -n "$run_id" ] && gh run download "$run_id" --name vrt-baseline --dir packages/arte-odyssey/.vrt/expected --repo "$REPO"; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Compare against baseline
+        if: github.event_name == 'pull_request' && steps.baseline.outputs.found == 'true'
+        id: compare
+        continue-on-error: true
+        working-directory: packages/arte-odyssey
+        run: pnpm exec svrt compare
+
+      - name: Upload report
+        if: github.event_name == 'pull_request' && steps.baseline.outputs.found == 'true'
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: vrt-report
+          path: packages/arte-odyssey/.vrt
+          retention-days: 14
+
+      - name: Publish report to Cloudflare Pages
+        if: github.event_name == 'pull_request' && steps.baseline.outputs.found == 'true'
+        id: pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 31074c2d041f3ceb8a5bb3fc51dd3bfa
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # トークン未登録の間はスキップし、artifactのみのフォールバックになる
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo 'CLOUDFLARE_API_TOKEN が未登録のためPagesへの公開をスキップ'
+            exit 0
+          fi
+          pnpm exec wrangler pages project create arte-odyssey-vrt --production-branch=main 2>/dev/null || true
+          pnpm exec wrangler pages deploy packages/arte-odyssey/.vrt --project-name=arte-odyssey-vrt --branch="pr-$PR_NUMBER" --commit-dirty=true
+          echo "url=https://pr-$PR_NUMBER.arte-odyssey-vrt.pages.dev/report.html" >> "$GITHUB_OUTPUT"
+
+      - name: Comment summary on PR
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPORT_URL: ${{ steps.pages.outputs.url }}
+        run: |
+          node .github/scripts/vrt-comment.mjs "arte-odyssey=packages/arte-odyssey/.vrt/report.json=$REPORT_URL" > comment.md
+          marker='<!-- vrt-report -->'
+          comment_id=$(gh api "repos/$REPO/issues/$PR_NUMBER/comments" --paginate --jq ".[] | select(.body | startswith(\"$marker\")) | .id" | head -n1)
+          # 編集では通知が飛ばないため、旧コメントを消して新規投稿する
+          if [ -n "$comment_id" ]; then
+            gh api --method DELETE "repos/$REPO/issues/comments/$comment_id"
+          fi
+          gh api "repos/$REPO/issues/$PR_NUMBER/comments" -F body=@comment.md > /dev/null
+
+      - name: Fail when differences exist
+        if: github.event_name == 'pull_request' && steps.compare.outcome == 'failure'
+        run: |
+          echo '視覚的な差分があります。PRコメントとvrt-report artifactを確認してください。'
+          exit 1

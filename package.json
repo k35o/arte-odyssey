@@ -32,7 +32,8 @@
     "oxlint-tailwindcss": "1.1.0",
     "playwright": "1.60.0",
     "typescript": "6.0.3",
-    "vite-plus": "catalog:"
+    "vite-plus": "catalog:",
+    "wrangler": "4.97.0"
   },
   "engines": {
     "node": ">=24.13.0"

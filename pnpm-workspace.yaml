@@ -10,6 +10,8 @@ allowBuilds:
   esbuild: false
   geckodriver: false
   sharp: false
+  # wranglerの依存。pages deployはAPIアップロードのみでworkerd実行は不要
+  workerd: false
 
 blockExoticSubdeps: true
 
@@ -31,6 +33,7 @@ minimumReleaseAge: 10080
 
 minimumReleaseAgeExclude:
   - '@k8o/*'
+  - 'storybook-addon-vrt'
   - 'tailwind-token-extractor'
 
 verifyDepsBeforeRun: install
