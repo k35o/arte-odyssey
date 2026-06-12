@@ -83,8 +83,8 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: 31074c2d041f3ceb8a5bb3fc51dd3bfa
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          npx -y wrangler@4 pages project create arte-odyssey-vrt --production-branch=main 2>/dev/null || true
-          npx -y wrangler@4 pages deploy packages/arte-odyssey/.vrt --project-name=arte-odyssey-vrt --branch="pr-$PR_NUMBER" --commit-dirty=true
+          pnpm exec wrangler pages project create arte-odyssey-vrt --production-branch=main 2>/dev/null || true
+          pnpm exec wrangler pages deploy packages/arte-odyssey/.vrt --project-name=arte-odyssey-vrt --branch="pr-$PR_NUMBER" --commit-dirty=true
           echo "url=https://pr-$PR_NUMBER.arte-odyssey-vrt.pages.dev/report.html" >> "$GITHUB_OUTPUT"
 
       - name: Comment summary on PR
