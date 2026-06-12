@@ -75,6 +75,20 @@ examples/
 - `pnpm check:write` - Run linting checks and auto-fix
 - `pnpm release` - Build and publish packages
 
+### Visual Regression Testing
+
+Per-story VRT runs on [storybook-addon-vrt](https://github.com/k35o/storybook-addon-vrt).
+
+```bash
+pnpm --filter @k8o/arte-odyssey test:vrt          # capture story screenshots
+pnpm --filter @k8o/arte-odyssey exec svrt compare # compare against the baseline
+pnpm --filter @k8o/arte-odyssey exec svrt approve # accept changes as the new baseline
+```
+
+On CI, every pull request is compared against the latest baseline captured on
+`main`, and a summary with a link to the visual report is posted as a PR
+comment. Merging the pull request makes its screenshots the next baseline.
+
 ## Documentation
 
 - [Component Documentation](packages/arte-odyssey/README.md)
