@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "docs", "dev"],
+      "port": 5173
+    },
+    {
+      "name": "docs-prod",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["apps/docs/scripts/serve-static.mjs"],
+      "port": 4173
+    }
+  ]
+}

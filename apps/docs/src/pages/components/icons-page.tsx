@@ -111,7 +111,7 @@ export function IconsPage() {
         <Heading type="h2">
           <T k="components.icons.sizesTitle" />
         </Heading>
-        <div className="flex items-end gap-6">
+        <div className="flex flex-wrap items-end gap-6">
           {(['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'] as const).map(
             (size) => (
               <div key={size} className="flex flex-col items-center gap-2">

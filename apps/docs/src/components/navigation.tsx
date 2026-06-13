@@ -1,15 +1,15 @@
 'use client';
 
 import { useLocation } from '@funstack/router';
-import { Button, DropdownMenu, NavigationMenuIcon } from '@k8o/arte-odyssey';
+import { DropdownMenu, NavigationMenuIcon } from '@k8o/arte-odyssey';
 
 import type { MessageKey } from '../i18n';
 import { localizeHref, useTranslation } from '../i18n';
 import { LanguageSwitcher } from './language-switcher';
+import { LocaleAnchor } from './locale-anchor';
 import { ThemeSwitcher } from './theme-switcher';
 
 const NAV_ITEMS: Array<{ path: string; labelKey: MessageKey }> = [
-  { path: '/', labelKey: 'nav.home' },
   { path: '/get-started', labelKey: 'nav.getStarted' },
   { path: '/theming', labelKey: 'nav.theming' },
   { path: '/components', labelKey: 'nav.components' },
@@ -22,54 +22,66 @@ export function Navigation() {
   const location = useLocation();
 
   return (
-    <nav className="bg-bg-surface">
-      <div className="flex items-center justify-between px-6 py-4 md:px-8">
-        <div className="md:hidden">
-          <DropdownMenu.Root>
-            <DropdownMenu.IconTrigger
-              icon={<NavigationMenuIcon />}
-              label={t('nav.openMenu')}
-            />
-            <DropdownMenu.Content>
-              {NAV_ITEMS.map((item) => (
-                <DropdownMenu.Item
-                  key={item.path}
-                  label={t(item.labelKey)}
-                  onClick={() => {
-                    navigation.navigate(localizeHref(item.path, locale));
-                  }}
-                />
-              ))}
-            </DropdownMenu.Content>
-          </DropdownMenu.Root>
-        </div>
-        <ul className="hidden items-center gap-2 md:flex">
+    <header className="border-border-mute bg-bg-surface border-b">
+      <nav className="mx-auto flex max-w-6xl items-center gap-3 p-4 md:gap-6 md:px-8">
+        <LocaleAnchor
+          className="focus-visible:ring-border-info flex shrink-0 items-baseline gap-1 rounded-md focus-visible:ring-2 focus-visible:outline-hidden"
+          path="/"
+          unstyled
+        >
+          <span className="font-m-plus-2 font-palt text-fg-base text-lg font-bold whitespace-nowrap">
+            ArteOdyssey
+          </span>
+          <span
+            aria-hidden
+            className="bg-primary-border inline-block size-1.5 rounded-full"
+          />
+        </LocaleAnchor>
+        <ul className="hidden items-center gap-1 md:flex">
           {NAV_ITEMS.map((item) => {
             const href = localizeHref(item.path, locale);
             const isActive = location.pathname === href;
             return (
               <li key={item.path}>
-                <Button
-                  isActive={isActive}
-                  renderItem={({ className, children }) => (
-                    <a className={className} href={href}>
-                      {children}
-                    </a>
-                  )}
-                  size="sm"
-                  variant="skeleton"
+                <a
+                  aria-current={isActive ? 'page' : undefined}
+                  className={
+                    isActive
+                      ? 'text-fg-base decoration-primary-border rounded-md px-3 py-1.5 text-sm font-medium underline decoration-2 underline-offset-8'
+                      : 'text-fg-mute hover:bg-bg-mute hover:text-fg-base rounded-md px-3 py-1.5 text-sm transition-colors duration-150 ease-out'
+                  }
+                  href={href}
                 >
                   {t(item.labelKey)}
-                </Button>
+                </a>
               </li>
             );
           })}
         </ul>
-        <div className="flex items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2">
           <ThemeSwitcher />
           <LanguageSwitcher />
+          <div className="md:hidden">
+            <DropdownMenu.Root>
+              <DropdownMenu.IconTrigger
+                icon={<NavigationMenuIcon />}
+                label={t('nav.openMenu')}
+              />
+              <DropdownMenu.Content>
+                {NAV_ITEMS.map((item) => (
+                  <DropdownMenu.Item
+                    key={item.path}
+                    label={t(item.labelKey)}
+                    onClick={() => {
+                      navigation.navigate(localizeHref(item.path, locale));
+                    }}
+                  />
+                ))}
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }

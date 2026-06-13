@@ -202,8 +202,10 @@ export function Theming() {
                     <code className="text-fg-subtle w-20 shrink-0 text-sm">
                       {size.name}
                     </code>
+                    {/* min-w-0 がないと flex item の min-width:auto により
+                        text-highlight(6rem) の見本幅がページ全体を押し広げる */}
                     <span
-                      className="truncate"
+                      className="min-w-0 truncate"
                       style={{ fontSize: size.fontSize, lineHeight: ratio }}
                     >
                       ArteOdyssey
