@@ -9,6 +9,7 @@ A modern, TypeScript-first React UI component library built with performance and
 - **Performant**: Optimized bundle size with tree-shakeable components
 - **Developer Friendly**: Comprehensive TypeScript support and Storybook documentation
 - **Customizable**: Built on Tailwind CSS with semantic design tokens for easy theming
+- **Generative UI Ready**: Official [json-render](https://json-render.dev) and [OpenUI](https://www.openui.com) adapters let an LLM generate on-brand UIs from these components — `validateGeneratedSpec()` validates/repairs LLM output and `<JsonRenderUI spec={spec} />` renders it in one line. See [Generative UI integrations](packages/arte-odyssey/README.md#generative-ui-integrations).
 
 ## Installation
 
@@ -92,6 +93,7 @@ comment. Merging the pull request makes its screenshots the next baseline.
 ## Documentation
 
 - [Component Documentation](packages/arte-odyssey/README.md)
+- [Generative UI integrations (json-render / OpenUI)](packages/arte-odyssey/README.md#generative-ui-integrations)
 
 ## Contributing
 

@@ -241,13 +241,15 @@ These integrations are exposed as optional subpath exports. Install the framewor
 pnpm add @json-render/core @json-render/react zod
 # OpenUI
 pnpm add @openuidev/react-lang zod
+# OpenUI server-safe prompt entry (@k8o/arte-odyssey/openui/prompt) additionally needs:
+pnpm add @openuidev/lang-core
 ```
 
-Supported components (**all 46**, both frameworks):
+Supported components (**all 49**, both frameworks):
 
-- **Layout / containers**: `Stack`, `Card`, `Form`
+- **Layout / containers**: `Stack`, `Grid`, `Card`, `Form`
 - **Buttons / nav**: `Button`, `IconButton`, `Anchor`, `Breadcrumb`, `Pagination`
-- **Display**: `Badge`, `Heading`, `Avatar`, `Code`, `Icon`, `Alert`, `Spinner`, `Progress`, `Skeleton`, `Separator`, `Tabs`, `Accordion`, `Table`, `BaselineStatus`, `ScrollLinked`
+- **Display**: `Badge`, `Heading`, `Avatar`, `Code`, `Icon`, `ChevronIcon`, `StatusIcon`, `Alert`, `Spinner`, `Progress`, `Skeleton`, `Separator`, `Tabs`, `Accordion`, `Table`, `BaselineStatus`, `ScrollLinked`
 - **Overlays (self-contained widgets)**: `Modal`, `Dialog`, `Drawer`, `Popover`, `Tooltip`, `DropdownMenu`, `Toast`
 - **Form**: `TextField`, `Textarea`, `PasswordInput`, `NumberField`, `Slider`, `Checkbox`, `Switch`, `Select`, `Radio`, `RadioCard`, `CheckboxCard`, `ListBox`, `CheckboxGroup`, `Autocomplete`, `FileField`, `FormControl`
 
@@ -255,34 +257,61 @@ Overlays are exposed as **self-contained widgets**: a `Modal`/`Dialog`/`Drawer`/
 
 ### json-render (RSC-ready)
 
-The catalog (schemas / prompt) and the registry (rendering) are split so the catalog is **server-safe** — you can generate the system prompt in a React Server Component, and render on the client.
+The catalog (schemas / prompt) and the registry (rendering) are split so the catalog is **server-safe** — generate the system prompt in a React Server Component, and render on the client.
 
 ```tsx
 // Server Component: prompt generation
-import { catalog } from '@k8o/arte-odyssey/json-render';
+import { catalog, arteOdysseyRules } from '@k8o/arte-odyssey/json-render';
 
-const systemPrompt = catalog.prompt(); // safe on the server
+// `customRules` injects cross-cutting constraints the model tends to break
+// (Table cell counts match columns, href format, text-only Tabs/Accordion content).
+const systemPrompt = catalog.prompt({ customRules: [...arteOdysseyRules] });
 ```
 
 ```tsx
-// Client Component: rendering
+// Client Component: rendering.
+// `JsonRenderUI` wires JSONUIProvider + Renderer and the registry for you —
+// just pass a spec. Pass `onStateChange` to collect form values.
 'use client';
-import { registry } from '@k8o/arte-odyssey/json-render/registry';
-import { JSONUIProvider, Renderer } from '@json-render/react';
+import { JsonRenderUI } from '@k8o/arte-odyssey/json-render/registry';
 
 export function GenUi({ spec }: { spec: unknown }) {
-  return (
-    <JSONUIProvider registry={registry}>
-      <Renderer registry={registry} spec={spec} />
-    </JSONUIProvider>
-  );
+  return <JsonRenderUI spec={spec} />;
 }
 ```
 
-| Export                                   | Side           | Contents                         |
-| ---------------------------------------- | -------------- | -------------------------------- |
-| `@k8o/arte-odyssey/json-render`          | server-safe    | `catalog` (schemas + `prompt()`) |
-| `@k8o/arte-odyssey/json-render/registry` | `'use client'` | `registry` (rendering)           |
+Validate (and repair) LLM output before rendering. `validateGeneratedSpec` runs auto-fixes, structural checks, and per-component prop validation, returning a ready-to-resend repair prompt on failure:
+
+```tsx
+import { validateGeneratedSpec } from '@k8o/arte-odyssey/json-render';
+
+const result = validateGeneratedSpec(JSON.parse(llmOutput));
+if (result.ok) {
+  return <JsonRenderUI spec={result.spec} />; // result.fixes lists auto-applied fixes
+}
+const retried = await llm(result.repairPrompt); // ask the model to fix, then retry
+```
+
+Hand-written or LLM specs can be typed with `satisfies ArteSpec` so component names and props are checked at compile time (no `as unknown as Spec`):
+
+```tsx
+import type { ArteSpec } from '@k8o/arte-odyssey/json-render';
+
+const spec = {
+  root: 'root',
+  elements: {
+    root: { type: 'Stack', props: { direction: 'column' }, children: ['ok'] },
+    ok: { type: 'Button', props: { label: 'OK' } }, // typo in `type`/props → compile error
+  },
+} satisfies ArteSpec;
+```
+
+For advanced setups (custom `navigate` / `handlers` / `validationFunctions`), pass the lower-level `registry` to `JSONUIProvider` and `Renderer` from `@json-render/react` directly.
+
+| Export                                   | Side           | Contents                                                                                                                             |
+| ---------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `@k8o/arte-odyssey/json-render`          | server-safe    | `catalog` (schemas + `prompt()`), `validateGeneratedSpec`, `arteOdysseyRules`, types (`ArteSpec`, `ComponentName`, `ComponentProps`) |
+| `@k8o/arte-odyssey/json-render/registry` | `'use client'` | `JsonRenderUI` (pre-wired), `registry` (low-level)                                                                                   |
 
 ### OpenUI
 
@@ -296,13 +325,27 @@ export function GenUi({ response }: { response: string }) {
 }
 ```
 
-Generate the system prompt at build time with the OpenUI CLI, or call `library.prompt()` in the same client bundle.
+Generate the system prompt on the **server** with the dedicated server-safe entry (symmetric with json-render's `catalog.prompt()`):
+
+```tsx
+import { prompt } from '@k8o/arte-odyssey/openui/prompt';
+
+const systemPrompt = prompt(); // server-safe, no React — call it from an RSC or API route
+```
+
+To generate the prompt inside the client bundle instead, `library.prompt()` still works.
+
+| Export                            | Side           | Contents                              |
+| --------------------------------- | -------------- | ------------------------------------- |
+| `@k8o/arte-odyssey/openui`        | `'use client'` | `library` (rendering)                 |
+| `@k8o/arte-odyssey/openui/prompt` | server-safe    | `prompt()` (system prompt generation) |
 
 > **Notes**
 >
 > - Make sure `@k8o/arte-odyssey/styles.css` is loaded and the app is wrapped in `ArteOdysseyProvider`.
+> - `@k8o/arte-odyssey/openui/prompt` needs the optional peer `@openuidev/lang-core` (React-free).
 > - `Tabs` panels are text content (`tabs: [{ label, content }]`); rich-component panels are a future enhancement.
-> - In OpenUI, `Card` can contain a `Stack`, but `Stack` cannot nest another `Stack` (the framework does not support self-referential schemas). json-render nests freely (slots-based).
+> - In OpenUI, `Card` can contain a `Stack` or `Grid`, but `Stack`/`Grid` cannot directly nest a `Stack`/`Grid`/`Card` (no self-referential schemas) — put nested layout inside a `Card`. json-render nests freely (slots-based).
 
 ## Custom Hooks
 
