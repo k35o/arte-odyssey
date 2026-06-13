@@ -1,6 +1,13 @@
 'use client';
 
-import { defineRegistry, useBoundProp } from '@json-render/react';
+import type { Spec } from '@json-render/core';
+import {
+  defineRegistry,
+  JSONUIProvider,
+  Renderer,
+  useBoundProp,
+} from '@json-render/react';
+import type { FC } from 'react';
 import { useState } from 'react';
 
 import * as ui from '../_shared/renderers';
@@ -230,3 +237,28 @@ export const { registry } = defineRegistry(catalog, {
     FormControl: ({ props }) => <ui.FormControlWidget props={props} />,
   },
 });
+
+/**
+ * spec を arte-odyssey の部品で描画する、事前結線済みコンポーネント。
+ *
+ * `JSONUIProvider` と `Renderer` を内部で結線し registry も渡し済みなので、
+ * 利用者は spec を渡すだけでよい（上流の生 import や 'use client' 境界ファイルの
+ * 自作が不要）。フォーム値を回収したいときは `onStateChange` を渡す。
+ * 高度な構成（navigate / handlers / validationFunctions など）が必要なら、
+ * 引き続き `registry` を `JSONUIProvider` に直接渡す。
+ *
+ * @example
+ * 'use client';
+ * import { JsonRenderUI } from '@k8o/arte-odyssey/json-render/registry';
+ *
+ * <JsonRenderUI spec={spec} />
+ */
+export const JsonRenderUI: FC<{
+  spec: Spec | null;
+  loading?: boolean;
+  onStateChange?: (changes: Array<{ path: string; value: unknown }>) => void;
+}> = ({ spec, loading, onStateChange }) => (
+  <JSONUIProvider registry={registry} onStateChange={onStateChange}>
+    <Renderer registry={registry} spec={spec} loading={loading} />
+  </JSONUIProvider>
+);

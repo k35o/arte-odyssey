@@ -1,5 +1,13 @@
-import { defineCatalog } from '@json-render/core';
+import {
+  autoFixSpec,
+  defineCatalog,
+  isNonEmptySpec,
+  validateSpec,
+  type Spec,
+  type UIElement,
+} from '@json-render/core';
 import { schema } from '@json-render/react/schema';
+import type { z } from 'zod';
 
 import * as s from '../_shared/schemas';
 
@@ -211,3 +219,146 @@ export const catalog = defineCatalog(schema, {
   },
   actions: {},
 });
+
+/**
+ * LLM が破りやすい制約を `catalog.prompt({ customRules })` に注入するための
+ * 横断ルール集。json-render のシステムプロンプト本文に追記される。
+ *
+ * @example
+ * const systemPrompt = catalog.prompt({ customRules: [...arteOdysseyRules] });
+ */
+export const arteOdysseyRules: readonly string[] = [
+  'Table の rows は各行のセル数を columns の数と必ず一致させる。',
+  'href は https:// もしくは http:// で始まる絶対 URL か、/ で始まるパスのみ。',
+  'Tabs と Accordion の content はプレーンテキストのみ。コンポーネントは入れ子にできない。',
+];
+
+/** catalog に登録されたコンポーネント定義のマップ（型レベル）。 */
+type ComponentSchemas = (typeof catalog)['data']['components'];
+
+/** catalog に登録されたコンポーネント名のユニオン。 */
+export type ComponentName = keyof ComponentSchemas;
+
+/** 指定したコンポーネントの props 型（Zod スキーマから推論）。 */
+export type ComponentProps<K extends ComponentName> = z.infer<
+  ComponentSchemas[K]['props']
+>;
+
+/**
+ * arte-odyssey のコンポーネントだけで構成された型付き spec の要素。
+ * `type` と `props` がコンポーネントごとに検査される。
+ */
+export type ArteSpecElement = {
+  [K in ComponentName]: Omit<UIElement, 'type' | 'props'> & {
+    type: K;
+    props: ComponentProps<K>;
+  };
+}[ComponentName];
+
+/**
+ * arte-odyssey のコンポーネントだけで構成された型付き spec。
+ * `satisfies ArteSpec` で書くと component 名・props の typo がコンパイルエラーに
+ * なり、エディタ補完も効く。上流の `Spec` へキャストなしで代入できる。
+ *
+ * @example
+ * const spec = {
+ *   root: 'root',
+ *   elements: {
+ *     root: { type: 'Stack', props: { direction: 'column' }, children: ['b'] },
+ *     b: { type: 'Button', props: { label: 'OK' } },
+ *   },
+ * } satisfies ArteSpec;
+ */
+export type ArteSpec = {
+  root: string;
+  elements: Record<string, ArteSpecElement>;
+  state?: Spec['state'];
+};
+
+/** 検証で見つかった 1 件の問題。 */
+export type GeneratedSpecIssue = {
+  /** 問題のあった要素キー（spec 全体の問題なら未指定）。 */
+  elementKey?: string;
+  /** 人間（および LLM）向けの説明。 */
+  message: string;
+};
+
+/** {@link validateGeneratedSpec} の結果。 */
+export type ValidateGeneratedSpecResult =
+  | { ok: true; spec: ArteSpec; fixes: string[] }
+  | { ok: false; issues: GeneratedSpecIssue[]; repairPrompt: string };
+
+const buildRepairPrompt = (issues: GeneratedSpecIssue[]): string =>
+  [
+    'The generated UI spec is invalid. Fix the following issues and return the corrected spec:',
+    ...issues.map((issue) =>
+      issue.elementKey === undefined
+        ? `- ${issue.message}`
+        : `- [${issue.elementKey}] ${issue.message}`,
+    ),
+  ].join('\n');
+
+/**
+ * LLM が生成した spec を検証し、描画可能なら型付き spec を、壊れていれば
+ * そのまま LLM に投げ返せる修復プロンプトを返す。
+ *
+ * 内部では (1) 機械修正（`autoFixSpec`）→ (2) 構造検証（`validateSpec`）→
+ * (3) 要素ごとに catalog の Zod スキーマで props 検証、を行う。
+ * `catalog.validate()` は使わない（現行の上流バージョンでは正常な spec を
+ * 誤って弾き、props 検証も実質無効になるため）。
+ *
+ * @example
+ * const result = validateGeneratedSpec(JSON.parse(llmOutput));
+ * if (result.ok) {
+ *   return <JsonRenderUI spec={result.spec} />;
+ * }
+ * const retried = await llm(result.repairPrompt);
+ */
+export const validateGeneratedSpec = (
+  input: unknown,
+): ValidateGeneratedSpecResult => {
+  if (!isNonEmptySpec(input)) {
+    const issues: GeneratedSpecIssue[] = [
+      {
+        message:
+          'The spec must be an object with a `root` key and an `elements` map.',
+      },
+    ];
+    return { ok: false, issues, repairPrompt: buildRepairPrompt(issues) };
+  }
+
+  const { spec, fixes } = autoFixSpec(input);
+  const issues: GeneratedSpecIssue[] = validateSpec(spec).issues.map(
+    (issue) => ({ elementKey: issue.elementKey, message: issue.message }),
+  );
+
+  const components = catalog.data.components as Record<
+    string,
+    { props: z.ZodType }
+  >;
+  for (const [key, element] of Object.entries(spec.elements)) {
+    const def = components[element.type];
+    if (!def) {
+      issues.push({
+        elementKey: key,
+        message: `Unknown component type "${element.type}". Use one of: ${catalog.componentNames.join(', ')}.`,
+      });
+      continue;
+    }
+    const parsed = def.props.safeParse(element.props);
+    if (!parsed.success) {
+      for (const issue of parsed.error.issues) {
+        const path = issue.path.join('.');
+        issues.push({
+          elementKey: key,
+          message: `${element.type}${path ? `.${path}` : ''}: ${issue.message}`,
+        });
+      }
+    }
+  }
+
+  if (issues.length === 0) {
+    return { ok: true, spec: spec as ArteSpec, fixes };
+  }
+  return { ok: false, issues, repairPrompt: buildRepairPrompt(issues) };
+};
