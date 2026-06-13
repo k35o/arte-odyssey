@@ -1,22 +1,22 @@
 # Vite Example - ArteOdyssey
 
-This example demonstrates how to use ArteOdyssey UI components in a Vite + React application.
+This example demonstrates ArteOdyssey's **generative UI adapters** in a Vite + React app: an LLM-style spec is rendered with ArteOdyssey components via both [json-render](https://json-render.dev) and [OpenUI](https://www.openui.com).
 
 ## Overview
 
 This example showcases:
 
-- Basic setup of ArteOdyssey in a Vite project
-- Usage of Button component with icons
-- Tailwind CSS integration
-- TypeScript configuration
+- ArteOdyssey setup in a Vite project (Vite+ / `vp` toolchain)
+- **json-render**: a typed `ArteSpec` rendered with the pre-wired `<JsonRenderUI />`
+- **OpenUI**: an OpenUI-Lang DSL string rendered with `library` + `Renderer`
+- Tailwind CSS 4 integration and TypeScript
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 22.18.0
-- pnpm 10.15.0
+- Node.js >=24.13.0
+- pnpm 11.x (`pnpm@11.5.0`)
 
 ### Installation & Setup
 
@@ -29,7 +29,7 @@ pnpm install
 # Navigate to this example
 cd examples/vite
 
-# Start development server
+# Start development server (Vite+ / vp)
 pnpm dev
 ```
 
@@ -40,104 +40,85 @@ The application will be available at `http://localhost:5173`.
 ```
 examples/vite/
 ├── src/
-│   ├── App.tsx          # Main application component
-│   ├── main.tsx         # Application entry point
-│   └── vite-env.d.ts    # Vite type declarations
-├── index.html           # HTML template
-├── package.json         # Project dependencies and scripts
-├── tsconfig.json        # TypeScript configuration
-├── tsconfig.*.json      # Additional TypeScript configs
-└── vite.config.ts       # Vite configuration
+│   ├── app.tsx              # Hosts the json-render and OpenUI demos
+│   ├── json-render/
+│   │   └── demo.tsx         # Typed ArteSpec rendered with <JsonRenderUI />
+│   ├── openui/
+│   │   └── demo.tsx         # OpenUI-Lang DSL rendered with library + Renderer
+│   ├── main.tsx             # Application entry point
+│   └── vite-env.d.ts        # Vite type declarations
+├── index.html               # HTML template
+├── package.json             # Project dependencies and scripts
+├── tsconfig.json            # TypeScript configuration
+└── vite.config.ts           # Vite configuration (vite-plus)
 ```
 
 ## What's Included
 
-### Components Used
+### json-render demo (`src/json-render/demo.tsx`)
 
-- **Button** - Interactive button with icon support
-- **PlusIcon** - Icon from the ArteOdyssey icon collection
+A hand-written UI tree is typed with `satisfies ArteSpec` (so a typo in a component
+name or prop is a compile error) and rendered with the pre-wired client component:
 
-### Features Demonstrated
+```tsx
+import type { ArteSpec } from '@k8o/arte-odyssey/json-render';
+import { JsonRenderUI } from '@k8o/arte-odyssey/json-render/registry';
 
-- State management with React hooks
-- Component styling with Tailwind CSS
-- Icon integration
-- Event handling
-- TypeScript integration
+const spec = {
+  /* ... */
+} satisfies ArteSpec;
+
+export function JsonRenderDemo() {
+  return <JsonRenderUI spec={spec} />;
+}
+```
+
+### OpenUI demo (`src/openui/demo.tsx`)
+
+An OpenUI-Lang DSL string is rendered with the ArteOdyssey `library`:
+
+```tsx
+import { library } from '@k8o/arte-odyssey/openui';
+import { Renderer } from '@openuidev/react-lang';
+
+export function OpenUiDemo() {
+  return <Renderer library={library} response={openuiLangString} />;
+}
+```
+
+### Dependencies
+
+- `@k8o/arte-odyssey` (workspace)
+- `@json-render/core`, `@json-render/react` (json-render demo)
+- `@openuidev/react-lang` (OpenUI demo)
+- `zod` (shared by both adapters)
 
 ## Available Scripts
 
-- `pnpm dev` - Start development server
+- `pnpm dev` - Start the development server (`vp dev`)
 - `pnpm typecheck` - Run TypeScript type checking
-- `pnpm check` - Run Biome linting checks
-- `pnpm check:write` - Run Biome checks and auto-fix issues
+- `pnpm check` - Run Oxlint/Oxfmt linting/formatting checks (`vp check`)
+- `pnpm check:write` - Run `vp check --fix` to auto-fix issues
 
 ## Key Configuration
 
 ### Vite Configuration
 
-The project uses `@vitejs/plugin-react-swc` for fast React development with SWC compilation.
+The project uses the Vite+ (`vite-plus`) toolchain and `@vitejs/plugin-react`.
 
 ### Tailwind CSS
 
-Tailwind CSS is configured via `@tailwindcss/vite` plugin for optimal performance and development experience.
+Tailwind CSS 4 is configured via the `@tailwindcss/vite` plugin. ArteOdyssey's tokens
+are loaded by importing `@k8o/arte-odyssey/styles.css`.
 
 ### TypeScript
 
 Full TypeScript support with strict configuration for type safety.
 
-## Usage Example
-
-The main application (`src/App.tsx`) demonstrates a simple counter example:
-
-```tsx
-import { Button, PlusIcon } from '@k8o/arte-odyssey';
-import { useState } from 'react';
-
-function App() {
-  const [count, setCount] = useState(0);
-  return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <h1 className="mb-4 font-bold text-2xl">カウント: {count}</h1>
-      <Button
-        onClick={() => setCount((c) => c + 1)}
-        size="md"
-        startIcon={<PlusIcon />}
-        variant="solid"
-      >
-        カウントを増加
-      </Button>
-    </div>
-  );
-}
-```
-
-## Extending This Example
-
-You can extend this example by:
-
-1. Adding more ArteOdyssey components
-2. Creating custom layouts and pages
-3. Implementing routing with React Router
-4. Adding state management solutions
-5. Integrating with APIs and backends
-
-## Troubleshooting
-
-### Common Issues
-
-**Build errors with Tailwind CSS:**
-Make sure Tailwind CSS is properly configured and all required dependencies are installed.
-
-**TypeScript errors:**
-Run `pnpm typecheck` to identify and fix type issues.
-
-**Component not found:**
-Ensure you're importing components from the correct ArteOdyssey package path.
-
 ## Related Documentation
 
 - [ArteOdyssey Main Documentation](../../packages/arte-odyssey/README.md)
+- [Generative UI integrations](../../packages/arte-odyssey/README.md#generative-ui-integrations)
 - [Vite Documentation](https://vitejs.dev/)
 - [React Documentation](https://react.dev/)
 - [Tailwind CSS Documentation](https://tailwindcss.com/)
