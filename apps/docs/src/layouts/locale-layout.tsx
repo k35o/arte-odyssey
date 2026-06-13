@@ -2,17 +2,12 @@
 
 /* oxlint-disable import/max-dependencies -- メインレイアウトとして必要な依存 */
 import { Outlet, useLocation } from '@funstack/router';
-import {
-  Drawer,
-  Heading,
-  IconButton,
-  ListIcon,
-  Separator,
-} from '@k8o/arte-odyssey';
+import { Drawer, Heading, IconButton, ListIcon } from '@k8o/arte-odyssey';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { ErrorFallback } from '../components/error-fallback';
+import { Footer } from '../components/footer';
 import { LocaleAnchor } from '../components/locale-anchor';
 import { Navigation } from '../components/navigation';
 import { SideNavigation } from '../components/side-navigation';
@@ -96,11 +91,10 @@ function LayoutContent() {
 
   return sideNavConfig ? (
     <>
-      <div className="bg-bg-base shrink-0">
+      <div className="shrink-0">
         <Navigation />
-        <Separator color="mute" />
         <div className="lg:hidden">
-          <div className="bg-bg-surface flex items-center px-4 py-2">
+          <div className="border-border-mute bg-bg-surface flex items-center border-b px-4 py-2">
             <IconButton
               label={t('sideNav.openNavigation')}
               onClick={() => {
@@ -110,15 +104,17 @@ function LayoutContent() {
               <ListIcon />
             </IconButton>
           </div>
-          <Separator color="mute" />
         </div>
       </div>
       <div className="flex min-h-0 flex-1">
-        <aside className="border-border-mute hidden w-56 shrink-0 overflow-y-auto border-r p-2 lg:block">
+        <aside className="border-border-mute hidden w-60 shrink-0 overflow-y-auto border-r px-3 py-4 lg:block">
           <SideNavigation categories={sideNavConfig.categories} />
         </aside>
-        <main className="min-w-0 flex-1 overflow-y-auto">
-          <OutletWithErrorBoundary />
+        <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
+          <div className="flex-1">
+            <OutletWithErrorBoundary />
+          </div>
+          <Footer />
         </main>
       </div>
       <Drawer
@@ -145,12 +141,16 @@ function LayoutContent() {
     </>
   ) : (
     <>
-      <div className="bg-bg-base shrink-0">
+      <div className="shrink-0">
         <Navigation />
-        <Separator color="mute" />
       </div>
-      <main className="min-w-0 flex-1 overflow-y-auto">
-        <OutletWithErrorBoundary />
+      {/* ラッパーはブロックのまま保つ。flexにするとページ側の mx-auto コンテナが
+          flexアイテム化し、stretchが効かず中身のmin-content幅で横にあふれる */}
+      <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
+        <div className="min-w-0 flex-1">
+          <OutletWithErrorBoundary />
+        </div>
+        <Footer />
       </main>
     </>
   );

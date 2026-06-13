@@ -3,21 +3,17 @@
 import {
   AccessibilityIcon,
   AtomIcon,
-  BlogIcon,
   Button,
-  Card,
   GitHubIcon,
   Heading,
   PaletteIcon,
-  Separator,
   ShieldCheckIcon,
   SparklesIcon,
   VerticalWritingIcon,
 } from '@k8o/arte-odyssey';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import { STORYBOOK_URL } from '../constants';
-import { useTranslation } from '../i18n';
+import { localizeHref, useTranslation } from '../i18n';
 import type { MessageKey } from '../i18n/types';
 
 type Feature = {
@@ -59,77 +55,121 @@ const FEATURES: Feature[] = [
   },
 ];
 
-const FeatureCard: FC<{ feature: Feature }> = ({ feature }) => {
-  const { t } = useTranslation();
-
-  return (
-    <Card appearance="shadow">
-      <div className="flex flex-col gap-3 p-5">
-        <div className="text-fg-mute">{feature.icon}</div>
-        <p className="text-fg-base font-medium">{t(feature.title)}</p>
-        <p className="text-fg-mute text-sm leading-relaxed">
-          {t(feature.description)}
-        </p>
-      </div>
-    </Card>
-  );
-};
-
 export function Home() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-12 p-8">
-      <div className="flex flex-col items-center gap-4">
-        <Heading type="h1">{t('home.title')}</Heading>
-        <p className="text-fg-mute text-lg">{t('home.description')}</p>
-      </div>
-      <Separator color="mute" />
-      <div className="flex gap-6">
-        <Button
-          color="gray"
-          renderItem={({ className, children }) => (
-            <a
-              className={className}
-              href="https://github.com/k35o/arte-odyssey"
-              rel="noopener noreferrer"
-              target="_blank"
+    <div className="flex flex-1 flex-col">
+      {/* ===== 扉（非対称ヒーロー） ===== */}
+      <section className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-12 px-6 py-20 md:grid-cols-[1fr_auto] md:gap-16 md:px-8 md:py-28">
+        <div className="flex max-w-xl flex-col justify-center gap-8">
+          {/* Heading は className を受けないため、ヒーローのみ生 h1（サイト内この1箇所限定） */}
+          {/* 320px級の画面でも1語の "ArteOdyssey" がはみ出さないよう、
+              sm未満のみ 3xl〜emphasize の範囲で流動サイズにする */}
+          <h1 className="font-m-plus-2 font-palt text-fg-base sm:text-emphasize text-[clamp(1.875rem,12vw,3rem)] leading-none font-bold">
+            ArteOdyssey
+            <span
+              aria-hidden
+              className="bg-primary-border ml-1.5 inline-block size-3 rounded-full"
+            />
+          </h1>
+          {/* md 以上はタグラインを縦書き短冊が担う */}
+          <p
+            className="font-m-plus-2 font-palt text-fg-base break-phrase text-lg font-medium md:hidden"
+            lang="ja"
+          >
+            触れるものは柔らかく、読むものは端正に。
+          </p>
+          <p className="text-fg-mute break-phrase text-lg leading-relaxed">
+            {t('home.description')}
+          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <Button
+              renderItem={({ className, children }) => (
+                <a
+                  className={className}
+                  href={localizeHref('/get-started', locale)}
+                >
+                  {children}
+                </a>
+              )}
+              size="md"
+              variant="solid"
             >
-              {children}
-            </a>
-          )}
-          size="md"
-          startIcon={<GitHubIcon />}
-          variant="outline"
-        >
-          {t('home.github')}
-        </Button>
-        <Button
-          renderItem={({ className, children }) => (
-            <a
-              className={className}
-              href={STORYBOOK_URL}
-              rel="noopener noreferrer"
-              target="_blank"
+              {t('home.getStarted')}
+            </Button>
+            <Button
+              color="gray"
+              renderItem={({ className, children }) => (
+                <a
+                  className={className}
+                  href={localizeHref('/components', locale)}
+                >
+                  {children}
+                </a>
+              )}
+              size="md"
+              variant="outline"
             >
-              {children}
-            </a>
-          )}
-          size="md"
-          startIcon={<BlogIcon />}
-          variant="solid"
-        >
-          {t('home.storybook')}
-        </Button>
-      </div>
-      <div className="flex w-full max-w-4xl flex-col gap-6">
-        <Heading type="h2">{t('home.featuresTitle')}</Heading>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((feature) => (
-            <FeatureCard feature={feature} key={feature.title} />
-          ))}
+              {t('home.viewComponents')}
+            </Button>
+            <Button
+              color="gray"
+              renderItem={({ className, children }) => (
+                <a
+                  className={className}
+                  href="https://github.com/k35o/arte-odyssey"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {children}
+                </a>
+              )}
+              size="md"
+              startIcon={<GitHubIcon />}
+              variant="skeleton"
+            >
+              {t('home.github')}
+            </Button>
+          </div>
         </div>
-      </div>
+        {/* 縦組みの短冊（題簽）。ブランド図像として両ロケール共通の日本語。
+            vertical-rl では改行後の行が左に積まれ、右から左へ正しい読み順になる */}
+        <div className="hidden justify-end md:flex">
+          <p
+            className="font-m-plus-2 font-palt writing-v text-fg-base h-104 text-2xl leading-loose font-medium"
+            lang="ja"
+          >
+            触れるものは柔らかく、
+            <br />
+            読むものは端正に。
+          </p>
+        </div>
+      </section>
+
+      {/* ===== 目次（特徴） ===== */}
+      <section className="mx-auto w-full max-w-6xl px-6 pb-24 md:px-8">
+        <Heading type="h2">{t('home.featuresTitle')}</Heading>
+        <ol className="mt-8">
+          {FEATURES.map((feature) => (
+            <li
+              className="border-border-mute border-t last:border-b"
+              key={feature.title}
+            >
+              {/* min-h は py-6(計3rem) + 説明2行分。1行説明の行も同じ高さに揃え、罫線を等間隔に保つ */}
+              <div className="grid min-h-24 items-start gap-4 py-6 md:grid-cols-[14rem_1fr] md:gap-8">
+                <p className="text-fg-base flex items-center gap-2 font-medium">
+                  <span className="text-fg-mute">{feature.icon}</span>
+                  {t(feature.title)}
+                </p>
+                <p className="text-fg-mute text-sm leading-relaxed">
+                  {t(feature.description)}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
     </div>
   );
 }

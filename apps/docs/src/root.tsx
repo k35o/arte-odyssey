@@ -13,6 +13,16 @@ export default function Root({ children }: { children: ReactNode }) {
           content="ArteOdyssey - React UI Component Library"
           name="description"
         />
+        <link href="https://fonts.googleapis.com" rel="preconnect" />
+        <link
+          crossOrigin="anonymous"
+          href="https://fonts.gstatic.com"
+          rel="preconnect"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=M+PLUS+2:wght@400..700&family=Noto+Sans+JP:wght@400..700&display=swap"
+          rel="stylesheet"
+        />
         <script>
           {`const raw = localStorage.getItem('arte-odyssey-theme');
 let t = null;
@@ -23,7 +33,7 @@ if (t === 'dark' || ((t !== 'light') && matchMedia('(prefers-color-scheme:dark)'
 }`}
         </script>
       </head>
-      <body className="bg-bg-surface text-fg-base">{children}</body>
+      <body className="bg-bg-surface text-fg-base antialiased">{children}</body>
     </html>
   );
 }

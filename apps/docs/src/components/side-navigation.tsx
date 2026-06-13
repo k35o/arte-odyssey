@@ -16,23 +16,24 @@ export function SideNavigation({ categories, onNavigate }: Props) {
   const location = useLocation();
 
   return (
-    <nav className="flex flex-col gap-4 overflow-y-auto py-4">
+    <nav className="flex flex-col gap-6 overflow-y-auto py-4">
       {categories.map((category) => (
         <div className="flex flex-col gap-1" key={category.titleKey}>
-          <span className="text-fg-mute px-3 text-xs font-bold uppercase">
+          <span className="text-fg-subtle px-3 text-xs font-bold tracking-normal">
             {t(category.titleKey)}
           </span>
-          <ul className="flex flex-col gap-0.5">
+          {/* 傍線インデックス: 親罫 border-l に -ml-px のアクティブ罫を重ねる */}
+          <ul className="border-border-mute mt-1 ml-3 flex flex-col gap-0.5 border-l">
             {category.items.map((item) => {
               const href = localizeHref(item.path, locale);
               const isActive = location.pathname === href;
               return (
                 <li key={item.path}>
                   <LocaleAnchor
-                    className={`block rounded-md px-3 py-1.5 text-sm transition-colors ${
+                    className={`-ml-px block border-l-2 py-1.5 pr-3 pl-4 text-sm ${
                       isActive
-                        ? 'bg-bg-mute text-fg-base font-medium'
-                        : 'text-fg-mute hover:bg-bg-mute hover:text-fg-base'
+                        ? 'border-primary-border bg-primary-bg-subtle text-fg-base font-medium'
+                        : 'text-fg-mute hover:border-border-emphasize hover:text-fg-base border-transparent transition-colors duration-150 ease-out'
                     }`}
                     onClick={onNavigate}
                     path={item.path}
