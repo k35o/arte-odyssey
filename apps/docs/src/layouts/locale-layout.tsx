@@ -3,7 +3,7 @@
 /* oxlint-disable import/max-dependencies -- メインレイアウトとして必要な依存 */
 import { Outlet, useLocation } from '@funstack/router';
 import { Drawer, Heading, IconButton, ListIcon } from '@k8o/arte-odyssey';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { ErrorFallback } from '../components/error-fallback';
@@ -88,10 +88,26 @@ function LayoutContent() {
   const sideNavConfig = useSideNavConfig();
   const { t } = useTranslation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  // documentをスクローラーにしたため、サイドバーは sticky で固定する。
+  // ヘッダー高さはフォント読込やブレークポイントで変動するので実測して追従させる。
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerHeight, setHeaderHeight] = useState(0);
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return undefined;
+    const observer = new ResizeObserver(() => {
+      setHeaderHeight(el.offsetHeight);
+    });
+    observer.observe(el);
+    setHeaderHeight(el.offsetHeight);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return sideNavConfig ? (
     <>
-      <div className="shrink-0">
+      <div className="bg-bg-surface sticky top-0 z-30 shrink-0" ref={headerRef}>
         <Navigation />
         <div className="lg:hidden">
           <div className="border-border-mute bg-bg-surface flex items-center border-b px-4 py-2">
@@ -106,11 +122,17 @@ function LayoutContent() {
           </div>
         </div>
       </div>
-      <div className="flex min-h-0 flex-1">
-        <aside className="border-border-mute hidden w-60 shrink-0 overflow-y-auto border-r px-3 py-4 lg:block">
+      <div className="flex flex-1">
+        <aside
+          className="border-border-mute sticky hidden w-60 shrink-0 self-start overflow-y-auto border-r px-3 py-4 lg:block"
+          style={{
+            top: `${headerHeight}px`,
+            height: `calc(100dvh - ${headerHeight}px)`,
+          }}
+        >
           <SideNavigation categories={sideNavConfig.categories} />
         </aside>
-        <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
+        <main className="flex min-w-0 flex-1 flex-col">
           <div className="flex-1">
             <OutletWithErrorBoundary />
           </div>
@@ -141,12 +163,12 @@ function LayoutContent() {
     </>
   ) : (
     <>
-      <div className="shrink-0">
+      <div className="bg-bg-surface sticky top-0 z-30 shrink-0" ref={headerRef}>
         <Navigation />
       </div>
       {/* ラッパーはブロックのまま保つ。flexにするとページ側の mx-auto コンテナが
           flexアイテム化し、stretchが効かず中身のmin-content幅で横にあふれる */}
-      <main className="flex min-w-0 flex-1 flex-col overflow-y-auto">
+      <main className="flex min-w-0 flex-1 flex-col">
         <div className="min-w-0 flex-1">
           <OutletWithErrorBoundary />
         </div>
@@ -185,7 +207,7 @@ export function LocaleLayout({ params }: { params: { locale: string } }) {
       <LocaleProvider locale={localeParam}>
         <ThemeProvider>
           <WritingModeProvider>
-            <div className="flex h-dvh flex-col">
+            <div className="flex min-h-dvh flex-col">
               <LayoutContent />
             </div>
           </WritingModeProvider>
