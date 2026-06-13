@@ -268,3 +268,4 @@ AI が生成したと一目でわかるUIの特徴を避ける。
 - コンポーネント一覧: [references/components.md](references/components.md)
 - Hooks: [references/hooks.md](references/hooks.md)
 - ヘルパー・型: [references/helpers.md](references/helpers.md)
+- 生成 UI（json-render / OpenUI で LLM に UI を生成させる）: [references/generative-ui.md](references/generative-ui.md)
