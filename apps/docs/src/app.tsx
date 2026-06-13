@@ -50,6 +50,7 @@ import { TextFieldPage } from './pages/components/text-field-page';
 import { TextareaPage } from './pages/components/textarea-page';
 import { ToastPage } from './pages/components/toast-page';
 import { TooltipPage } from './pages/components/tooltip-page';
+import { GenerativeUi } from './pages/generative-ui';
 import { GetStarted } from './pages/get-started';
 import { Helpers } from './pages/helpers';
 import { ChainPage } from './pages/helpers/chain-page';
@@ -102,6 +103,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/get-started',
         component: <GetStarted />,
+      }),
+      route({
+        path: '/generative-ui',
+        component: <GenerativeUi />,
       }),
       route({
         path: '/components',
