@@ -6,7 +6,6 @@ import type {
   ReferenceType,
 } from '@floating-ui/react';
 import {
-  type CSSProperties,
   type KeyboardEvent,
   type KeyboardEventHandler,
   type MouseEventHandler,
@@ -30,11 +29,15 @@ type PopoverContext = {
   onClose: () => void;
 
   context: FloatingContext;
+  // 要求された placement。位置決めは CSS Anchor Positioning が行うため、
+  // flip 後の解決値ではなく利用側が指定した値をそのまま保持する。
   placement: Placement;
+  // この Popover インスタンス固有の anchor-name（trigger に付与し content から参照）。
+  anchorName: string;
+  flipDisabled: boolean;
   triggerRef: RefObject<Element | null>;
   setTriggerRef: (node: ReferenceType | null) => void;
   setContentRef: (node: HTMLElement | null) => void;
-  contentStyles: CSSProperties;
 };
 
 export const [PopoverProvider, usePopoverContext] =
@@ -121,7 +124,9 @@ export const usePopoverContent = () => {
       trapFocus: popover.trapFocus,
       context: popover.context,
       setContentRef: popover.setContentRef,
-      contentStyles: popover.contentStyles,
+      anchorName: popover.anchorName,
+      placement: popover.placement,
+      flipDisabled: popover.flipDisabled,
       itemProps,
     }),
     [
@@ -129,7 +134,9 @@ export const usePopoverContent = () => {
       popover.isOpen,
       popover.context,
       popover.setContentRef,
-      popover.contentStyles,
+      popover.anchorName,
+      popover.placement,
+      popover.flipDisabled,
       ref,
       popover.trapFocus,
       itemProps,

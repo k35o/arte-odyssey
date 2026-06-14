@@ -1,12 +1,10 @@
 'use client';
 
 import {
-  autoUpdate,
   FloatingFocusManager,
   FloatingPortal,
-  flip,
-  offset,
   type Placement,
+  type ReferenceType,
   useFloating,
 } from '@floating-ui/react';
 import { AnimatePresence, type Variants } from 'motion/react';
@@ -15,6 +13,7 @@ import {
   type FC,
   type PropsWithChildren,
   type ReactElement,
+  useCallback,
   useEffect,
   useId,
 } from 'react';
@@ -23,6 +22,7 @@ import { cn } from '../../../helpers/cn';
 import { useDisclosure } from '../../../hooks/disclosure';
 import { useWritingMode } from '../../../hooks/writing-mode';
 import { usePortalRoot } from '../../providers';
+import { getContentAnchorStyle, toAnchorName } from './anchor-positioning';
 import {
   type PopoverContentProps,
   PopoverProvider,
@@ -57,27 +57,24 @@ const Root: FC<
   const id = useId();
   const { isOpen, open, close, toggle } = useDisclosure();
 
-  const {
-    refs,
-    floatingStyles,
-    context,
-    placement: computedPlacement,
-  } = useFloating({
-    strategy: 'fixed',
-    placement,
-    open: isOpen,
-    whileElementsMounted: autoUpdate,
-    // 要素と8pxだけ離す
-    middleware: [
-      offset(8),
-      !flipDisabled &&
-        flip({
-          fallbackAxisSideDirection: 'end',
-          padding: 8,
-        }),
-    ],
-    transform: false,
-  });
+  // floating-ui は操作レイヤ（useListNavigation / FloatingFocusManager）が必要とする
+  // context を供給する目的だけで使う。位置決め（offset / flip / autoUpdate）は
+  // CSS Anchor Positioning へ移譲した。
+  const { refs, context } = useFloating({ open: isOpen });
+
+  const anchorName = toAnchorName(id);
+
+  // trigger は Button / IconButton 経由で style・className を受け取れない（型で omit 済み）ため、
+  // ref 経由で DOM に直接 anchor-name を付与する。
+  const setTriggerRef = useCallback(
+    (node: ReferenceType | null) => {
+      refs.setReference(node);
+      if (node instanceof HTMLElement) {
+        node.style.setProperty('anchor-name', anchorName);
+      }
+    },
+    [refs, anchorName],
+  );
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -105,11 +102,12 @@ const Root: FC<
         onOpen: open,
         onClose: close,
         context,
-        placement: computedPlacement,
+        placement,
+        anchorName,
+        flipDisabled,
         triggerRef: refs.domReference,
-        setTriggerRef: refs.setReference,
+        setTriggerRef,
         setContentRef: refs.setFloating,
-        contentStyles: floatingStyles,
       }}
     >
       {children}
@@ -142,7 +140,9 @@ const Content: FC<{
     trapFocus,
     context,
     setContentRef,
-    contentStyles,
+    anchorName,
+    placement,
+    flipDisabled,
     itemProps,
   } = usePopoverContent();
   const { triggerRef } = usePopoverContext();
@@ -168,7 +168,7 @@ const Content: FC<{
             <div
               className={cn('z-overlay', writingClass)}
               ref={setContentRef}
-              style={contentStyles}
+              style={getContentAnchorStyle(anchorName, placement, flipDisabled)}
             >
               <motion.div
                 animate="open"
