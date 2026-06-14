@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  FloatingFocusManager,
   FloatingPortal,
   type Placement,
   type ReferenceType,
@@ -16,11 +15,12 @@ import {
   useCallback,
   useEffect,
   useId,
+  useRef,
 } from 'react';
 
-import { cn } from '../../../helpers/cn';
-import { useDisclosure } from '../../../hooks/disclosure';
-import { useWritingMode } from '../../../hooks/writing-mode';
+import { cn, mergeRefs } from '../../../helpers';
+import { useDisclosure, useWritingMode } from '../../../hooks';
+import { useFocusTrap } from '../../../hooks/focus-trap';
 import { usePortalRoot } from '../../providers';
 import { getContentAnchorStyle, toAnchorName } from './anchor-positioning';
 import {
@@ -138,7 +138,6 @@ const Content: FC<{
   const {
     isOpen,
     trapFocus,
-    context,
     setContentRef,
     anchorName,
     placement,
@@ -156,30 +155,28 @@ const Content: FC<{
   const writingMode = useWritingMode(triggerRef);
   const writingClass = writingMode === 'vertical' ? 'writing-v' : undefined;
 
+  // floating-ui の FloatingFocusManager(modal=false) 相当を自前フックで代替。
+  const contentWrapperRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(contentWrapperRef, triggerRef, isOpen && trapFocus);
+
   return (
     <AnimatePresence>
       {isOpen && (
         <FloatingPortal {...protalProps}>
-          <FloatingFocusManager
-            context={context}
-            disabled={!trapFocus}
-            modal={false}
+          <div
+            className={cn('z-overlay', writingClass)}
+            ref={mergeRefs(setContentRef, contentWrapperRef)}
+            style={getContentAnchorStyle(anchorName, placement, flipDisabled)}
           >
-            <div
-              className={cn('z-overlay', writingClass)}
-              ref={setContentRef}
-              style={getContentAnchorStyle(anchorName, placement, flipDisabled)}
+            <motion.div
+              animate="open"
+              exit="closed"
+              initial="closed"
+              variants={motionVariants}
             >
-              <motion.div
-                animate="open"
-                exit="closed"
-                initial="closed"
-                variants={motionVariants}
-              >
-                {renderItem(itemProps)}
-              </motion.div>
-            </div>
-          </FloatingFocusManager>
+              {renderItem(itemProps)}
+            </motion.div>
+          </div>
         </FloatingPortal>
       )}
     </AnimatePresence>
