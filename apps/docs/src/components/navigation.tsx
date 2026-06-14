@@ -15,6 +15,7 @@ const NAV_ITEMS: Array<{ path: string; labelKey: MessageKey }> = [
   { path: '/components', labelKey: 'nav.components' },
   { path: '/hooks', labelKey: 'nav.hooks' },
   { path: '/helpers', labelKey: 'nav.helpers' },
+  { path: '/generative-ui', labelKey: 'nav.generativeUi' },
 ];
 
 export function Navigation() {

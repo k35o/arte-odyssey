@@ -7,6 +7,7 @@ export const en = {
   'nav.theming': 'Theming',
   'nav.hooks': 'Hooks',
   'nav.helpers': 'Helpers',
+  'nav.generativeUi': 'Generative UI',
   'home.title': 'ArteOdyssey',
   'home.description':
     'A React component library for UI that is calm but never boring',
@@ -42,6 +43,23 @@ export const en = {
   'footer.tagline': 'Soft where you touch, precise where you read.',
   'footer.typesetting': 'Typeset in Noto Sans JP & M PLUS 2',
   'nav.openMenu': 'Open menu',
+  'generativeUi.introduction':
+    'ArteOdyssey ships official adapters so an LLM can generate UIs constrained to these components, via json-render or OpenUI. Generate the prompt on the server, validate the output, and render it on the client.',
+  'generativeUi.promptTitle': 'Generate the prompt (server)',
+  'generativeUi.promptDescription':
+    'The catalog is server-safe. Generate the system prompt in a Server Component, and inject cross-cutting rules with `arteOdysseyRules`.',
+  'generativeUi.renderTitle': 'Render (client)',
+  'generativeUi.renderDescription':
+    '`JsonRenderUI` wires the provider, renderer, and registry for you — just pass a spec.',
+  'generativeUi.validateTitle': 'Validate & repair LLM output',
+  'generativeUi.validateDescription':
+    '`validateGeneratedSpec` auto-fixes, checks structure, and validates props per component, returning a ready-to-resend repair prompt on failure.',
+  'generativeUi.typedTitle': 'Typed specs',
+  'generativeUi.typedDescription':
+    'Write specs with `satisfies ArteSpec` so component names and props are checked at compile time.',
+  'generativeUi.openuiTitle': 'OpenUI',
+  'generativeUi.openuiDescription':
+    'OpenUI renders a DSL string with the `library`. Generate the prompt on the server with the dedicated `openui/prompt` entry.',
   'getStarted.introduction':
     'ArteOdyssey is a UI component library built with React 19 and Tailwind CSS 4. Interactive elements like forms and cards feel approachable with rounded shapes and generous spacing, while informational elements stay crisp and clear. Calm but never boring UI.',
   'getStarted.installationTitle': 'Installation',

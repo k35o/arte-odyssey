@@ -1,11 +1,11 @@
-import type { Spec } from '@json-render/core';
-import { JSONUIProvider, Renderer } from '@json-render/react';
-import { registry } from '@k8o/arte-odyssey/json-render/registry';
+import type { ArteSpec } from '@k8o/arte-odyssey/json-render';
+import { JsonRenderUI } from '@k8o/arte-odyssey/json-render/registry';
 
 /**
- * 公式アダプタの registry（`@k8o/arte-odyssey/json-render/registry`・'use client'）を
- * そのまま使う。プロンプト生成だけならサーバー安全な `.../json-render`（catalog）。
- * spec（UIツリー）は実運用では LLM が生成する。ここでは手書き。
+ * 事前結線済みの `JsonRenderUI`（'use client'）に spec を渡すだけで描画できる。
+ * プロンプト生成だけならサーバー安全な `@k8o/arte-odyssey/json-render`（catalog）。
+ * spec（UIツリー）は実運用では LLM が生成する。ここでは手書きだが、
+ * `satisfies ArteSpec` で component 名・props の typo がコンパイルエラーになる。
  * Stack は slots なので入れ子（横並びグループ）が自由にできる。
  */
 const spec = {
@@ -297,13 +297,8 @@ const spec = {
       children: [],
     },
   },
-  // 手書きデモのためのキャスト（通常は LLM 生成 + スキーマ検証で型が付く）
-} as unknown as Spec;
+} satisfies ArteSpec;
 
 export function JsonRenderDemo() {
-  return (
-    <JSONUIProvider registry={registry}>
-      <Renderer registry={registry} spec={spec} />
-    </JSONUIProvider>
-  );
+  return <JsonRenderUI spec={spec} />;
 }
