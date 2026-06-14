@@ -25,6 +25,7 @@ import {
   ExternalLink,
   Eye,
   EyeOff,
+  FlaskConical,
   History,
   Info,
   Laugh,
@@ -36,6 +37,7 @@ import {
   MapPin,
   Minus,
   MoonStar,
+  Package,
   PaintBucket,
   Palette,
   Plus,
@@ -46,6 +48,7 @@ import {
   ShieldCheck,
   Smile,
   Sparkles,
+  Squircle,
   Sun,
   Table2,
   Tag,
@@ -278,4 +281,16 @@ export const SparklesIcon: FC<IconProps> = ({ size = 'md' }) => (
 
 export const HorizontalWritingIcon: FC<IconProps> = ({ size = 'md' }) => (
   <BaseIcon renderItem={(props) => <BookOpenText {...props} />} size={size} />
+);
+
+export const SquircleIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <Squircle {...props} />} size={size} />
+);
+
+export const FlaskIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <FlaskConical {...props} />} size={size} />
+);
+
+export const PackageIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <Package {...props} />} size={size} />
 );
