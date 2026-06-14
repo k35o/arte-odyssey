@@ -5,7 +5,6 @@ packages:
 
 allowBuilds:
   '@tailwindcss/oxide': false
-  agent-browser: true
   edgedriver: false
   esbuild: false
   geckodriver: false
