@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 10.2.0
+
+### Minor Changes
+
+- [#536](https://github.com/k35o/arte-odyssey/pull/536) [`e44d3d3`](https://github.com/k35o/arte-odyssey/commit/e44d3d37e1db0970fd122406cce3dce5054a75e2) Thanks [@k35o](https://github.com/k35o)! - Add SquircleIcon, FlaskIcon, and PackageIcon to the icon set
+
 ## 10.1.2
 
 ### Patch Changes
