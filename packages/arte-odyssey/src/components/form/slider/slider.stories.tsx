@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 
 import { Slider } from './slider';
 
@@ -50,5 +51,24 @@ export const Invalid: Story = {
   args: {
     invalid: true,
     defaultValue: 90,
+  },
+};
+
+// スパンが 1 未満（例: OKLCH の C は 0〜0.4）でも、塗りの進捗が
+// ネイティブのつまみ位置と一致することを保証する回帰テスト。
+// 0.2 / 0.4 = 50% になる（旧実装では range が 1 に丸められ 20% にズレていた）。
+export const FractionalRange: Story = {
+  args: {
+    min: 0,
+    max: 0.4,
+    step: 0.001,
+    defaultValue: 0.2,
+  },
+  play: async ({ canvas }) => {
+    const slider = canvas.getByRole('slider');
+    const wrapper = slider.parentElement;
+    await expect(wrapper?.style.getPropertyValue('--slider-progress')).toBe(
+      '50%',
+    );
   },
 };

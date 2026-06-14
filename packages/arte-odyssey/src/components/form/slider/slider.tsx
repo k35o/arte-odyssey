@@ -58,7 +58,10 @@ export const Slider: FC<Props> = ({
   });
   const { pending } = useFormStatus();
   const disabledResolved = disabled || pending;
-  const range = Math.max(max - min, 1);
+  // max === min（0除算）のときだけ 1 にフォールバックする。
+  // Math.max(max - min, 1) だとスパンが 1 未満（例: 0〜0.4）のとき
+  // range が 1 に丸められ、塗りの幅だけがネイティブのつまみ位置とズレる。
+  const range = max > min ? max - min : 1;
   const progress = ((currentValue - min) / range) * 100;
   const clampedProgress = `${Math.min(Math.max(progress, 0), 100)}%`;
 
