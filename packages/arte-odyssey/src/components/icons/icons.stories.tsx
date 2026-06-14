@@ -20,6 +20,7 @@ import {
   DifficultIcon,
   EasyIcon,
   ExternalLinkIcon,
+  FlaskIcon,
   FormIcon,
   GoodIcon,
   HistoryIcon,
@@ -35,6 +36,7 @@ import {
   MixedColorIcon,
   NavigationMenuIcon,
   NewsIcon,
+  PackageIcon,
   PlusIcon,
   PrepareIcon,
   PublishDateIcon,
@@ -42,6 +44,7 @@ import {
   SendIcon,
   ShallowIcon,
   SlideIcon,
+  SquircleIcon,
   SubscribeIcon,
   TableIcon,
   TagIcon,
@@ -164,6 +167,18 @@ export const Primary: Story = {
       <div className="flex flex-col items-center justify-center">
         <ListIcon />
         <p className="text-center">List</p>
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <SquircleIcon />
+        <p className="text-center">Squircle</p>
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <FlaskIcon />
+        <p className="text-center">Flask</p>
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <PackageIcon />
+        <p className="text-center">Package</p>
       </div>
       <div className="flex flex-col items-center justify-center">
         <NavigationMenuIcon />
