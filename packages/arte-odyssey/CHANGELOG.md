@@ -1,5 +1,17 @@
 # @k8o/arte-odyssey
 
+## 10.1.2
+
+### Patch Changes
+
+- [#533](https://github.com/k35o/arte-odyssey/pull/533) [`06d7e87`](https://github.com/k35o/arte-odyssey/commit/06d7e8738fc1cde9fee4ab962ce9c83d05f011b3) Thanks [@k35o](https://github.com/k35o)! - fix: Slider のスパンが 1 未満のとき塗りがつまみとズレる不具合を修正
+
+  `range = Math.max(max - min, 1)` が、0 除算回避のつもりでスパンが 1 未満
+  （例: OKLCH の C チャンネル 0〜0.4）のときに range を 1 に丸めていた。その結果、
+  塗り(fill)は `value × 100%`、ネイティブのつまみは `value ÷ span × 100%` となり、
+  両者が一致しなかった。`max === min`（スパン 0）のときだけ 1 にフォールバックする
+  よう修正し、小数レンジでも塗りとつまみが一致するようにした。
+
 ## 10.1.1
 
 ### Patch Changes
