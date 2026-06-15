@@ -1,13 +1,7 @@
 'use client';
 
 import {
-  autoUpdate,
-  flip,
-  offset,
-  size as floatingSize,
-  useFloating,
-} from '@floating-ui/react';
-import {
+  type CSSProperties,
   type FC,
   type InputHTMLAttributes,
   useCallback,
@@ -21,6 +15,7 @@ import {
   useControllableState,
   useDeferredDebounce,
   useDisclosure,
+  useWritingMode,
 } from '../../../hooks';
 import type { Option } from '../../../types/variables';
 import { FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
@@ -86,33 +81,25 @@ export const Autocomplete: FC<Props> = ({
   const [text, setText] = useState('');
   const [selectIndex, setSelectIndex] = useState<number>();
 
-  const { refs, floatingStyles } = useFloating({
-    strategy: 'fixed',
-    placement: 'bottom-start',
-    open: isOpen,
-    whileElementsMounted: autoUpdate,
-    middleware: [
-      offset(4),
-      flip({ fallbackAxisSideDirection: 'end', padding: 8 }),
-      floatingSize({
-        apply: ({ rects, elements }) => {
-          // reference の inline-axis 寸法に floating を合わせる。
-          // 縦書きでは reference.height が inline-axis、横書きでは reference.width。
-          const referenceEl =
-            elements.reference instanceof HTMLElement
-              ? elements.reference
-              : null;
-          const isVertical =
-            referenceEl !== null &&
-            getComputedStyle(referenceEl).writingMode.startsWith('vertical');
-          Object.assign(elements.floating.style, {
-            inlineSize: `${isVertical ? rects.reference.height : rects.reference.width}px`,
-          });
-        },
-      }),
-    ],
-    transform: false,
-  });
+  // floating-ui の位置決め（offset/flip/size/autoUpdate）を CSS Anchor Positioning に置換。
+  // reference の inline 寸法に幅を合わせる。縦書きでは inline 軸が物理 height になるため、
+  // 元実装と同様に書字方向で anchor-size の物理キーワードを切り替える（論理 inline より広くサポート）。
+  const writingMode = useWritingMode(ref);
+  const anchorName = `--ao-ac-${id.replaceAll(/[^a-zA-Z0-9_-]/gu, '')}`;
+  const listboxStyle: CSSProperties & {
+    positionAnchor?: string;
+    positionArea?: string;
+    positionTryFallbacks?: string;
+  } = {
+    position: 'fixed',
+    inset: 'auto',
+    margin: 0,
+    marginTop: '4px',
+    positionAnchor: anchorName,
+    positionArea: 'bottom span-right',
+    positionTryFallbacks: 'flip-block, flip-inline, flip-block flip-inline',
+    inlineSize: `anchor-size(${writingMode === 'vertical' ? 'height' : 'width'})`,
+  };
 
   const [deferredText, isPending] = useDeferredDebounce(text);
   const filteredOptions = options.filter((option) =>
@@ -139,10 +126,15 @@ export const Autocomplete: FC<Props> = ({
     };
   }, [reset]);
 
-  const setReferenceRef = (node: HTMLDivElement | null) => {
-    ref.current = node;
-    refs.setReference(node);
-  };
+  const setReferenceRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      ref.current = node;
+      if (node) {
+        node.style.setProperty('anchor-name', anchorName);
+      }
+    },
+    [anchorName],
+  );
 
   return (
     <div
@@ -298,9 +290,8 @@ export const Autocomplete: FC<Props> = ({
       {isOpen && (
         <div
           className="bg-bg-raised z-10 rounded-xl shadow-md"
-          ref={refs.setFloating}
           role="presentation"
-          style={floatingStyles}
+          style={listboxStyle}
         >
           <ul
             aria-busy={isPending || undefined}
