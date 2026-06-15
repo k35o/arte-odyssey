@@ -1,8 +1,6 @@
 'use client';
 
-import { FloatingPortal, type Placement } from '@floating-ui/react';
-import { AnimatePresence, type Variants } from 'motion/react';
-import * as motion from 'motion/react-client';
+import type { Placement } from '@floating-ui/react';
 import {
   type FC,
   type PropsWithChildren,
@@ -16,7 +14,6 @@ import {
 import { cn } from '../../../helpers';
 import { useDisclosure, useWritingMode } from '../../../hooks';
 import { useFocusTrap } from '../../../hooks/focus-trap';
-import { usePortalRoot } from '../../providers';
 import { getContentAnchorStyle, toAnchorName } from './anchor-positioning';
 import {
   type PopoverContentProps,
@@ -105,64 +102,55 @@ const Root: FC<
   );
 };
 
-const contentMotionVariants = {
-  closed: {
-    scale: 0,
-    transition: {
-      delay: 0.1,
-    },
-  },
-  open: {
-    scale: 1,
-    transition: {
-      type: 'spring',
-      duration: 0.2,
-    },
-  },
-} satisfies Variants;
-
 const Content: FC<{
   renderItem: (props: PopoverContentProps) => ReactElement;
-  motionVariants?: Variants;
-}> = ({ renderItem, motionVariants = contentMotionVariants }) => {
+  // 開閉アニメーション。scale=ポップ（既定）、fade=フェード（Tooltip 用）。
+  animation?: 'scale' | 'fade';
+}> = ({ renderItem, animation = 'scale' }) => {
   const { isOpen, trapFocus, anchorName, placement, flipDisabled, itemProps } =
     usePopoverContent();
   const { triggerRef } = usePopoverContext();
 
-  const root = usePortalRoot();
-  const protalProps = root ? { root } : {};
-
-  // Popover content は body 直下へ portal されるため、trigger 側の writing-mode を
-  // 取り込まないと縦書きページでも横書きで描画されてしまう。
-  // `vertical:` variant は `.writing-v` 祖先を要求するので、縦書きなら class を付与する。
+  // content は popover で top-layer に出すためインライン描画になり、trigger 側の
+  // writing-mode を継承する。`vertical:` variant は `.writing-v` 祖先を要求するので、
+  // 縦書きなら class を付与する。
   const writingMode = useWritingMode(triggerRef);
   const writingClass = writingMode === 'vertical' ? 'writing-v' : undefined;
 
-  // floating-ui の FloatingFocusManager(modal=false) 相当を自前フックで代替。
   const contentWrapperRef = useRef<HTMLDivElement>(null);
+
+  // Popover API の top-layer 表示・非表示を isOpen に同期する（FloatingPortal の置換）。
+  // manual: native の light-dismiss は使わず、外側クリック / Escape は従来どおり
+  // JS（useClickAway / window keydown）で扱い、trigger との二重トグルを避ける。
+  // 要素は常時マウントし、開閉アニメは CSS（@starting-style + allow-discrete）で行う。
+  useEffect(() => {
+    const el = contentWrapperRef.current;
+    if (!el) {
+      return;
+    }
+    if (isOpen && !el.matches(':popover-open')) {
+      el.showPopover();
+    } else if (!isOpen && el.matches(':popover-open')) {
+      el.hidePopover();
+    }
+  }, [isOpen]);
+
+  // floating-ui の FloatingFocusManager(modal=false) 相当を自前フックで代替。
   useFocusTrap(contentWrapperRef, triggerRef, isOpen && trapFocus);
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <FloatingPortal {...protalProps}>
-          <div
-            className={cn('z-overlay', writingClass)}
-            ref={contentWrapperRef}
-            style={getContentAnchorStyle(anchorName, placement, flipDisabled)}
-          >
-            <motion.div
-              animate="open"
-              exit="closed"
-              initial="closed"
-              variants={motionVariants}
-            >
-              {renderItem(itemProps)}
-            </motion.div>
-          </div>
-        </FloatingPortal>
+    <div
+      className={cn(
+        'z-overlay',
+        animation === 'fade' ? 'ao-anim-fade' : 'ao-anim-scale',
+        writingClass,
       )}
-    </AnimatePresence>
+      popover="manual"
+      ref={contentWrapperRef}
+      style={getContentAnchorStyle(anchorName, placement, flipDisabled)}
+    >
+      {renderItem(itemProps)}
+    </div>
   );
 };
 

@@ -71,6 +71,9 @@ export const getContentAnchorStyle = (
   const side = placement.split('-')[0] ?? 'bottom';
   return {
     position: 'fixed',
+    // UA の `[popover]` は inset:0 / margin:auto で中央寄せするため、
+    // position-area で配置できるよう打ち消す。
+    inset: 'auto',
     margin: 0,
     ...sideGap(side),
     positionAnchor: anchorName,

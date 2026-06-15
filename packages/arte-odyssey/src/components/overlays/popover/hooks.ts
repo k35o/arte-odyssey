@@ -39,11 +39,6 @@ export const [PopoverProvider, usePopoverContext] =
     'usePopoverContext must be used within a Popover.Root',
   );
 
-export const usePlacement = (): Placement => {
-  const popover = usePopoverContext();
-  return popover.placement;
-};
-
 export const useOpenContext = () => {
   const popover = usePopoverContext();
   return useMemo(
