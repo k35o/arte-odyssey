@@ -33,7 +33,6 @@ const Z_INDEX_USAGE = {
 export function Theming() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">
           <T k="nav.theming" />
@@ -44,7 +43,6 @@ export function Theming() {
       </div>
       <Separator color="mute" />
 
-      {/* Color Palette */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="theming.colorPaletteTitle" />
@@ -77,7 +75,6 @@ export function Theming() {
       </section>
       <Separator color="mute" />
 
-      {/* Semantic Colors */}
       <section className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -88,7 +85,6 @@ export function Theming() {
           </p>
         </div>
 
-        {/* Foreground */}
         <div className="flex flex-col gap-3">
           <Heading type="h3">
             <T k="theming.foregroundTitle" />
@@ -100,7 +96,6 @@ export function Theming() {
           </div>
         </div>
 
-        {/* Background */}
         <div className="flex flex-col gap-3">
           <Heading type="h3">
             <T k="theming.backgroundTitle" />
@@ -112,7 +107,6 @@ export function Theming() {
           </div>
         </div>
 
-        {/* Border */}
         <div className="flex flex-col gap-3">
           <Heading type="h3">
             <T k="theming.borderTitle" />
@@ -126,7 +120,6 @@ export function Theming() {
       </section>
       <Separator color="mute" />
 
-      {/* Brand Colors */}
       <section className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -137,7 +130,6 @@ export function Theming() {
           </p>
         </div>
 
-        {/* Primary */}
         <div className="flex flex-col gap-3">
           <Heading type="h3">Primary</Heading>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -151,7 +143,6 @@ export function Theming() {
           </div>
         </div>
 
-        {/* Secondary */}
         <div className="flex flex-col gap-3">
           <Heading type="h3">Secondary</Heading>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -165,7 +156,6 @@ export function Theming() {
           </div>
         </div>
 
-        {/* Group */}
         <div className="flex flex-col gap-3">
           <Heading type="h3">Group</Heading>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -177,7 +167,6 @@ export function Theming() {
       </section>
       <Separator color="mute" />
 
-      {/* Typography */}
       <section className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -188,7 +177,6 @@ export function Theming() {
           </p>
         </div>
 
-        {/* Text Sizes */}
         <div className="flex flex-col gap-3">
           <Heading type="h3">
             <T k="theming.textSizesTitle" />
@@ -220,7 +208,6 @@ export function Theming() {
           </Card>
         </div>
 
-        {/* Font Weights */}
         <div className="flex flex-col gap-3">
           <Heading type="h3">
             <T k="theming.fontWeightsTitle" />
@@ -247,7 +234,6 @@ export function Theming() {
           </Card>
         </div>
 
-        {/* Letter Spacing */}
         <div className="flex flex-col gap-3">
           <Heading type="h3">
             <T k="theming.letterSpacingTitle" />
@@ -271,7 +257,6 @@ export function Theming() {
           </Card>
         </div>
 
-        {/* Line Height */}
         <div className="flex flex-col gap-3">
           <Heading type="h3">
             <T k="theming.lineHeightTitle" />
@@ -301,7 +286,6 @@ export function Theming() {
       </section>
       <Separator color="mute" />
 
-      {/* Border Radius */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="theming.borderRadiusTitle" />
@@ -326,7 +310,6 @@ export function Theming() {
       </section>
       <Separator color="mute" />
 
-      {/* Shadow */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="theming.shadowTitle" />
@@ -351,7 +334,6 @@ export function Theming() {
       </section>
       <Separator color="mute" />
 
-      {/* Spacing */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="theming.spacingTitle" />
@@ -380,7 +362,6 @@ export function Theming() {
       </section>
       <Separator color="mute" />
 
-      {/* Breakpoints */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="theming.breakpointsTitle" />
@@ -405,7 +386,6 @@ export function Theming() {
       </section>
       <Separator color="mute" />
 
-      {/* Z-Index */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="theming.zIndexTitle" />
@@ -433,7 +413,6 @@ export function Theming() {
       </section>
       <Separator color="mute" />
 
-      {/* Dark Mode */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="theming.darkModeTitle" />

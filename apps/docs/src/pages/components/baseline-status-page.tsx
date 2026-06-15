@@ -14,7 +14,6 @@ const baselineStatusProps: PropItem[] = [
 export function BaselineStatusPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">BaselineStatus</Heading>
         <p className="text-fg-mute text-lg">
@@ -31,7 +30,6 @@ export function BaselineStatusPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -43,7 +41,6 @@ export function BaselineStatusPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -56,7 +53,6 @@ export function BaselineStatusPage() {
           </ComponentPreview>
         </div>
 
-        {/* Different Features */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.baselineStatus.differentFeaturesTitle" />
@@ -76,7 +72,6 @@ export function BaselineStatusPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

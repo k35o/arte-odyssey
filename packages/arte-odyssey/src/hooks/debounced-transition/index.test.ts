@@ -72,12 +72,8 @@ describe('useDebouncedTransition', () => {
     const { result } = await renderHook(() => useDebouncedTransition(20));
 
     result.current[1](aborting);
-    await vi.waitFor(() => {
-      // action が start するまで待つ
-    });
-    result.current[1](() => {
-      // 置き換えで前回を abort する
-    });
+    await vi.waitFor(() => {});
+    result.current[1](() => {});
 
     await new Promise<void>((resolve) => {
       setTimeout(resolve, 100);

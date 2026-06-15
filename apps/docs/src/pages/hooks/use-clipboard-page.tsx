@@ -23,7 +23,6 @@ const returnValue: PropItem[] = [
 export function UseClipboardPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">useClipboard</Heading>
         <p className="text-fg-mute text-lg">
@@ -32,7 +31,6 @@ export function UseClipboardPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="hooks.common.importTitle" />
@@ -44,7 +42,6 @@ export function UseClipboardPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <Heading type="h2">
           <T k="hooks.common.usageTitle" />
@@ -75,7 +72,6 @@ return (
       </section>
       <Separator color="mute" />
 
-      {/* API */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="hooks.common.returnValueTitle" />

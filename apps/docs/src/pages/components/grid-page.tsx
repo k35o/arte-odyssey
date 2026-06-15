@@ -36,7 +36,6 @@ function Cell({ children }: { children: string }) {
 export function GridPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">Grid</Heading>
         <p className="text-fg-mute text-lg">
@@ -53,7 +52,6 @@ export function GridPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -62,7 +60,6 @@ export function GridPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -81,7 +78,6 @@ export function GridPage() {
           </ComponentPreview>
         </div>
 
-        {/* Fixed cols */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.grid.colsTitle" />
@@ -102,7 +98,6 @@ export function GridPage() {
           </ComponentPreview>
         </div>
 
-        {/* Auto fill */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.grid.autoFillTitle" />
@@ -121,7 +116,6 @@ export function GridPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

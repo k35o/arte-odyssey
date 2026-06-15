@@ -51,7 +51,6 @@ const iconButtonProps: PropItem[] = [
 export function IconButtonPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">IconButton</Heading>
         <p className="text-fg-mute text-lg">
@@ -68,7 +67,6 @@ export function IconButtonPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -80,7 +78,6 @@ export function IconButtonPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -99,7 +96,6 @@ export function IconButtonPage() {
           </ComponentPreview>
         </div>
 
-        {/* Sizes */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.iconButton.sizesTitle" />
@@ -127,7 +123,6 @@ export function IconButtonPage() {
           </ComponentPreview>
         </div>
 
-        {/* Backgrounds */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.iconButton.backgroundsTitle" />
@@ -161,7 +156,6 @@ export function IconButtonPage() {
           </ComponentPreview>
         </div>
 
-        {/* Disabled */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.iconButton.disabledTitle" />
@@ -177,7 +171,6 @@ export function IconButtonPage() {
           </ComponentPreview>
         </div>
 
-        {/* Render as Link */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.iconButton.renderItemTitle" />
@@ -210,7 +203,6 @@ export function IconButtonPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

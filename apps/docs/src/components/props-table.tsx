@@ -28,7 +28,6 @@ export const PropsTable: FC<{
   inherits?: string;
 }> = ({ items, inherits }) => (
   <div className="flex flex-col gap-4">
-    {/* Mobile: card list */}
     <dl className="flex flex-col gap-4 md:hidden">
       {items.map((prop) => (
         <div
@@ -49,7 +48,6 @@ export const PropsTable: FC<{
         </div>
       ))}
     </dl>
-    {/* Desktop: table */}
     <table className="hidden w-full text-left text-sm md:table">
       <thead>
         <tr className="border-border-mute border-b">

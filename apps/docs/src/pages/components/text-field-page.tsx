@@ -24,7 +24,6 @@ const textFieldProps: PropItem[] = [
 export function TextFieldPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">TextField</Heading>
         <p className="text-fg-mute text-lg">
@@ -41,7 +40,6 @@ export function TextFieldPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -53,7 +51,6 @@ export function TextFieldPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -70,7 +67,6 @@ export function TextFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Placeholder */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.textField.placeholderTitle" />
@@ -92,7 +88,6 @@ export function TextFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Disabled */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.textField.disabledTitle" />
@@ -114,7 +109,6 @@ export function TextFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Invalid */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.textField.invalidTitle" />
@@ -138,7 +132,6 @@ export function TextFieldPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

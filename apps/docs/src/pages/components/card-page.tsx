@@ -29,7 +29,6 @@ const cardProps: PropItem[] = [
 export function CardPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">Card</Heading>
         <p className="text-fg-mute text-lg">
@@ -46,7 +45,6 @@ export function CardPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -55,7 +53,6 @@ export function CardPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -72,7 +69,6 @@ export function CardPage() {
           </ComponentPreview>
         </div>
 
-        {/* Width */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.card.widthTitle" />
@@ -96,7 +92,6 @@ export function CardPage() {
           </ComponentPreview>
         </div>
 
-        {/* Interactive */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">Interactive</Heading>
           <p className="text-fg-mute">
@@ -117,7 +112,6 @@ export function CardPage() {
           </ComponentPreview>
         </div>
 
-        {/* Appearance */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">Appearance</Heading>
           <ComponentPreview
@@ -139,7 +133,6 @@ export function CardPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

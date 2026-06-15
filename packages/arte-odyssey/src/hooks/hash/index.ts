@@ -20,7 +20,6 @@ const subscribe = (callback: () => void) => {
     setTimeout(callback);
   };
 
-  // hash changeに応じてhashを更新
   window.addEventListener('hashchange', callback);
   return () => {
     window.removeEventListener('hashchange', callback);

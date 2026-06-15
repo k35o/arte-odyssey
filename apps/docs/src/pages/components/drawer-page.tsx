@@ -21,7 +21,6 @@ const drawerProps: PropItem[] = [
 export function DrawerPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">Drawer</Heading>
         <p className="text-fg-mute text-lg">
@@ -38,7 +37,6 @@ export function DrawerPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -50,7 +48,6 @@ export function DrawerPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -58,7 +55,6 @@ export function DrawerPage() {
           </Heading>
         </div>
 
-        {/* Basic usage */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.common.basicUsageTitle" />
@@ -85,7 +81,6 @@ export function DrawerPage() {
           </ComponentPreview>
         </div>
 
-        {/* With Custom Content */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.drawer.customContentTitle" />
@@ -127,7 +122,6 @@ export function DrawerPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

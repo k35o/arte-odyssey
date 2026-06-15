@@ -29,7 +29,6 @@ export type NamedScale = { name: string; value: string };
 export type SpacingStep = { step: number; rem: string; px: string };
 export type Breakpoint = { name: string; rem: string; px: string };
 
-// --- value accessors over the extracted tokens --------------------------------
 type Scalar = string | number;
 type VarValue = Scalar | { light: Scalar; dark: Scalar };
 const VARS = new Map<string, VarValue>(Object.entries(tokens.vars));
@@ -55,7 +54,6 @@ const namedScale = (group: Record<string, unknown> | undefined): NamedScale[] =>
     value: String(value),
   }));
 
-// --- palette (families/shades/hue derived; descriptions authored) -------------
 /** Design rationale that does not exist in CSS; keyed by palette prefix. */
 const PALETTE_DESCRIPTIONS: Record<string, string> = {
   gray: 'sky blue tint, minimal chroma for branded neutral',
@@ -109,7 +107,6 @@ export const PALETTE: readonly PaletteFamily[] = PALETTE_PREFIXES.map(
   }),
 );
 
-// --- semantic tokens (mapping derived from tokens.refs) -----------------------
 // Each entry is `{ name, light, dark }` where light/dark are the palette shade
 // the semantic var aliases in that mode — recovered from the CSS, not hand-kept.
 const semanticTokens = (prefix: string): readonly SemanticToken[] =>
@@ -124,7 +121,6 @@ export const PRIMARY_TOKENS = semanticTokens('primary-');
 export const SECONDARY_TOKENS = semanticTokens('secondary-');
 export const GROUP_TOKENS = semanticTokens('group-');
 
-// --- typography / scales (values extracted) -----------------------------------
 type GeneratedText = {
   value: string;
   lineHeight: Scalar;

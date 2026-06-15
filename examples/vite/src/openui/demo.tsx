@@ -2,9 +2,6 @@ import { library } from '@k8o/arte-odyssey/openui';
 import { Renderer } from '@openuidev/react-lang';
 
 /**
- * 公式アダプタ `@k8o/arte-odyssey/openui` の library をそのまま使う。
- * response（OpenUI Lang / DSL）は実運用では LLM がストリーム出力する。
- *
  * 注: OpenUI は型付き子要素。Card は Stack を内包できる（root を Card にして全体を包む）。
  * Stack 自身の入れ子は非対応。引数は位置引数（props 定義順）。
  */

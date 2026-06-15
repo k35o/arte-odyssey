@@ -46,7 +46,6 @@ const useToastReturnProps: PropItem[] = [
 export function ToastPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">Toast</Heading>
         <p className="text-fg-mute text-lg">
@@ -63,7 +62,6 @@ export function ToastPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -75,7 +73,6 @@ export function ToastPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -83,7 +80,6 @@ export function ToastPage() {
           </Heading>
         </div>
 
-        {/* Basic usage */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.common.basicUsageTitle" />
@@ -118,7 +114,6 @@ function ToastDemo() {
           </ComponentPreview>
         </div>
 
-        {/* useToast Hook */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.toast.useToastTitle" />
@@ -138,7 +133,6 @@ onCloseAll();`}
           />
         </div>
 
-        {/* Close All */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.toast.closeAllTitle" />
@@ -166,7 +160,6 @@ onCloseAll();`}
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />
