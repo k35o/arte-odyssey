@@ -12,6 +12,12 @@
       "runtimeExecutable": "node",
       "runtimeArgs": ["apps/docs/scripts/serve-static.mjs"],
       "port": 4173
+    },
+    {
+      "name": "storybook",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@k8o/arte-odyssey", "storybook"],
+      "port": 6006
     }
   ]
 }

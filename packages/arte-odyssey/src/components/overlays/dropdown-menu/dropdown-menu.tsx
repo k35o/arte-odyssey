@@ -1,33 +1,27 @@
 'use client';
 
 import {
-  FloatingList,
-  type Placement,
-  useInteractions,
-  useListNavigation,
-} from '@floating-ui/react';
-import {
+  Children,
+  cloneElement,
   type ComponentProps,
   type FC,
+  isValidElement,
   type MouseEventHandler,
   type PropsWithChildren,
+  type ReactElement,
   type ReactNode,
-  useRef,
   useState,
 } from 'react';
 
+import type { Placement } from '../../../types/variables';
 import { Button } from '../../buttons/button';
 import { IconButton } from '../../buttons/icon-button';
 import { ChevronIcon } from '../../icons';
+import { useListNavigation } from '../_internal/use-list-navigation';
 import { Popover } from '../popover';
-import { useFloatingUIContext } from '../popover/hooks';
+import { useOpenContext } from '../popover/hooks';
 import { cn } from './../../../helpers/cn';
-import {
-  MenuContextProvider,
-  useMenuContent,
-  useMenuItem,
-  useMenuTrigger,
-} from './hooks';
+import { MenuContextProvider, useMenuContent, useMenuItem } from './hooks';
 
 const Root: FC<PropsWithChildren<{ placement?: Placement }>> = ({
   children,
@@ -39,61 +33,49 @@ const Root: FC<PropsWithChildren<{ placement?: Placement }>> = ({
 );
 
 const MenuProvider: FC<PropsWithChildren> = ({ children }) => {
+  const { isOpen } = useOpenContext();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const itemElementsRef = useRef<Array<HTMLElement | null>>([]);
 
-  const context = useFloatingUIContext();
-
-  const listNavigation = useListNavigation(context, {
-    listRef: itemElementsRef,
+  const nav = useListNavigation({
+    open: isOpen,
     activeIndex,
-    onNavigate: setActiveIndex,
+    setActiveIndex,
     loop: true,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [listNavigation],
-  );
 
-  return (
-    <MenuContextProvider
-      value={{
-        activeIndex,
-        itemElementsRef,
-        getTriggerProps: getReferenceProps,
-        getContentProps: getFloatingProps,
-        getItemProps,
-      }}
-    >
-      {children}
-    </MenuContextProvider>
-  );
+  return <MenuContextProvider value={nav}>{children}</MenuContextProvider>;
 };
 
 const Content: FC<PropsWithChildren> = ({ children }) => {
-  const { contentProps, itemElementsRef } = useMenuContent();
+  const { contentProps } = useMenuContent();
 
   return (
-    <FloatingList elementsRef={itemElementsRef}>
-      <Popover.Content
-        renderItem={(props) => (
-          <div
-            {...props}
-            {...contentProps}
-            className="bg-bg-raised vertical:min-w-0 vertical:min-h-40 flex min-w-40 flex-col rounded-lg py-2 shadow-md"
-          >
-            {children}
-          </div>
-        )}
-      />
-    </FloatingList>
+    <Popover.Content
+      renderItem={(props) => (
+        <div
+          {...props}
+          {...contentProps}
+          className="bg-bg-raised vertical:min-w-0 vertical:min-h-40 flex min-w-40 flex-col rounded-lg py-2 shadow-md"
+        >
+          {Children.toArray(children).map((child, index) =>
+            isValidElement(child)
+              ? cloneElement(child as ReactElement<{ index?: number }>, {
+                  index,
+                })
+              : child,
+          )}
+        </div>
+      )}
+    />
   );
 };
 
-const Item: FC<{ onClick: MouseEventHandler; label: string }> = ({
-  label,
-  onClick,
-}) => {
-  const props = useMenuItem({ onClick });
+const Item: FC<{
+  onClick: MouseEventHandler;
+  label: string;
+  index?: number;
+}> = ({ label, onClick, index = 0 }) => {
+  const props = useMenuItem({ onClick, index });
 
   return (
     <button
@@ -114,48 +96,35 @@ const Trigger: FC<{
   text: string;
   size?: ComponentProps<typeof Button>['size'];
   variant?: ComponentProps<typeof Button>['variant'];
-}> = ({ text, size = 'md', variant = 'solid' }) => {
-  const getTriggerProps = useMenuTrigger();
-
-  return (
-    <Popover.Trigger
-      renderItem={(props) => (
-        <Button
-          {...getTriggerProps(props)}
-          color="gray"
-          endIcon={<ChevronIcon direction="down" />}
-          size={size}
-          type="button"
-          variant={variant}
-        >
-          {text}
-        </Button>
-      )}
-    />
-  );
-};
+}> = ({ text, size = 'md', variant = 'solid' }) => (
+  <Popover.Trigger
+    renderItem={(props) => (
+      <Button
+        {...props}
+        color="gray"
+        endIcon={<ChevronIcon direction="down" />}
+        size={size}
+        type="button"
+        variant={variant}
+      >
+        {text}
+      </Button>
+    )}
+  />
+);
 
 const IconTrigger: FC<{
   icon: ReactNode;
   label: string;
-}> = ({ icon, label }) => {
-  const getTriggerProps = useMenuTrigger();
-
-  return (
-    <Popover.Trigger
-      renderItem={(props) => (
-        <IconButton
-          color="base"
-          label={label}
-          tooltipDisabled
-          {...getTriggerProps(props)}
-        >
-          {icon}
-        </IconButton>
-      )}
-    />
-  );
-};
+}> = ({ icon, label }) => (
+  <Popover.Trigger
+    renderItem={(props) => (
+      <IconButton color="base" label={label} tooltipDisabled {...props}>
+        {icon}
+      </IconButton>
+    )}
+  />
+);
 
 export const DropdownMenu = {
   Root,

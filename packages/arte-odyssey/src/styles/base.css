@@ -72,3 +72,42 @@
 @custom-variant vertical (
   &:where(.writing-v, .writing-v *):not(.writing-h, .writing-h *)
 );
+
+/*
+ * Popover（top-layer）の開く時のアニメーション。
+ * :popover-open になった瞬間に keyframe を再生する。安静時の値は上書きしない
+ * （natural=opacity:1）ため固着しない。閉じる時は display:none で即時（Modal/Drawer 同様）。
+ * scale は transform ではなく `scale` プロパティを使い、CSS Anchor Positioning
+ * （inset で配置）と干渉させない。
+ */
+.ao-anim-scale:popover-open {
+  animation: ao-pop-in 0.18s ease;
+}
+.ao-anim-fade:popover-open {
+  animation: ao-fade-in 0.15s ease;
+}
+
+@keyframes ao-pop-in {
+  from {
+    scale: 0.92;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+@keyframes ao-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ao-anim-scale:popover-open,
+  .ao-anim-fade:popover-open {
+    animation: none;
+  }
+}

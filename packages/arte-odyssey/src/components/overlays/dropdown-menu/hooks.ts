@@ -1,32 +1,12 @@
 'use client';
 
-import { useListItem } from '@floating-ui/react';
-import {
-  type HTMLAttributes,
-  type HTMLProps,
-  type MouseEventHandler,
-  type RefObject,
-  useMemo,
-} from 'react';
+import { type MouseEventHandler, useMemo } from 'react';
 
 import { createSafeContext } from '../../../helpers/create-safe-context';
+import type { ListNavigation } from '../_internal/use-list-navigation';
 import { useOpenContext } from '../popover/hooks';
 
-type MenuContext = {
-  activeIndex: number | null;
-  itemElementsRef: RefObject<Array<HTMLElement | null>>;
-  // `color` は HTML の装飾属性。floating-ui は設定しないため除外し、
-  // 各コンポーネント側の `color`（union 型）と spread 時に衝突しないようにする。
-  getTriggerProps: (
-    userProps?: HTMLProps<HTMLElement>,
-  ) => Omit<HTMLAttributes<HTMLElement>, 'color'>;
-  getContentProps: (
-    userProps?: HTMLProps<HTMLElement>,
-  ) => HTMLAttributes<HTMLElement>;
-  getItemProps: (
-    userProps?: Omit<HTMLProps<HTMLButtonElement>, 'selected' | 'active'>,
-  ) => HTMLAttributes<HTMLElement>;
-};
+type MenuContext = ListNavigation;
 
 export const [MenuContextProvider, useMenuContext] =
   createSafeContext<MenuContext>(
@@ -39,33 +19,29 @@ export const useMenuContent = () => {
   return useMemo(
     () => ({
       contentProps: menu.getContentProps(),
-      itemElementsRef: menu.itemElementsRef,
     }),
     [menu],
   );
 };
 
-export const useMenuItem = ({ onClick }: { onClick: MouseEventHandler }) => {
+export const useMenuItem = ({
+  onClick,
+  index,
+}: {
+  onClick: MouseEventHandler;
+  index: number;
+}) => {
   const menu = useMenuContext();
   const { onClose } = useOpenContext();
-  const item = useListItem();
   return useMemo(
     () => ({
-      ref: item.ref,
-      role: 'menuitem',
-      tabIndex: menu.activeIndex === item.index ? 0 : -1,
-      ...menu.getItemProps({
-        onClick: (e) => {
-          onClick(e);
-          onClose();
-        },
-      }),
+      role: 'menuitem' as const,
+      ...menu.getItemProps(index),
+      onClick: (e: Parameters<MouseEventHandler>[0]) => {
+        onClick(e);
+        onClose();
+      },
     }),
-    [item.index, item.ref, menu, onClick, onClose],
+    [index, menu, onClick, onClose],
   );
-};
-
-export const useMenuTrigger = () => {
-  const menu = useMenuContext();
-  return useMemo(() => menu.getTriggerProps, [menu]);
 };

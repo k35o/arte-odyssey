@@ -1,25 +1,20 @@
 'use client';
 
 import {
-  FloatingList,
-  type Placement,
-  useInteractions,
-  useListNavigation,
-} from '@floating-ui/react';
-import {
   type ComponentProps,
   type FC,
   type PropsWithChildren,
   type ReactElement,
-  useRef,
   useState,
 } from 'react';
 
+import type { Placement } from '../../../types/variables';
 import { Button } from '../../buttons/button';
 import { IconButton } from '../../buttons/icon-button';
 import { CheckIcon, ChevronIcon } from '../../icons';
+import { useListNavigation } from '../_internal/use-list-navigation';
 import { Popover } from '../popover';
-import { useFloatingUIContext } from '../popover/hooks';
+import { useOpenContext } from '../popover/hooks';
 import { cn } from './../../../helpers/cn';
 import {
   MenuContextProvider,
@@ -51,22 +46,17 @@ const MenuProvider: FC<
     onChange: (key: Option['key']) => void;
   }>
 > = ({ children, options, onChange, value }) => {
+  const { isOpen } = useOpenContext();
   const selectedIndex = options.findIndex((option) => option.key === value);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const itemElementsRef = useRef<Array<HTMLElement | null>>([]);
 
-  const context = useFloatingUIContext();
-
-  const listNavigation = useListNavigation(context, {
-    listRef: itemElementsRef,
+  const nav = useListNavigation({
+    open: isOpen,
     activeIndex,
+    setActiveIndex,
     selectedIndex,
-    onNavigate: setActiveIndex,
     loop: true,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [listNavigation],
-  );
 
   const handleSelect = (index: number) => {
     const key = options[index]?.key;
@@ -77,16 +67,7 @@ const MenuProvider: FC<
 
   return (
     <MenuContextProvider
-      value={{
-        options,
-        activeIndex,
-        selectedIndex,
-        handleSelect,
-        itemElementsRef,
-        getTriggerProps: getReferenceProps,
-        getContentProps: getFloatingProps,
-        getItemProps,
-      }}
+      value={{ ...nav, options, selectedIndex, handleSelect }}
     >
       {children}
     </MenuContextProvider>
@@ -96,25 +77,23 @@ const MenuProvider: FC<
 const Content: FC<{
   helpContent?: ReactElement;
 }> = ({ helpContent }) => {
-  const { options, contentProps, itemElementsRef } = useMenuContent();
+  const { options, contentProps } = useMenuContent();
 
   return (
-    <FloatingList elementsRef={itemElementsRef}>
-      <Popover.Content
-        renderItem={(props) => (
-          <div
-            {...props}
-            {...contentProps}
-            className="bg-bg-raised vertical:max-h-none vertical:min-w-0 vertical:max-w-48 vertical:min-h-40 vertical:overflow-x-auto vertical:overflow-y-visible flex max-h-48 min-w-40 flex-col overflow-y-auto rounded-lg py-2 shadow-md"
-          >
-            {helpContent}
-            {options.map(({ key, label }, idx) => (
-              <Item index={idx} key={key} label={label} />
-            ))}
-          </div>
-        )}
-      />
-    </FloatingList>
+    <Popover.Content
+      renderItem={(props) => (
+        <div
+          {...props}
+          {...contentProps}
+          className="bg-bg-raised vertical:max-h-none vertical:min-w-0 vertical:max-w-48 vertical:min-h-40 vertical:overflow-x-auto vertical:overflow-y-visible flex max-h-48 min-w-40 flex-col overflow-y-auto rounded-lg py-2 shadow-md"
+        >
+          {helpContent}
+          {options.map(({ key, label }, idx) => (
+            <Item index={idx} key={key} label={label} />
+          ))}
+        </div>
+      )}
+    />
   );
 };
 
@@ -147,13 +126,13 @@ const Item: FC<{
 const Trigger: FC<{
   size?: ComponentProps<typeof Button>['size'];
 }> = ({ size = 'md' }) => {
-  const { label, getTriggerProps } = useMenuTrigger();
+  const { label } = useMenuTrigger();
 
   return (
     <Popover.Trigger
       renderItem={(props) => (
         <Button
-          {...getTriggerProps(props)}
+          {...props}
           aria-label={label}
           color="gray"
           endIcon={<ChevronIcon direction="down" />}
@@ -173,17 +152,12 @@ const TriggerIcon: FC<{
   size?: ComponentProps<typeof Button>['size'];
   icon: ReactElement;
 }> = ({ size = 'md', icon }) => {
-  const { label, getTriggerProps } = useMenuTrigger();
+  const { label } = useMenuTrigger();
 
   return (
     <Popover.Trigger
       renderItem={(props) => (
-        <IconButton
-          label={label}
-          size={size}
-          tooltipDisabled
-          {...getTriggerProps(props)}
-        >
+        <IconButton label={label} size={size} tooltipDisabled {...props}>
           {icon}
         </IconButton>
       )}

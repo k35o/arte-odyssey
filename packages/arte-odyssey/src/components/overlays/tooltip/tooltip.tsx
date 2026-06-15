@@ -1,6 +1,5 @@
 'use client';
 
-import type { Placement } from '@floating-ui/react';
 import {
   type FC,
   type FocusEvent,
@@ -14,8 +13,9 @@ import {
   useSyncExternalStore,
 } from 'react';
 
+import type { Placement } from '../../../types/variables';
 import { Popover } from '../popover';
-import { usePlacement, usePopoverContext } from '../popover/hooks';
+import { usePopoverContext } from '../popover/hooks';
 
 const HOVER_QUERY = '(hover: hover)';
 
@@ -87,37 +87,12 @@ const Trigger: FC<{
 }> = ({ renderItem }) => renderItem(useTooltipTriggerProps());
 
 const Content: FC<PropsWithChildren> = ({ children }) => {
-  const placement = usePlacement();
   const popover = usePopoverContext();
   const canHover = useCanHover();
-  const translate = {
-    top: { translateY: 5 },
-    bottom: { translateY: -5 },
-    left: { translateX: 5 },
-    right: { translateX: -5 },
-  }[
-    placement.includes('-') ? (placement.split('-')[0] ?? 'bottom') : placement
-  ];
 
   return (
     <Popover.Content
-      motionVariants={{
-        closed: {
-          ...translate,
-          opacity: 0,
-          transition: {
-            duration: 0.3,
-          },
-        },
-        open: {
-          translate: 0,
-          opacity: 1,
-          transition: {
-            duration: 0.4,
-            ease: 'easeOut',
-          },
-        },
-      }}
+      animation="fade"
       renderItem={({ id, ref }) => (
         <div
           className="bg-bg-inverse text-fg-inverse rounded-lg px-4 py-2 shadow-md"
