@@ -139,9 +139,11 @@ const Content: FC<{
   useFocusTrap(contentWrapperRef, triggerRef, isOpen && trapFocus);
 
   return (
+    // outline-hidden: フォーカス管理で当てる tabindex=-1 の管理用フォーカスでは
+    // ブラウザ既定の outline を出さない（中の項目・ボタンは各自の focus リングを持つ）。
     <div
       className={cn(
-        'z-overlay',
+        'z-overlay outline-hidden',
         animation === 'fade' ? 'ao-anim-fade' : 'ao-anim-scale',
         writingClass,
       )}
