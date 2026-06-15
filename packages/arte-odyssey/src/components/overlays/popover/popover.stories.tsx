@@ -137,7 +137,9 @@ const assertPlacement = (
 
 const placementStory = (placement: Placement): Story => ({
   render: () => (
-    <div className="flex min-h-svh items-center justify-center">
+    // 縦横ともビューポートを埋めてトリガーを中央に置く（min-h-svh だけだと
+    // 縦書きで block 軸=横となり幅が埋まらずトリガーが左端に寄ってしまう）。
+    <div className="fixed inset-0 flex items-center justify-center">
       <Popover.Root placement={placement}>
         <Popover.Trigger
           renderItem={(props) => (
