@@ -1,10 +1,10 @@
 'use client';
 
-import type { Placement } from '@floating-ui/react';
 import type { FC, HTMLProps, MouseEvent, ReactNode } from 'react';
 import { useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import type { Placement } from '../../../types/variables';
 import { FOCUS_RING } from '../../_internal/focus-ring';
 import { Tooltip, type TooltipTriggerProps } from '../../overlays/tooltip';
 import { chain } from './../../../helpers/chain';

@@ -1,6 +1,5 @@
 'use client';
 
-import type { Placement } from '@floating-ui/react';
 import {
   type ComponentProps,
   type FC,
@@ -9,6 +8,7 @@ import {
   useState,
 } from 'react';
 
+import type { Placement } from '../../../types/variables';
 import { Button } from '../../buttons/button';
 import { IconButton } from '../../buttons/icon-button';
 import { CheckIcon, ChevronIcon } from '../../icons';

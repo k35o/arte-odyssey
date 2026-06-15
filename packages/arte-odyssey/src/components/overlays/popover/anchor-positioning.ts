@@ -1,13 +1,12 @@
-import type { Placement } from '@floating-ui/react';
 import type { CSSProperties } from 'react';
+
+import type { Placement } from '../../../types/variables';
 
 /**
  * CSS Anchor Positioning による配置ヘルパー。
  *
- * floating-ui の位置決めミドルウェア（offset / flip / autoUpdate）を
- * ネイティブの CSS Anchor Positioning に置き換えるための変換を担う。
- * floating-ui は引き続き操作レイヤ（useListNavigation / FloatingFocusManager）
- * 用の `context` を供給するためだけに使う。
+ * placement を position-area / position-try-fallbacks / 対向辺マージン（offset 相当）へ
+ * 変換する。旧 floating-ui のミドルウェア（offset / flip / autoUpdate）の置き換え。
  *
  * 注意: CSS Anchor Positioning は Baseline newly available（2026-01）で、
  * 縦書き / RTL のインライン軸補正にエンジン差（既知の interop バグ）がある。

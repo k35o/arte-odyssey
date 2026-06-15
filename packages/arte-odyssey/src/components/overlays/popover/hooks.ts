@@ -1,6 +1,5 @@
 'use client';
 
-import type { Placement } from '@floating-ui/react';
 import {
   type KeyboardEvent,
   type KeyboardEventHandler,
@@ -11,6 +10,7 @@ import {
   useRef,
 } from 'react';
 
+import type { Placement } from '../../../types/variables';
 import { createSafeContext } from './../../../helpers/create-safe-context';
 import { useClickAway } from './../../../hooks/click-away';
 

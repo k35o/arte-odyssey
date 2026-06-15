@@ -1,6 +1,5 @@
 'use client';
 
-import type { Placement } from '@floating-ui/react';
 import {
   type FC,
   type PropsWithChildren,
@@ -14,6 +13,7 @@ import {
 import { cn } from '../../../helpers';
 import { useDisclosure, useWritingMode } from '../../../hooks';
 import { useFocusTrap } from '../../../hooks/focus-trap';
+import type { Placement } from '../../../types/variables';
 import { getContentAnchorStyle, toAnchorName } from './anchor-positioning';
 import {
   type PopoverContentProps,

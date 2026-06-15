@@ -1,6 +1,5 @@
 'use client';
 
-import type { Placement } from '@floating-ui/react';
 import {
   type FC,
   type FocusEvent,
@@ -14,6 +13,7 @@ import {
   useSyncExternalStore,
 } from 'react';
 
+import type { Placement } from '../../../types/variables';
 import { Popover } from '../popover';
 import { usePopoverContext } from '../popover/hooks';
 
