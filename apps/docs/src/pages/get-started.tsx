@@ -19,7 +19,6 @@ export function GetStarted() {
       </div>
       <Separator color="mute" />
 
-      {/* Installation */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="getStarted.installationTitle" />
@@ -36,7 +35,6 @@ export function GetStarted() {
 
       <Separator color="mute" />
 
-      {/* Setup */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="getStarted.setupTitle" />
@@ -75,7 +73,6 @@ function App({ children }) {
 
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="getStarted.usageTitle" />
@@ -100,7 +97,6 @@ function MyComponent() {
 
       <Separator color="mute" />
 
-      {/* Requirements */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="getStarted.requirementsTitle" />
@@ -118,7 +114,6 @@ function MyComponent() {
 
       <Separator color="mute" />
 
-      {/* Next Steps */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="getStarted.nextStepsTitle" />

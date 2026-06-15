@@ -7,7 +7,6 @@ import type { NavItem } from '../data/nav-types';
 import { LocaleAnchor } from './locale-anchor';
 import { T } from './t';
 
-// ホバーは形を動かさず影の変化のみ（静かな変化）
 const cardClass =
   'group bg-bg-base focus-within:ring-border-info relative flex flex-col overflow-hidden rounded-xl shadow-sm motion-safe:transition-shadow motion-safe:duration-150 motion-safe:ease-out hover:shadow-md focus-within:ring-2';
 

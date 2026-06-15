@@ -33,7 +33,6 @@ const fileFieldProps: PropItem[] = [
 export function FileFieldPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">FileField</Heading>
         <p className="text-fg-mute text-lg">
@@ -50,7 +49,6 @@ export function FileFieldPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -62,7 +60,6 @@ export function FileFieldPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -84,7 +81,6 @@ export function FileFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Accept Types */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.fileField.acceptTypesTitle" />
@@ -106,7 +102,6 @@ export function FileFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Multiple Files */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.fileField.multipleFilesTitle" />
@@ -127,7 +122,6 @@ export function FileFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Disabled */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.fileField.disabledTitle" />
@@ -148,7 +142,6 @@ export function FileFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Invalid */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.fileField.invalidTitle" />
@@ -171,7 +164,6 @@ export function FileFieldPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

@@ -28,7 +28,6 @@ const numberFieldProps: PropItem[] = [
 export function NumberFieldPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">NumberField</Heading>
         <p className="text-fg-mute text-lg">
@@ -45,7 +44,6 @@ export function NumberFieldPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -57,7 +55,6 @@ export function NumberFieldPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -74,7 +71,6 @@ export function NumberFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Step & Precision */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.numberField.stepPrecisionTitle" />
@@ -98,7 +94,6 @@ export function NumberFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Min / Max */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.numberField.minMaxTitle" />
@@ -124,7 +119,6 @@ export function NumberFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Disabled */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.numberField.disabledTitle" />
@@ -140,7 +134,6 @@ export function NumberFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Invalid */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.numberField.invalidTitle" />
@@ -158,7 +151,6 @@ export function NumberFieldPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

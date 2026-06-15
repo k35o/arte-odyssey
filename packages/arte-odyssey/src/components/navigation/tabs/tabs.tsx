@@ -62,7 +62,6 @@ const Root: FC<
 
   return (
     <TabsProvider value={contextValue}>
-      {/* TODO: スクロール以外の見せ方を考えても良さそう */}
       <div className="flex flex-col gap-1 overflow-x-auto p-0.5">
         {children}
       </div>

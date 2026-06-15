@@ -21,7 +21,6 @@ const anchorProps: PropItem[] = [
 export function AnchorPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">Anchor</Heading>
         <p className="text-fg-mute text-lg">
@@ -38,7 +37,6 @@ export function AnchorPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -50,7 +48,6 @@ export function AnchorPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -67,7 +64,6 @@ export function AnchorPage() {
           </ComponentPreview>
         </div>
 
-        {/* Open in New Tab */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.anchor.openInNewTabTitle" />
@@ -87,7 +83,6 @@ export function AnchorPage() {
           </ComponentPreview>
         </div>
 
-        {/* renderAnchor */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.anchor.renderAnchorTitle" />
@@ -113,7 +108,6 @@ import Link from 'next/link';
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

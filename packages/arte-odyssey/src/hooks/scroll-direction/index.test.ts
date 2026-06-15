@@ -46,7 +46,6 @@ describe('useScrollDirection', () => {
     it('上にスクロールするとy: upを返す', async () => {
       const { result, act } = await renderHook(() => useScrollDirection());
 
-      // 最初に下にスクロール
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 200 });
         window.dispatchEvent(new Event('scroll'));
@@ -54,7 +53,6 @@ describe('useScrollDirection', () => {
 
       expect(result.current.y).toBe('down');
 
-      // 上にスクロール
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 100 });
         window.dispatchEvent(new Event('scroll'));
@@ -90,7 +88,6 @@ describe('useScrollDirection', () => {
     it('左にスクロールするとx: leftを返す', async () => {
       const { result, act } = await renderHook(() => useScrollDirection());
 
-      // 最初に右にスクロール
       act(() => {
         Object.defineProperty(window, 'scrollX', { value: 200 });
         window.dispatchEvent(new Event('scroll'));
@@ -98,7 +95,6 @@ describe('useScrollDirection', () => {
 
       expect(result.current.x).toBe('right');
 
-      // 左にスクロール
       act(() => {
         Object.defineProperty(window, 'scrollX', { value: 100 });
         window.dispatchEvent(new Event('scroll'));

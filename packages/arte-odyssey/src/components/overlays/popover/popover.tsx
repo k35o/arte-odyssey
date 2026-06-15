@@ -67,7 +67,6 @@ const Root: FC<
     placement,
     open: isOpen,
     whileElementsMounted: autoUpdate,
-    // 要素と8pxだけ離す
     middleware: [
       offset(8),
       !flipDisabled &&

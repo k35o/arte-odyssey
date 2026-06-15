@@ -36,7 +36,6 @@ const options = [
 export function SelectPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">Select</Heading>
         <p className="text-fg-mute text-lg">
@@ -53,7 +52,6 @@ export function SelectPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -65,7 +63,6 @@ export function SelectPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -98,7 +95,6 @@ export function SelectPage() {
           </ComponentPreview>
         </div>
 
-        {/* Required */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.select.requiredTitle" />
@@ -124,7 +120,6 @@ export function SelectPage() {
           </ComponentPreview>
         </div>
 
-        {/* Default Value */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.select.defaultValueTitle" />
@@ -152,7 +147,6 @@ export function SelectPage() {
           </ComponentPreview>
         </div>
 
-        {/* Disabled */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.select.disabledTitle" />
@@ -178,7 +172,6 @@ export function SelectPage() {
           </ComponentPreview>
         </div>
 
-        {/* Invalid */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.select.invalidTitle" />
@@ -206,7 +199,6 @@ export function SelectPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

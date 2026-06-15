@@ -1,11 +1,7 @@
-// ★ Server Component（'use client' なし）。
-// サーバー安全な catalog を import して、サーバー上で catalog.prompt() を実行する。
-// これが成立する＝ catalog が RSC のサーバー側で使える証拠。
 import { catalog } from '@k8o/arte-odyssey/json-render';
 
 import { GenUiClient } from './gen-ui-client';
 
-// 実運用では LLM が生成する spec。ここでは手書き（プレーン JSON）。
 const spec = {
   root: 'root',
   elements: {
@@ -61,7 +57,6 @@ const spec = {
 };
 
 export default function Home() {
-  // ← サーバー上でプロンプト生成（catalog がサーバー安全でないとここで失敗する）
   const systemPrompt = catalog.prompt();
   const promptChars = systemPrompt.length;
 

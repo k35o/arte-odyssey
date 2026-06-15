@@ -18,10 +18,8 @@ const ArteOdysseyLogo: FC<{
       </linearGradient>
     </defs>
 
-    {/* ノード */}
     <circle cx="128" cy="250" r="20" fill="url(#arte-odyssey-g1)" />
 
-    {/* ドーム（上弧） */}
     <path
       d="M146 242 C158 155 215 90 300 78 C375 68 425 120 432 195 C436 235 420 268 392 282"
       stroke="url(#arte-odyssey-g1)"
@@ -29,7 +27,6 @@ const ArteOdysseyLogo: FC<{
       strokeLinecap="round"
     />
 
-    {/* ドーム（下弧） */}
     <path
       d="M146 258 C185 278 250 288 320 284 C355 280 378 274 392 265"
       stroke="url(#arte-odyssey-g1)"
@@ -37,7 +34,6 @@ const ArteOdysseyLogo: FC<{
       strokeLinecap="round"
     />
 
-    {/* 触手1 */}
     <path
       d="M200 286 C195 330 185 375 192 425"
       stroke="url(#arte-odyssey-g1)"
@@ -45,7 +41,6 @@ const ArteOdysseyLogo: FC<{
       strokeLinecap="round"
     />
 
-    {/* 触手2 */}
     <path
       d="M280 288 C282 332 288 378 298 430"
       stroke="url(#arte-odyssey-g1)"
@@ -53,7 +48,6 @@ const ArteOdysseyLogo: FC<{
       strokeLinecap="round"
     />
 
-    {/* 触手3 */}
     <path
       d="M350 280 C358 320 370 365 388 415"
       stroke="url(#arte-odyssey-g1)"

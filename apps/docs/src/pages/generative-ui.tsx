@@ -16,7 +16,6 @@ export function GenerativeUi() {
       </div>
       <Separator color="mute" />
 
-      {/* Prompt generation (server) */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="generativeUi.promptTitle" />
@@ -35,7 +34,6 @@ const systemPrompt = catalog.prompt({ customRules: [...arteOdysseyRules] });`}
 
       <Separator color="mute" />
 
-      {/* Render (client) */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="generativeUi.renderTitle" />
@@ -56,7 +54,6 @@ export function GenUi({ spec }: { spec: unknown }) {
 
       <Separator color="mute" />
 
-      {/* Validate & repair */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="generativeUi.validateTitle" />
@@ -78,7 +75,6 @@ const retried = await llm(result.repairPrompt); // fix and retry`}
 
       <Separator color="mute" />
 
-      {/* Typed specs */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="generativeUi.typedTitle" />
@@ -102,7 +98,6 @@ const spec = {
 
       <Separator color="mute" />
 
-      {/* OpenUI */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="generativeUi.openuiTitle" />

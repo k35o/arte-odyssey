@@ -60,7 +60,6 @@ export function Home() {
 
   return (
     <div className="flex flex-1 flex-col">
-      {/* ===== 扉（非対称ヒーロー） ===== */}
       <section className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-12 px-6 py-20 md:grid-cols-[1fr_auto] md:gap-16 md:px-8 md:py-28">
         <div className="flex max-w-xl flex-col justify-center gap-8">
           {/* Heading は className を受けないため、ヒーローのみ生 h1（サイト内この1箇所限定） */}
@@ -147,7 +146,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* ===== 目次（特徴） ===== */}
       <section className="mx-auto w-full max-w-6xl px-6 pb-24 md:px-8">
         <Heading type="h2">{t('home.featuresTitle')}</Heading>
         <ol className="mt-8">

@@ -299,7 +299,6 @@
   --color-transparent: transparent;
   --color-back-drop: var(--back-drop);
 
-  /* group */
   --color-group-primary: var(--group-primary);
   --color-group-secondary: var(--group-secondary);
   --color-group-tertiary: var(--group-tertiary);

@@ -86,7 +86,6 @@ export const { registry } = defineRegistry(catalog, {
       return ui.renderSelect(props, value, setValue);
     },
 
-    // 表示・データ駆動（状態なし）
     Anchor: ({ props }) => ui.renderAnchor(props),
     Avatar: ({ props }) => ui.renderAvatar(props),
     Code: ({ props }) => ui.renderCode(props),
@@ -100,7 +99,6 @@ export const { registry } = defineRegistry(catalog, {
     Breadcrumb: ({ props }) => ui.renderBreadcrumb(props),
     Table: ({ props }) => ui.renderTable(props),
 
-    // フォーム（文字列）
     Textarea: ({ props, bindings }) => {
       const [value, setValue] = useBoundOrLocal<string>(
         props.defaultValue,
@@ -136,7 +134,6 @@ export const { registry } = defineRegistry(catalog, {
       return ui.renderRadioCard(props, value, setValue);
     },
 
-    // フォーム（数値）
     NumberField: ({ props, bindings }) => {
       const [value, setValue] = useBoundOrLocal<number>(
         props.defaultValue,
@@ -155,7 +152,6 @@ export const { registry } = defineRegistry(catalog, {
       return ui.renderSlider(props, value, setValue);
     },
 
-    // フォーム（複数選択）
     CheckboxCard: ({ props, bindings }) => {
       const [value, setValue] = useBoundOrLocal<string[]>(
         props.defaultValue,
@@ -165,7 +161,6 @@ export const { registry } = defineRegistry(catalog, {
       return ui.renderCheckboxCard(props, value, setValue);
     },
 
-    // ページネーション（defaultPage を $bindState で束縛、無ければローカル状態）
     Pagination: ({ props, bindings }) => {
       const [page, setPage] = useBoundOrLocal<number>(
         props.defaultPage,
@@ -175,10 +170,8 @@ export const { registry } = defineRegistry(catalog, {
       return ui.renderPagination(props, page, setPage);
     },
 
-    // コンテナ追加
     Form: ({ props, children }) => ui.renderForm(props, children),
 
-    // オーバーレイ（自己完結ウィジェット）
     Modal: ({ props, children }) => (
       <ui.ModalWidget props={props}>{children}</ui.ModalWidget>
     ),
@@ -193,11 +186,9 @@ export const { registry } = defineRegistry(catalog, {
     DropdownMenu: ({ props }) => ui.renderDropdownMenu(props),
     Toast: ({ props }) => <ui.ToastWidget props={props} />,
 
-    // leaf 追加
     ScrollLinked: ({ props }) => ui.renderScrollLinked(props),
     BaselineStatus: ({ props }) => ui.renderBaselineStatus(props),
 
-    // フォーム追加
     ListBox: ({ props, bindings }) => {
       const path = bindings?.defaultValue;
       const hasBinding = path !== undefined && path !== '';

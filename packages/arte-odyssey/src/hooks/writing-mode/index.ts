@@ -6,7 +6,6 @@ export type WritingMode = 'horizontal' | 'vertical';
 
 const getServerSnapshot = (): WritingMode => 'horizontal';
 
-// writing-mode が `vertical-*` / `sideways-*` のいずれかなら 'vertical' として扱う。
 const resolve = (value: string): WritingMode =>
   value.startsWith('vertical') || value.startsWith('sideways')
     ? 'vertical'

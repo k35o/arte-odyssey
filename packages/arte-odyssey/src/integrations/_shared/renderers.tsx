@@ -236,17 +236,12 @@ const iconMap = {
 const u = <T,>(value: T | null | undefined): T | undefined =>
   value ?? undefined;
 
-// ---------------------------------------------------------------------------
-// leaf renderers
-// ---------------------------------------------------------------------------
-
 export function renderButton(props: ButtonProps): ReactNode {
   const { label, href } = props;
   return (
     <Button
       color={u(props.color)}
       fullWidth={u(props.fullWidth)}
-      // ★ render props の橋渡し: href（文字列）から renderItem を内部生成。
       renderItem={
         href !== undefined && href !== ''
           ? ({ className, children }) => (
@@ -297,10 +292,6 @@ export function renderSeparator(props: SeparatorProps): ReactNode {
   );
 }
 
-// ---------------------------------------------------------------------------
-// containers (children は各 FW が描画して渡す)
-// ---------------------------------------------------------------------------
-
 // The bare Card has no padding and the generative catalog has no className
 // escape hatch, so map the integration `size` to a sensible inner padding
 // (default md). Mirrors the size→padding convention in Chakra / Fluent / Radix.
@@ -321,10 +312,6 @@ export function renderCard(props: CardProps, children: ReactNode): ReactNode {
     </Card>
   );
 }
-
-// ---------------------------------------------------------------------------
-// tabs（テキストパネルのデータ駆動版）
-// ---------------------------------------------------------------------------
 
 // Tabs は ARIA の `aria-controls` / `aria-labelledby` で ID を参照するため、
 // 同一ページに複数描画されても衝突しないよう `useId()` で生成する必要がある。
@@ -357,10 +344,6 @@ export function renderTabs(props: TabsProps): ReactNode {
   return <TabsView props={props} />;
 }
 
-// ---------------------------------------------------------------------------
-// layout
-// ---------------------------------------------------------------------------
-
 export function renderStack(props: StackProps, children: ReactNode): ReactNode {
   return (
     <Stack
@@ -386,10 +369,6 @@ export function renderGrid(props: GridProps, children: ReactNode): ReactNode {
     </Grid>
   );
 }
-
-// ---------------------------------------------------------------------------
-// form renderers (値とセッターは各 FW の状態機構から渡す)
-// ---------------------------------------------------------------------------
 
 export function renderTextField(
   props: TextFieldProps,
@@ -648,10 +627,6 @@ export function renderPagination(
   );
 }
 
-// ---------------------------------------------------------------------------
-// leaf / display (追加分)
-// ---------------------------------------------------------------------------
-
 export function renderIcon(props: IconProps): ReactNode {
   const IconComponent = iconMap[props.name];
   return <IconComponent size={u(props.size) ?? 'md'} />;
@@ -664,9 +639,6 @@ export function renderChevronIcon(props: ChevronIconProps): ReactNode {
   );
 }
 
-// arte-odyssey の AlertIcon を「StatusIcon」として公開（status は文脈と分かるが、
-// 生成 UI 利用者からは AlertIcon という名前だと「Alert コンポーネントを使え」と
-// 誤解されやすいため改名）。
 export function renderStatusIcon(props: StatusIconProps): ReactNode {
   return <AlertIcon size={u(props.size) ?? 'md'} status={props.status} />;
 }
@@ -724,10 +696,6 @@ export function renderSkeleton(props: SkeletonProps): ReactNode {
     />
   );
 }
-
-// ---------------------------------------------------------------------------
-// data-driven (items 配列)
-// ---------------------------------------------------------------------------
 
 export function renderAccordion(props: AccordionProps): ReactNode {
   return (
@@ -798,20 +766,10 @@ export function renderTable(props: TableProps): ReactNode {
   );
 }
 
-// ---------------------------------------------------------------------------
-// containers (children を持つ追加分)
-// ---------------------------------------------------------------------------
-
 export function renderForm(props: FormProps, children: ReactNode): ReactNode {
   return <Form action={u(props.action)}>{children}</Form>;
 }
 
-// ---------------------------------------------------------------------------
-// overlays（自己完結ウィジェット: トリガーボタン＋コンテンツ、開閉は内部 state）
-// ---------------------------------------------------------------------------
-
-// Modal/Dialog ウィジェットはトリガーボタン＋Modal＋Dialog の骨格を共有する。
-// 差分はトリガーボタンの見た目と Modal の type のみ。
 const OverlayWidget: FC<{
   triggerLabel: string;
   title: string;
@@ -969,10 +927,6 @@ export function renderDropdownMenu(props: DropdownMenuProps): ReactNode {
   );
 }
 
-// ---------------------------------------------------------------------------
-// leaf / data 追加分
-// ---------------------------------------------------------------------------
-
 export function renderScrollLinked(_props: ScrollLinkedProps): ReactNode {
   return <ScrollLinked />;
 }
@@ -981,11 +935,7 @@ export function renderBaselineStatus(props: BaselineStatusProps): ReactNode {
   return <BaselineStatus featureId={props.featureId} />;
 }
 
-// ---------------------------------------------------------------------------
-// Toast: トースト発火ボタンを生成 UI から扱うためのウィジェット。
 // ToastProvider はラッパー側で巻く必要があるため、ローカルにも 1 段被せる。
-// ---------------------------------------------------------------------------
-
 const ToastTriggerInner: FC<{ props: ToastProps }> = ({ props }) => {
   const { onOpen } = useToast();
   return (
@@ -1005,10 +955,6 @@ export const ToastWidget: FC<{ props: ToastProps }> = ({ props }) => (
     <ToastTriggerInner props={props} />
   </ToastProvider>
 );
-
-// ---------------------------------------------------------------------------
-// form 追加分
-// ---------------------------------------------------------------------------
 
 export function renderListBox(
   props: ListBoxProps,
@@ -1088,8 +1034,6 @@ export const FileFieldWidget: FC<{ props: FileFieldProps }> = ({ props }) => (
   </FileField.Root>
 );
 
-// FormControl: text/textarea/password のいずれかの入力をラベル＋ヘルプ/エラー付きで包む。
-// 自己完結ウィジェット（入力値はローカル state）。
 export const FormControlWidget: FC<{ props: FormControlProps }> = ({
   props,
 }) => {
