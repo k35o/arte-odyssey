@@ -30,7 +30,9 @@ jobs:
         uses: ./.github/composite-actions/install
 
       - name: Install Playwright browsers
-        run: pnpm exec playwright install
+        # --with-deps installs the OS font packages (incl. CJK: fonts-ipafont-gothic /
+        # fonts-wqy-zenhei) so Japanese text renders instead of tofu (□) boxes.
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Capture story screenshots
         run: pnpm --filter @k8o/arte-odyssey test:vrt
