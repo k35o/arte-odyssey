@@ -75,6 +75,8 @@ export const getContentAnchorStyle = (
     // position-area で配置できるよう打ち消す。
     inset: 'auto',
     margin: 0,
+    // UA の `[popover] { overflow: auto }` は内側の影・角丸をクリップするため visible に戻す。
+    overflow: 'visible',
     ...sideGap(side),
     positionAnchor: anchorName,
     positionArea: POSITION_AREA[placement],
