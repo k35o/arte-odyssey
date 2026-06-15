@@ -1,14 +1,9 @@
 'use client';
 
-import { useListItem } from '@floating-ui/react';
-import {
-  type HTMLAttributes,
-  type HTMLProps,
-  type RefObject,
-  useMemo,
-} from 'react';
+import { useMemo } from 'react';
 
 import { createSafeContext } from '../../../helpers/create-safe-context';
+import type { ListNavigation } from '../_internal/use-list-navigation';
 import { useOpenContext } from '../popover/hooks';
 
 export type Option = {
@@ -16,23 +11,10 @@ export type Option = {
   label: string;
 };
 
-type MenuContext = {
+type MenuContext = ListNavigation & {
   options: Option[];
-  activeIndex: number | null;
-  selectedIndex: number | null;
+  selectedIndex: number;
   handleSelect: (index: number) => void;
-  itemElementsRef: RefObject<Array<HTMLElement | null>>;
-  // `color` は HTML の装飾属性。floating-ui は設定しないため除外し、
-  // IconButton/Button 側の `color`（union 型）と spread 時に衝突しないようにする。
-  getTriggerProps: (
-    userProps?: HTMLProps<HTMLElement>,
-  ) => Omit<HTMLAttributes<HTMLElement>, 'color'>;
-  getContentProps: (
-    userProps?: HTMLProps<HTMLElement>,
-  ) => HTMLAttributes<HTMLElement>;
-  getItemProps: (
-    userProps?: Omit<HTMLProps<HTMLElement>, 'selected' | 'active'>,
-  ) => HTMLAttributes<HTMLElement>;
 };
 
 const [MenuContextProvider, useMenuContext] = createSafeContext<MenuContext>(
@@ -49,7 +31,6 @@ export const useMenuContent = () => {
       options: menu.options,
       selectedIndex: menu.selectedIndex,
       contentProps: menu.getContentProps(),
-      itemElementsRef: menu.itemElementsRef,
     }),
     [menu],
   );
@@ -58,24 +39,20 @@ export const useMenuContent = () => {
 export const useMenuItem = (index: number) => {
   const menu = useMenuContext();
   const { onClose } = useOpenContext();
-  const item = useListItem();
   return useMemo(
     () => ({
       selected: menu.selectedIndex === index,
       props: {
-        ref: item.ref,
+        role: 'option' as const,
         'aria-selected': menu.selectedIndex === index,
-        role: 'option',
-        tabIndex: menu.activeIndex === item.index ? 0 : -1,
-        ...menu.getItemProps({
-          onClick: () => {
-            menu.handleSelect(index);
-            onClose();
-          },
-        }),
+        ...menu.getItemProps(index),
+        onClick: () => {
+          menu.handleSelect(index);
+          onClose();
+        },
       },
     }),
-    [index, item.index, item.ref, menu, onClose],
+    [index, menu, onClose],
   );
 };
 
@@ -83,14 +60,8 @@ export const useMenuTrigger = () => {
   const menu = useMenuContext();
   const defaultLabel = '選択してください';
   const label =
-    menu.selectedIndex === null
+    menu.selectedIndex < 0
       ? defaultLabel
       : (menu.options[menu.selectedIndex]?.label ?? defaultLabel);
-  return useMemo(
-    () => ({
-      label,
-      getTriggerProps: menu.getTriggerProps,
-    }),
-    [label, menu.getTriggerProps],
-  );
+  return useMemo(() => ({ label }), [label]);
 };

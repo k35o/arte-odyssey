@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  FloatingPortal,
-  type Placement,
-  type ReferenceType,
-  useFloating,
-} from '@floating-ui/react';
+import { FloatingPortal, type Placement } from '@floating-ui/react';
 import { AnimatePresence, type Variants } from 'motion/react';
 import * as motion from 'motion/react-client';
 import {
@@ -18,7 +13,7 @@ import {
   useRef,
 } from 'react';
 
-import { cn, mergeRefs } from '../../../helpers';
+import { cn } from '../../../helpers';
 import { useDisclosure, useWritingMode } from '../../../hooks';
 import { useFocusTrap } from '../../../hooks/focus-trap';
 import { usePortalRoot } from '../../providers';
@@ -57,23 +52,20 @@ const Root: FC<
   const id = useId();
   const { isOpen, open, close, toggle } = useDisclosure();
 
-  // floating-ui は操作レイヤ（useListNavigation / FloatingFocusManager）が必要とする
-  // context を供給する目的だけで使う。位置決め（offset / flip / autoUpdate）は
-  // CSS Anchor Positioning へ移譲した。
-  const { refs, context } = useFloating({ open: isOpen });
-
   const anchorName = toAnchorName(id);
+  const triggerRef = useRef<HTMLElement | null>(null);
 
   // trigger は Button / IconButton 経由で style・className を受け取れない（型で omit 済み）ため、
-  // ref 経由で DOM に直接 anchor-name を付与する。
+  // ref 経由で DOM に直接 anchor-name を付与する。位置決め・操作レイヤを自前化したため
+  // floating-ui の useFloating は不要になった。
   const setTriggerRef = useCallback(
-    (node: ReferenceType | null) => {
-      refs.setReference(node);
-      if (node instanceof HTMLElement) {
+    (node: HTMLElement | null) => {
+      triggerRef.current = node;
+      if (node) {
         node.style.setProperty('anchor-name', anchorName);
       }
     },
-    [refs, anchorName],
+    [anchorName],
   );
 
   useEffect(() => {
@@ -101,13 +93,11 @@ const Root: FC<
         toggleOpen: toggle,
         onOpen: open,
         onClose: close,
-        context,
         placement,
         anchorName,
         flipDisabled,
-        triggerRef: refs.domReference,
+        triggerRef,
         setTriggerRef,
-        setContentRef: refs.setFloating,
       }}
     >
       {children}
@@ -135,15 +125,8 @@ const Content: FC<{
   renderItem: (props: PopoverContentProps) => ReactElement;
   motionVariants?: Variants;
 }> = ({ renderItem, motionVariants = contentMotionVariants }) => {
-  const {
-    isOpen,
-    trapFocus,
-    setContentRef,
-    anchorName,
-    placement,
-    flipDisabled,
-    itemProps,
-  } = usePopoverContent();
+  const { isOpen, trapFocus, anchorName, placement, flipDisabled, itemProps } =
+    usePopoverContent();
   const { triggerRef } = usePopoverContext();
 
   const root = usePortalRoot();
@@ -165,7 +148,7 @@ const Content: FC<{
         <FloatingPortal {...protalProps}>
           <div
             className={cn('z-overlay', writingClass)}
-            ref={mergeRefs(setContentRef, contentWrapperRef)}
+            ref={contentWrapperRef}
             style={getContentAnchorStyle(anchorName, placement, flipDisabled)}
           >
             <motion.div

@@ -1,10 +1,6 @@
 'use client';
 
-import type {
-  FloatingContext,
-  Placement,
-  ReferenceType,
-} from '@floating-ui/react';
+import type { Placement } from '@floating-ui/react';
 import {
   type KeyboardEvent,
   type KeyboardEventHandler,
@@ -28,27 +24,20 @@ type PopoverContext = {
   onOpen: () => void;
   onClose: () => void;
 
-  context: FloatingContext;
   // 要求された placement。位置決めは CSS Anchor Positioning が行うため、
   // flip 後の解決値ではなく利用側が指定した値をそのまま保持する。
   placement: Placement;
   // この Popover インスタンス固有の anchor-name（trigger に付与し content から参照）。
   anchorName: string;
   flipDisabled: boolean;
-  triggerRef: RefObject<Element | null>;
-  setTriggerRef: (node: ReferenceType | null) => void;
-  setContentRef: (node: HTMLElement | null) => void;
+  triggerRef: RefObject<HTMLElement | null>;
+  setTriggerRef: (node: HTMLElement | null) => void;
 };
 
 export const [PopoverProvider, usePopoverContext] =
   createSafeContext<PopoverContext>(
     'usePopoverContext must be used within a Popover.Root',
   );
-
-export const useFloatingUIContext = () => {
-  const popover = usePopoverContext();
-  return useMemo(() => popover.context, [popover]);
-};
 
 export const usePlacement = (): Placement => {
   const popover = usePopoverContext();
@@ -122,8 +111,6 @@ export const usePopoverContent = () => {
       ref,
       isOpen: popover.isOpen,
       trapFocus: popover.trapFocus,
-      context: popover.context,
-      setContentRef: popover.setContentRef,
       anchorName: popover.anchorName,
       placement: popover.placement,
       flipDisabled: popover.flipDisabled,
@@ -132,8 +119,6 @@ export const usePopoverContent = () => {
     [
       popover.rootId,
       popover.isOpen,
-      popover.context,
-      popover.setContentRef,
       popover.anchorName,
       popover.placement,
       popover.flipDisabled,
