@@ -9,7 +9,6 @@ const extractFunctionContent = (
   let match = funcPattern.exec(source);
 
   while (match !== null) {
-    // 開き括弧の位置
     const startIndex = match.index + match[0].length - 1;
     let depth = 0;
     let endIndex = -1;
@@ -57,7 +56,6 @@ export function findAllColors(text: string): ColorMatch[] {
     results.push(...matches);
   }
 
-  // HEX色を見つける
   const hexPattern = /#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})(?=\s|;|,|$|\)|\]|\})/gu;
   let hexMatch = hexPattern.exec(text);
   while (hexMatch !== null) {
@@ -70,7 +68,6 @@ export function findAllColors(text: string): ColorMatch[] {
     hexMatch = hexPattern.exec(text);
   }
 
-  // 名前付き色を見つける
   const namedColors = [
     'red',
     'blue',
@@ -102,14 +99,12 @@ export function findAllColors(text: string): ColorMatch[] {
     let startIndex = 0;
     let index = lowerText.indexOf(color, startIndex);
     while (index !== -1) {
-      // 完全な単語かどうかをチェック
       const beforeChar = index > 0 ? (lowerText[index - 1] ?? ' ') : ' ';
       const afterChar =
         index + color.length < lowerText.length
           ? (lowerText[index + color.length] ?? ' ')
           : ' ';
 
-      // 前後が英数字でないことを確認（完全一致のみ）
       const isWordBoundary = !(
         /[a-zA-Z0-9]/u.test(beforeChar) || /[a-zA-Z0-9]/u.test(afterChar)
       );
@@ -127,7 +122,6 @@ export function findAllColors(text: string): ColorMatch[] {
     }
   }
 
-  // 位置でソートし、重複を除去
   results.sort((a, b) => a.start - b.start);
   const filteredResults: Array<{
     color: string;

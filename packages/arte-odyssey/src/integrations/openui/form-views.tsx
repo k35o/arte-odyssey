@@ -9,16 +9,6 @@ import type { FC } from 'react';
 import * as ui from '../_shared/renderers';
 import type * as s from '../_shared/schemas';
 
-/**
- * OpenUI のフォーム状態（`useStateField`）に接続する関数コンポーネント群。
- *
- * `defineComponent` の `component` フィールドにそのまま渡せる FC として実装する。
- * フックを使うので React の rules-of-hooks を満たす大文字始まり関数として
- * 定義する必要があり、`library.tsx` の宣言的な `defineComponent` 並びから
- * 切り出してここに集約した。値域と setter の解決だけを担当し、見た目の組み立て
- * は `_shared/renderers` の `renderXxx` に委譲する。
- */
-
 export const TextFieldView: FC<ComponentRenderProps<s.TextFieldProps>> = ({
   props,
 }) => {

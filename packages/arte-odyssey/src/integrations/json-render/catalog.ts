@@ -233,13 +233,10 @@ export const arteOdysseyRules: readonly string[] = [
   'Tabs と Accordion の content はプレーンテキストのみ。コンポーネントは入れ子にできない。',
 ];
 
-/** catalog に登録されたコンポーネント定義のマップ（型レベル）。 */
 type ComponentSchemas = (typeof catalog)['data']['components'];
 
-/** catalog に登録されたコンポーネント名のユニオン。 */
 export type ComponentName = keyof ComponentSchemas;
 
-/** 指定したコンポーネントの props 型（Zod スキーマから推論）。 */
 export type ComponentProps<K extends ComponentName> = z.infer<
   ComponentSchemas[K]['props']
 >;
@@ -275,7 +272,6 @@ export type ArteSpec = {
   state?: Spec['state'];
 };
 
-/** 検証で見つかった 1 件の問題。 */
 export type GeneratedSpecIssue = {
   /** 問題のあった要素キー（spec 全体の問題なら未指定）。 */
   elementKey?: string;
@@ -283,7 +279,6 @@ export type GeneratedSpecIssue = {
   message: string;
 };
 
-/** {@link validateGeneratedSpec} の結果。 */
 export type ValidateGeneratedSpecResult =
   | { ok: true; spec: ArteSpec; fixes: string[] }
   | { ok: false; issues: GeneratedSpecIssue[]; repairPrompt: string };

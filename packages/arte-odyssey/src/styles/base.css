@@ -65,7 +65,6 @@
   }
 }
 
-/* dark・light themeの値を使うための宣言 */
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant light (&:where(.light, .light *));
 

@@ -31,7 +31,6 @@ export const buildArteOdysseyLibrary = <C>(
   ) =>
     defineComponent({ name, description, props, component: render[name] as C });
 
-  // --- leaf / data / form（コンテナ以外） ---
   const Button = def(
     'Button',
     'アクションボタン。href を指定するとリンク（<a>）になる。',
@@ -202,7 +201,6 @@ export const buildArteOdysseyLibrary = <C>(
     s.formControlProps,
   );
 
-  // コンテナに入れられる leaf / data / form コンポーネント（Stack 自身は除く）。
   const childRefs = [
     Button.ref,
     IconButton.ref,
@@ -247,7 +245,6 @@ export const buildArteOdysseyLibrary = <C>(
     FormControl.ref,
   ] as const;
 
-  // Stack / Grid は leaf / form のみを子に取る（コンテナは入れられない）。
   const Stack = def(
     'Stack',
     '子要素を縦/横に等間隔で並べるレイアウトコンテナ。Stack の直下に Stack/Grid/Card は置けない。入れ子レイアウトが必要なら Card の中に Stack や Grid を入れる。',
@@ -263,7 +260,6 @@ export const buildArteOdysseyLibrary = <C>(
     }),
   );
 
-  // Stack / Grid を含めた汎用 child refs（コンテナの中身として使う）。
   const containerChildRefs = [...childRefs, Stack.ref, Grid.ref] as const;
 
   const Card = def(

@@ -33,7 +33,6 @@ const dialogContentProps: PropItem[] = [
 export function DialogPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">Dialog</Heading>
         <p className="text-fg-mute text-lg">
@@ -50,7 +49,6 @@ export function DialogPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -63,7 +61,6 @@ import { Modal } from '@k8o/arte-odyssey';`}
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -79,7 +76,6 @@ import { Modal } from '@k8o/arte-odyssey';`}
           </ComponentPreview>
         </div>
 
-        {/* Basic usage with Modal */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.common.basicUsageTitle" />
@@ -110,7 +106,6 @@ import { Modal } from '@k8o/arte-odyssey';`}
           </ComponentPreview>
         </div>
 
-        {/* Alert Dialog */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.dialog.alertDialogTitle" />
@@ -158,7 +153,6 @@ import { Modal } from '@k8o/arte-odyssey';`}
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

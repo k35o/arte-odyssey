@@ -53,7 +53,6 @@ const dropdownMenuItemProps: PropItem[] = [
 export function DropdownMenuPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">DropdownMenu</Heading>
         <p className="text-fg-mute text-lg">
@@ -70,7 +69,6 @@ export function DropdownMenuPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -82,7 +80,6 @@ export function DropdownMenuPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -102,7 +99,6 @@ export function DropdownMenuPage() {
           </ComponentPreview>
         </div>
 
-        {/* With IconTrigger */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.dropdownMenu.iconTriggerTitle" />
@@ -126,7 +122,6 @@ export function DropdownMenuPage() {
           </ComponentPreview>
         </div>
 
-        {/* Sizes */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.dropdownMenu.sizesTitle" />
@@ -160,7 +155,6 @@ export function DropdownMenuPage() {
           </ComponentPreview>
         </div>
 
-        {/* Placement */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.dropdownMenu.placementTitle" />
@@ -196,7 +190,6 @@ export function DropdownMenuPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

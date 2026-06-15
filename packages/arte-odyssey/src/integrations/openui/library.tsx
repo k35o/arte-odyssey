@@ -41,7 +41,6 @@ import {
  * 入れ子は非対応（Card には Stack/Grid を入れられる）。
  */
 
-// 子要素を持つコンテナの props（children は描画対象のサブコンポーネント配列）。
 type ContainerRenderProps<P> = ComponentRenderProps<
   P & { children: ReadonlyArray<{ typeName: string }> }
 >;
@@ -56,10 +55,7 @@ const renderChildren = (
     <Fragment key={`${child.typeName}-${index}`}>{renderNode(child)}</Fragment>
   ));
 
-// 各コンポーネントの描画関数。スキーマ・説明・子要素構成は openui-defs 側にある。
-// 各 props はスキーマ由来の型で注釈し、ファクトリには描画関数の union として渡す。
 const renderers = {
-  // コンテナ
   Stack: ({ props, renderNode }: ContainerRenderProps<sc.StackProps>) =>
     ui.renderStack(props, renderChildren(props.children, renderNode)),
   Grid: ({ props, renderNode }: ContainerRenderProps<sc.GridProps>) =>
@@ -69,7 +65,6 @@ const renderers = {
   Form: ({ props, renderNode }: ContainerRenderProps<sc.FormProps>) =>
     ui.renderForm(props, renderChildren(props.children, renderNode)),
 
-  // オーバーレイ（自己完結ウィジェット）
   Modal: ({ props, renderNode }: ContainerRenderProps<sc.ModalProps>) => (
     <ui.ModalWidget props={props}>
       {renderChildren(props.children, renderNode)}
@@ -95,7 +90,6 @@ const renderers = {
     <ui.ToastWidget props={props} />
   ),
 
-  // leaf / data（状態なし）
   Button: ({ props }: ComponentRenderProps<sc.ButtonProps>) =>
     ui.renderButton(props),
   IconButton: ({ props }: ComponentRenderProps<sc.IconButtonProps>) =>
@@ -136,7 +130,6 @@ const renderers = {
   Table: ({ props }: ComponentRenderProps<sc.TableProps>) =>
     ui.renderTable(props),
 
-  // フォーム（hook を呼ぶ View FC は form-views へ切り出し済み）
   TextField: TextFieldView,
   Textarea: TextareaView,
   PasswordInput: PasswordInputView,

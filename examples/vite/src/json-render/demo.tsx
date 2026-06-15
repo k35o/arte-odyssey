@@ -1,13 +1,6 @@
 import type { ArteSpec } from '@k8o/arte-odyssey/json-render';
 import { JsonRenderUI } from '@k8o/arte-odyssey/json-render/registry';
 
-/**
- * 事前結線済みの `JsonRenderUI`（'use client'）に spec を渡すだけで描画できる。
- * プロンプト生成だけならサーバー安全な `@k8o/arte-odyssey/json-render`（catalog）。
- * spec（UIツリー）は実運用では LLM が生成する。ここでは手書きだが、
- * `satisfies ArteSpec` で component 名・props の typo がコンパイルエラーになる。
- * Stack は slots なので入れ子（横並びグループ）が自由にできる。
- */
 const spec = {
   root: 'root',
   elements: {

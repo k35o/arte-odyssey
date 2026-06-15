@@ -46,7 +46,6 @@ const popoverContentProps: PropItem[] = [
 export function PopoverPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">Popover</Heading>
         <p className="text-fg-mute text-lg">
@@ -63,7 +62,6 @@ export function PopoverPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -75,7 +73,6 @@ export function PopoverPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -106,7 +103,6 @@ export function PopoverPage() {
           </ComponentPreview>
         </div>
 
-        {/* Placement */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.popover.placementTitle" />
@@ -178,7 +174,6 @@ export function PopoverPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

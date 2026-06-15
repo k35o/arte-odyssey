@@ -17,17 +17,14 @@ export const Code: FC<Props> = ({ children, ...rest }) => {
     );
   }
 
-  // 各色の前にカラースウォッチを挿入してコンテンツを構築
   const parts: React.ReactNode[] = [];
   let lastIndex = 0;
 
   for (const [index, colorInfo] of colors.entries()) {
-    // 色の前のテキストを追加
     if (colorInfo.start > lastIndex) {
       parts.push(children.slice(lastIndex, colorInfo.start));
     }
 
-    // 色のテキストの前にカラースウォッチを追加
     parts.push(
       <Fragment key={`color-${String(index)}`}>
         <span
@@ -43,7 +40,6 @@ export const Code: FC<Props> = ({ children, ...rest }) => {
     lastIndex = colorInfo.end;
   }
 
-  // 残りのテキストを追加
   if (lastIndex < children.length) {
     parts.push(children.slice(lastIndex));
   }

@@ -36,7 +36,6 @@ const SAMPLE_TONE = ['success', 'warning', 'error'] as const;
 export function StackPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">Stack</Heading>
         <p className="text-fg-mute text-lg">
@@ -53,7 +52,6 @@ export function StackPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -65,7 +63,6 @@ export function StackPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -86,7 +83,6 @@ export function StackPage() {
           </ComponentPreview>
         </div>
 
-        {/* Direction */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.stack.directionTitle" />
@@ -110,7 +106,6 @@ export function StackPage() {
           </ComponentPreview>
         </div>
 
-        {/* Gap */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.stack.gapTitle" />
@@ -129,7 +124,6 @@ export function StackPage() {
           </ComponentPreview>
         </div>
 
-        {/* Align & justify */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.stack.alignTitle" />
@@ -147,7 +141,6 @@ export function StackPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

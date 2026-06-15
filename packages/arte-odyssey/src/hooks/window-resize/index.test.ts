@@ -11,7 +11,6 @@ describe('useWindowResize', () => {
       useWindowResize(callback);
     });
 
-    // 初回のレンダリング時には呼ばれない
     expect(callback).not.toHaveBeenCalled();
 
     window.innerWidth = resizedWindowSize.width;

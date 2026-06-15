@@ -54,10 +54,6 @@ const safeUrl = z
   .string()
   .regex(/^(https?:\/\/|\/)/u, '外部 URL（http/https）または相対 URL のみ許可');
 
-// ---------------------------------------------------------------------------
-// buttons
-// ---------------------------------------------------------------------------
-
 type ButtonIntegrationProps = {
   label: string;
   variant?: ComponentProps<typeof Button>['variant'];
@@ -171,10 +167,6 @@ export const statusIconProps = z.object({
   size: z.enum(['sm', 'md', 'lg']).optional(),
 }) satisfies z.ZodType<StatusIconIntegrationProps>;
 
-// ---------------------------------------------------------------------------
-// data-display
-// ---------------------------------------------------------------------------
-
 type BadgeIntegrationProps = {
   text: string;
   tone?: ComponentProps<typeof Badge>['tone'];
@@ -267,7 +259,7 @@ type CardIntegrationProps = {
   appearance?: ComponentProps<typeof Card>['appearance'];
   interactive?: ComponentProps<typeof Card>['interactive'];
   // Integration-only: the bare Card has no padding, so `size` drives the
-  // generated card's inner padding (sm/md/lg). Hand-written abstraction.
+  // generated card's inner padding (sm/md/lg).
   size?: 'sm' | 'md' | 'lg';
 };
 export const cardProps = z.object({
@@ -276,10 +268,6 @@ export const cardProps = z.object({
   interactive: z.boolean().optional(),
   size: z.enum(['sm', 'md', 'lg']).optional(),
 }) satisfies z.ZodType<CardIntegrationProps>;
-
-// ---------------------------------------------------------------------------
-// feedback
-// ---------------------------------------------------------------------------
 
 type AlertIntegrationProps = {
   tone: ComponentProps<typeof Alert>['tone'];
@@ -333,10 +321,6 @@ export const toastProps = z.object({
   tone: z.enum(['success', 'info', 'warning', 'error']),
   message: z.string(),
 }) satisfies z.ZodType<ToastIntegrationProps>;
-
-// ---------------------------------------------------------------------------
-// layout
-// ---------------------------------------------------------------------------
 
 type SeparatorIntegrationProps = {
   orientation?: ComponentProps<typeof Separator>['orientation'];
@@ -403,10 +387,6 @@ export const baselineStatusProps = z.object({
   featureId: z.string().describe('Web feature の ID'),
 }) satisfies z.ZodType<BaselineStatusIntegrationProps>;
 
-// ---------------------------------------------------------------------------
-// navigation
-// ---------------------------------------------------------------------------
-
 type AnchorIntegrationProps = {
   text: string;
   href: string;
@@ -468,10 +448,6 @@ export const tabsProps = z.object({
     .min(1)
     .describe('各タブのラベルとテキストパネル'),
 }) satisfies z.ZodType<TabsIntegrationProps>;
-
-// ---------------------------------------------------------------------------
-// form （多くは name + defaultValue ベースの独自抽象）
-// ---------------------------------------------------------------------------
 
 type TextFieldIntegrationProps = {
   name: string;
@@ -713,12 +689,8 @@ export const formProps = z.object({
   action: safeUrl.optional().describe('送信先 URL（任意）'),
 }) satisfies z.ZodType<FormIntegrationProps>;
 
-// ---------------------------------------------------------------------------
-// overlays（generative UI 用に自己完結ウィジェット化したコンポーネント。
-//          本体側は isOpen/onClose の命令的 API なので、ここでは triggerLabel +
-//          children のみを zod に乗せる）
-// ---------------------------------------------------------------------------
-
+// 本体側は isOpen/onClose の命令的 API なので、ここでは triggerLabel +
+// children のみを zod に乗せる。
 type ModalIntegrationProps = {
   triggerLabel: string;
   title: string;
@@ -769,10 +741,6 @@ export const dropdownMenuProps = z.object({
     .min(1)
     .describe('メニュー項目'),
 }) satisfies z.ZodType<DropdownMenuIntegrationProps>;
-
-// ---------------------------------------------------------------------------
-// inferred types（renderers.tsx と registry が利用する）
-// ---------------------------------------------------------------------------
 
 export type ButtonProps = z.infer<typeof buttonProps>;
 export type BadgeProps = z.infer<typeof badgeProps>;
@@ -825,14 +793,9 @@ export type AutocompleteProps = z.infer<typeof autocompleteProps>;
 export type FileFieldProps = z.infer<typeof fileFieldProps>;
 export type FormControlProps = z.infer<typeof formControlProps>;
 
-// ---------------------------------------------------------------------------
-// widening 検査
-//
 // satisfies は enum の narrowing しか検知しない。本体が値を追加したときの
 // 追従漏れを塞ぐため、本体ユニオンが schema の enum に被覆されているかを型で
 // 検査する。本体に値が増えると AssertCovered の制約違反でコンパイルが止まる。
-// ---------------------------------------------------------------------------
-
 type CoversComponent<Component, Zod> = [
   Exclude<NonNullable<Component>, Zod>,
 ] extends [never]

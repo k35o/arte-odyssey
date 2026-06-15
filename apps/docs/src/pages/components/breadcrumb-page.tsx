@@ -30,7 +30,6 @@ const breadcrumbLinkProps: PropItem[] = [
 export function BreadcrumbPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">Breadcrumb</Heading>
         <p className="text-fg-mute text-lg">
@@ -47,7 +46,6 @@ export function BreadcrumbPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -59,7 +57,6 @@ export function BreadcrumbPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -100,7 +97,6 @@ export function BreadcrumbPage() {
           </ComponentPreview>
         </div>
 
-        {/* Current Page */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.breadcrumb.currentPageTitle" />
@@ -140,7 +136,6 @@ export function BreadcrumbPage() {
           </ComponentPreview>
         </div>
 
-        {/* Sizes */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.breadcrumb.sizesTitle" />
@@ -216,7 +211,6 @@ export function BreadcrumbPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

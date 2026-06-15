@@ -37,7 +37,6 @@ const autocompleteProps: PropItem[] = [
 export function AutocompletePage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
         <Heading type="h1">Autocomplete</Heading>
         <p className="text-fg-mute text-lg">
@@ -54,7 +53,6 @@ export function AutocompletePage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
@@ -66,7 +64,6 @@ export function AutocompletePage() {
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
@@ -98,7 +95,6 @@ const options = [
           </ComponentPreview>
         </div>
 
-        {/* Required */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.autocomplete.requiredTitle" />
@@ -119,7 +115,6 @@ const options = [
           </ComponentPreview>
         </div>
 
-        {/* Multiple Selection */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.autocomplete.multipleSelectionTitle" />
@@ -142,7 +137,6 @@ const options = [
           </ComponentPreview>
         </div>
 
-        {/* Disabled */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.autocomplete.disabledTitle" />
@@ -163,7 +157,6 @@ const options = [
           </ComponentPreview>
         </div>
 
-        {/* Invalid */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
             <T k="components.autocomplete.invalidTitle" />
@@ -186,7 +179,6 @@ const options = [
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />

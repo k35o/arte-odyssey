@@ -52,9 +52,6 @@ const Root: FC<
   const anchorName = toAnchorName(id);
   const triggerRef = useRef<HTMLElement | null>(null);
 
-  // trigger は Button / IconButton 経由で style・className を受け取れない（型で omit 済み）ため、
-  // ref 経由で DOM に直接 anchor-name を付与する。位置決め・操作レイヤを自前化したため
-  // floating-ui の useFloating は不要になった。
   const setTriggerRef = useCallback(
     (node: HTMLElement | null) => {
       triggerRef.current = node;
