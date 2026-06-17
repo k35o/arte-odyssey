@@ -17,6 +17,7 @@
     "typecheck": "vp run -r typecheck",
     "check": "vp run -r check",
     "check:write": "vp run -r check:write",
+    "inspect": "vp-inspect",
     "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
@@ -29,6 +30,7 @@
     "playwright": "1.60.0",
     "typescript": "6.0.3",
     "vite-plus": "catalog:",
+    "vite-plus-inspector": "0.1.0",
     "wrangler": "4.97.0"
   },
   "engines": {
