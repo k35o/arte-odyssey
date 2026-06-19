@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "pnpm generate:design && vite",
+    "build": "pnpm generate:design && vite build",
+    "generate:design": "node scripts/generate-design-md.ts",
     "typecheck": "tsc -b",
     "check": "vp check",
     "check:write": "vp check --fix"
