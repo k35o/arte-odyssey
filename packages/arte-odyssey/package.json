@@ -119,6 +119,7 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "storybook": "10.4.1",
+    "storybook-addon-determinism": "0.1.1",
     "storybook-addon-mock-date": "3.0.2",
     "storybook-addon-vrt": "0.1.0",
     "tailwind-token-extractor": "0.2.0",

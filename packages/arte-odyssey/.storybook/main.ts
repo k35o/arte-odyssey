@@ -8,6 +8,7 @@ const config: StorybookConfig = {
     '@storybook/addon-docs',
     '@storybook/addon-mcp',
     'storybook-addon-mock-date',
+    'storybook-addon-determinism',
     '@chromatic-com/storybook',
   ],
   framework: {
