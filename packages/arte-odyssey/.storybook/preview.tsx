@@ -62,6 +62,7 @@ const preview: Preview = {
     backgrounds: { disable: true },
     layout: 'fullscreen',
     mockingDate: new Date(2023, 0, 2, 12, 34, 56),
+    determinism: true,
     a11y: {
       test: 'error',
     },
