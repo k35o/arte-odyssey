@@ -36,6 +36,8 @@ import Lightbulb from 'lucide-react/dist/esm/icons/lightbulb.mjs';
 import Link from 'lucide-react/dist/esm/icons/link.mjs';
 import ListMinus from 'lucide-react/dist/esm/icons/list-minus.mjs';
 import List from 'lucide-react/dist/esm/icons/list.mjs';
+import LockOpen from 'lucide-react/dist/esm/icons/lock-open.mjs';
+import Lock from 'lucide-react/dist/esm/icons/lock.mjs';
 import Mail from 'lucide-react/dist/esm/icons/mail.mjs';
 import MapPin from 'lucide-react/dist/esm/icons/map-pin.mjs';
 import Maximize from 'lucide-react/dist/esm/icons/maximize.mjs';
@@ -98,6 +100,8 @@ export {
   Link,
   List,
   ListMinus,
+  Lock,
+  LockOpen,
   Mail,
   MapPin,
   Maximize,

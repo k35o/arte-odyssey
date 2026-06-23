@@ -38,6 +38,8 @@ import {
   Link,
   List,
   ListMinus,
+  Lock,
+  LockOpen,
   Mail,
   MapPin,
   Maximize,
@@ -303,4 +305,12 @@ export const ForkIcon: FC<IconProps> = ({ size = 'md' }) => (
 
 export const FullscreenIcon: FC<IconProps> = ({ size = 'md' }) => (
   <BaseIcon renderItem={(props) => <Maximize {...props} />} size={size} />
+);
+
+export const LockIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <Lock {...props} />} size={size} />
+);
+
+export const LockOpenIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <LockOpen {...props} />} size={size} />
 );

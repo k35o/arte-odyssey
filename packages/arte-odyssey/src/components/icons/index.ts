@@ -32,6 +32,8 @@ export {
   LinkIcon,
   ListIcon,
   LocationIcon,
+  LockIcon,
+  LockOpenIcon,
   MailIcon,
   MinusIcon,
   MixedColorIcon,
