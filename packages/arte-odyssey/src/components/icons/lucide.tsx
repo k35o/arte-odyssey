@@ -1,3 +1,7 @@
+import type { FC } from 'react';
+
+import type { Direction, Status } from './../../types/variables';
+import { BaseIcon, type BaseIconProps } from './base';
 import {
   Accessibility,
   AlignRight,
@@ -56,11 +60,7 @@ import {
   ThumbsUp,
   TriangleAlert,
   X,
-} from 'lucide-react';
-import type { FC } from 'react';
-
-import type { Direction, Status } from './../../types/variables';
-import { BaseIcon, type BaseIconProps } from './base';
+} from './lucide-imports';
 
 type IconProps = Partial<BaseIconProps>;
 
