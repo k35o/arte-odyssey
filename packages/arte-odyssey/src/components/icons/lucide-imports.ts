@@ -28,6 +28,7 @@ import ExternalLink from 'lucide-react/dist/esm/icons/external-link.mjs';
 import EyeOff from 'lucide-react/dist/esm/icons/eye-off.mjs';
 import Eye from 'lucide-react/dist/esm/icons/eye.mjs';
 import FlaskConical from 'lucide-react/dist/esm/icons/flask-conical.mjs';
+import GitFork from 'lucide-react/dist/esm/icons/git-fork.mjs';
 import History from 'lucide-react/dist/esm/icons/history.mjs';
 import Info from 'lucide-react/dist/esm/icons/info.mjs';
 import Laugh from 'lucide-react/dist/esm/icons/laugh.mjs';
@@ -35,8 +36,11 @@ import Lightbulb from 'lucide-react/dist/esm/icons/lightbulb.mjs';
 import Link from 'lucide-react/dist/esm/icons/link.mjs';
 import ListMinus from 'lucide-react/dist/esm/icons/list-minus.mjs';
 import List from 'lucide-react/dist/esm/icons/list.mjs';
+import LockOpen from 'lucide-react/dist/esm/icons/lock-open.mjs';
+import Lock from 'lucide-react/dist/esm/icons/lock.mjs';
 import Mail from 'lucide-react/dist/esm/icons/mail.mjs';
 import MapPin from 'lucide-react/dist/esm/icons/map-pin.mjs';
+import Maximize from 'lucide-react/dist/esm/icons/maximize.mjs';
 import Minus from 'lucide-react/dist/esm/icons/minus.mjs';
 import MoonStar from 'lucide-react/dist/esm/icons/moon-star.mjs';
 import Package from 'lucide-react/dist/esm/icons/package.mjs';
@@ -88,6 +92,7 @@ export {
   Eye,
   EyeOff,
   FlaskConical,
+  GitFork,
   History,
   Info,
   Laugh,
@@ -95,8 +100,11 @@ export {
   Link,
   List,
   ListMinus,
+  Lock,
+  LockOpen,
   Mail,
   MapPin,
+  Maximize,
   Minus,
   MoonStar,
   Package,

@@ -30,6 +30,7 @@ import {
   Eye,
   EyeOff,
   FlaskConical,
+  GitFork,
   History,
   Info,
   Laugh,
@@ -37,8 +38,11 @@ import {
   Link,
   List,
   ListMinus,
+  Lock,
+  LockOpen,
   Mail,
   MapPin,
+  Maximize,
   Minus,
   MoonStar,
   Package,
@@ -293,4 +297,20 @@ export const FlaskIcon: FC<IconProps> = ({ size = 'md' }) => (
 
 export const PackageIcon: FC<IconProps> = ({ size = 'md' }) => (
   <BaseIcon renderItem={(props) => <Package {...props} />} size={size} />
+);
+
+export const ForkIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <GitFork {...props} />} size={size} />
+);
+
+export const FullscreenIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <Maximize {...props} />} size={size} />
+);
+
+export const LockIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <Lock {...props} />} size={size} />
+);
+
+export const LockOpenIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <LockOpen {...props} />} size={size} />
 );
