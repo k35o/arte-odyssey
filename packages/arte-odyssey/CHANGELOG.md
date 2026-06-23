@@ -1,5 +1,15 @@
 # @k8o/arte-odyssey
 
+## 10.4.0
+
+### Minor Changes
+
+- [#549](https://github.com/k35o/arte-odyssey/pull/549) [`132831d`](https://github.com/k35o/arte-odyssey/commit/132831df380e19dbb4ebac82e47c9c92522533a8) Thanks [@k35o](https://github.com/k35o)! - UI 用のアイコンを追加した。
+
+  - `ForkIcon`（フォーク / lucide GitFork）
+  - `FullscreenIcon`（全画面 / lucide Maximize）
+  - `LockIcon`（非公開 / lucide Lock）, `LockOpenIcon`（公開 / lucide LockOpen）
+
 ## 10.3.0
 
 ### Minor Changes
