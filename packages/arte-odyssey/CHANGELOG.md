@@ -1,5 +1,23 @@
 # @k8o/arte-odyssey
 
+## 10.3.0
+
+### Minor Changes
+
+- [#538](https://github.com/k35o/arte-odyssey/pull/538) [`756d6e2`](https://github.com/k35o/arte-odyssey/commit/756d6e2f8d218250a4b1adb0d07602abd36fb178) Thanks [@k35o](https://github.com/k35o)! - オーバーレイ系コンポーネント（Popover / Tooltip / DropdownMenu / ListBox / Autocomplete）の位置決め・操作レイヤを Web 標準へ移行し、`@floating-ui/react` 依存を撤去しました。
+
+  - **位置決め**: CSS Anchor Positioning（`anchor()` / `position-area` / `position-try-fallbacks` / `anchor-size()`）。スクロール追従や端での反転（flip）もネイティブで動作
+  - **トップレイヤー / dismiss**: Popover API（`popover` 属性 + top layer）
+  - **フォーカス管理 / リストのキーボード操作**: 自前フック（`useFocusTrap` / roving-tabindex）。縦書きでは矢印キーが書字方向に追従
+
+  公開 API（各コンポーネントの props）は変更ありません。
+
+  > **必要ブラウザ**: CSS Anchor Positioning と Popover API に対応した環境（目安: Chrome 125+ / Safari 26+ / Firefox 147+）。フォールバックは持たないため、これより古いブラウザでは位置決めが正しく動作しません。
+
+### Patch Changes
+
+- [#547](https://github.com/k35o/arte-odyssey/pull/547) [`e1d379a`](https://github.com/k35o/arte-odyssey/commit/e1d379aec5497d79f31e6431efb877331f85b61b) Thanks [@k35o](https://github.com/k35o)! - アイコンを lucide-react のバレル（巨大な再エクスポート）ではなく個別ファイルから import するようにした。バレル import は Vite dev サーバの事前バンドルで named export が undefined 化し、consumer 側でアイコンが描画時に落ちることがあったため、それを回避する（本番ビルドでは元から問題なし）。
+
 ## 10.2.0
 
 ### Minor Changes
