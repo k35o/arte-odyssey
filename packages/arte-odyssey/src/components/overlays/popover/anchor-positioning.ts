@@ -76,6 +76,12 @@ export const getContentAnchorStyle = (
     margin: 0,
     // UA の `[popover] { overflow: auto }` は内側の影・角丸をクリップするため visible に戻す。
     overflow: 'visible',
+    // UA の `[popover]` 既定 `background-color: Canvas`（OS のカラースキームに追従し
+    // アプリの .dark と一致しない）/ `border: solid` / `padding: 0.25em` を打ち消す。
+    // 見た目（背景・余白・角丸）は内側の renderItem 側が持つため、ラッパーは透明にする。
+    background: 'transparent',
+    border: 0,
+    padding: 0,
     ...sideGap(side),
     positionAnchor: anchorName,
     positionArea: POSITION_AREA[placement],
