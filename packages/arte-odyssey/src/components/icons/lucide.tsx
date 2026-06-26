@@ -24,6 +24,7 @@ import {
   CircleCheck,
   ClipboardPenLine,
   Clock,
+  CodeXml,
   Contrast,
   Droplets,
   ExternalLink,
@@ -87,6 +88,10 @@ export const ChevronIcon: FC<IconProps & { direction: Direction }> = ({
 
 export const CloseIcon: FC<IconProps> = ({ size = 'md' }) => (
   <BaseIcon renderItem={(props) => <X {...props} />} size={size} />
+);
+
+export const CodeXmlIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <CodeXml {...props} />} size={size} />
 );
 
 export const CheckIcon: FC<IconProps> = ({ size = 'md' }) => (

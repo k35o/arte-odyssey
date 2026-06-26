@@ -13,6 +13,7 @@ import {
   CheckIcon,
   ChevronIcon,
   CloseIcon,
+  CodeXmlIcon,
   ColorContrastIcon,
   ColorInfoIcon,
   CopyIcon,
@@ -87,6 +88,10 @@ export const Primary: Story = {
       <div className="flex flex-col items-center justify-center">
         <CloseIcon />
         <p className="text-center">Close</p>
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <CodeXmlIcon />
+        <p className="text-center">CodeXml</p>
       </div>
       <div className="flex flex-col items-center justify-center">
         <ChevronIcon direction="left" />

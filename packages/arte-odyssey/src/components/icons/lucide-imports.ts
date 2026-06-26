@@ -22,6 +22,7 @@ import CircleAlert from 'lucide-react/dist/esm/icons/circle-alert.mjs';
 import CircleCheck from 'lucide-react/dist/esm/icons/circle-check.mjs';
 import ClipboardPenLine from 'lucide-react/dist/esm/icons/clipboard-pen-line.mjs';
 import Clock from 'lucide-react/dist/esm/icons/clock.mjs';
+import CodeXml from 'lucide-react/dist/esm/icons/code-xml.mjs';
 import Contrast from 'lucide-react/dist/esm/icons/contrast.mjs';
 import Droplets from 'lucide-react/dist/esm/icons/droplets.mjs';
 import ExternalLink from 'lucide-react/dist/esm/icons/external-link.mjs';
@@ -86,6 +87,7 @@ export {
   CircleCheck,
   ClipboardPenLine,
   Clock,
+  CodeXml,
   Contrast,
   Droplets,
   ExternalLink,
