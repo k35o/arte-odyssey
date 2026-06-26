@@ -12,6 +12,7 @@ export {
   CheckIcon,
   ChevronIcon,
   CloseIcon,
+  CodeXmlIcon,
   ColorContrastIcon,
   ColorInfoIcon,
   CopyIcon,
