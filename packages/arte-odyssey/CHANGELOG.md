@@ -1,5 +1,21 @@
 # @k8o/arte-odyssey
 
+## 10.5.0
+
+### Minor Changes
+
+- [#553](https://github.com/k35o/arte-odyssey/pull/553) [`d857485`](https://github.com/k35o/arte-odyssey/commit/d8574852bee32739b316dc6af6b50639ac66d959) Thanks [@k35o](https://github.com/k35o)! - `CodeXmlIcon`（`</>` 形のコードアイコン）を追加しました。lucide-react の `code-xml` を `BaseIcon` でラップした、他アイコンと同じ `size` API のアイコンです。
+
+### Patch Changes
+
+- [#551](https://github.com/k35o/arte-odyssey/pull/551) [`469e2c6`](https://github.com/k35o/arte-odyssey/commit/469e2c6ba8c187184d30f3ec903a3911181c0e07) Thanks [@k35o](https://github.com/k35o)! - fix: Tooltip / DropdownMenu / ListBox の背景に UA 既定の白い矩形が出る不具合を修正
+
+  Popover API 化で content ラッパーが `[popover]` 要素になり、UA 既定の
+  `background-color: Canvas`（OS のカラースキームに追従し、アプリの `.dark` と一致しない）/
+  `border: solid` / `padding: 0.25em` が残っていた。内側の角丸ボックスの背後に白い枠付きの
+  矩形が透けて見えていたため、位置決め用ラッパーの背景・枠・余白を打ち消して透明にした。
+  見た目（背景・余白・角丸）は内側の renderItem 側が持つため影響はない。
+
 ## 10.4.0
 
 ### Minor Changes
