@@ -210,6 +210,8 @@ export const ja = {
   'components.heading.lineClampTitle': '行数制限',
   'components.alert.description': 'ステータスに応じたメッセージを示すアラート',
   'components.alert.statusesTitle': 'ステータス',
+  'components.alert.dismissibleTitle': '閉じられるアラート',
+  'components.alert.actionTitle': 'アクション付き',
   'components.skeleton.description': '読み込み前のプレースホルダー',
   'components.skeleton.shapesTitle': '形状',
   'components.skeleton.sizesTitle': 'サイズ',

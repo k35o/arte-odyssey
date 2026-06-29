@@ -55,3 +55,45 @@ export const SingleArrayMessage: Story = {
     message: ['Success'],
   },
 };
+
+export const Closable: Story = {
+  args: {
+    tone: 'warning',
+    message:
+      'お使いのブラウザでは一部の機能が正しく動作しない可能性があります。最新版への更新をおすすめします。',
+    onClose: () => {},
+  },
+};
+
+export const WithActionAndClose: Story = {
+  args: {
+    tone: 'warning',
+    message:
+      'お使いのブラウザでは一部の機能が正しく動作しない可能性があります。最新版への更新をおすすめします。',
+    action: {
+      label: '詳しくはこちら',
+      renderItem: ({ children }) => (
+        <button
+          className="text-primary-fg cursor-pointer underline underline-offset-2"
+          onClick={() => {}}
+          type="button"
+        >
+          {children}
+        </button>
+      ),
+    },
+    onClose: () => {},
+  },
+};
+
+export const ArrayMessageWithClose: Story = {
+  args: {
+    tone: 'error',
+    message: [
+      'メールアドレスの形式が正しくありません',
+      'パスワードは8文字以上で入力してください',
+      '利用規約に同意してください',
+    ],
+    onClose: () => {},
+  },
+};

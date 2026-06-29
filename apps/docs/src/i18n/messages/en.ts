@@ -218,6 +218,8 @@ export const en = {
   'components.alert.description':
     'An alert that displays status-based messages.',
   'components.alert.statusesTitle': 'Statuses',
+  'components.alert.dismissibleTitle': 'Dismissible',
+  'components.alert.actionTitle': 'With Action',
   'components.skeleton.description':
     'A loading placeholder for content that has not arrived yet.',
   'components.skeleton.shapesTitle': 'Shapes',
