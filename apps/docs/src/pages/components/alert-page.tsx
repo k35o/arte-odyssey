@@ -18,6 +18,11 @@ const alertProps: PropItem[] = [
     types: ['string', 'string[]'],
     defaultValue: null,
   },
+  {
+    name: 'action',
+    types: ['{ label: string; renderItem: ({ children }) => ReactNode }'],
+    defaultValue: null,
+  },
 ];
 
 export function AlertPage() {
@@ -98,6 +103,76 @@ export function AlertPage() {
                 'Password must include a special character.',
               ]}
               tone="error"
+            />
+          </ComponentPreview>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="components.alert.actionTitle" />
+          </Heading>
+          <ComponentPreview
+            code={`// Navigation link — the consumer owns the element and its style.
+// Use Anchor for a link that matches the library look, or any
+// <a> / Next.js Link with your own className.
+<Alert
+  message="A new version is available."
+  tone="info"
+  action={{
+    label: 'Learn more',
+    renderItem: ({ children }) => (
+      <Anchor href="https://example.com" openInNewTab>
+        {children}
+      </Anchor>
+    ),
+  }}
+/>
+
+// Action button (open a modal, etc.) — style it however you like.
+<Alert
+  message="Your profile setup is incomplete."
+  tone="warning"
+  action={{
+    label: 'Open settings',
+    renderItem: ({ children }) => (
+      <button
+        className="text-fg-info underline"
+        type="button"
+        onClick={() => {}}
+      >
+        {children}
+      </button>
+    ),
+  }}
+/>`}
+          >
+            <Alert
+              action={{
+                label: 'Learn more',
+                renderItem: ({ children }) => (
+                  <Anchor href="https://example.com" openInNewTab>
+                    {children}
+                  </Anchor>
+                ),
+              }}
+              message="A new version is available."
+              tone="info"
+            />
+            <Alert
+              action={{
+                label: 'Open settings',
+                renderItem: ({ children }) => (
+                  <button
+                    className="text-fg-info underline"
+                    onClick={() => {}}
+                    type="button"
+                  >
+                    {children}
+                  </button>
+                ),
+              }}
+              message="Your profile setup is incomplete."
+              tone="warning"
             />
           </ComponentPreview>
         </div>
