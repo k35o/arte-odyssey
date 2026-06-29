@@ -1,6 +1,7 @@
 import type { FC, HTMLAttributes, ReactNode } from 'react';
 
-import { AlertIcon } from '../../icons';
+import { IconButton } from '../../buttons/icon-button';
+import { AlertIcon, CloseIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
 import type { Status } from './../../../types/variables';
 
@@ -13,6 +14,8 @@ type Props = {
   tone: Status;
   message: string | string[];
   action?: AlertAction;
+  onClose?: () => void;
+  closeLabel?: string;
 } & Omit<
   HTMLAttributes<HTMLDivElement>,
   'children' | 'role' | 'className' | 'style'
@@ -25,7 +28,14 @@ const STATUS_LABEL = {
   error: 'エラー',
 } as const satisfies Record<Status, string>;
 
-export const Alert: FC<Props> = ({ tone, message, action, ...rest }) => {
+export const Alert: FC<Props> = ({
+  tone,
+  message,
+  action,
+  onClose,
+  closeLabel = '閉じる',
+  ...rest
+}) => {
   const actionNode = action
     ? action.renderItem({ children: action.label })
     : null;
@@ -74,6 +84,7 @@ export const Alert: FC<Props> = ({ tone, message, action, ...rest }) => {
     >
       <span
         className={cn(
+          'shrink-0',
           tone === 'success' && 'text-fg-success',
           tone === 'info' && 'text-fg-info',
           tone === 'warning' && 'text-fg-warning',
@@ -83,7 +94,19 @@ export const Alert: FC<Props> = ({ tone, message, action, ...rest }) => {
         <AlertIcon size="md" status={tone} />
         <span className="sr-only">{STATUS_LABEL[tone]}</span>
       </span>
-      {messageContent}
+      <div className="min-w-0 flex-1">{messageContent}</div>
+      {onClose ? (
+        <span className="shrink-0">
+          <IconButton
+            label={closeLabel}
+            onClick={onClose}
+            size="sm"
+            tooltipDisabled
+          >
+            <CloseIcon size="sm" />
+          </IconButton>
+        </span>
+      ) : null}
     </div>
   );
 };

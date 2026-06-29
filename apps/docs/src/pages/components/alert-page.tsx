@@ -6,6 +6,10 @@ import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import {
+  AlertDismissiblePreview,
+  AlertWithActionPreview,
+} from './_previews/alert-previews';
 
 const alertProps: PropItem[] = [
   {
@@ -22,6 +26,16 @@ const alertProps: PropItem[] = [
     name: 'action',
     types: ['{ label: string; renderItem: ({ children }) => ReactNode }'],
     defaultValue: null,
+  },
+  {
+    name: 'onClose',
+    types: ['() => void'],
+    defaultValue: null,
+  },
+  {
+    name: 'closeLabel',
+    types: ['string'],
+    defaultValue: "'閉じる'",
   },
 ];
 
@@ -174,6 +188,40 @@ export function AlertPage() {
               message="Your profile setup is incomplete."
               tone="warning"
             />
+          </ComponentPreview>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="components.alert.dismissibleTitle" />
+          </Heading>
+          <ComponentPreview
+            code={`const [isVisible, setIsVisible] = useState(true);
+
+// onClose renders an in-frame close (×) button at the row's end.
+<Alert
+  message="..."
+  onClose={() => setIsVisible(false)}
+  tone="warning"
+/>
+
+// onClose can be combined with action.
+<Alert
+  action={{
+    label: '詳しくはこちら',
+    renderItem: ({ children }) => (
+      <button className="text-primary-fg underline" type="button" onClick={openHelp}>
+        {children}
+      </button>
+    ),
+  }}
+  message="..."
+  onClose={() => setIsVisible(false)}
+  tone="warning"
+/>`}
+          >
+            <AlertDismissiblePreview />
+            <AlertWithActionPreview />
           </ComponentPreview>
         </div>
       </section>
