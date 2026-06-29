@@ -18,6 +18,11 @@ const alertProps: PropItem[] = [
     types: ['string', 'string[]'],
     defaultValue: null,
   },
+  {
+    name: 'action',
+    types: ['{ label: string; renderItem: (props) => ReactNode }'],
+    defaultValue: null,
+  },
 ];
 
 export function AlertPage() {
@@ -98,6 +103,70 @@ export function AlertPage() {
                 'Password must include a special character.',
               ]}
               tone="error"
+            />
+          </ComponentPreview>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="components.alert.actionTitle" />
+          </Heading>
+          <ComponentPreview
+            code={`// Navigation link (<a> / Anchor / Next.js Link)
+<Alert
+  message="A new version is available."
+  tone="info"
+  action={{
+    label: 'Learn more',
+    renderItem: ({ className, children }) => (
+      <a className={className} href="https://example.com">
+        {children}
+      </a>
+    ),
+  }}
+/>
+
+// Action button (open a modal, etc.)
+<Alert
+  message="Your profile setup is incomplete."
+  tone="warning"
+  action={{
+    label: 'Open settings',
+    renderItem: ({ className, children }) => (
+      <button className={className} type="button" onClick={() => {}}>
+        {children}
+      </button>
+    ),
+  }}
+/>`}
+          >
+            <Alert
+              action={{
+                label: 'Learn more',
+                renderItem: ({ className, children }) => (
+                  <a className={className} href="https://example.com">
+                    {children}
+                  </a>
+                ),
+              }}
+              message="A new version is available."
+              tone="info"
+            />
+            <Alert
+              action={{
+                label: 'Open settings',
+                renderItem: ({ className, children }) => (
+                  <button
+                    className={className}
+                    onClick={() => {}}
+                    type="button"
+                  >
+                    {children}
+                  </button>
+                ),
+              }}
+              message="Your profile setup is incomplete."
+              tone="warning"
             />
           </ComponentPreview>
         </div>

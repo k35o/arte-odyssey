@@ -185,6 +185,7 @@ export const MESSAGE_KEYS = [
   'components.heading.lineClampTitle',
   'components.alert.description',
   'components.alert.statusesTitle',
+  'components.alert.actionTitle',
   'components.skeleton.description',
   'components.skeleton.shapesTitle',
   'components.skeleton.sizesTitle',
