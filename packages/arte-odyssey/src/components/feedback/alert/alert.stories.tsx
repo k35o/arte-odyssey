@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { Anchor } from '../../navigation/anchor';
 import { Alert } from './alert';
 
 const meta: Meta<typeof Alert> = {
@@ -53,6 +54,74 @@ export const SingleArrayMessage: Story = {
   args: {
     tone: 'success',
     message: ['Success'],
+  },
+};
+
+export const ActionLink: Story = {
+  args: {
+    tone: 'warning',
+    message:
+      'お使いのブラウザでは一部の機能が正しく動作しない可能性があります。最新版への更新をおすすめします。',
+    action: {
+      label: '詳しくはこちら',
+      renderItem: ({ children }) => (
+        <a className="text-fg-info underline" href="https://example.com">
+          {children}
+        </a>
+      ),
+    },
+  },
+};
+
+export const ActionAnchor: Story = {
+  args: {
+    tone: 'info',
+    message: '新しいバージョンが利用可能です。',
+    action: {
+      label: '詳しくはこちら',
+      renderItem: ({ children }) => (
+        <Anchor href="https://example.com" openInNewTab>
+          {children}
+        </Anchor>
+      ),
+    },
+  },
+};
+
+export const ActionButton: Story = {
+  args: {
+    tone: 'info',
+    message: 'プロフィールの設定が完了していません。',
+    action: {
+      label: '詳しく',
+      renderItem: ({ children }) => (
+        <button
+          className="text-fg-info underline"
+          onClick={() => {}}
+          type="button"
+        >
+          {children}
+        </button>
+      ),
+    },
+  },
+};
+
+export const ArrayMessageWithAction: Story = {
+  args: {
+    tone: 'warning',
+    message: [
+      'パスワードは8文字以上で入力してください',
+      '記号を1文字以上含めてください',
+    ],
+    action: {
+      label: 'パスワードのルールを見る',
+      renderItem: ({ children }) => (
+        <Anchor href="https://example.com" openInNewTab>
+          {children}
+        </Anchor>
+      ),
+    },
   },
 };
 

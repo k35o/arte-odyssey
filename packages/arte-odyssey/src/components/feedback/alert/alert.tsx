@@ -5,13 +5,15 @@ import { AlertIcon, CloseIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
 import type { Status } from './../../../types/variables';
 
+type AlertAction = {
+  label: string;
+  renderItem: (props: { children: ReactNode }) => ReactNode;
+};
+
 type Props = {
   tone: Status;
   message: string | string[];
-  action?: {
-    label: string;
-    renderItem: (props: { children: ReactNode }) => ReactNode;
-  };
+  action?: AlertAction;
   onClose?: () => void;
   closeLabel?: string;
 } & Omit<
@@ -37,6 +39,36 @@ export const Alert: FC<Props> = ({
   const actionNode = action
     ? action.renderItem({ children: action.label })
     : null;
+  const inlineAction = action ? (
+    <span className="ml-1">{actionNode}</span>
+  ) : null;
+
+  let messageContent: ReactNode;
+  if (Array.isArray(message) && message.length > 1) {
+    const list = (
+      <ul className="space-y-1">
+        {message.map((msg) => (
+          <li key={msg}>{msg}</li>
+        ))}
+      </ul>
+    );
+    messageContent = action ? (
+      <div>
+        {list}
+        <div className="mt-1">{actionNode}</div>
+      </div>
+    ) : (
+      list
+    );
+  } else {
+    const text = Array.isArray(message) ? message[0] : message;
+    messageContent = (
+      <p className="font-bold">
+        {text}
+        {inlineAction}
+      </p>
+    );
+  }
 
   return (
     <div
@@ -62,34 +94,7 @@ export const Alert: FC<Props> = ({
         <AlertIcon size="md" status={tone} />
         <span className="sr-only">{STATUS_LABEL[tone]}</span>
       </span>
-      <div className="min-w-0 flex-1">
-        {Array.isArray(message) ? (
-          message.length > 1 ? (
-            <>
-              <ul className="space-y-1">
-                {message.map((msg) => (
-                  <li key={msg}>{msg}</li>
-                ))}
-              </ul>
-              {action ? <div className="mt-1">{actionNode}</div> : null}
-            </>
-          ) : (
-            <p className="font-bold">
-              {message[0]}
-              {action ? (
-                <span className="ml-1 font-normal">{actionNode}</span>
-              ) : null}
-            </p>
-          )
-        ) : (
-          <p className="font-bold">
-            {message}
-            {action ? (
-              <span className="ml-1 font-normal">{actionNode}</span>
-            ) : null}
-          </p>
-        )}
-      </div>
+      <div className="min-w-0 flex-1">{messageContent}</div>
       {onClose ? (
         <span className="shrink-0">
           <IconButton

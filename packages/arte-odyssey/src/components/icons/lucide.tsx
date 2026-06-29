@@ -1,3 +1,7 @@
+import type { FC } from 'react';
+
+import type { Direction, Status } from './../../types/variables';
+import { BaseIcon, type BaseIconProps } from './base';
 import {
   Accessibility,
   AlignRight,
@@ -20,12 +24,14 @@ import {
   CircleCheck,
   ClipboardPenLine,
   Clock,
+  CodeXml,
   Contrast,
   Droplets,
   ExternalLink,
   Eye,
   EyeOff,
   FlaskConical,
+  GitFork,
   History,
   Info,
   Laugh,
@@ -33,8 +39,11 @@ import {
   Link,
   List,
   ListMinus,
+  Lock,
+  LockOpen,
   Mail,
   MapPin,
+  Maximize,
   Minus,
   MoonStar,
   Package,
@@ -56,11 +65,7 @@ import {
   ThumbsUp,
   TriangleAlert,
   X,
-} from 'lucide-react';
-import type { FC } from 'react';
-
-import type { Direction, Status } from './../../types/variables';
-import { BaseIcon, type BaseIconProps } from './base';
+} from './lucide-imports';
 
 type IconProps = Partial<BaseIconProps>;
 
@@ -83,6 +88,10 @@ export const ChevronIcon: FC<IconProps & { direction: Direction }> = ({
 
 export const CloseIcon: FC<IconProps> = ({ size = 'md' }) => (
   <BaseIcon renderItem={(props) => <X {...props} />} size={size} />
+);
+
+export const CodeXmlIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <CodeXml {...props} />} size={size} />
 );
 
 export const CheckIcon: FC<IconProps> = ({ size = 'md' }) => (
@@ -293,4 +302,20 @@ export const FlaskIcon: FC<IconProps> = ({ size = 'md' }) => (
 
 export const PackageIcon: FC<IconProps> = ({ size = 'md' }) => (
   <BaseIcon renderItem={(props) => <Package {...props} />} size={size} />
+);
+
+export const ForkIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <GitFork {...props} />} size={size} />
+);
+
+export const FullscreenIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <Maximize {...props} />} size={size} />
+);
+
+export const LockIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <Lock {...props} />} size={size} />
+);
+
+export const LockOpenIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <LockOpen {...props} />} size={size} />
 );

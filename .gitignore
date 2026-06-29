@@ -12,6 +12,9 @@ out
 dist-ssr
 .turbo
 
+# Generated at build from the design-token SSOT (apps/docs/scripts/generate-design-md.ts)
+apps/docs/public/design.md
+
 # Testing
 coverage
 

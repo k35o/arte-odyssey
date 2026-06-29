@@ -1,5 +1,58 @@
 # @k8o/arte-odyssey
 
+## 10.6.0
+
+### Minor Changes
+
+- [#554](https://github.com/k35o/arte-odyssey/pull/554) [`fca8989`](https://github.com/k35o/arte-odyssey/commit/fca898946fcb575ff488aae7b5091704112fa055) Thanks [@k35o](https://github.com/k35o)! - Alert に `action`（テキストリンク）を追加しました。
+
+  - `action?: { label: string; renderItem: ({ children }) => ReactNode }` を追加。`message` の直後にインラインでリンク／アクションを描画します（`string` の場合は本文と同じ行に続けて表示）。
+  - 遷移リンク（`<a>` / `Anchor` / Next.js `Link`）にも、モーダルを開く等のアクション（`<button onClick>`）にも対応。要素とその見た目は `renderItem` で利用側が決めます（Alert は本文末尾へのインライン配置のみ担保）。`Button` / `IconButton` と同じパターンですが、スタイルは強制しません。リンクの見た目を揃えたい場合は `Anchor` を返してください。
+
+## 10.5.0
+
+### Minor Changes
+
+- [#553](https://github.com/k35o/arte-odyssey/pull/553) [`d857485`](https://github.com/k35o/arte-odyssey/commit/d8574852bee32739b316dc6af6b50639ac66d959) Thanks [@k35o](https://github.com/k35o)! - `CodeXmlIcon`（`</>` 形のコードアイコン）を追加しました。lucide-react の `code-xml` を `BaseIcon` でラップした、他アイコンと同じ `size` API のアイコンです。
+
+### Patch Changes
+
+- [#551](https://github.com/k35o/arte-odyssey/pull/551) [`469e2c6`](https://github.com/k35o/arte-odyssey/commit/469e2c6ba8c187184d30f3ec903a3911181c0e07) Thanks [@k35o](https://github.com/k35o)! - fix: Tooltip / DropdownMenu / ListBox の背景に UA 既定の白い矩形が出る不具合を修正
+
+  Popover API 化で content ラッパーが `[popover]` 要素になり、UA 既定の
+  `background-color: Canvas`（OS のカラースキームに追従し、アプリの `.dark` と一致しない）/
+  `border: solid` / `padding: 0.25em` が残っていた。内側の角丸ボックスの背後に白い枠付きの
+  矩形が透けて見えていたため、位置決め用ラッパーの背景・枠・余白を打ち消して透明にした。
+  見た目（背景・余白・角丸）は内側の renderItem 側が持つため影響はない。
+
+## 10.4.0
+
+### Minor Changes
+
+- [#549](https://github.com/k35o/arte-odyssey/pull/549) [`132831d`](https://github.com/k35o/arte-odyssey/commit/132831df380e19dbb4ebac82e47c9c92522533a8) Thanks [@k35o](https://github.com/k35o)! - UI 用のアイコンを追加した。
+
+  - `ForkIcon`（フォーク / lucide GitFork）
+  - `FullscreenIcon`（全画面 / lucide Maximize）
+  - `LockIcon`（非公開 / lucide Lock）, `LockOpenIcon`（公開 / lucide LockOpen）
+
+## 10.3.0
+
+### Minor Changes
+
+- [#538](https://github.com/k35o/arte-odyssey/pull/538) [`756d6e2`](https://github.com/k35o/arte-odyssey/commit/756d6e2f8d218250a4b1adb0d07602abd36fb178) Thanks [@k35o](https://github.com/k35o)! - オーバーレイ系コンポーネント（Popover / Tooltip / DropdownMenu / ListBox / Autocomplete）の位置決め・操作レイヤを Web 標準へ移行し、`@floating-ui/react` 依存を撤去しました。
+
+  - **位置決め**: CSS Anchor Positioning（`anchor()` / `position-area` / `position-try-fallbacks` / `anchor-size()`）。スクロール追従や端での反転（flip）もネイティブで動作
+  - **トップレイヤー / dismiss**: Popover API（`popover` 属性 + top layer）
+  - **フォーカス管理 / リストのキーボード操作**: 自前フック（`useFocusTrap` / roving-tabindex）。縦書きでは矢印キーが書字方向に追従
+
+  公開 API（各コンポーネントの props）は変更ありません。
+
+  > **必要ブラウザ**: CSS Anchor Positioning と Popover API に対応した環境（目安: Chrome 125+ / Safari 26+ / Firefox 147+）。フォールバックは持たないため、これより古いブラウザでは位置決めが正しく動作しません。
+
+### Patch Changes
+
+- [#547](https://github.com/k35o/arte-odyssey/pull/547) [`e1d379a`](https://github.com/k35o/arte-odyssey/commit/e1d379aec5497d79f31e6431efb877331f85b61b) Thanks [@k35o](https://github.com/k35o)! - アイコンを lucide-react のバレル（巨大な再エクスポート）ではなく個別ファイルから import するようにした。バレル import は Vite dev サーバの事前バンドルで named export が undefined 化し、consumer 側でアイコンが描画時に落ちることがあったため、それを回避する（本番ビルドでは元から問題なし）。
+
 ## 10.2.0
 
 ### Minor Changes
