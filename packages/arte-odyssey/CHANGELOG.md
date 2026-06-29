@@ -1,5 +1,13 @@
 # @k8o/arte-odyssey
 
+## 10.6.1
+
+### Patch Changes
+
+- [#556](https://github.com/k35o/arte-odyssey/pull/556) [`3772032`](https://github.com/k35o/arte-odyssey/commit/377203297bee9eaf8bd51a81773eeeaf34a6c4e1) Thanks [@k35o](https://github.com/k35o)! - Alert に onClose(閉じるボタン) を追加
+
+  `onClose` を渡すと、枠内の右端に閉じる(×)ボタンを表示します。メッセージ部は `flex-1` で × の分だけ縮むため、長文でも × に被りません。閉じるボタンのアクセシブルラベルは `closeLabel`（省略時 `'閉じる'`）で変更できます。`action`(本文末尾のリンク)とも併用可能です。
+
 ## 10.6.0
 
 ### Minor Changes
