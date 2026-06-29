@@ -1,13 +1,12 @@
 import type { FC, HTMLAttributes, ReactNode } from 'react';
 
-import { LINK_CLASS_NAME } from '../../_internal/link';
 import { AlertIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
 import type { Status } from './../../../types/variables';
 
 type AlertAction = {
   label: string;
-  renderItem: (props: { className: string; children: ReactNode }) => ReactNode;
+  renderItem: (props: { children: ReactNode }) => ReactNode;
 };
 
 type Props = {
@@ -28,13 +27,10 @@ const STATUS_LABEL = {
 
 export const Alert: FC<Props> = ({ tone, message, action, ...rest }) => {
   const actionNode = action
-    ? action.renderItem({
-        className: LINK_CLASS_NAME,
-        children: action.label,
-      })
+    ? action.renderItem({ children: action.label })
     : null;
   const inlineAction = action ? (
-    <span className="ml-1 font-normal">{actionNode}</span>
+    <span className="ml-1">{actionNode}</span>
   ) : null;
 
   let messageContent: ReactNode;

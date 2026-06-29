@@ -20,7 +20,7 @@ const alertProps: PropItem[] = [
   },
   {
     name: 'action',
-    types: ['{ label: string; renderItem: (props) => ReactNode }'],
+    types: ['{ label: string; renderItem: ({ children }) => ReactNode }'],
     defaultValue: null,
   },
 ];
@@ -112,28 +112,34 @@ export function AlertPage() {
             <T k="components.alert.actionTitle" />
           </Heading>
           <ComponentPreview
-            code={`// Navigation link (<a> / Anchor / Next.js Link)
+            code={`// Navigation link — the consumer owns the element and its style.
+// Use Anchor for a link that matches the library look, or any
+// <a> / Next.js Link with your own className.
 <Alert
   message="A new version is available."
   tone="info"
   action={{
     label: 'Learn more',
-    renderItem: ({ className, children }) => (
-      <a className={className} href="https://example.com">
+    renderItem: ({ children }) => (
+      <Anchor href="https://example.com" openInNewTab>
         {children}
-      </a>
+      </Anchor>
     ),
   }}
 />
 
-// Action button (open a modal, etc.)
+// Action button (open a modal, etc.) — style it however you like.
 <Alert
   message="Your profile setup is incomplete."
   tone="warning"
   action={{
     label: 'Open settings',
-    renderItem: ({ className, children }) => (
-      <button className={className} type="button" onClick={() => {}}>
+    renderItem: ({ children }) => (
+      <button
+        className="text-fg-info underline"
+        type="button"
+        onClick={() => {}}
+      >
         {children}
       </button>
     ),
@@ -143,10 +149,10 @@ export function AlertPage() {
             <Alert
               action={{
                 label: 'Learn more',
-                renderItem: ({ className, children }) => (
-                  <a className={className} href="https://example.com">
+                renderItem: ({ children }) => (
+                  <Anchor href="https://example.com" openInNewTab>
                     {children}
-                  </a>
+                  </Anchor>
                 ),
               }}
               message="A new version is available."
@@ -155,9 +161,9 @@ export function AlertPage() {
             <Alert
               action={{
                 label: 'Open settings',
-                renderItem: ({ className, children }) => (
+                renderItem: ({ children }) => (
                   <button
-                    className={className}
+                    className="text-fg-info underline"
                     onClick={() => {}}
                     type="button"
                   >

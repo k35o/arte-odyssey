@@ -64,8 +64,8 @@ export const ActionLink: Story = {
       'お使いのブラウザでは一部の機能が正しく動作しない可能性があります。最新版への更新をおすすめします。',
     action: {
       label: '詳しくはこちら',
-      renderItem: ({ className, children }) => (
-        <a className={className} href="https://example.com">
+      renderItem: ({ children }) => (
+        <a className="text-fg-info underline" href="https://example.com">
           {children}
         </a>
       ),
@@ -94,8 +94,12 @@ export const ActionButton: Story = {
     message: 'プロフィールの設定が完了していません。',
     action: {
       label: '詳しく',
-      renderItem: ({ className, children }) => (
-        <button className={className} onClick={() => {}} type="button">
+      renderItem: ({ children }) => (
+        <button
+          className="text-fg-info underline"
+          onClick={() => {}}
+          type="button"
+        >
           {children}
         </button>
       ),
@@ -112,10 +116,10 @@ export const ArrayMessageWithAction: Story = {
     ],
     action: {
       label: 'パスワードのルールを見る',
-      renderItem: ({ className, children }) => (
-        <a className={className} href="https://example.com">
+      renderItem: ({ children }) => (
+        <Anchor href="https://example.com" openInNewTab>
           {children}
-        </a>
+        </Anchor>
       ),
     },
   },

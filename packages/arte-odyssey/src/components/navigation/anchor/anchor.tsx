@@ -1,6 +1,5 @@
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
 
-import { LINK_CLASS_NAME } from '../../_internal/link';
 import { ExternalLinkIcon } from '../../icons';
 
 type RestProps = Omit<
@@ -40,14 +39,16 @@ export const Anchor = <T extends string>({
 }: Props<T>) => {
   const isExternal = href.startsWith('http');
   const type = !isExternal && !openInNewTab ? 'internal' : 'external';
+  const baseClassName =
+    'text-fg-info underline transition-colors hover:text-fg-info/80 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info focus-visible:rounded-sm';
   const props =
     type === 'internal'
       ? {
-          className: LINK_CLASS_NAME,
+          className: baseClassName,
           children,
         }
       : {
-          className: `${LINK_CLASS_NAME} inline-flex items-center gap-0.5`,
+          className: `${baseClassName} inline-flex items-center gap-0.5`,
           target: '_blank',
           rel: 'noopener noreferrer',
           children: (
