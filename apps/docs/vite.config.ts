@@ -4,6 +4,10 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  server: {
+    // プレビューツール等がポートを割り当てられるよう PORT を尊重する
+    port: Number(process.env.PORT) || 5173,
+  },
   plugins: [
     funstackStatic({
       root: './src/root.tsx',
