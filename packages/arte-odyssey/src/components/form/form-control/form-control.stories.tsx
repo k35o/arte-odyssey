@@ -138,7 +138,8 @@ export const NarrowContainer: Story = {
       !(fieldset instanceof HTMLFieldSetElement) ||
       !(container instanceof HTMLElement)
     ) {
-      // `Error` はこのファイルの Story 名に影が付くため globalThis 経由で参照する
+      // このファイルの `export const Error: Story` がグローバルの `Error` を
+      // シャドウするため globalThis 経由で参照する
       throw new globalThis.Error('fieldset が見つかりません');
     }
     const fieldsetWidth = fieldset.getBoundingClientRect().width;
