@@ -157,7 +157,7 @@ export const Autocomplete: FC<Props> = ({
           ))
         : null}
       <div className="flex min-h-12 items-center justify-between gap-2 px-3 py-2">
-        <div className="flex w-full flex-wrap gap-1">
+        <div className="flex w-full min-w-0 flex-wrap gap-1">
           {currentValue.map((selectedValue) => {
             const label = options.find(
               (option) => option.value === selectedValue,

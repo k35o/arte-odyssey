@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { type ComponentProps, useState } from 'react';
+import { expect } from 'storybook/test';
 
 import { Autocomplete } from './autocomplete';
 
@@ -68,5 +69,42 @@ export const Disabled: Story = {
     invalid: false,
     disabled: true,
     required: true,
+  },
+};
+
+// 回帰: 幅の狭いコンテナで「すべて閉じる」ボタンが枠外にはみ出さないこと。
+// チップ行(flex w-full)が min-w-0 で縮められないと、クリアボタンが押し出される。
+export const NarrowContainer: Story = {
+  render: () => (
+    <Autocomplete
+      defaultValue={['chrome']}
+      id="autocomplete-narrow"
+      options={[
+        { value: 'chrome', label: 'Chrome for Developers' },
+        { value: 'web-dev', label: 'web.dev' },
+        { value: 'mdn', label: 'MDN Web Docs' },
+      ]}
+    />
+  ),
+  decorators: [
+    (Story) => (
+      <div className="w-56">
+        <Story />
+      </div>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const clearAll = canvasElement.querySelector('[aria-label="すべて閉じる"]');
+    if (!(clearAll instanceof HTMLElement)) {
+      throw new Error('クリアボタンが見つかりません');
+    }
+    const box = clearAll.closest('.rounded-xl');
+    if (!(box instanceof HTMLElement)) {
+      throw new Error('外枠が見つかりません');
+    }
+    // チップ行が min-w-0 で縮まないと「すべて閉じる」が枠外に押し出される
+    await expect(clearAll.getBoundingClientRect().right).toBeLessThanOrEqual(
+      box.getBoundingClientRect().right + 1,
+    );
   },
 };
