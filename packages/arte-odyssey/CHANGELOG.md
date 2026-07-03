@@ -1,5 +1,13 @@
 # @k8o/arte-odyssey
 
+## 10.6.2
+
+### Patch Changes
+
+- [#558](https://github.com/k35o/arte-odyssey/pull/558) [`6c4ce76`](https://github.com/k35o/arte-odyssey/commit/6c4ce766c5f722447aa1e7f8a3de56b35d5ee320) Thanks [@k35o](https://github.com/k35o)! - FormControl: 狭い幅のコンテナで中身がはみ出す問題を修正
+
+  `<fieldset>` はブラウザ標準スタイルで `min-inline-size: min-content` を持つため、サイドバーやグリッドなど幅の狭いコンテナ内で `FormControl` を使うと、中身（例: Autocomplete の選択チップ）がコンテナからはみ出していました。fieldset に `min-w-0` を付与し、コンテナ幅に合わせて縮むようにしました。
+
 ## 10.6.1
 
 ### Patch Changes
