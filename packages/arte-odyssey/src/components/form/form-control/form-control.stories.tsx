@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
+import { expect } from 'storybook/test';
 
+import { Autocomplete } from '../autocomplete';
 import { TextField } from '../text-field';
 import { FormControl } from './form-control';
 
@@ -91,6 +93,7 @@ export const Legend: Story = {
     helpText: 'RFCに準拠したメールアドレスを入力してください。',
     labelAs: 'legend',
   },
+
   parameters: {
     a11y: {
       options: {
@@ -101,5 +104,46 @@ export const Legend: Story = {
         },
       },
     },
+  },
+};
+
+// 回帰: fieldset は UA 標準で min-inline-size:min-content を持つため、min-w-0 が無いと
+// 狭いコンテナで中身（Autocomplete の選択チップ）がはみ出す。枠内に収まることを検証する。
+export const NarrowContainer: Story = {
+  args: {
+    label: 'ソース',
+    renderInput: (props) => (
+      <Autocomplete
+        {...props}
+        defaultValue={['smashing-magazine']}
+        options={[
+          { value: 'smashing-magazine', label: 'Smashing Magazine' },
+          { value: 'web-dev', label: 'web.dev' },
+          { value: 'chrome', label: 'Chrome for Developers' },
+        ]}
+      />
+    ),
+  },
+  decorators: [
+    (Story) => (
+      <div className="w-56">
+        <Story />
+      </div>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const fieldset = canvasElement.querySelector('fieldset');
+    const container = fieldset?.parentElement;
+    if (
+      !(fieldset instanceof HTMLFieldSetElement) ||
+      !(container instanceof HTMLElement)
+    ) {
+      // `Error` はこのファイルの Story 名に影が付くため globalThis 経由で参照する
+      throw new globalThis.Error('fieldset が見つかりません');
+    }
+    const fieldsetWidth = fieldset.getBoundingClientRect().width;
+    const containerWidth = container.getBoundingClientRect().width;
+    // min-w-0 が無いと fieldset が min-content まで広がりコンテナをはみ出す
+    await expect(fieldsetWidth).toBeLessThanOrEqual(containerWidth + 1);
   },
 };
