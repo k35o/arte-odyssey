@@ -1,5 +1,13 @@
 # @k8o/arte-odyssey
 
+## 10.6.3
+
+### Patch Changes
+
+- [#560](https://github.com/k35o/arte-odyssey/pull/560) [`0ae6124`](https://github.com/k35o/arte-odyssey/commit/0ae6124ca30d0537ccb3f912ba9563e4faa4ebf2) Thanks [@k35o](https://github.com/k35o)! - Autocomplete: 狭い幅で「すべて閉じる」ボタンが枠外にはみ出す問題を修正
+
+  選択チップを並べる内部コンテナ（`flex w-full flex-wrap`）に `min-w-0` が無く、幅の狭いコンテナ内で縮められなかったため、隣の「すべて閉じる」ボタンが枠の外へ押し出されていました。チップ行に `min-w-0` を付与し、常に枠内へ収まるようにしました。
+
 ## 10.6.2
 
 ### Patch Changes
