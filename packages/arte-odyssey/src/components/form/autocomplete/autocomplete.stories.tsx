@@ -72,8 +72,7 @@ export const Disabled: Story = {
   },
 };
 
-// 回帰: 幅の狭いコンテナで「すべて閉じる」ボタンが枠外にはみ出さないこと。
-// チップ行(flex w-full)が min-w-0 で縮められないと、クリアボタンが押し出される。
+// 回帰: チップ行が min-w-0 で縮まないと「すべて閉じる」が枠外へ押し出される
 export const NarrowContainer: Story = {
   render: () => (
     <Autocomplete
@@ -88,21 +87,21 @@ export const NarrowContainer: Story = {
   ),
   decorators: [
     (Story) => (
-      <div className="w-56">
+      <div className="w-56" data-testid="narrow-container">
         <Story />
       </div>
     ),
   ],
   play: async ({ canvasElement }) => {
+    const container = canvasElement.querySelector(
+      '[data-testid="narrow-container"]',
+    );
+    // decorator の唯一の子が Autocomplete のルート（枠）
+    const box = container?.firstElementChild;
     const clearAll = canvasElement.querySelector('[aria-label="すべて閉じる"]');
-    if (!(clearAll instanceof HTMLElement)) {
-      throw new Error('クリアボタンが見つかりません');
+    if (!(box instanceof HTMLElement) || !(clearAll instanceof HTMLElement)) {
+      throw new Error('要素が見つかりません');
     }
-    const box = clearAll.closest('.rounded-xl');
-    if (!(box instanceof HTMLElement)) {
-      throw new Error('外枠が見つかりません');
-    }
-    // チップ行が min-w-0 で縮まないと「すべて閉じる」が枠外に押し出される
     await expect(clearAll.getBoundingClientRect().right).toBeLessThanOrEqual(
       box.getBoundingClientRect().right + 1,
     );
