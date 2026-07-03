@@ -41,7 +41,7 @@ export const FormControl: FC<FormControlProps> = ({
         : undefined;
   const labelId = `${id}-label`;
   return (
-    <fieldset className="flex w-full flex-col">
+    <fieldset className="flex w-full min-w-0 flex-col">
       {labelAs === 'label' ? (
         <label
           className="text-fg-base text-md mb-1 flex gap-2 pl-0.5 font-bold"
