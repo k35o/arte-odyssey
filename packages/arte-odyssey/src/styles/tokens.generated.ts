@@ -68,7 +68,7 @@ export const tokens = {
       },
       'bg-raised': {
         light: 'oklch(1 0 0)',
-        dark: 'oklch(0.42 0.003 235)',
+        dark: 'oklch(0.3 0.002 235)',
       },
       'bg-surface': {
         light: 'oklch(0.975 0.001 235)',
@@ -496,7 +496,7 @@ export const tokens = {
     },
     'bg-raised': {
       light: 'oklch(1 0 0)',
-      dark: 'oklch(0.42 0.003 235)',
+      dark: 'oklch(0.3 0.002 235)',
     },
     'bg-surface': {
       light: 'oklch(0.975 0.001 235)',
@@ -669,7 +669,7 @@ export const tokens = {
     },
     'bg-raised': {
       light: 'white',
-      dark: 'gray-700',
+      dark: 'gray-800',
     },
     'bg-surface': {
       light: 'gray-50',

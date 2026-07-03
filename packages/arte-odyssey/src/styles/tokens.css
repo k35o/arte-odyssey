@@ -207,7 +207,7 @@
   --fg-error: var(--red-200);
 
   --bg-base: var(--gray-800);
-  --bg-raised: var(--gray-700);
+  --bg-raised: var(--gray-800);
   --bg-surface: var(--gray-950);
   --bg-subtle: var(--gray-900);
   --bg-mute: var(--gray-700);
