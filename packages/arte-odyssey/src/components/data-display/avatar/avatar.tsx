@@ -1,13 +1,15 @@
 'use client';
 
-import type { FC, HTMLAttributes } from 'react';
+import type { FC, HTMLAttributes, ReactNode } from 'react';
 import { useState } from 'react';
 
 import { cn } from '../../../helpers/cn';
 
 type Props = {
   alt?: string;
+  color?: 'base' | 'primary' | 'secondary';
   fallback?: string;
+  icon?: ReactNode;
   name?: string;
   size?: 'sm' | 'md' | 'lg';
   src?: string;
@@ -33,7 +35,9 @@ const getInitials = (name?: string) => {
 
 export const Avatar: FC<Props> = ({
   alt,
+  color = 'base',
   fallback,
+  icon,
   name,
   size = 'md',
   src,
@@ -49,7 +53,12 @@ export const Avatar: FC<Props> = ({
       {...rest}
       aria-label={label}
       className={cn(
-        'inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full border border-border-base bg-bg-mute font-medium text-fg-base',
+        'inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full border font-medium',
+        color === 'base' && 'border-border-base bg-bg-mute text-fg-base',
+        color === 'primary' &&
+          'border-transparent bg-primary-bg text-primary-fg',
+        color === 'secondary' &&
+          'border-transparent bg-secondary-bg text-secondary-fg',
         size === 'sm' && 'size-8 text-xs',
         size === 'md' && 'size-10 text-sm',
         size === 'lg' && 'size-14 text-lg',
@@ -67,8 +76,12 @@ export const Avatar: FC<Props> = ({
           src={src}
           width={imageSize}
         />
-      ) : (
+      ) : icon === undefined ? (
         <span aria-hidden>{fallback ?? getInitials(name)}</span>
+      ) : (
+        <span aria-hidden className="flex items-center justify-center">
+          {icon}
+        </span>
       )}
     </span>
   );

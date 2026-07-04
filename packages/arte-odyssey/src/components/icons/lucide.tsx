@@ -14,6 +14,7 @@ import {
   BookOpenText,
   BookText,
   Bot,
+  BotMessageSquare,
   Calendar,
   Check,
   ChevronDown,
@@ -218,6 +219,13 @@ export const ViewOffIcon: FC<IconProps> = ({ size = 'md' }) => (
 
 export const AIIcon: FC<IconProps> = ({ size = 'md' }) => (
   <BaseIcon renderItem={(props) => <Bot {...props} />} size={size} />
+);
+
+export const AssistantIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon
+    renderItem={(props) => <BotMessageSquare {...props} />}
+    size={size}
+  />
 );
 
 export const RSSIcon: FC<IconProps> = ({ size = 'md' }) => (

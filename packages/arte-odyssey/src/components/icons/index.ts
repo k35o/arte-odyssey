@@ -5,6 +5,7 @@ export {
   AccessibilityIcon,
   AIIcon,
   AlertIcon,
+  AssistantIcon,
   AtomIcon,
   BadIcon,
   BlogIcon,

@@ -11,6 +11,7 @@ import Blend from 'lucide-react/dist/esm/icons/blend.mjs';
 import BookOpenText from 'lucide-react/dist/esm/icons/book-open-text.mjs';
 import BookText from 'lucide-react/dist/esm/icons/book-text.mjs';
 import Bookmark from 'lucide-react/dist/esm/icons/bookmark.mjs';
+import BotMessageSquare from 'lucide-react/dist/esm/icons/bot-message-square.mjs';
 import Bot from 'lucide-react/dist/esm/icons/bot.mjs';
 import Calendar from 'lucide-react/dist/esm/icons/calendar.mjs';
 import Check from 'lucide-react/dist/esm/icons/check.mjs';
@@ -77,6 +78,7 @@ export {
   BookOpenText,
   BookText,
   Bot,
+  BotMessageSquare,
   Calendar,
   Check,
   ChevronDown,
