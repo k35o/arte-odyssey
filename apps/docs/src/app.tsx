@@ -3,6 +3,7 @@ import type { RouteDefinition } from '@funstack/router/server';
 import { route } from '@funstack/router/server';
 
 import { LocaleLayout } from './layouts/locale-layout';
+import { AiChat } from './pages/ai-chat';
 import { Components } from './pages/components';
 import { AccordionPage } from './pages/components/accordion-page';
 import { AlertPage } from './pages/components/alert-page';
@@ -107,6 +108,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/generative-ui',
         component: <GenerativeUi />,
+      }),
+      route({
+        path: '/ai-chat',
+        component: <AiChat />,
       }),
       route({
         path: '/components',
