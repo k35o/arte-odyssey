@@ -69,6 +69,24 @@
         "default": "./dist/integrations/openui/prompt.mjs"
       }
     },
+    "./ai": {
+      "import": {
+        "types": "./dist/components/ai/index.d.mts",
+        "default": "./dist/components/ai/index.mjs"
+      }
+    },
+    "./ai/response": {
+      "import": {
+        "types": "./dist/components/ai/response/index.d.mts",
+        "default": "./dist/components/ai/response/index.mjs"
+      }
+    },
+    "./ai-sdk": {
+      "import": {
+        "types": "./dist/integrations/ai-sdk/index.d.mts",
+        "default": "./dist/integrations/ai-sdk/index.mjs"
+      }
+    },
     "./styles.css": "./dist/styles/index.css"
   },
   "publishConfig": {
@@ -115,6 +133,7 @@
     "@vitest/browser-playwright": "4.1.7",
     "@vitest/coverage-v8": "4.1.7",
     "@vitest/ui": "4.1.7",
+    "ai": "5.0.206",
     "postcss": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
@@ -122,6 +141,7 @@
     "storybook-addon-determinism": "0.1.1",
     "storybook-addon-mock-date": "3.0.2",
     "storybook-addon-vrt": "0.1.0",
+    "streamdown": "2.5.0",
     "tailwind-token-extractor": "0.2.0",
     "tailwindcss": "catalog:",
     "vite": "catalog:",
@@ -137,8 +157,10 @@
     "@openuidev/react-lang": ">=0.2.6",
     "@types/react": ">=19.0.0",
     "@types/react-dom": ">=19.0.0",
+    "ai": ">=5.0.0",
     "react": ">=19.0.0",
     "react-dom": ">=19.0.0",
+    "streamdown": ">=2.0.0",
     "tailwindcss": ">=4.0.0",
     "typescript": ">=6.0.0",
     "zod": ">=4.4.0"
@@ -154,6 +176,12 @@
       "optional": true
     },
     "@openuidev/react-lang": {
+      "optional": true
+    },
+    "ai": {
+      "optional": true
+    },
+    "streamdown": {
       "optional": true
     },
     "zod": {
