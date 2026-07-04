@@ -8,6 +8,7 @@ export const en = {
   'nav.hooks': 'Hooks',
   'nav.helpers': 'Helpers',
   'nav.generativeUi': 'Generative UI',
+  'nav.aiChat': 'AI Chat',
   'home.title': 'ArteOdyssey',
   'home.description':
     'A React component library for UI that is calm but never boring',
@@ -57,6 +58,26 @@ export const en = {
   'generativeUi.typedTitle': 'Typed specs',
   'generativeUi.typedDescription':
     'Write specs with `satisfies ArteSpec` so component names and props are checked at compile time.',
+  'aiChat.introduction':
+    'Presentational building blocks for AI chat UIs. They hold no fetching or message state — you pass data in and compose them with `messages.map()`, so they connect to the AI SDK or your own backend. Import from `@k8o/arte-odyssey/ai`.',
+  'aiChat.overviewTitle': 'Compose a conversation',
+  'aiChat.overviewDescription':
+    '`Conversation` provides the scroll region with stick-to-bottom and a scroll-to-latest button; `Message` renders the bubble per role; `PromptInput` is the composer. You own the message list.',
+  'aiChat.inputTitle': 'Prompt input (IME-safe)',
+  'aiChat.inputDescription':
+    'Enter sends, Shift+Enter inserts a newline, and the Enter that confirms an IME composition never submits. `status` switches the button between send and stop.',
+  'aiChat.responseTitle': 'Streaming Markdown',
+  'aiChat.responseDescription':
+    '`Response` renders streaming Markdown and tolerates unterminated blocks. It lives in a separate subpath and needs the `streamdown` optional peer plus its stylesheet.',
+  'aiChat.toolTitle': 'Tool calls & reasoning',
+  'aiChat.toolDescription':
+    '`ToolInvocation` and `Reasoning` show collapsible tool activity and thinking. Their `state` vocabulary matches the AI SDK tool part states.',
+  'aiChat.aiSdkTitle': 'AI SDK integration',
+  'aiChat.aiSdkDescription':
+    '`mapMessageParts` (from `@k8o/arte-odyssey/ai-sdk`) turns an AI SDK `UIMessage.parts` array into a flat list you render yourself. It needs the `ai` optional peer.',
+  'aiChat.jsonRenderTitle': 'Generative UI inside a bubble',
+  'aiChat.jsonRenderDescription':
+    'Because Message.Content takes any children, you can render an LLM-generated UI spec inside a bubble with the json-render registry — generative UI delivered straight into the conversation.',
   'generativeUi.openuiTitle': 'OpenUI',
   'generativeUi.openuiDescription':
     'OpenUI renders a DSL string with the `library`. Generate the prompt on the server with the dedicated `openui/prompt` entry.',

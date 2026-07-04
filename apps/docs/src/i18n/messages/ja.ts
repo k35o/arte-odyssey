@@ -8,6 +8,7 @@ export const ja = {
   'nav.hooks': 'Hooks',
   'nav.helpers': 'Helpers',
   'nav.generativeUi': 'Generative UI',
+  'nav.aiChat': 'AI チャット',
   'home.title': 'ArteOdyssey',
   'home.description':
     '穏やかだけど退屈じゃないUIを作るためのReactコンポーネントライブラリ',
@@ -60,6 +61,26 @@ export const ja = {
   'generativeUi.openuiTitle': 'OpenUI',
   'generativeUi.openuiDescription':
     'OpenUI は DSL 文字列を `library` で描画します。プロンプトは専用の `openui/prompt` エントリでサーバー生成できます。',
+  'aiChat.introduction':
+    'AI チャット UI のための presentational な部品です。通信やメッセージの状態は持たず、データを渡して `messages.map()` で組み立てるだけ。AI SDK でも自前のバックエンドでも接続できます。`@k8o/arte-odyssey/ai` から import します。',
+  'aiChat.overviewTitle': '会話を組み立てる',
+  'aiChat.overviewDescription':
+    '`Conversation` は stick-to-bottom と「最新へ」ボタン付きのスクロール領域、`Message` は role ごとの吹き出し、`PromptInput` は入力欄です。メッセージ配列は利用側が持ちます。',
+  'aiChat.inputTitle': '入力欄（IME 対応）',
+  'aiChat.inputDescription':
+    'Enter で送信、Shift+Enter で改行、そして IME 変換を確定する Enter では送信しません。`status` に応じて送信 / 停止ボタンが切り替わります。',
+  'aiChat.responseTitle': 'ストリーミング Markdown',
+  'aiChat.responseDescription':
+    '`Response` はストリーミング中の Markdown を描画し、未クローズのブロックにも耐えます。別サブパスに分かれており、optional peer の `streamdown` とそのスタイルシートが必要です。',
+  'aiChat.toolTitle': 'ツール呼び出しと思考',
+  'aiChat.toolDescription':
+    '`ToolInvocation` と `Reasoning` はツールの実行や思考過程を折りたたみで表示します。`state` の語彙は AI SDK のツールパートの状態に揃えています。',
+  'aiChat.aiSdkTitle': 'AI SDK 連携',
+  'aiChat.aiSdkDescription':
+    '`mapMessageParts`（`@k8o/arte-odyssey/ai-sdk`）は AI SDK の `UIMessage.parts` を、自分で描画しやすい素朴な配列に変換します。optional peer の `ai` が必要です。',
+  'aiChat.jsonRenderTitle': '吹き出しの中に Generative UI',
+  'aiChat.jsonRenderDescription':
+    'Message.Content は任意の children を取れるので、json-render の registry を使って LLM が生成した UI spec を吹き出しの中に描画できます。会話の中へそのまま Generative UI を届けられます。',
   'getStarted.introduction':
     'ArteOdysseyは、React 19とTailwind CSS 4で構築されたUIコンポーネントライブラリです。フォームやカードなどユーザーが操作する要素は丸みと余白で親しみやすく、情報を伝える要素はシャープさを保って明確に。穏やかだけど退屈じゃないUIを実現します。',
   'getStarted.installationTitle': 'インストール',
