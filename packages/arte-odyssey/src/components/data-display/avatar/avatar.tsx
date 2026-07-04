@@ -79,7 +79,16 @@ export const Avatar: FC<Props> = ({
       ) : icon === undefined ? (
         <span aria-hidden>{fallback ?? getInitials(name)}</span>
       ) : (
-        <span aria-hidden className="flex items-center justify-center">
+        <span
+          aria-hidden
+          className={cn(
+            'flex items-center justify-center',
+            // アイコンをアバターより一回り小さく揃え、常に程よい余白を確保する。
+            size === 'sm' && '[&_svg]:size-5',
+            size === 'md' && '[&_svg]:size-6',
+            size === 'lg' && '[&_svg]:size-8',
+          )}
+        >
           {icon}
         </span>
       )}
