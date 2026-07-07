@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 10.8.0
+
+### Minor Changes
+
+- [#566](https://github.com/k35o/arte-odyssey/pull/566) [`8192f24`](https://github.com/k35o/arte-odyssey/commit/8192f2433150f8c60a60137acc29950f7f17c9bc) Thanks [@k35o](https://github.com/k35o)! - `ColorScaleIcon` を追加しました。段階的に濃くなるスウォッチを並べたアイコンで、カラースケールやパレット生成系の UI を表すのに使えます。
+
 ## 10.7.0
 
 ### Minor Changes
