@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { FC } from 'react';
 
 import { ArteOdyssey } from './arte-odyssey';
+import { ColorScaleIcon } from './color-scale';
 import { GitHubIcon } from './github-mark';
 import { LogoIcon } from './logo';
 import {
@@ -280,6 +281,10 @@ export const Primary: Story = {
       <div className="flex flex-col items-center justify-center">
         <ColorContrastIcon />
         <p className="text-center">コントラスト</p>
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <ColorScaleIcon />
+        <p className="text-center">色の段階</p>
       </div>
       <div className="flex flex-col items-center justify-center">
         <MixedColorIcon />
