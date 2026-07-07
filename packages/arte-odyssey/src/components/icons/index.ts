@@ -1,4 +1,5 @@
 export { ArteOdyssey } from './arte-odyssey';
+export { ColorScaleIcon } from './color-scale';
 export { GitHubIcon } from './github-mark';
 export { Logo, LogoIcon } from './logo';
 export {

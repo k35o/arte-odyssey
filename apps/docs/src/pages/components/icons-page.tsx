@@ -13,6 +13,7 @@ import {
   CloseIcon,
   ColorContrastIcon,
   ColorInfoIcon,
+  ColorScaleIcon,
   CopyIcon,
   DarkModeIcon,
   DifficultIcon,
@@ -207,6 +208,9 @@ export function IconsPage() {
           </IconCard>
           <IconCard name="ColorInfoIcon">
             <ColorInfoIcon />
+          </IconCard>
+          <IconCard name="ColorScaleIcon">
+            <ColorScaleIcon />
           </IconCard>
           <IconCard name="DarkModeIcon">
             <DarkModeIcon />
