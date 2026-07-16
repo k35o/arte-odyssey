@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 10.9.0
+
+### Minor Changes
+
+- [#568](https://github.com/k35o/arte-odyssey/pull/568) [`652f871`](https://github.com/k35o/arte-odyssey/commit/652f871894ff74fe164a8990e8e751e812349275) Thanks [@k35o](https://github.com/k35o)! - `RefreshIcon` を追加しました。円を描く矢印のアイコンで、再読み込みや再取得のボタンに使えます。時系列をさかのぼる `HistoryIcon` とは意味が異なるため、更新操作にはこちらを使ってください。
+
 ## 10.8.0
 
 ### Minor Changes
