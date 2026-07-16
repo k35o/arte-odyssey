@@ -52,6 +52,7 @@ import {
   Palette,
   Plus,
   Presentation,
+  RefreshCw,
   Rocket,
   Rss,
   Send,
@@ -234,6 +235,10 @@ export const RSSIcon: FC<IconProps> = ({ size = 'md' }) => (
 
 export const HistoryIcon: FC<IconProps> = ({ size = 'md' }) => (
   <BaseIcon renderItem={(props) => <History {...props} />} size={size} />
+);
+
+export const RefreshIcon: FC<IconProps> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <RefreshCw {...props} />} size={size} />
 );
 
 export const ListIcon: FC<IconProps> = ({ size = 'md' }) => (

@@ -50,6 +50,7 @@ import PaintBucket from 'lucide-react/dist/esm/icons/paint-bucket.mjs';
 import Palette from 'lucide-react/dist/esm/icons/palette.mjs';
 import Plus from 'lucide-react/dist/esm/icons/plus.mjs';
 import Presentation from 'lucide-react/dist/esm/icons/presentation.mjs';
+import RefreshCw from 'lucide-react/dist/esm/icons/refresh-cw.mjs';
 import Rocket from 'lucide-react/dist/esm/icons/rocket.mjs';
 import Rss from 'lucide-react/dist/esm/icons/rss.mjs';
 import Send from 'lucide-react/dist/esm/icons/send.mjs';
@@ -116,6 +117,7 @@ export {
   Palette,
   Plus,
   Presentation,
+  RefreshCw,
   Rocket,
   Rss,
   Send,

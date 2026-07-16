@@ -41,6 +41,7 @@ import {
   PrepareIcon,
   PublishDateIcon,
   QiitaIcon,
+  RefreshIcon,
   RSSIcon,
   SendIcon,
   Separator,
@@ -223,6 +224,9 @@ export function IconsPage() {
           </IconCard>
           <IconCard name="HistoryIcon">
             <HistoryIcon />
+          </IconCard>
+          <IconCard name="RefreshIcon">
+            <RefreshIcon />
           </IconCard>
           <IconCard name="ListIcon">
             <ListIcon />
