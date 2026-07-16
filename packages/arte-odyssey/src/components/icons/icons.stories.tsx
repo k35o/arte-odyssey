@@ -42,6 +42,7 @@ import {
   PlusIcon,
   PrepareIcon,
   PublishDateIcon,
+  RefreshIcon,
   RSSIcon,
   SendIcon,
   ShallowIcon,
@@ -209,6 +210,10 @@ export const Primary: Story = {
       <div className="flex flex-col items-center justify-center">
         <HistoryIcon />
         <p className="text-center">履歴</p>
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <RefreshIcon />
+        <p className="text-center">再読み込み</p>
       </div>
       <div className="flex flex-col items-center justify-center">
         <MailIcon />

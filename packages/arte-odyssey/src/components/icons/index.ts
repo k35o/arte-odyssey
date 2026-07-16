@@ -47,6 +47,7 @@ export {
   PlusIcon,
   PrepareIcon,
   PublishDateIcon,
+  RefreshIcon,
   RSSIcon,
   SendIcon,
   ShallowIcon,
