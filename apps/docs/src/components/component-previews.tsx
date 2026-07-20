@@ -8,7 +8,6 @@ import {
   Autocomplete,
   Avatar,
   Badge,
-  BaselineStatus,
   Breadcrumb,
   Button,
   Card,
@@ -269,13 +268,6 @@ export const componentPreviews: Record<string, ReactNode> = {
         </Table.Row>
       </Table.Body>
     </Table.Root>
-  ),
-  BaselineStatus: (
-    <div className="h-34 overflow-hidden">
-      <div className="origin-top scale-[0.6]">
-        <BaselineStatus featureId="container-queries" />
-      </div>
-    </div>
   ),
   Heading: <Heading type="h2">Section Title</Heading>,
   Alert: <Alert message="This is an info alert." tone="info" />,

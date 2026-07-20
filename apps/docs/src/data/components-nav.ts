@@ -155,11 +155,6 @@ export const componentCategories: NavCategory[] = [
         descKey: 'components.table.description',
       },
       {
-        name: 'BaselineStatus',
-        path: '/components/baseline-status',
-        descKey: 'components.baselineStatus.description',
-      },
-      {
         name: 'Heading',
         path: '/components/heading',
         descKey: 'components.heading.description',

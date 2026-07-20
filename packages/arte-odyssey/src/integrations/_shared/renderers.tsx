@@ -15,7 +15,6 @@ import { IconButton } from '../../components/buttons/icon-button';
 import { Accordion } from '../../components/data-display/accordion';
 import { Avatar } from '../../components/data-display/avatar';
 import { Badge } from '../../components/data-display/badge';
-import { BaselineStatus } from '../../components/data-display/baseline-status';
 import { Card } from '../../components/data-display/card';
 import { Code } from '../../components/data-display/code';
 import { Heading } from '../../components/data-display/heading';
@@ -119,7 +118,6 @@ import type {
   AutocompleteProps,
   AvatarProps,
   BadgeProps,
-  BaselineStatusProps,
   BreadcrumbProps,
   ButtonProps,
   CardProps,
@@ -929,10 +927,6 @@ export function renderDropdownMenu(props: DropdownMenuProps): ReactNode {
 
 export function renderScrollLinked(_props: ScrollLinkedProps): ReactNode {
   return <ScrollLinked />;
-}
-
-export function renderBaselineStatus(props: BaselineStatusProps): ReactNode {
-  return <BaselineStatus featureId={props.featureId} />;
 }
 
 // ToastProvider はラッパー側で巻く必要があるため、ローカルにも 1 段被せる。

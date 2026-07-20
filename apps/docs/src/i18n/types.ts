@@ -189,8 +189,6 @@ export const MESSAGE_KEYS = [
   'components.table.description',
   'components.table.emptyStateTitle',
   'components.listBox.description',
-  'components.baselineStatus.description',
-  'components.baselineStatus.differentFeaturesTitle',
   'components.progress.description',
   'components.progress.differentValuesTitle',
   'components.progress.withLabelTitle',
