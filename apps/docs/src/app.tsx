@@ -11,7 +11,6 @@ import { AnchorPage } from './pages/components/anchor-page';
 import { AutocompletePage } from './pages/components/autocomplete-page';
 import { AvatarPage } from './pages/components/avatar-page';
 import { BadgePage } from './pages/components/badge-page';
-import { BaselineStatusPage } from './pages/components/baseline-status-page';
 import { BreadcrumbPage } from './pages/components/breadcrumb-page';
 import { ButtonPage } from './pages/components/button-page';
 import { CardPage } from './pages/components/card-page';
@@ -216,10 +215,6 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/list-box',
         component: <ListBoxPage />,
-      }),
-      route({
-        path: '/components/baseline-status',
-        component: <BaselineStatusPage />,
       }),
       route({
         path: '/components/progress',

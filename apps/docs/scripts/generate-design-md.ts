@@ -421,7 +421,6 @@ import { ArteOdysseyProvider, Button, Card } from '@k8o/arte-odyssey';
 - **Accordion**（compound: \`Root\` / \`Item\`(\`defaultOpen?\`) / \`Button\` / \`Panel\`）
 - **Avatar** — \`src\` / \`name\`（イニシャル）/ \`fallback\`, \`size\`
 - **Badge** — \`text\`, \`tone: 'neutral'|'info'|'success'|'warning'|'error'\`, \`variant: 'solid'|'outline'\`, \`size\`, \`interactive\`
-- **BaselineStatus** — \`featureId\`（Web API のブラウザサポート状況）
 - **Card** — \`width: 'full'|'fit'\`, \`appearance: 'shadow'|'bordered'\`, \`interactive\`
 - **Code** — \`children: string\`（コードブロック）
 - **Heading** — \`type: 'h1'..'h6'\`（必須）, \`id?\`, \`lineClamp?\`

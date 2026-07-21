@@ -191,10 +191,6 @@ export const catalog = defineCatalog(schema, {
       props: s.scrollLinkedProps,
       description: 'ページスクロール進捗バー（fixed top）。',
     },
-    BaselineStatus: {
-      props: s.baselineStatusProps,
-      description: 'Web feature の Baseline ステータス表示。',
-    },
     ListBox: {
       props: s.listBoxProps,
       description: 'ポップアップ型の単一選択リスト。',

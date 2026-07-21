@@ -609,16 +609,6 @@ import { Table } from '@k8o/arte-odyssey';
 </Table.Root>;
 ```
 
-### BaselineStatus
-
-Web API のブラウザサポート状況を表示。
-
-```tsx
-import { BaselineStatus } from '@k8o/arte-odyssey';
-
-<BaselineStatus featureId="dialog" />;
-```
-
 ## フィードバック
 
 ### Alert

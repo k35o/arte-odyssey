@@ -109,7 +109,6 @@
     "check:write": "vp check --fix"
   },
   "dependencies": {
-    "baseline-status": "1.1.1",
     "clsx": "2.1.1",
     "lucide-react": "1.17.0",
     "motion": "12.40.0",

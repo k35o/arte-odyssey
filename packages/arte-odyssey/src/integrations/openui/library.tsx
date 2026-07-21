@@ -120,8 +120,6 @@ const renderers = {
     ui.renderSeparator(props),
   ScrollLinked: ({ props }: ComponentRenderProps<sc.ScrollLinkedProps>) =>
     ui.renderScrollLinked(props),
-  BaselineStatus: ({ props }: ComponentRenderProps<sc.BaselineStatusProps>) =>
-    ui.renderBaselineStatus(props),
   Tabs: ({ props }: ComponentRenderProps<sc.TabsProps>) => ui.renderTabs(props),
   Accordion: ({ props }: ComponentRenderProps<sc.AccordionProps>) =>
     ui.renderAccordion(props),

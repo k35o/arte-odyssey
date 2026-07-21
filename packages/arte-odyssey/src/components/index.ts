@@ -3,7 +3,6 @@ export { IconButton } from './buttons/icon-button';
 export { Accordion } from './data-display/accordion';
 export { Avatar } from './data-display/avatar';
 export { Badge } from './data-display/badge';
-export { BaselineStatus } from './data-display/baseline-status';
 export { Card } from './data-display/card';
 export { Code } from './data-display/code';
 export { Heading } from './data-display/heading';

@@ -227,9 +227,6 @@ export const en = {
     'A semantic table component with horizontal overflow support.',
   'components.table.emptyStateTitle': 'Empty State',
   'components.listBox.description': 'A dropdown list selection component.',
-  'components.baselineStatus.description':
-    'Displays browser support status for web features.',
-  'components.baselineStatus.differentFeaturesTitle': 'Different Features',
   'components.progress.description': 'A progress bar component.',
   'components.progress.differentValuesTitle': 'Different Values',
   'components.progress.withLabelTitle': 'With Label',

@@ -221,8 +221,6 @@ export const ja = {
     '意味論を保ちつつ横スクロールにも対応するテーブル',
   'components.table.emptyStateTitle': '空状態',
   'components.listBox.description': 'ドロップダウン形式のリスト選択',
-  'components.baselineStatus.description': 'Web機能のブラウザ対応状況の表示',
-  'components.baselineStatus.differentFeaturesTitle': '様々な機能',
   'components.progress.description': '進捗バー',
   'components.progress.differentValuesTitle': '異なる値',
   'components.progress.withLabelTitle': 'ラベル付き',

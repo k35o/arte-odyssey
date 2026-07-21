@@ -170,11 +170,6 @@ export const buildArteOdysseyLibrary = <C>(
     'ページスクロール進捗バー（fixed top）。',
     s.scrollLinkedProps,
   );
-  const BaselineStatus = def(
-    'BaselineStatus',
-    'Web feature の Baseline ステータス表示。',
-    s.baselineStatusProps,
-  );
   const ListBox = def(
     'ListBox',
     'ポップアップ型の単一選択リスト。',
@@ -237,7 +232,6 @@ export const buildArteOdysseyLibrary = <C>(
     DropdownMenu.ref,
     Toast.ref,
     ScrollLinked.ref,
-    BaselineStatus.ref,
     ListBox.ref,
     CheckboxGroup.ref,
     Autocomplete.ref,
@@ -346,7 +340,6 @@ export const buildArteOdysseyLibrary = <C>(
       Skeleton,
       Separator,
       ScrollLinked,
-      BaselineStatus,
       Tabs,
       Accordion,
       Breadcrumb,

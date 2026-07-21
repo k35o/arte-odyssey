@@ -382,11 +382,6 @@ export const scrollLinkedProps = z.object(
   {},
 ) satisfies z.ZodType<ScrollLinkedIntegrationProps>;
 
-type BaselineStatusIntegrationProps = { featureId: string };
-export const baselineStatusProps = z.object({
-  featureId: z.string().describe('Web feature の ID'),
-}) satisfies z.ZodType<BaselineStatusIntegrationProps>;
-
 type AnchorIntegrationProps = {
   text: string;
   href: string;
@@ -783,7 +778,6 @@ export type DialogProps = z.infer<typeof dialogProps>;
 export type DrawerProps = z.infer<typeof drawerProps>;
 export type PopoverProps = z.infer<typeof popoverProps>;
 export type ScrollLinkedProps = z.infer<typeof scrollLinkedProps>;
-export type BaselineStatusProps = z.infer<typeof baselineStatusProps>;
 export type TooltipProps = z.infer<typeof tooltipProps>;
 export type DropdownMenuProps = z.infer<typeof dropdownMenuProps>;
 export type ToastProps = z.infer<typeof toastProps>;
