@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { FC } from 'react';
+import { expect } from 'storybook/test';
 
 import { ChromeIcon, EdgeIcon, FirefoxIcon, SafariIcon } from './browsers';
 
@@ -31,4 +32,22 @@ export const Primary: Story = {
       </div>
     </div>
   ),
+};
+
+// 対応表のように同じアイコンを 1 ページで何度も描画するケース。useId により
+// グラデーションの DOM id がインスタンスごとに一意になり、重複しないことを検証する。
+export const UniqueIds: Story = {
+  render: () => (
+    <div className="flex gap-6">
+      <ChromeIcon />
+      <ChromeIcon />
+      <EdgeIcon />
+      <EdgeIcon />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const ids = [...canvasElement.querySelectorAll('[id]')].map((el) => el.id);
+    await expect(ids.length).toBeGreaterThan(0);
+    await expect(new Set(ids).size).toBe(ids.length);
+  },
 };

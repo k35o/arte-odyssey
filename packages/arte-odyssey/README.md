@@ -108,7 +108,6 @@ ArteOdyssey includes design system documentation in `docs/` directory. When inst
 - **Accordion** - Collapsible content panels
 - **Avatar** - User/entity avatar
 - **Badge** - Status/label indicator
-- **BaselineStatus** - Web standard support indicator
 - **Card** - Flexible content container (hover interaction via `interactive`)
 - **Code** - Formatted code display
 - **Heading** - Typography heading component
@@ -249,7 +248,7 @@ Supported components (**all 49**, both frameworks):
 
 - **Layout / containers**: `Stack`, `Grid`, `Card`, `Form`
 - **Buttons / nav**: `Button`, `IconButton`, `Anchor`, `Breadcrumb`, `Pagination`
-- **Display**: `Badge`, `Heading`, `Avatar`, `Code`, `Icon`, `ChevronIcon`, `StatusIcon`, `Alert`, `Spinner`, `Progress`, `Skeleton`, `Separator`, `Tabs`, `Accordion`, `Table`, `BaselineStatus`, `ScrollLinked`
+- **Display**: `Badge`, `Heading`, `Avatar`, `Code`, `Icon`, `ChevronIcon`, `StatusIcon`, `Alert`, `Spinner`, `Progress`, `Skeleton`, `Separator`, `Tabs`, `Accordion`, `Table`, `ScrollLinked`
 - **Overlays (self-contained widgets)**: `Modal`, `Dialog`, `Drawer`, `Popover`, `Tooltip`, `DropdownMenu`, `Toast`
 - **Form**: `TextField`, `Textarea`, `PasswordInput`, `NumberField`, `Slider`, `Checkbox`, `Switch`, `Select`, `Radio`, `RadioCard`, `CheckboxCard`, `ListBox`, `CheckboxGroup`, `Autocomplete`, `FileField`, `FormControl`
 
