@@ -1,5 +1,12 @@
 # example-vite
 
+## 0.1.12
+
+### Patch Changes
+
+- Updated dependencies [[`5fda8cb`](https://github.com/k35o/arte-odyssey/commit/5fda8cbe86b88c9d92e7e228a1108eab42ae1c1d), [`30a8c20`](https://github.com/k35o/arte-odyssey/commit/30a8c20acf879ebed0829828a86ce8858d6a6e93)]:
+  - @k8o/arte-odyssey@11.0.0
+
 ## 0.1.11
 
 ### Patch Changes

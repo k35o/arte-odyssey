@@ -1,5 +1,15 @@
 # @k8o/arte-odyssey
 
+## 11.0.0
+
+### Major Changes
+
+- [#575](https://github.com/k35o/arte-odyssey/pull/575) [`30a8c20`](https://github.com/k35o/arte-odyssey/commit/30a8c20acf879ebed0829828a86ce8858d6a6e93) Thanks [@k35o](https://github.com/k35o)! - **BREAKING**: `BaselineStatus` コンポーネントを削除しました。ランタイムで webstatus.dev を取得する実装だったため、対応状況の表示は各アプリ側で web-features 等のデータから構築する方針に変更します（ブラウザ別の表示には `ChromeIcon` 等のアイコンを利用できます）。
+
+### Minor Changes
+
+- [#575](https://github.com/k35o/arte-odyssey/pull/575) [`5fda8cb`](https://github.com/k35o/arte-odyssey/commit/5fda8cbe86b88c9d92e7e228a1108eab42ae1c1d) Thanks [@k35o](https://github.com/k35o)! - 公式ブラウザロゴのアイコン `ChromeIcon` / `EdgeIcon` / `FirefoxIcon` / `SafariIcon` を追加しました。ブラウザ別の対応状況表示などに使えます。
+
 ## 10.9.0
 
 ### Minor Changes
