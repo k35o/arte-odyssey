@@ -7,11 +7,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ArteOdyssey is a monorepo containing a React UI library (`@k8o/arte-odyssey`) and its documentation site, built with:
 
 - **Vite+** (`vp`) as unified toolchain (dev, build, test, lint, format, task runner)
-- **pnpm** for package management (v11.1.3, Node.js >=24.13.0)
+- **pnpm** for package management (v11.15.1, Node.js >=24.13.0)
 - **TypeScript** (strict mode, `noUncheckedIndexedAccess: true`)
 - **Oxlint/Oxfmt** for linting and formatting (via `vp check`)
 - **Tailwind CSS 4** with semantic design tokens
-- **Changesets** for versioning and publishing
+- **pnpm's built-in release management** with [k35o/pnpm-release-action](https://github.com/k35o/pnpm-release-action) for versioning and publishing
 
 ### Project Structure
 
@@ -59,12 +59,12 @@ pnpm test              # Run all tests
 - No skipped tests (`test.skip`, `describe.skip`)
 - Git pre-commit hook: `vp staged` runs `vp check --fix` and auto-stages fixes
 
-## Publishing
+## Release
 
-Uses Changesets for version management:
+Versioning and publishing use [pnpm's built-in release management](https://pnpm.io/versioning) (pnpm >= 11.13), driven in CI by [k35o/pnpm-release-action](https://github.com/k35o/pnpm-release-action) via `.github/workflows/release.yml`.
 
-```bash
-pnpm release           # Build and publish to npm
-```
+To author a change, run `pnpm change` (writes a `.changeset/<name>.md` intent in the changesets format) and include it in the PR.
 
-Package is published as `@k8o/arte-odyssey` with public access to npm registry.
+On every push to `main` the action either opens/updates the release PR (branch `pnpm-release/main`) that bumps versions and updates `CHANGELOG.md`, or — when no intents are pending — builds, publishes to npm via OIDC trusted publishing, pushes the version tag, and creates the GitHub Release.
+
+Config lives in the `versioning` key of `pnpm-workspace.yaml` (`changelog.storage: repository` keeps `CHANGELOG.md` committed). Consumed intents are recorded in `.changeset/ledger.yaml`. Package is published as `@k8o/arte-odyssey` with public access (`publishConfig` in its `package.json`).

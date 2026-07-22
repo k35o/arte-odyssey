@@ -74,7 +74,7 @@ examples/
 - `pnpm typecheck` - Type check all packages
 - `pnpm check` - Run linting checks
 - `pnpm check:write` - Run linting checks and auto-fix
-- `pnpm release` - Build and publish packages
+- `pnpm change` - Write a release intent for the changed packages
 
 ### Visual Regression Testing
 
