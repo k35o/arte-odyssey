@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 11.0.1
+
+### Patch Changes
+
+- Switch release automation from changesets/action to pnpm-release-action (pnpm built-in release management). No runtime changes.
+
 ## 11.0.0
 
 ### Major Changes
