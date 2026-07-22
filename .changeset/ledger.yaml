@@ -1,0 +1,4 @@
+"@k8o/arte-odyssey@11.0.1":
+  dir: packages/arte-odyssey
+  intents:
+    - switch-release-automation
