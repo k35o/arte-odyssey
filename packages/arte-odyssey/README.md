@@ -424,8 +424,8 @@ pnpm check:write
 
 ## License
 
-MIT License - see [LICENSE](../../LICENSE) for details.
+MIT License - see [LICENSE](https://github.com/k35o/arte-odyssey/blob/main/LICENSE) for details.
 
 ## Contributing
 
-Contributions are welcome! Please see the [main repository](../../README.md) for contribution guidelines.
+Contributions are welcome! Please see the [main repository](https://github.com/k35o/arte-odyssey#readme) for contribution guidelines.
