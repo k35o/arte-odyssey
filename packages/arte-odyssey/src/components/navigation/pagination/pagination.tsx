@@ -49,7 +49,6 @@ export const Pagination: FC<Props> = ({
           {prevLabel}
         </Button>
         <p
-          aria-current="page"
           aria-live="polite"
           className="text-fg-mute px-3 text-sm tabular-nums"
         >
