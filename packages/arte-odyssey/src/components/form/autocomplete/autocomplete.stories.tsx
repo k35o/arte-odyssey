@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { type ComponentProps, useState } from 'react';
-import { expect } from 'storybook/test';
+import { expect, waitFor } from 'storybook/test';
 
 import { Autocomplete } from './autocomplete';
 
@@ -104,6 +104,103 @@ export const NarrowContainer: Story = {
     }
     await expect(clearAll.getBoundingClientRect().right).toBeLessThanOrEqual(
       box.getBoundingClientRect().right + 1,
+    );
+  },
+};
+
+// 回帰: 矢印キーの clamp が全 options 基準だと、絞り込みで候補が減ったとき
+// selectIndex が実在しない行を指して Enter が無反応になる
+export const FilteredKeyboardSelection: Story = {
+  args: {
+    id: 'autocomplete-filter',
+    'aria-describedby': undefined,
+    invalid: false,
+    disabled: false,
+    required: false,
+  },
+  play: async ({ canvas, userEvent }) => {
+    const input = canvas.getByRole('combobox');
+    await userEvent.type(input, '1');
+    await canvas.findByRole('listbox');
+    await waitFor(async () => {
+      await expect(canvas.getAllByRole('option')).toHaveLength(2);
+    });
+
+    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{ArrowDown}');
+    await userEvent.keyboard('{ArrowDown}');
+
+    await expect(input).toHaveAttribute(
+      'aria-activedescendant',
+      'autocomplete-filter_option_16',
+    );
+
+    await userEvent.keyboard('{Enter}');
+
+    await expect(canvas.queryByRole('listbox')).not.toBeInTheDocument();
+    await expect(input).toHaveValue('');
+    await expect(canvas.getByText('16進数')).toBeInTheDocument();
+  },
+};
+
+export const EscapeCloses: Story = {
+  args: {
+    id: 'autocomplete-escape',
+    'aria-describedby': undefined,
+    invalid: false,
+    disabled: false,
+    required: false,
+  },
+  play: async ({ canvas, userEvent }) => {
+    const input = canvas.getByRole('combobox');
+    await userEvent.click(input);
+    await canvas.findByRole('listbox');
+    await userEvent.keyboard('{ArrowDown}');
+
+    await expect(input).toHaveAttribute('aria-activedescendant');
+
+    await userEvent.keyboard('{Escape}');
+
+    await expect(canvas.queryByRole('listbox')).not.toBeInTheDocument();
+    await expect(input).not.toHaveAttribute('aria-activedescendant');
+  },
+};
+
+export const ActiveDescendant: Story = {
+  args: {
+    id: 'autocomplete-active',
+    'aria-describedby': undefined,
+    invalid: false,
+    disabled: false,
+    required: false,
+  },
+  play: async ({ canvas, userEvent }) => {
+    const input = canvas.getByRole('combobox');
+
+    await expect(input).not.toHaveAttribute('aria-activedescendant');
+
+    await userEvent.click(input);
+    await canvas.findByRole('listbox');
+
+    await expect(input).not.toHaveAttribute('aria-activedescendant');
+
+    await userEvent.keyboard('{ArrowDown}');
+
+    await expect(input).toHaveAttribute(
+      'aria-activedescendant',
+      'autocomplete-active_option_2',
+    );
+
+    await userEvent.keyboard('{ArrowDown}');
+
+    await expect(input).toHaveAttribute(
+      'aria-activedescendant',
+      'autocomplete-active_option_8',
+    );
+    await expect(canvas.getByRole('option', { name: '8進数' })).toHaveAttribute(
+      'id',
+      'autocomplete-active_option_8',
     );
   },
 };
