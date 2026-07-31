@@ -35,8 +35,8 @@ export const tokens = {
         dark: 'oklch(0.975 0.001 235)',
       },
       'fg-subtle': {
-        light: 'oklch(0.75 0.005 235)',
-        dark: 'oklch(0.66 0.006 235)',
+        light: 'oklch(0.52 0.006 235)',
+        dark: 'oklch(0.75 0.005 235)',
       },
       'fg-mute': {
         light: 'oklch(0.42 0.003 235)',
@@ -463,8 +463,8 @@ export const tokens = {
       dark: 'oklch(0.975 0.001 235)',
     },
     'fg-subtle': {
-      light: 'oklch(0.75 0.005 235)',
-      dark: 'oklch(0.66 0.006 235)',
+      light: 'oklch(0.52 0.006 235)',
+      dark: 'oklch(0.75 0.005 235)',
     },
     'fg-mute': {
       light: 'oklch(0.42 0.003 235)',
@@ -636,8 +636,8 @@ export const tokens = {
       dark: 'gray-50',
     },
     'fg-subtle': {
-      light: 'gray-400',
-      dark: 'gray-500',
+      light: 'gray-600',
+      dark: 'gray-400',
     },
     'fg-mute': {
       light: 'gray-700',

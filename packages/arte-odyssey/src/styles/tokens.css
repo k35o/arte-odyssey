@@ -139,7 +139,7 @@
   --orange-950: oklch(0.18 0.09 55);
 
   --fg-base: var(--gray-900);
-  --fg-subtle: var(--gray-400);
+  --fg-subtle: var(--gray-600);
   --fg-mute: var(--gray-700);
   --fg-inverse: var(--gray-50);
   --fg-info: var(--blue-800);
@@ -198,7 +198,7 @@
 
 .dark {
   --fg-base: var(--gray-50);
-  --fg-subtle: var(--gray-500);
+  --fg-subtle: var(--gray-400);
   --fg-mute: var(--gray-300);
   --fg-inverse: var(--gray-900);
   --fg-info: var(--blue-200);
