@@ -63,6 +63,7 @@ const Root = ({
   required = false,
   multiple = false,
   maxFiles,
+  defaultValue,
   onChange,
   webkitDirectory = false,
   ...rest
@@ -72,7 +73,12 @@ const Root = ({
   const { pending } = useFormStatus();
   const disabledResolved = disabled || pending;
 
-  const [acceptedFiles, setAcceptedFiles] = useState<AcceptedFile[]>([]);
+  const [acceptedFiles, setAcceptedFiles] = useState<AcceptedFile[]>(() =>
+    (defaultValue ?? []).map((file) => ({
+      file,
+      id: crypto.randomUUID(),
+    })),
+  );
 
   const onFilesChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {

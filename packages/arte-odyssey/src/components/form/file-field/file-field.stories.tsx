@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 
 import { Button } from '../../buttons/button';
 import { FileField } from './file-field';
@@ -61,6 +62,20 @@ export const MaxFiles: Story = {
     required: false,
     multiple: true,
     maxFiles: 3,
+  },
+};
+
+export const DefaultValue: Story = {
+  args: {
+    disabled: false,
+    invalid: false,
+    required: false,
+    defaultValue: [
+      new File(['file content'], 'default.txt', { type: 'text/plain' }),
+    ],
+  },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText('default.txt')).toBeInTheDocument();
   },
 };
 
