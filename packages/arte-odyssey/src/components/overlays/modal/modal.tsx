@@ -1,7 +1,5 @@
 'use client';
 
-import { MotionConfig, type Variants } from 'motion/react';
-import * as motion from 'motion/react-client';
 import {
   type FC,
   type PropsWithChildren,
@@ -15,81 +13,6 @@ import {
 import { ToastProvider } from '../../feedback/toast';
 import { PortalRootProvider } from '../../providers';
 import { cn } from './../../../helpers/cn';
-
-const centerVariants: Variants = {
-  open: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.2,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-  closed: {
-    opacity: 0,
-    scale: 0.9,
-    transition: {
-      duration: 0.2,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-};
-
-const bottomVariants: Variants = {
-  open: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.2,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-  closed: {
-    opacity: 0,
-    y: '100%',
-    transition: {
-      duration: 0.2,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-};
-const rightVariants: Variants = {
-  open: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.3,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-  closed: {
-    opacity: 0,
-    x: '100%',
-    transition: {
-      duration: 0.3,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-};
-
-const leftVariants: Variants = {
-  open: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.3,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-  closed: {
-    opacity: 0,
-    x: '-100%',
-    transition: {
-      duration: 0.3,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-};
 
 export const Modal: FC<
   PropsWithChildren<{
@@ -140,44 +63,32 @@ export const Modal: FC<
   }, [isOpen, realRef]);
 
   return (
-    <MotionConfig reducedMotion="user">
-      <motion.dialog
-        animate={realDialogOpen ? 'open' : 'closed'}
-        className={cn(
-          'bg-bg-raised text-fg-base z-modal shadow-md backdrop:bg-back-drop',
-          type === 'center' &&
-            'm-auto max-h-lg w-5/6 max-w-2xl rounded-lg vertical:h-5/6 vertical:max-h-2xl vertical:w-auto vertical:max-w-lg',
-          type === 'bottom' && 'mt-auto w-screen max-w-screen rounded-t-lg',
-          type === 'right' &&
-            'ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg',
-          type === 'left' &&
-            'mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg',
-        )}
-        exit="closed"
-        initial="closed"
-        onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            realRef.current?.close();
-          }
-        }}
-        onClose={realOnClose}
-        ref={realRef}
-        variants={
-          type === 'center'
-            ? centerVariants
-            : type === 'bottom'
-              ? bottomVariants
-              : type === 'left'
-                ? leftVariants
-                : rightVariants
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- onClick は枠外(backdrop)クリックで閉じるためのもの。キーボード等価操作はネイティブ modal dialog の Escape が担う
+    <dialog
+      className={cn(
+        'ao-modal bg-bg-raised text-fg-base z-modal shadow-md backdrop:bg-back-drop',
+        type === 'center' &&
+          'ao-modal-center m-auto max-h-lg w-5/6 max-w-2xl rounded-lg vertical:h-5/6 vertical:max-h-2xl vertical:w-auto vertical:max-w-lg',
+        type === 'bottom' &&
+          'ao-modal-bottom mt-auto w-screen max-w-screen rounded-t-lg',
+        type === 'right' &&
+          'ao-modal-right ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg',
+        type === 'left' &&
+          'ao-modal-left mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg',
+      )}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          realRef.current?.close();
         }
-      >
-        <PortalRootProvider value={realRef}>
-          <ToastProvider portalRef={realRef} position="absolute">
-            {children}
-          </ToastProvider>
-        </PortalRootProvider>
-      </motion.dialog>
-    </MotionConfig>
+      }}
+      onClose={realOnClose}
+      ref={realRef}
+    >
+      <PortalRootProvider value={realRef}>
+        <ToastProvider portalRef={realRef} position="absolute">
+          {children}
+        </ToastProvider>
+      </PortalRootProvider>
+    </dialog>
   );
 };

@@ -12,9 +12,7 @@ export default meta;
 type Story = StoryObj<typeof ScrollLinked>;
 
 export const NoScroll: Story = {
-  // The progress bar is driven by a motion spring (not CSS animation), so
-  // its resting state is not pixel-deterministic — and with no scroll the
-  // screenshot is a blank page anyway.
+  // With no scroll the screenshot is a blank page (the bar rests at scale 0).
   parameters: { vrt: { skip: true } },
 };
 
