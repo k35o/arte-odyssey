@@ -1,12 +1,11 @@
 import type { FC } from 'react';
 
-import { BaseIcon, type BaseIconProps } from './base';
+import { BaseIcon, type BaseIconProps, type IconRenderProps } from './base';
 
-export const Logo: FC<{
-  className?: string;
-}> = ({ className }) => (
+export const Logo: FC<Partial<IconRenderProps>> = ({ className, ...rest }) => (
   <svg
     className={className}
+    {...rest}
     viewBox="0 128 1280 896"
     xmlns="http://www.w3.org/2000/svg"
   >

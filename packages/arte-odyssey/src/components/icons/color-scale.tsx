@@ -1,10 +1,11 @@
 import type { FC } from 'react';
 
-import { BaseIcon, type BaseIconProps } from './base';
+import { BaseIcon, type BaseIconProps, type IconRenderProps } from './base';
 
-const ColorScale: FC<{ className: string }> = ({ className }) => (
+const ColorScale: FC<IconRenderProps> = ({ className, ...rest }) => (
   <svg
     className={className}
+    {...rest}
     fill="none"
     stroke="currentColor"
     strokeLinecap="round"

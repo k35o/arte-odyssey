@@ -1,5 +1,8 @@
+/* eslint-disable import/max-dependencies -- 全アイコンを一覧するカタログ story のため依存数上限を超える */
+
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { FC } from 'react';
+import { expect } from 'storybook/test';
 
 import { ArteOdyssey } from './arte-odyssey';
 import { ColorScaleIcon } from './color-scale';
@@ -78,6 +81,16 @@ export const Sizes: Story = {
       ))}
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const svgs = [...canvasElement.querySelectorAll('svg')];
+    await expect(svgs).toHaveLength(sizes.length);
+    await Promise.all(
+      svgs.flatMap((svg) => [
+        expect(svg).toHaveAttribute('aria-hidden', 'true'),
+        expect(svg).toHaveAttribute('focusable', 'false'),
+      ]),
+    );
+  },
 };
 
 export const Primary: Story = {
@@ -325,4 +338,16 @@ export const Primary: Story = {
       </div>
     </div>
   ),
+  // lucide ラッパーだけでなく自前 SVG (GitHub / Qiita / ArteOdyssey 等) も
+  // renderItem の aria-hidden / focusable を svg まで伝播していることを網羅検証する
+  play: async ({ canvasElement }) => {
+    const svgs = [...canvasElement.querySelectorAll('svg')];
+    await expect(svgs.length).toBeGreaterThan(0);
+    await Promise.all(
+      svgs.flatMap((svg) => [
+        expect(svg).toHaveAttribute('aria-hidden', 'true'),
+        expect(svg).toHaveAttribute('focusable', 'false'),
+      ]),
+    );
+  },
 };

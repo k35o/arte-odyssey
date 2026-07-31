@@ -1,12 +1,11 @@
 import type { FC } from 'react';
 
-import { BaseIcon, type BaseIconProps } from './base';
+import { BaseIcon, type BaseIconProps, type IconRenderProps } from './base';
 
-const ArteOdysseyLogo: FC<{
-  className?: string;
-}> = ({ className }) => (
+const ArteOdysseyLogo: FC<IconRenderProps> = ({ className, ...rest }) => (
   <svg
     className={className}
+    {...rest}
     viewBox="0 0 512 512"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

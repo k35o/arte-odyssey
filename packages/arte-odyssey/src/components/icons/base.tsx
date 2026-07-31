@@ -16,11 +16,20 @@ const sizeClass: Record<BaseIconProps['size'], string> = {
   '3xl': 'size-14',
 };
 
+export type IconRenderProps = {
+  className: string;
+  'aria-hidden': true;
+  focusable: 'false';
+};
+
 export const BaseIcon: FC<
   BaseIconProps & {
-    renderItem: (arg: { className: string }) => ReactNode;
+    renderItem: (arg: IconRenderProps) => ReactNode;
   }
 > = ({ size, renderItem }) =>
   renderItem({
     className: cn(sizeClass[size]),
+    // アイコンは装飾扱い(意味を持たせる場合は利用側が sr-only テキストで名前を付ける)
+    'aria-hidden': true,
+    focusable: 'false',
   });
