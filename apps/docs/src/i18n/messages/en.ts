@@ -169,6 +169,10 @@ export const en = {
   'components.checkboxCard.description':
     'A multi-select card group that makes each option a larger click target.',
   'components.checkboxCard.defaultValueTitle': 'Default Value',
+  'components.checkboxGroup.description':
+    'A group that manages multiple checkboxes as a single array value.',
+  'components.checkboxGroup.defaultValueTitle': 'Default Value',
+  'components.checkboxGroup.disabledTitle': 'Disabled',
   'components.switch.description':
     'A switch component for binary on/off state.',
   'components.switch.defaultCheckedTitle': 'Default Checked',

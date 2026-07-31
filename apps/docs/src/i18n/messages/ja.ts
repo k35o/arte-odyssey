@@ -166,6 +166,10 @@ export const ja = {
   'components.checkbox.controlledTitle': '制御モード',
   'components.checkboxCard.description': '選択肢をカードで見せる複数選択',
   'components.checkboxCard.defaultValueTitle': 'デフォルト値',
+  'components.checkboxGroup.description':
+    '複数のチェックボックスをひとつの値として扱うグループ',
+  'components.checkboxGroup.defaultValueTitle': 'デフォルト値',
+  'components.checkboxGroup.disabledTitle': '無効',
   'components.switch.description': 'オン・オフを切り替えるスイッチ',
   'components.switch.defaultCheckedTitle': 'デフォルトチェック',
   'components.switch.disabledTitle': '無効',

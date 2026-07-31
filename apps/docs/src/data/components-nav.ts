@@ -75,6 +75,11 @@ export const componentCategories: NavCategory[] = [
         descKey: 'components.checkboxCard.description',
       },
       {
+        name: 'CheckboxGroup',
+        path: '/components/checkbox-group',
+        descKey: 'components.checkboxGroup.description',
+      },
+      {
         name: 'Switch',
         path: '/components/switch',
         descKey: 'components.switch.description',

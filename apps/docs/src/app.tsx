@@ -15,6 +15,7 @@ import { BreadcrumbPage } from './pages/components/breadcrumb-page';
 import { ButtonPage } from './pages/components/button-page';
 import { CardPage } from './pages/components/card-page';
 import { CheckboxCardPage } from './pages/components/checkbox-card-page';
+import { CheckboxGroupPage } from './pages/components/checkbox-group-page';
 import { CheckboxPage } from './pages/components/checkbox-page';
 import { CodePage } from './pages/components/code-page';
 import { DialogPage } from './pages/components/dialog-page';
@@ -151,6 +152,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/checkbox-card',
         component: <CheckboxCardPage />,
+      }),
+      route({
+        path: '/components/checkbox-group',
+        component: <CheckboxGroupPage />,
       }),
       route({
         path: '/components/switch',
