@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 
 import { Heading } from './heading';
 
@@ -50,4 +51,23 @@ export const H6: Story = {
     type: 'h6',
   },
   render: (args) => <Heading {...args}>k8o</Heading>,
+};
+
+export const LineClamp: Story = {
+  args: {
+    type: 'h1',
+    lineClamp: 2,
+  },
+  render: (args) => (
+    <div className="w-48">
+      <Heading {...args}>
+        k8oの見出しはとても長くなることがあるため、行数を制限して折り返しを2行までに抑えられることを確認する。
+      </Heading>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('heading', { level: 1 })).toHaveClass(
+      'line-clamp-2',
+    );
+  },
 };

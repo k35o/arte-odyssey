@@ -4,13 +4,21 @@ import { cn } from './../../../helpers/cn';
 
 type Props = {
   type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-  lineClamp?: number;
+  lineClamp?: 1 | 2 | 3 | 4 | 5 | 6;
 } & Omit<HTMLAttributes<HTMLHeadingElement>, 'className' | 'style'>;
 
+const LINE_CLAMP_CLASS = {
+  1: 'line-clamp-1',
+  2: 'line-clamp-2',
+  3: 'line-clamp-3',
+  4: 'line-clamp-4',
+  5: 'line-clamp-5',
+  6: 'line-clamp-6',
+} as const;
+
 export const Heading: FC<Props> = ({ children, type, lineClamp, ...rest }) => {
-  const lineClampClass = {
-    [`line-clamp-${lineClamp?.toString() ?? ''}`]: lineClamp,
-  };
+  const lineClampClass =
+    lineClamp === undefined ? undefined : LINE_CLAMP_CLASS[lineClamp];
   if (type === 'h1') {
     return (
       <h1

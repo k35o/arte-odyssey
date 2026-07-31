@@ -188,7 +188,16 @@ type HeadingIntegrationProps = {
 export const headingProps = z.object({
   text: z.string(),
   level: z.enum(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']).optional(),
-  lineClamp: z.number().optional(),
+  lineClamp: z
+    .union([
+      z.literal(1),
+      z.literal(2),
+      z.literal(3),
+      z.literal(4),
+      z.literal(5),
+      z.literal(6),
+    ])
+    .optional(),
 }) satisfies z.ZodType<HeadingIntegrationProps>;
 
 type AvatarIntegrationProps = {
