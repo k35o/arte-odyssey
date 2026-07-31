@@ -34,58 +34,40 @@
   ],
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      }
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     },
     "./tokens": {
-      "import": {
-        "types": "./dist/styles/tokens.d.mts",
-        "default": "./dist/styles/tokens.mjs"
-      }
+      "types": "./dist/styles/tokens.d.mts",
+      "default": "./dist/styles/tokens.mjs"
     },
     "./json-render": {
-      "import": {
-        "types": "./dist/integrations/json-render/catalog.d.mts",
-        "default": "./dist/integrations/json-render/catalog.mjs"
-      }
+      "types": "./dist/integrations/json-render/catalog.d.mts",
+      "default": "./dist/integrations/json-render/catalog.mjs"
     },
     "./json-render/registry": {
-      "import": {
-        "types": "./dist/integrations/json-render/registry.d.mts",
-        "default": "./dist/integrations/json-render/registry.mjs"
-      }
+      "types": "./dist/integrations/json-render/registry.d.mts",
+      "default": "./dist/integrations/json-render/registry.mjs"
     },
     "./openui": {
-      "import": {
-        "types": "./dist/integrations/openui/library.d.mts",
-        "default": "./dist/integrations/openui/library.mjs"
-      }
+      "types": "./dist/integrations/openui/library.d.mts",
+      "default": "./dist/integrations/openui/library.mjs"
     },
     "./openui/prompt": {
-      "import": {
-        "types": "./dist/integrations/openui/prompt.d.mts",
-        "default": "./dist/integrations/openui/prompt.mjs"
-      }
+      "types": "./dist/integrations/openui/prompt.d.mts",
+      "default": "./dist/integrations/openui/prompt.mjs"
     },
     "./ai": {
-      "import": {
-        "types": "./dist/components/ai/index.d.mts",
-        "default": "./dist/components/ai/index.mjs"
-      }
+      "types": "./dist/components/ai/index.d.mts",
+      "default": "./dist/components/ai/index.mjs"
     },
     "./ai/response": {
-      "import": {
-        "types": "./dist/components/ai/response/index.d.mts",
-        "default": "./dist/components/ai/response/index.mjs"
-      }
+      "types": "./dist/components/ai/response/index.d.mts",
+      "default": "./dist/components/ai/response/index.mjs"
     },
     "./ai-sdk": {
-      "import": {
-        "types": "./dist/integrations/ai-sdk/index.d.mts",
-        "default": "./dist/integrations/ai-sdk/index.mjs"
-      }
+      "types": "./dist/integrations/ai-sdk/index.d.mts",
+      "default": "./dist/integrations/ai-sdk/index.mjs"
     },
     "./styles.css": "./dist/styles/index.css"
   },
