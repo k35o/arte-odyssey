@@ -1,10 +1,11 @@
 import type { FC } from 'react';
 
-import { BaseIcon, type BaseIconProps } from './base';
+import { BaseIcon, type BaseIconProps, type IconRenderProps } from './base';
 
-const Qiita: FC<{ className: string }> = ({ className }) => (
+const Qiita: FC<IconRenderProps> = ({ className, ...rest }) => (
   <svg
     className={className}
+    {...rest}
     enableBackground="new 0 0 300 300"
     version="1.1"
     viewBox="0 0 300 300"

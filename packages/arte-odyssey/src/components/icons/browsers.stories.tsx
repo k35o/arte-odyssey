@@ -32,6 +32,16 @@ export const Primary: Story = {
       </div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const svgs = [...canvasElement.querySelectorAll('svg')];
+    await expect(svgs).toHaveLength(4);
+    await Promise.all(
+      svgs.flatMap((svg) => [
+        expect(svg).toHaveAttribute('aria-hidden', 'true'),
+        expect(svg).toHaveAttribute('focusable', 'false'),
+      ]),
+    );
+  },
 };
 
 // 対応表のように同じアイコンを 1 ページで何度も描画するケース。useId により

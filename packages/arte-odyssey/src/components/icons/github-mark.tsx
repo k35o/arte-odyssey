@@ -1,12 +1,11 @@
 import type { FC } from 'react';
 
-import { BaseIcon, type BaseIconProps } from './base';
+import { BaseIcon, type BaseIconProps, type IconRenderProps } from './base';
 
-const GitHub: FC<{
-  className?: string;
-}> = ({ className }) => (
+const GitHub: FC<IconRenderProps> = ({ className, ...rest }) => (
   <svg
     className={className}
+    {...rest}
     viewBox="0 0 98 96"
     xmlns="http://www.w3.org/2000/svg"
   >

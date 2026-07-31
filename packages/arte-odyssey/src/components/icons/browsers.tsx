@@ -1,16 +1,17 @@
 import { useId } from 'react';
 import type { FC } from 'react';
 
-import { BaseIcon, type BaseIconProps } from './base';
+import { BaseIcon, type BaseIconProps, type IconRenderProps } from './base';
 
 // 公式ブラウザロゴ。色・形は改変せず、複数同時描画でのグラデーション id 衝突を避けるため
 // useId() でコンポーネントインスタンスごとに id を一意化している。
 
-const Chrome: FC<{ className?: string }> = ({ className }) => {
+const Chrome: FC<IconRenderProps> = ({ className, ...rest }) => {
   const uid = useId();
   return (
     <svg
       className={className}
+      {...rest}
       viewBox="-10 -10 276 276"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -65,11 +66,12 @@ const Chrome: FC<{ className?: string }> = ({ className }) => {
   );
 };
 
-const Edge: FC<{ className?: string }> = ({ className }) => {
+const Edge: FC<IconRenderProps> = ({ className, ...rest }) => {
   const uid = useId();
   return (
     <svg
       className={className}
+      {...rest}
       viewBox="0 0 256 256"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -184,11 +186,12 @@ const Edge: FC<{ className?: string }> = ({ className }) => {
   );
 };
 
-const Firefox: FC<{ className?: string }> = ({ className }) => {
+const Firefox: FC<IconRenderProps> = ({ className, ...rest }) => {
   const uid = useId();
   return (
     <svg
       className={className}
+      {...rest}
       viewBox="0 0 531 548"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -394,11 +397,12 @@ const Firefox: FC<{ className?: string }> = ({ className }) => {
   );
 };
 
-const Safari: FC<{ className?: string }> = ({ className }) => {
+const Safari: FC<IconRenderProps> = ({ className, ...rest }) => {
   const uid = useId();
   return (
     <svg
       className={className}
+      {...rest}
       viewBox="194.5 190.1 135.1 135.1"
       xmlns="http://www.w3.org/2000/svg"
     >
