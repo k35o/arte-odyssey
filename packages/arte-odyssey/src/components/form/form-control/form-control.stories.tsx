@@ -105,6 +105,12 @@ export const Legend: Story = {
       },
     },
   },
+
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole('textbox', { name: 'メールアドレス' }),
+    ).toBeVisible();
+  },
 };
 
 // 回帰: fieldset は UA 標準で min-inline-size:min-content を持つため、min-w-0 が無いと

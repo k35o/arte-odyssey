@@ -52,7 +52,10 @@ export const FormControl: FC<FormControlProps> = ({
           {required && <span className="text-fg-error font-medium">必須</span>}
         </label>
       ) : (
-        <legend className="text-fg-base text-md mb-1 flex gap-2 pl-0.5 font-bold">
+        <legend
+          className="text-fg-base text-md mb-1 flex gap-2 pl-0.5 font-bold"
+          id={labelId}
+        >
           {label}
           {required && <span className="text-fg-error font-medium">必須</span>}
         </legend>
