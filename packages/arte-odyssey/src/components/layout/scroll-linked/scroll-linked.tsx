@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useSpring } from 'motion/react';
+import { motion, MotionConfig, useScroll, useSpring } from 'motion/react';
 import type { FC, RefObject } from 'react';
 
 export const ScrollLinked: FC<{
@@ -14,9 +14,11 @@ export const ScrollLinked: FC<{
   });
 
   return (
-    <motion.div
-      className="bg-primary-bg fixed top-0 right-0 left-0 h-2 origin-left"
-      style={{ scaleX }}
-    />
+    <MotionConfig reducedMotion="user">
+      <motion.div
+        className="bg-primary-bg fixed top-0 right-0 left-0 h-2 origin-left"
+        style={{ scaleX }}
+      />
+    </MotionConfig>
   );
 };

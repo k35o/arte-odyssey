@@ -1,29 +1,59 @@
 'use client';
 
-import { type FC, useCallback } from 'react';
+import { type FC, useEffect, useRef } from 'react';
 
 import { Alert } from '../alert';
-import { useTimeout } from './../../../hooks/timeout';
 import type { Status } from './../../../types/variables';
-import { useToast } from './context';
+import type { ToastAction } from './context';
 
 type ToastProps = {
-  id: string;
   tone: Status;
   message: string;
+  duration: number;
+  action?: ToastAction;
+  isPaused?: boolean;
+  onClose: () => void;
 };
 
-const DELAY_MS = 5000;
+export const Toast: FC<ToastProps> = ({
+  tone,
+  message,
+  duration,
+  action,
+  isPaused = false,
+  onClose,
+}) => {
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
 
-export const Toast: FC<ToastProps> = ({ id, tone, message }) => {
-  const { onClose } = useToast();
+  // 一時停止をまたいで残り時間を持ち越すため、経過分を都度差し引く
+  const remainingRef = useRef(duration);
 
-  useTimeout(
-    useCallback(() => {
-      onClose(id);
-    }, [id, onClose]),
-    DELAY_MS,
+  useEffect(() => {
+    if (isPaused || !Number.isFinite(remainingRef.current)) {
+      return undefined;
+    }
+    // Storybook が Date をモックするため、経過時間は monotonic な performance.now で測る
+    const startedAt = performance.now();
+    const timeoutId = window.setTimeout(() => {
+      onCloseRef.current();
+    }, remainingRef.current);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      remainingRef.current -= performance.now() - startedAt;
+    };
+  }, [isPaused]);
+
+  return (
+    <Alert
+      action={action}
+      aria-atomic
+      message={message}
+      onClose={onClose}
+      tone={tone}
+    />
   );
-
-  return <Alert message={message} tone={tone} />;
 };

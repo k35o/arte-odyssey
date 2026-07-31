@@ -1,5 +1,6 @@
 'use client';
 
+import { MotionConfig } from 'motion/react';
 import * as motion from 'motion/react-client';
 import {
   type FC,
@@ -158,10 +159,12 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
       tabIndex={activeIndex === index ? 0 : -1}
     >
       {selectedId === id && (
-        <motion.div
-          className="bg-primary-border absolute inset-s-0 inset-e-0 -inset-be-0.5 block-1"
-          layoutId={`${rootId}-underline`}
-        />
+        <MotionConfig reducedMotion="user">
+          <motion.div
+            className="bg-primary-border absolute inset-s-0 inset-e-0 -inset-be-0.5 block-1"
+            layoutId={`${rootId}-underline`}
+          />
+        </MotionConfig>
       )}
       {children}
     </div>
