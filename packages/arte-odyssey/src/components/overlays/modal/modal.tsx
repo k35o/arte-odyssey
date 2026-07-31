@@ -1,6 +1,6 @@
 'use client';
 
-import type { Variants } from 'motion/react';
+import { MotionConfig, type Variants } from 'motion/react';
 import * as motion from 'motion/react-client';
 import {
   type FC,
@@ -140,42 +140,44 @@ export const Modal: FC<
   }, [isOpen, realRef]);
 
   return (
-    <motion.dialog
-      animate={realDialogOpen ? 'open' : 'closed'}
-      className={cn(
-        'bg-bg-raised text-fg-base z-modal shadow-md backdrop:bg-back-drop',
-        type === 'center' &&
-          'm-auto max-h-lg w-5/6 max-w-2xl rounded-lg vertical:h-5/6 vertical:max-h-2xl vertical:w-auto vertical:max-w-lg',
-        type === 'bottom' && 'mt-auto w-screen max-w-screen rounded-t-lg',
-        type === 'right' &&
-          'ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg',
-        type === 'left' &&
-          'mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg',
-      )}
-      exit="closed"
-      initial="closed"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          realRef.current?.close();
+    <MotionConfig reducedMotion="user">
+      <motion.dialog
+        animate={realDialogOpen ? 'open' : 'closed'}
+        className={cn(
+          'bg-bg-raised text-fg-base z-modal shadow-md backdrop:bg-back-drop',
+          type === 'center' &&
+            'm-auto max-h-lg w-5/6 max-w-2xl rounded-lg vertical:h-5/6 vertical:max-h-2xl vertical:w-auto vertical:max-w-lg',
+          type === 'bottom' && 'mt-auto w-screen max-w-screen rounded-t-lg',
+          type === 'right' &&
+            'ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg',
+          type === 'left' &&
+            'mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg',
+        )}
+        exit="closed"
+        initial="closed"
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            realRef.current?.close();
+          }
+        }}
+        onClose={realOnClose}
+        ref={realRef}
+        variants={
+          type === 'center'
+            ? centerVariants
+            : type === 'bottom'
+              ? bottomVariants
+              : type === 'left'
+                ? leftVariants
+                : rightVariants
         }
-      }}
-      onClose={realOnClose}
-      ref={realRef}
-      variants={
-        type === 'center'
-          ? centerVariants
-          : type === 'bottom'
-            ? bottomVariants
-            : type === 'left'
-              ? leftVariants
-              : rightVariants
-      }
-    >
-      <PortalRootProvider value={realRef}>
-        <ToastProvider portalRef={realRef} position="absolute">
-          {children}
-        </ToastProvider>
-      </PortalRootProvider>
-    </motion.dialog>
+      >
+        <PortalRootProvider value={realRef}>
+          <ToastProvider portalRef={realRef} position="absolute">
+            {children}
+          </ToastProvider>
+        </PortalRootProvider>
+      </motion.dialog>
+    </MotionConfig>
   );
 };
