@@ -40,7 +40,6 @@ const popoverContentProps: PropItem[] = [
     types: ['(props: Record<string, unknown>) => ReactElement'],
     defaultValue: null,
   },
-  { name: 'motionVariants', types: ['Variants'], defaultValue: null },
 ];
 
 export function PopoverPage() {
