@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
+import { expect } from 'storybook/test';
 
 import { Pagination } from './pagination';
 
@@ -34,6 +35,13 @@ const LastRender = () => {
 
 export const Default: Story = {
   render: () => <DefaultRender />,
+  play: async ({ canvas, userEvent }) => {
+    const counter = canvas.getByRole('paragraph');
+    await expect(counter).toHaveTextContent('1/10');
+    await expect(counter).not.toHaveAttribute('aria-current');
+    await userEvent.click(canvas.getByRole('button', { name: '次へ' }));
+    await expect(counter).toHaveTextContent('2/10');
+  },
 };
 
 export const Middle: Story = {
