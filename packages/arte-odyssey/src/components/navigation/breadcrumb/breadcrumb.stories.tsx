@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 
 import { Breadcrumb } from './breadcrumb';
 
@@ -28,6 +29,19 @@ export const Medium: Story = {
       </Breadcrumb.Item>
     </Breadcrumb.List>
   ),
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole('navigation', { name: 'パンくずリスト' }),
+    ).toBeInTheDocument();
+    await expect(canvas.getAllByRole('listitem')).toHaveLength(3);
+    await expect(canvas.getByText('うおへんクイズ')).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    await expect(
+      canvas.getByRole('link', { name: 'Home' }),
+    ).not.toHaveAttribute('aria-current');
+  },
 };
 
 export const Large: Story = {
