@@ -8,7 +8,7 @@ const List: FC<
     size?: 'sm' | 'md' | 'lg';
   }>
 > = ({ children, size = 'md' }) => (
-  <nav aria-label="パンクズリスト">
+  <nav aria-label="パンくずリスト">
     <ol
       className={cn(
         'flex list-none items-center gap-1 text-fg-mute',
@@ -27,7 +27,7 @@ const Item: FC<PropsWithChildren> = ({ children }) => (
 );
 
 const Separator: FC = () => (
-  <li className="text-fg-mute vertical:rotate-90">
+  <li aria-hidden="true" className="text-fg-mute vertical:rotate-90">
     <ChevronIcon direction="right" size="sm" />
   </li>
 );
@@ -44,7 +44,9 @@ const Link = <T extends string>({
 }>) => {
   const Component = component ?? 'a';
   return current ? (
-    <span className="text-fg-base">{children}</span>
+    <span aria-current="page" className="text-fg-base">
+      {children}
+    </span>
   ) : (
     <Component
       className="hover:text-fg-base focus-visible:ring-border-info underline transition-colors focus-visible:rounded-sm focus-visible:ring-2 focus-visible:outline-hidden"
