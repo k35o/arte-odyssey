@@ -32,7 +32,7 @@ const Root: FC<
   return (
     <section
       aria-describedby={`${rootId}-content`}
-      aria-labelledby={`${rootId}-header`}
+      aria-labelledby={`${rootId}-title`}
       className="bg-bg-raised relative w-full rounded-lg shadow-md"
       id={id}
       ref={ref}
@@ -50,11 +50,10 @@ const Header: FC<{
 }> = ({ title, onClose }) => {
   const { rootId } = useDialogContext();
   return (
-    <div
-      className="flex items-center justify-center p-4 pb-2"
-      id={`${rootId}-header`}
-    >
-      <Heading type="h3">{title}</Heading>
+    <div className="flex items-center justify-center p-4 pb-2">
+      <Heading id={`${rootId}-title`} type="h3">
+        {title}
+      </Heading>
       <div className="absolute top-2 right-2">
         <IconButton
           label="閉じる"

@@ -36,18 +36,20 @@ export const Drawer: FC<
     >
       <section
         aria-describedby={`${rootId}-content`}
-        aria-labelledby={`${rootId}-header`}
+        aria-labelledby={`${rootId}-title`}
         className="vertical:flex-row flex h-full flex-col"
         id={rootId}
       >
-        <div
-          className="flex shrink-0 items-center justify-center p-4 pb-2"
-          id={`${rootId}-header`}
-        >
+        <div className="flex shrink-0 items-center justify-center p-4 pb-2">
           {typeof title === 'string' ? (
-            <Heading type="h3">{title}</Heading>
+            <Heading id={`${rootId}-title`} type="h3">
+              {title}
+            </Heading>
           ) : (
-            title
+            // labelledby の参照先 id を持たせつつ flex レイアウトに影響させないための contents ラッパー
+            <div className="contents" id={`${rootId}-title`}>
+              {title}
+            </div>
           )}
           <div
             className={cn(

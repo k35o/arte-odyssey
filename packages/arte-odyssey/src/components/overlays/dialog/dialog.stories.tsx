@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { type FC, type HTMLProps, useState } from 'react';
-import { fn } from 'storybook/test';
+import { expect, fn, waitFor } from 'storybook/test';
 
 import { Button } from '../../buttons/button';
 import { Modal } from '../modal';
@@ -22,6 +22,11 @@ export const Default: Story = {
       <Dialog.Content>こんにちは</Dialog.Content>
     </Dialog.Root>
   ),
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole('dialog', { name: 'ダイアログ' }),
+    ).toBeInTheDocument();
+  },
 };
 
 const StoryDialog: FC<HTMLProps<HTMLElement>> = (props) => {
@@ -103,6 +108,11 @@ export const ModalDialog: Story = {
     });
     trigger.focus();
     await userEvent.keyboard('{Enter}');
+    await waitFor(() => {
+      expect(
+        canvas.getByRole('dialog', { name: 'モーダル' }),
+      ).toBeInTheDocument();
+    });
   },
   parameters: {
     a11y: {

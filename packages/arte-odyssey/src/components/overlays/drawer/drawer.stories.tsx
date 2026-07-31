@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { fn, waitFor } from 'storybook/test';
+import { expect, fn, waitFor } from 'storybook/test';
 
 import { Drawer } from './drawer';
 
@@ -19,6 +19,9 @@ export const Default: Story = {
         throw new Error('waiting for animation');
       }
     });
+    await expect(
+      canvas.getByRole('region', { name: 'メニュー' }),
+    ).toBeInTheDocument();
   },
   args: {
     isOpen: true,
