@@ -143,7 +143,7 @@
     "react-dom": ">=19.0.0",
     "streamdown": ">=2.0.0",
     "tailwindcss": ">=4.0.0",
-    "typescript": ">=6.0.0",
+    "typescript": ">=5.4.0",
     "zod": ">=4.4.0"
   },
   "peerDependenciesMeta": {
@@ -159,10 +159,22 @@
     "@openuidev/react-lang": {
       "optional": true
     },
+    "@types/react": {
+      "optional": true
+    },
+    "@types/react-dom": {
+      "optional": true
+    },
     "ai": {
       "optional": true
     },
     "streamdown": {
+      "optional": true
+    },
+    "tailwindcss": {
+      "optional": true
+    },
+    "typescript": {
       "optional": true
     },
     "zod": {
