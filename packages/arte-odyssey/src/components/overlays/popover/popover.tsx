@@ -2,6 +2,7 @@
 
 import {
   type FC,
+  type FocusEvent,
   type PropsWithChildren,
   type ReactElement,
   useCallback,
@@ -106,7 +107,7 @@ const Content: FC<{
 }> = ({ renderItem, animation = 'scale' }) => {
   const { isOpen, trapFocus, anchorName, placement, flipDisabled, itemProps } =
     usePopoverContent();
-  const { triggerRef } = usePopoverContext();
+  const { triggerRef, onClose } = usePopoverContext();
 
   // content は popover で top-layer に出すためインライン描画になり、trigger 側の
   // writing-mode を継承する。`vertical:` variant は `.writing-v` 祖先を要求するので、
@@ -135,6 +136,24 @@ const Content: FC<{
   // floating-ui の FloatingFocusManager(modal=false) 相当を自前フックで代替。
   useFocusTrap(contentWrapperRef, triggerRef, isOpen && trapFocus);
 
+  // FloatingFocusManager の closeOnFocusOut 相当（Tab でメニュー外へ抜けたら閉じる）。
+  // trapFocus で絞るのは、focus 管理を使わない Tooltip の hover 挙動に干渉しないため。
+  // relatedTarget が null のケース（外側クリックや hidePopover で焦点が body へ落ちる）
+  // は Tab 移動と区別できないので閉じず、外側クリックは useClickAway に任せる。
+  const handleFocusOut = (event: FocusEvent<HTMLDivElement>) => {
+    const next = event.relatedTarget;
+    if (
+      !isOpen ||
+      !trapFocus ||
+      next === null ||
+      event.currentTarget.contains(next) ||
+      triggerRef.current?.contains(next) === true
+    ) {
+      return;
+    }
+    onClose();
+  };
+
   return (
     // outline-hidden: フォーカス管理で当てる tabindex=-1 の管理用フォーカスでは
     // ブラウザ既定の outline を出さない（中の項目・ボタンは各自の focus リングを持つ）。
@@ -144,6 +163,7 @@ const Content: FC<{
         animation === 'fade' ? 'ao-anim-fade' : 'ao-anim-scale',
         writingClass,
       )}
+      onBlur={handleFocusOut}
       popover="manual"
       ref={contentWrapperRef}
       style={getContentAnchorStyle(anchorName, placement, flipDisabled)}

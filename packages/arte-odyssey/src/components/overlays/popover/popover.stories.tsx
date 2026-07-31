@@ -41,6 +41,55 @@ export const Default: Story = {
   },
 };
 
+// APG menu button パターン: メニュー項目から Tab で抜けたらメニューを閉じ、
+// trigger の aria-expanded を false に戻し、フォーカスは次のタブ順要素へ進む。
+export const CloseOnTabOut: Story = {
+  render: () => (
+    <div className="flex flex-col items-start gap-4">
+      <Popover.Root>
+        <Popover.Trigger
+          renderItem={(props) => (
+            <Button {...props} size="md" type="button">
+              メニュー
+            </Button>
+          )}
+        />
+        <Popover.Content
+          renderItem={(props) => (
+            <div className="bg-bg-raised rounded-lg p-4 shadow-md" {...props}>
+              <button role="menuitem" type="button">
+                項目1
+              </button>
+            </div>
+          )}
+        />
+      </Popover.Root>
+      <Button size="md" type="button">
+        次のフォーカス先
+      </Button>
+    </div>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    const trigger = canvas.getByRole('button', { name: 'メニュー' });
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    const item = canvas.getByRole('menuitem', { name: '項目1' });
+    await waitFor(() => {
+      expect(item).toHaveFocus();
+    });
+
+    await userEvent.tab();
+
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      expect(item).not.toBeVisible();
+    });
+    expect(
+      canvas.getByRole('button', { name: '次のフォーカス先' }),
+    ).toHaveFocus();
+  },
+};
+
 // 画面の四隅・上下左右の端・中央にトリガーを並べ、各 Popover をクリックで開いて
 // 配置と flip（端で入りきらないと反対側へ反転）を目視確認するためのストーリー。
 const PLACEMENT_POSITIONS = [
