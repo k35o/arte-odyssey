@@ -32,7 +32,7 @@ This is a monorepo managed with [Vite+](https://vite.plus) (`vp`) and pnpm.
 ### Prerequisites
 
 - Node.js ≥24.13.0
-- pnpm 11.1.3
+- pnpm 11.15.1
 
 ### Setup
 
@@ -92,16 +92,14 @@ comment. Merging the pull request makes its screenshots the next baseline.
 
 ## Documentation
 
+- [Official documentation site](https://arte-odyssey.k8o.me)
+- [Storybook](https://main--687a213c85e2e4589d8db1bb.chromatic.com)
 - [Component Documentation](packages/arte-odyssey/README.md)
 - [Generative UI integrations (json-render / OpenUI)](packages/arte-odyssey/README.md#generative-ui-integrations)
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+See [CONTRIBUTING.md](CONTRIBUTING.md) for environment setup, development commands, the component/story workflow, visual regression testing, and the release process.
 
 ## License
 
