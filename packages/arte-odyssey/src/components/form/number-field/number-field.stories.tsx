@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, fn } from 'storybook/test';
 
 import { NumberField } from './number-field';
 
@@ -75,6 +75,29 @@ export const Min0Max100: Story = {
     await userEvent.keyboard('{ArrowUp}');
 
     await expect(input).toHaveValue('100');
+  },
+};
+
+export const PassesThroughHandlers: Story = {
+  args: {
+    disabled: false,
+    invalid: false,
+    required: false,
+    onKeyDown: fn(),
+    onBlur: fn(),
+  },
+  play: async ({ args, canvas, userEvent }) => {
+    const input = canvas.getByRole('spinbutton');
+    await userEvent.click(input);
+    await userEvent.keyboard('{ArrowUp}');
+
+    await expect(args.onKeyDown).toHaveBeenCalled();
+    await expect(input).toHaveValue('1');
+
+    await userEvent.tab();
+
+    await expect(args.onBlur).toHaveBeenCalled();
+    await expect(input).toHaveValue('1');
   },
 };
 

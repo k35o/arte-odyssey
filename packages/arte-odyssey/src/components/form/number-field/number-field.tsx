@@ -5,6 +5,7 @@ import { useFormStatus } from 'react-dom';
 
 import { FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
 import { ChevronIcon } from '../../icons';
+import { chain } from './../../../helpers/chain';
 import { cn } from './../../../helpers/cn';
 import { useControllableState } from './../../../hooks/controllable-state';
 import { clamp } from './../../../internal/clamp';
@@ -54,6 +55,8 @@ export const NumberField: FC<Props> = ({
   value,
   defaultValue,
   onChange,
+  onBlur,
+  onKeyDown,
   step = 1,
   precision = 0,
   max = 9_007_199_254_740_991,
@@ -106,11 +109,11 @@ export const NumberField: FC<Props> = ({
         )}
         disabled={disabled}
         readOnly={pending || undefined}
-        onBlur={() => {
+        onBlur={chain(onBlur, () => {
           const newValue = clamp(cast(displayValue, precision), min, max);
           handleChange(newValue);
           setDisplayValue(newValue.toFixed(precision));
-        }}
+        })}
         onChange={(e) => {
           if (
             e.nativeEvent instanceof InputEvent &&
@@ -120,7 +123,7 @@ export const NumberField: FC<Props> = ({
           }
           setDisplayValue(e.target.value);
         }}
-        onKeyDown={(e) => {
+        onKeyDown={chain(onKeyDown, (e) => {
           if (e.key === 'ArrowUp') {
             const newValue = clamp(
               toPrecision(cast(displayValue, precision) + step, precision),
@@ -139,7 +142,7 @@ export const NumberField: FC<Props> = ({
             handleChange(newValue);
             setDisplayValue(newValue.toFixed(precision));
           }
-        }}
+        })}
         pattern="[0-9]*(.[0-9]+)?"
         role="spinbutton"
         type="text"
