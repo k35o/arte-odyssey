@@ -55,7 +55,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
         <div
           {...props}
           {...contentProps}
-          className="bg-bg-raised vertical:min-w-0 vertical:min-h-40 flex min-w-40 flex-col rounded-lg py-2 shadow-md"
+          className="bg-bg-raised border-border-subtle vertical:min-w-0 vertical:min-h-40 flex min-w-40 flex-col rounded-lg border py-2 shadow-md"
         >
           {Children.toArray(children).map((child, index) =>
             isValidElement(child)
