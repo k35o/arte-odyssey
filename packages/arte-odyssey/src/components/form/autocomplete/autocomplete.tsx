@@ -3,15 +3,18 @@
 import {
   type CSSProperties,
   type FC,
+  type FocusEventHandler,
   type InputHTMLAttributes,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
   useCallback,
-  useEffect,
   useRef,
   useState,
 } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import {
+  useClickAway,
   useControllableState,
   useDeferredDebounce,
   useDisclosure,
@@ -21,6 +24,7 @@ import type { Option } from '../../../types/variables';
 import { FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
+import { chain } from './../../../helpers/chain';
 import { cn } from './../../../helpers/cn';
 
 type BaseProps = {
@@ -42,6 +46,7 @@ type BaseProps = {
   | 'aria-autocomplete'
   | 'aria-controls'
   | 'aria-expanded'
+  | 'aria-activedescendant'
 >;
 
 type ControlledProps = {
@@ -68,6 +73,10 @@ export const Autocomplete: FC<Props> = ({
   value,
   defaultValue,
   onChange,
+  placeholder = '入力して絞り込めます',
+  onBlur,
+  onClick,
+  onKeyDown,
   ...rest
 }) => {
   const [currentValue, handleChange] = useControllableState({
@@ -105,6 +114,14 @@ export const Autocomplete: FC<Props> = ({
   const filteredOptions = options.filter((option) =>
     option.label.includes(deferredText),
   );
+  // selectIndex は state のまま保持し、deferredText の変化で filteredOptions が
+  // 縮んでも実在する行を指すよう、描画のたびにクランプして導出する
+  const activeIndex =
+    selectIndex === undefined || filteredOptions.length === 0
+      ? undefined
+      : Math.min(selectIndex, filteredOptions.length - 1);
+  const activeOption =
+    activeIndex === undefined ? undefined : filteredOptions[activeIndex];
   const { pending: formPending } = useFormStatus();
   const disabledResolved = disabled || formPending;
 
@@ -114,17 +131,11 @@ export const Autocomplete: FC<Props> = ({
     setSelectIndex(undefined);
   }, [close]);
 
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (e.target instanceof Node && ref.current?.contains(e.target) === true)
-        return;
-      reset();
-    };
-    document.addEventListener('click', handleClick);
-    return () => {
-      document.removeEventListener('click', handleClick);
-    };
-  }, [reset]);
+  useClickAway(ref, reset, isOpen);
+
+  const scrollActiveIntoView = useCallback((node: HTMLLIElement | null) => {
+    node?.scrollIntoView({ block: 'nearest' });
+  }, []);
 
   const setReferenceRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -135,6 +146,77 @@ export const Autocomplete: FC<Props> = ({
     },
     [anchorName],
   );
+
+  const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
+    if (e.relatedTarget?.id.startsWith(`${id}_option_`) === true) {
+      return;
+    }
+    close();
+  };
+
+  const handleClick: MouseEventHandler<HTMLInputElement> = () => {
+    if (isOpen && text.length === 0) {
+      close();
+      return;
+    }
+    open();
+    setSelectIndex(undefined);
+  };
+
+  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === 'Backspace' && text.length === 0) {
+      reset();
+      handleChange(currentValue.slice(0, -1));
+      return;
+    }
+    if (e.key === 'Escape') {
+      if (isOpen) {
+        e.preventDefault();
+        close();
+        setSelectIndex(undefined);
+      }
+      return;
+    }
+    if (e.key === 'ArrowDown') {
+      open();
+      if (filteredOptions.length === 0) {
+        return;
+      }
+      setSelectIndex(
+        activeIndex === undefined
+          ? 0
+          : Math.min(activeIndex + 1, filteredOptions.length - 1),
+      );
+      return;
+    }
+    if (e.key === 'ArrowUp') {
+      open();
+      if (filteredOptions.length === 0) {
+        return;
+      }
+      setSelectIndex(
+        activeIndex === undefined ? 0 : Math.max(activeIndex - 1, 0),
+      );
+      return;
+    }
+    if (e.key === 'Enter' && activeIndex !== undefined) {
+      if (isPending) {
+        e.preventDefault();
+        return;
+      }
+      const selected = filteredOptions[activeIndex];
+      if (!selected) {
+        return;
+      }
+      if (currentValue.includes(selected.value)) {
+        handleChange(currentValue.filter((v) => v !== selected.value));
+        reset();
+        return;
+      }
+      handleChange([...currentValue, selected.value]);
+      reset();
+    }
+  };
 
   return (
     <div
@@ -187,6 +269,11 @@ export const Autocomplete: FC<Props> = ({
           })}
           <input
             {...rest}
+            aria-activedescendant={
+              isOpen && activeOption !== undefined
+                ? `${id}_option_${activeOption.value}`
+                : undefined
+            }
             aria-autocomplete="list"
             aria-controls={isOpen ? `${id}_listbox` : undefined}
             aria-expanded={isOpen}
@@ -199,76 +286,15 @@ export const Autocomplete: FC<Props> = ({
             )}
             disabled={disabledResolved}
             id={id}
-            onBlur={(e) => {
-              if (e.relatedTarget?.id.startsWith(`${id}_option_`) === true) {
-                return;
-              }
-              close();
-            }}
+            onBlur={chain(handleBlur, onBlur)}
             onChange={(e) => {
               open();
               setText(e.target.value);
               setSelectIndex(undefined);
             }}
-            onClick={() => {
-              if (isOpen && text.length === 0) {
-                close();
-                return;
-              }
-              open();
-              setSelectIndex(undefined);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'Backspace' && text.length === 0) {
-                reset();
-                handleChange(currentValue.slice(0, -1));
-                return;
-              }
-              if (e.key === 'ArrowDown') {
-                open();
-                setSelectIndex((prev) => {
-                  if (prev === undefined) {
-                    return 0;
-                  }
-                  return Math.min(prev + 1, options.length - 1);
-                });
-                return;
-              }
-              if (e.key === 'ArrowUp') {
-                open();
-                setSelectIndex((prev) => {
-                  if (prev === undefined) {
-                    return 0;
-                  }
-                  return Math.max(prev - 1, 0);
-                });
-                return;
-              }
-              if (
-                e.key === 'Enter' &&
-                selectIndex !== undefined &&
-                selectIndex >= 0
-              ) {
-                if (isPending) {
-                  e.preventDefault();
-                  return;
-                }
-                const selected = filteredOptions[selectIndex];
-                if (!selected) {
-                  return;
-                }
-                if (currentValue.includes(selected.value)) {
-                  handleChange(
-                    currentValue.filter((v) => v !== selected.value),
-                  );
-                  reset();
-                  return;
-                }
-                handleChange([...currentValue, selected.value]);
-                reset();
-              }
-            }}
-            placeholder="入力して絞り込めます"
+            onClick={chain(handleClick, onClick)}
+            onKeyDown={chain(handleKeyDown, onKeyDown)}
+            placeholder={placeholder}
             role="combobox"
             type="text"
             value={text}
@@ -289,14 +315,15 @@ export const Autocomplete: FC<Props> = ({
       </div>
       {isOpen && (
         <div
-          className="bg-bg-raised z-10 rounded-xl shadow-md"
+          className="bg-bg-raised border-border-subtle z-10 rounded-xl border shadow-md"
           role="presentation"
           style={listboxStyle}
         >
           <ul
             aria-busy={isPending || undefined}
+            aria-multiselectable="true"
             className={cn(
-              'max-h-96 py-2 transition-opacity vertical:max-h-none vertical:max-w-96',
+              'max-h-96 overflow-y-auto py-2 transition-opacity vertical:max-h-none vertical:max-w-96 vertical:overflow-x-auto vertical:overflow-y-visible',
               isPending && 'opacity-60',
             )}
             id={`${id}_listbox`}
@@ -315,13 +342,14 @@ export const Autocomplete: FC<Props> = ({
                   className={cn(
                     'cursor-pointer px-3 py-2 transition-colors',
                     selected && 'bg-primary-bg-subtle text-primary-fg',
-                    selectIndex === idx && !selected && 'bg-bg-subtle',
-                    selectIndex === idx &&
+                    activeIndex === idx && !selected && 'bg-bg-subtle',
+                    activeIndex === idx &&
                       selected &&
                       'bg-primary-bg-mute text-primary-fg',
                   )}
                   id={`${id}_option_${option.value}`}
                   key={option.value}
+                  ref={activeIndex === idx ? scrollActiveIntoView : undefined}
                   role="option"
                   onClick={(e) => {
                     e.stopPropagation();
