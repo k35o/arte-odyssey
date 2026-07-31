@@ -72,7 +72,7 @@ import { FormControl, TextField } from '@k8o/arte-odyssey';
 <FormControl
   label="メールアドレス"
   errorText="入力してください"
-  isRequired
+  required
   renderInput={(props) => (
     <TextField {...props} placeholder="example@mail.com" />
   )}

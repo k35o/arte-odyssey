@@ -1,8 +1,9 @@
 # @k8o/arte-odyssey
 
 > k8o's React UI library (React 19, TypeScript, Tailwind CSS 4) with semantic design
-> tokens, dark mode, and official generative UI adapters (json-render & OpenUI) that let
-> an LLM generate, validate, and render on-brand UIs from these components.
+> tokens, dark mode, AI chat components, and official generative UI adapters
+> (json-render & OpenUI) that let an LLM generate, validate, and render on-brand UIs
+> from these components.
 
 When installed via npm, these docs live under `node_modules/@k8o/arte-odyssey/docs/`.
 Start with GUIDE.md, then follow the reference most relevant to the task.
@@ -14,6 +15,7 @@ Start with GUIDE.md, then follow the reference most relevant to the task.
 ## References
 
 - [Components](references/components.md): full component list, import paths, props.
+- [AI chat](references/ai-chat.md): AI chat components from `@k8o/arte-odyssey/ai` (Conversation / Message / PromptInput / Reasoning / Suggestion / ToolInvocation), streaming Markdown `Response` from `@k8o/arte-odyssey/ai/response` (optional peer `streamdown`), and `mapMessageParts` from `@k8o/arte-odyssey/ai-sdk` to render AI SDK `UIMessage.parts` (optional peer `ai`).
 - [Generative UI](references/generative-ui.md): use json-render / OpenUI to make an LLM generate UIs — `catalog.prompt()` (server-safe), `<JsonRenderUI spec={spec} />` (client), `validateGeneratedSpec()` (validate/repair LLM output), `satisfies ArteSpec` (typed specs), and `@k8o/arte-odyssey/openui/prompt`.
 - [Typography](references/typography.md): type scale and usage.
 - [Color](references/color.md): semantic token system and dark mode.

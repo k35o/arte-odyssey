@@ -29,10 +29,9 @@ import { Button, Card } from '@k8o/arte-odyssey';
 
 ### Tailwind CSS の設定
 
-`@k8o/arte-odyssey` は Tailwind CSS 4 以上が必要。プロジェクトの CSS で以下を追加：
+`@k8o/arte-odyssey` は Tailwind CSS 4 以上が必要（peer dependency）。`styles.css` が内部で `@import 'tailwindcss'` を含むため、プロジェクトの CSS は次の1行でよい：
 
 ```css
-@import 'tailwindcss';
 @import '@k8o/arte-odyssey/styles.css';
 ```
 
@@ -145,10 +144,10 @@ import { Button, Card } from '@k8o/arte-odyssey';
 import { Button } from '@k8o/arte-odyssey';
 
 // プライマリアクション
-<Button color="primary" variant="contained">保存する</Button>
+<Button color="primary" variant="solid">保存する</Button>
 
 // セカンダリアクション
-<Button color="gray" variant="outlined">キャンセル</Button>
+<Button color="gray" variant="outline">キャンセル</Button>
 
 // テキストのみ
 <Button variant="skeleton">詳細を見る</Button>
@@ -166,17 +165,17 @@ import { Button } from '@k8o/arte-odyssey';
 
 ### IconButton
 
-`bg` prop でスタイルを制御（`variant` ではない）。
+`color` prop でスタイルを制御（`variant` ではない）。`label` は必須。
 
 ```tsx
 import { IconButton } from '@k8o/arte-odyssey';
 
-<IconButton bg="transparent" label="コピー"><CopyIcon /></IconButton>
-<IconButton bg="primary" label="送信"><SendIcon /></IconButton>
+<IconButton color="transparent" label="コピー"><CopyIcon /></IconButton>
+<IconButton color="primary" label="送信"><SendIcon /></IconButton>
 
 // リンクとしてレンダーする（renderItem prop）
 <IconButton
-  bg="base"
+  color="base"
   label="ホーム"
   renderItem={({ className, children, 'aria-label': ariaLabel, triggerProps }) => (
     <a aria-label={ariaLabel} className={className} href="/home" {...triggerProps}>
@@ -213,7 +212,7 @@ import { Card } from '@k8o/arte-odyssey';
 ```tsx
 import { FormControl, TextField, Select, FileField } from '@k8o/arte-odyssey';
 
-<FormControl label="メール" isRequired renderInput={(props) => (
+<FormControl label="メール" required renderInput={(props) => (
   <TextField {...props} placeholder="example@mail.com" />
 )} />
 
@@ -268,4 +267,5 @@ AI が生成したと一目でわかるUIの特徴を避ける。
 - コンポーネント一覧: [references/components.md](references/components.md)
 - Hooks: [references/hooks.md](references/hooks.md)
 - ヘルパー・型: [references/helpers.md](references/helpers.md)
+- AI チャット（Conversation / Message / PromptInput など）: [references/ai-chat.md](references/ai-chat.md)
 - 生成 UI（json-render / OpenUI で LLM に UI を生成させる）: [references/generative-ui.md](references/generative-ui.md)
