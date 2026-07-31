@@ -5,7 +5,7 @@ import { AlertIcon, CloseIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
 import type { Status } from './../../../types/variables';
 
-type AlertAction = {
+export type AlertAction = {
   label: string;
   renderItem: (props: { children: ReactNode }) => ReactNode;
 };
