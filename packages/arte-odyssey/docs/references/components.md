@@ -22,13 +22,13 @@ import { Button } from '@k8o/arte-odyssey';
 
 <Button
   size="sm" | "md" | "lg"
-  color="primary" | "gray"
-  variant="contained" | "outlined" | "skeleton"
+  color="primary" | "secondary" | "gray"
+  variant="solid" | "outline" | "skeleton"
   fullWidth={false}
   startIcon={<Icon />}
   endIcon={<Icon />}
   disabled={false}
-  active={false}
+  isActive={false}
 >
   ボタン
 </Button>
@@ -39,7 +39,7 @@ import { Button } from '@k8o/arte-odyssey';
 ```tsx
 <Button
   color="gray"
-  variant="outlined"
+  variant="outline"
   renderItem={({ className, children }) => (
     <a className={className} href="/page">
       {children}
@@ -52,19 +52,19 @@ import { Button } from '@k8o/arte-odyssey';
 
 ### IconButton
 
-アイコンのみのボタン。`bg` prop でスタイルを制御。
+アイコンのみのボタン。`color` prop でスタイルを制御。
 
 ```tsx
 import { IconButton } from '@k8o/arte-odyssey';
 
-<IconButton label="閉じる" bg="transparent" size="md">
+<IconButton label="閉じる" color="transparent" size="md">
   <XIcon />
 </IconButton>;
 ```
 
 Props:
 
-- `bg`: `'transparent'` | `'base'` | `'primary'`（デフォルト: `'transparent'`）
+- `color`: `'transparent'` | `'base'` | `'primary'` | `'secondary'`（デフォルト: `'transparent'`）
 - `size`: `'sm'` | `'md'` | `'lg'`
 - `label`: string（必須、aria-label として使用）
 
@@ -72,7 +72,7 @@ Props:
 
 ```tsx
 <IconButton
-  bg="base"
+  color="base"
   label="ホーム"
   renderItem={({
     className,
@@ -248,7 +248,7 @@ import { FormControl, TextField } from '@k8o/arte-odyssey';
   label="メールアドレス"
   errorText="入力してください"
   helpText="会社のメールアドレスを入力してください"
-  isRequired
+  required
   renderInput={(props) => (
     <TextField {...props} placeholder="example@mail.com" />
   )}
@@ -261,9 +261,9 @@ Props:
 - `labelAs`: `'label'` | `'legend'`
 - `helpText`: string
 - `errorText`: string
-- `isDisabled`, `isInvalid`, `isRequired`: boolean
+- `disabled`, `invalid`, `required`: boolean
 
-`renderInput` は `{ id, describedbyId, labelId, isDisabled, isInvalid, isRequired }` を受け取る。
+`renderInput` は `{ id, 'aria-describedby', 'aria-labelledby', disabled, invalid, required }` を受け取る。
 
 ### TextField
 
@@ -272,11 +272,11 @@ import { TextField } from '@k8o/arte-odyssey';
 
 // Uncontrolled
 <TextField id="email" defaultValue="" placeholder="example@mail.com"
-  isInvalid={false} isDisabled={false} isRequired={false} />
+  invalid={false} disabled={false} required={false} />
 
 // Controlled
 <TextField id="email" value={value} onChange={onChange}
-  isInvalid={false} isDisabled={false} isRequired={false} />
+  invalid={false} disabled={false} required={false} />
 ```
 
 ### Textarea
@@ -288,9 +288,9 @@ import { Textarea } from '@k8o/arte-odyssey';
   id="description"
   value={value}
   onChange={onChange}
-  isInvalid={false}
-  isDisabled={false}
-  isRequired={false}
+  invalid={false}
+  disabled={false}
+  required={false}
 />;
 ```
 
@@ -305,9 +305,9 @@ import { NumberField } from '@k8o/arte-odyssey';
   max={100}
   value={value}
   onChange={onChange}
-  isInvalid={false}
-  isDisabled={false}
-  isRequired={false}
+  invalid={false}
+  disabled={false}
+  required={false}
 />;
 ```
 
@@ -322,9 +322,9 @@ import { PasswordInput } from '@k8o/arte-odyssey';
   id="password"
   value={value}
   onChange={onChange}
-  isInvalid={false}
-  isDisabled={false}
-  isRequired={false}
+  invalid={false}
+  disabled={false}
+  required={false}
   showLabel="表示"
   hideLabel="非表示"
 />;
@@ -343,52 +343,54 @@ import { Select } from '@k8o/arte-odyssey';
   ]}
   value={value}
   onChange={onChange}
-  isInvalid={false}
-  isDisabled={false}
-  isRequired={false}
+  invalid={false}
+  disabled={false}
+  required={false}
 />;
 ```
 
 ### Autocomplete
 
+複数選択のオートコンプリート。`value` / `onChange` は `string[]`。
+
 ```tsx
 import { Autocomplete } from '@k8o/arte-odyssey';
 
 <Autocomplete
+  id="tags"
   options={options}
   value={value}
   onChange={onChange}
-  isInvalid={false}
-  isDisabled={false}
-  isRequired={false}
+  invalid={false}
+  disabled={false}
+  required={false}
 />;
 ```
 
 ### Checkbox
 
+ラベルは `label` prop で渡す（children ではない）。`onChange` は `(checked, event)`。
+
 ```tsx
 import { Checkbox } from '@k8o/arte-odyssey';
 
 // Controlled
-<Checkbox value={checked} onChange={onChange}>
-  同意する
-</Checkbox>
+<Checkbox label="同意する" value={checked} onChange={onChange} />
 
 // Uncontrolled
-<Checkbox defaultChecked>
-  同意する
-</Checkbox>
+<Checkbox label="同意する" defaultChecked />
 ```
 
 ### CheckboxGroup
 
-複数チェックボックスのグループ。コンテキストで子の Checkbox と連携する。
+複数チェックボックスのグループ。`value` / `onChange` は `string[]`。子は `CheckboxGroup.Item`（= `Checkbox`）で、`itemValue` が必須。
 
 ```tsx
 import { CheckboxGroup } from '@k8o/arte-odyssey';
 
-<CheckboxGroup name="interests" isDisabled={false}>
-  {/* 子の Checkbox は useCheckboxGroupContext() 経由でグループと連携 */}
+<CheckboxGroup name="interests" value={values} onChange={setValues}>
+  <CheckboxGroup.Item itemValue="music" label="音楽" />
+  <CheckboxGroup.Item itemValue="movie" label="映画" />
 </CheckboxGroup>;
 ```
 
@@ -401,7 +403,7 @@ import { CheckboxCard } from '@k8o/arte-odyssey';
 
 <CheckboxCard
   name="plan"
-  isDisabled={false}
+  disabled={false}
   options={[
     { value: 'basic', label: 'ベーシック', description: '月額980円' },
     {
@@ -422,7 +424,7 @@ import { CheckboxCard } from '@k8o/arte-odyssey';
 import { Radio } from '@k8o/arte-odyssey';
 
 <Radio
-  labelId="example-radio"
+  aria-labelledby="example-radio"
   name="example"
   onChange={onChange}
   options={[
@@ -441,9 +443,9 @@ import { Radio } from '@k8o/arte-odyssey';
 import { RadioCard } from '@k8o/arte-odyssey';
 
 <RadioCard
-  labelId="plan-radio"
+  aria-labelledby="plan-radio"
   name="plan"
-  isDisabled={false}
+  disabled={false}
   options={[
     { value: 'basic', label: 'ベーシック', description: '月額980円' },
     {
@@ -471,9 +473,9 @@ import { Slider } from '@k8o/arte-odyssey';
   step={1}
   value={value}
   onChange={onChange}
-  isInvalid={false}
-  isDisabled={false}
-  isRequired={false}
+  invalid={false}
+  disabled={false}
+  required={false}
 />;
 ```
 
@@ -488,9 +490,9 @@ import { Switch } from '@k8o/arte-odyssey';
   label="通知を有効にする"
   value={checked}
   onChange={onChange}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
 />;
 ```
 
@@ -512,7 +514,7 @@ Props (Root):
 - `accept`: string
 - `multiple`: boolean
 - `maxFiles`: number
-- `isDisabled`, `isInvalid`, `isRequired`: boolean
+- `disabled`, `invalid`, `required`: boolean
 
 ## データ表示
 
@@ -542,6 +544,7 @@ import { Avatar } from '@k8o/arte-odyssey';
 
 <Avatar src="/avatar.jpg" alt="ユーザー名" size="md" />
 <Avatar name="田中太郎" fallback="田" size="lg" />
+<Avatar color="primary" icon={<AssistantIcon />} name="AI" size="sm" />
 ```
 
 Props:
@@ -550,6 +553,8 @@ Props:
 - `alt`: string
 - `name`: string
 - `fallback`: string
+- `icon`: ReactNode
+- `color`: `'base'` | `'primary'` | `'secondary'`（デフォルト: `'base'`）
 - `size`: `'sm'` | `'md'` | `'lg'`
 
 ### Badge
@@ -567,7 +572,7 @@ import { Badge } from '@k8o/arte-odyssey';
 Props:
 
 - `text`: string（必須）
-- `size`: `'sm'` | `'md'`
+- `size`: `'sm'` | `'md'` | `'lg'`
 - `tone`: `'neutral'` | `'info'` | `'success'` | `'warning'` | `'error'`
 - `variant`: `'solid'` | `'outline'`
 - `interactive`: boolean（true でボタンとして描画）
@@ -616,14 +621,17 @@ import { Table } from '@k8o/arte-odyssey';
 ```tsx
 import { Alert } from '@k8o/arte-odyssey';
 
-<Alert status="info" message="情報メッセージ" />
-<Alert status="error" message={['エラー1', 'エラー2']} />
+<Alert tone="info" message="情報メッセージ" />
+<Alert tone="error" message={['エラー1', 'エラー2']} />
 ```
 
 Props:
 
-- `status`: `'info'` | `'success'` | `'warning'` | `'error'`
+- `tone`: `'info'` | `'success'` | `'warning'` | `'error'`（必須）
 - `message`: `string | string[]`
+- `action`: `{ label: string; renderItem: (props: { children: ReactNode }) => ReactNode }`
+- `onClose`: `() => void`（指定すると閉じるボタンを表示）
+- `closeLabel`: string
 
 ### Toast
 
@@ -638,7 +646,7 @@ onOpen('error', 'エラーが発生しました');
 
 `ToastProvider` は `ArteOdysseyProvider` に含まれるため、別途ラップ不要。
 
-- `onOpen`: `(status: Status, message: string) => void`
+- `onOpen`: `(tone: Status, message: string) => void`
 - `onClose`: `(id: string) => void`
 - `onCloseAll`: `() => void`
 
@@ -748,7 +756,7 @@ Props:
 
 ### Popover
 
-Floating UI ベースのポップオーバー。Compound component パターン。
+CSS Anchor Positioning ベースのポップオーバー。Compound component パターン。
 
 ```tsx
 import { Popover } from '@k8o/arte-odyssey';
@@ -763,8 +771,8 @@ import { Popover } from '@k8o/arte-odyssey';
 
 Props (Root):
 
-- `placement`: Placement（Floating UI の配置）
-- `type`: `'dialog'` | `'menu'` | `'tooltip'` | `'listbox'`
+- `placement`: Placement（デフォルト: `'bottom-start'`）
+- `type`: `'dialog'` | `'menu'` | `'listbox'`（デフォルト: `'menu'`）
 - `flipDisabled`: boolean
 
 ### Tooltip
@@ -814,7 +822,7 @@ import { ListBox } from '@k8o/arte-odyssey';
     { key: '2', label: 'オプション2' },
   ]}
   value={value}
-  onSelect={onSelect}
+  onChange={onChange}
 >
   <ListBox.Trigger size="md" />
   <ListBox.Content />

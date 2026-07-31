@@ -2,6 +2,9 @@
 
 A modern React UI component library built with TypeScript, Tailwind CSS, and accessibility in mind.
 
+- **Documentation**: https://arte-odyssey.k8o.me
+- **Storybook**: https://main--687a213c85e2e4589d8db1bb.chromatic.com
+
 ## Installation
 
 ```bash
@@ -31,9 +34,16 @@ Required versions:
 1. Import the CSS and set up the provider:
 
 ```css
-/* In your main CSS file (recommended for Tailwind CSS 4) */
-@import 'tailwindcss';
+/* In your main CSS file — this single line is all you need. */
+/* styles.css already includes Tailwind CSS itself (`@import 'tailwindcss'`). */
 @import '@k8o/arte-odyssey/styles.css';
+```
+
+If you want to add your own utility classes on top, append your sources after the import:
+
+```css
+@import '@k8o/arte-odyssey/styles.css';
+@source './src';
 ```
 
 ```tsx
@@ -57,12 +67,8 @@ import { Card } from '@k8o/arte-odyssey';
 
 function MyPage() {
   return (
-    <Card title="Welcome to ArteOdyssey">
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() => alert('Hello!')}
-      >
+    <Card>
+      <Button color="primary" variant="solid" onClick={() => alert('Hello!')}>
         Click me
       </Button>
     </Card>
@@ -150,12 +156,17 @@ ArteOdyssey includes design system documentation in `docs/` directory. When inst
 import { Button } from '@k8o/arte-odyssey';
 
 // Primary action
-<Button color="primary" variant="contained" size="md">
+<Button color="primary" variant="solid" size="md">
   Save
 </Button>
 
+// Secondary accent
+<Button color="secondary" variant="solid">
+  Preview
+</Button>
+
 // Secondary action
-<Button color="gray" variant="outlined">
+<Button color="gray" variant="outline">
   Cancel
 </Button>
 
@@ -175,10 +186,10 @@ import { Button } from '@k8o/arte-odyssey';
 <form>
   <FormControl
     label="Email"
-    isRequired
+    required
     errorText={error}
     renderInput={(props) => (
-      <TextField {...props} id="email" placeholder="Enter your email" />
+      <TextField {...props} placeholder="Enter your email" />
     )}
   />
   <Button type="submit">Submit</Button>
@@ -215,19 +226,105 @@ function MyComponent() {
 }
 ```
 
-## Granular Imports
+## Imports & Bundle Size
 
-ArteOdyssey supports granular imports to optimize your bundle size:
+All components and hooks ship from a single ESM entry point — there are no per-component subpaths. The package is tree-shakeable (`sideEffects` is limited to CSS), so bundlers drop everything you don't import:
 
 ```tsx
-// Import specific components
-import { Button } from '@k8o/arte-odyssey';
-import { Card } from '@k8o/arte-odyssey';
-
-// Import specific hooks
-import { useClickAway } from '@k8o/arte-odyssey';
-import { useLocalStorage } from '@k8o/arte-odyssey';
+// Named imports from the root entry — unused exports are tree-shaken away
+import { Button, Card, useClickAway, useLocalStorage } from '@k8o/arte-odyssey';
 ```
+
+Optional features live behind dedicated subpath exports:
+
+| Subpath                                  | Contents                                                        |
+| ---------------------------------------- | --------------------------------------------------------------- |
+| `@k8o/arte-odyssey`                      | All components and hooks                                        |
+| `@k8o/arte-odyssey/tokens`               | Design token definitions                                        |
+| `@k8o/arte-odyssey/ai`                   | AI chat components                                              |
+| `@k8o/arte-odyssey/ai/response`          | `Response` Markdown renderer (needs optional peer `streamdown`) |
+| `@k8o/arte-odyssey/ai-sdk`               | AI SDK adapter (needs optional peer `ai`)                       |
+| `@k8o/arte-odyssey/json-render`          | json-render catalog (server-safe)                               |
+| `@k8o/arte-odyssey/json-render/registry` | json-render registry (`'use client'`)                           |
+| `@k8o/arte-odyssey/openui`               | OpenUI library (`'use client'`)                                 |
+| `@k8o/arte-odyssey/openui/prompt`        | OpenUI prompt generation (server-safe)                          |
+| `@k8o/arte-odyssey/styles.css`           | Stylesheet (includes Tailwind CSS)                              |
+
+## AI Chat Components
+
+`@k8o/arte-odyssey/ai` ships building blocks for chat UIs:
+
+- **Conversation** (`Root` / `Messages` / `ScrollButton`) - Scroll container with stick-to-bottom behavior and a scroll-to-bottom button
+- **Message** (`Root` / `Content`) - Chat bubble, styled by `from="user" | "assistant"`
+- **PromptInput** (`Root` / `Textarea` / `Submit`) - Message input form with IME-aware Enter-to-send and a stop button while streaming
+- **Reasoning** - Collapsible display of the model's thinking text
+- **Suggestion** (`List` / `Item`) - Suggested prompt chips
+- **ToolInvocation** - Tool call display with input/output and `state` (`'input-streaming' | 'input-available' | 'output-available' | 'output-error'`)
+- **Response** (from `@k8o/arte-odyssey/ai/response`) - Streaming-safe Markdown renderer built on streamdown
+
+Two of these need optional peer dependencies:
+
+```bash
+# Response (@k8o/arte-odyssey/ai/response)
+pnpm add streamdown
+# AI SDK adapter (@k8o/arte-odyssey/ai-sdk)
+pnpm add ai
+```
+
+Minimal chat UI:
+
+```tsx
+'use client';
+import { Conversation, Message, PromptInput } from '@k8o/arte-odyssey/ai';
+import { useState } from 'react';
+
+type Msg = { id: string; role: 'user' | 'assistant'; text: string };
+
+function Chat() {
+  const [messages, setMessages] = useState<Msg[]>([]);
+
+  const send = (text: string) => {
+    // Append the user message, then request the assistant reply
+  };
+
+  return (
+    <div className="flex h-svh flex-col gap-3 p-4">
+      <Conversation.Root>
+        <Conversation.Messages>
+          {messages.map((m) => (
+            <Message.Root from={m.role} key={m.id}>
+              <Message.Content>{m.text}</Message.Content>
+            </Message.Root>
+          ))}
+        </Conversation.Messages>
+        <Conversation.ScrollButton />
+      </Conversation.Root>
+      <PromptInput.Root onSubmit={send}>
+        <PromptInput.Textarea placeholder="Type a message…" />
+        <PromptInput.Submit />
+      </PromptInput.Root>
+    </div>
+  );
+}
+```
+
+To render assistant Markdown, wrap it in `Response` (children must be a string). Besides installing `streamdown`, import its stylesheet once and register its classes with Tailwind:
+
+```tsx
+import { Response } from '@k8o/arte-odyssey/ai/response';
+import 'streamdown/styles.css';
+
+<Message.Content>
+  <Response isStreaming>{markdownText}</Response>
+</Message.Content>;
+```
+
+```css
+/* In your CSS entry (path is relative to the CSS file) */
+@source '../node_modules/streamdown/dist/*.js';
+```
+
+With the [AI SDK](https://ai-sdk.dev), `mapMessageParts` from `@k8o/arte-odyssey/ai-sdk` converts a `UIMessage` into a flat array of `{ kind: 'text' | 'reasoning' | 'tool', ... }` parts that map 1:1 onto `Response`, `Reasoning`, and `ToolInvocation`.
 
 ## Generative UI integrations
 
