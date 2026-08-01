@@ -153,16 +153,16 @@ import { ArteOdysseyProvider, Button } from '@k8o/arte-odyssey';
 
 ## コンポーネント使用の原則
 
-### Button / LinkButton
+### Button
 
-`color` と `variant` で統一されたスタイル。
+`color` と `variant` で統一されたスタイル。リンクは `renderItem` で `<a>` を返す。
 
 ```tsx
 // プライマリアクション
-<Button color="primary" variant="contained">保存する</Button>
+<Button color="primary" variant="solid">保存する</Button>
 
 // セカンダリアクション
-<Button color="gray" variant="outlined">キャンセル</Button>
+<Button color="gray" variant="outline">キャンセル</Button>
 
 // テキストのみ
 <Button variant="skeleton">詳細を見る</Button>
@@ -183,7 +183,7 @@ import { ArteOdysseyProvider, Button } from '@k8o/arte-odyssey';
 ```tsx
 <FormControl
   label="メールアドレス"
-  isRequired
+  required
   renderInput={(props) => (
     <TextField {...props} placeholder="example@mail.com" />
   )}
