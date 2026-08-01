@@ -55,8 +55,13 @@ export const ScrollLinked: FC<{
       // （native の ScrollTimeline はレイアウト変化に自動追従するため合わせる）
       const observer = new ResizeObserver(update);
       observer.observe(target ?? document.documentElement);
-      if (target?.firstElementChild) {
-        observer.observe(target.firstElementChild);
+      // コンテンツ高(scrollHeight)の変化は target 自身の box には現れないため
+      // 直下の子要素を監視する（バー自身が混ざっても無害）。attach 後に
+      // 追加された子までは追わず、次の scroll / resize で追従する
+      if (target) {
+        for (const child of target.children) {
+          observer.observe(child);
+        }
       }
       window.addEventListener('resize', update);
       cleanup = () => {

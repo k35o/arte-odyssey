@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef } from 'react';
+import { expect, waitFor, within } from 'storybook/test';
 
 import { ScrollLinked } from './scroll-linked';
 
@@ -64,4 +65,29 @@ export const WithContainer: Story = {
       );
     },
   ],
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const scroller = canvas.getByLabelText('スクロールコンテナの例');
+    const bar = canvasElement.querySelector<HTMLElement>(
+      'div[aria-hidden="true"]',
+    );
+    if (!bar) {
+      throw new Error('progress bar not found');
+    }
+    // コンテナのスクロールに追従する
+    scroller.scrollTop = (scroller.scrollHeight - scroller.clientHeight) / 2;
+    await waitFor(() => {
+      expect(Number.parseFloat(bar.style.scale)).toBeCloseTo(0.5, 1);
+    });
+    // スクロールせずコンテンツの高さが変わっても ResizeObserver 経由で
+    // 進捗率が再計算される（コンテンツ倍増でおよそ半分の進捗率に下がる）
+    const content = scroller.querySelector<HTMLElement>('.h-\\[200vh\\]');
+    if (!content) {
+      throw new Error('content not found');
+    }
+    content.style.height = '400vh';
+    await waitFor(() => {
+      expect(Number.parseFloat(bar.style.scale)).toBeLessThan(0.35);
+    });
+  },
 };
