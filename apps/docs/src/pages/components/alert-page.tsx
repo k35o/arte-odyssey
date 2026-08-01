@@ -7,6 +7,7 @@ import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 import {
+  AlertActionButtonPreview,
   AlertDismissiblePreview,
   AlertWithActionPreview,
 } from './_previews/alert-previews';
@@ -172,22 +173,7 @@ export function AlertPage() {
               message="A new version is available."
               tone="info"
             />
-            <Alert
-              action={{
-                label: 'Open settings',
-                renderItem: ({ children }) => (
-                  <button
-                    className="text-fg-info underline"
-                    onClick={() => {}}
-                    type="button"
-                  >
-                    {children}
-                  </button>
-                ),
-              }}
-              message="Your profile setup is incomplete."
-              tone="warning"
-            />
+            <AlertActionButtonPreview />
           </ComponentPreview>
         </div>
 

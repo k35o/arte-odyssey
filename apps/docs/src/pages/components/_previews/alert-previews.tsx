@@ -3,6 +3,27 @@
 import { Alert, Button } from '@k8o/arte-odyssey';
 import { useState } from 'react';
 
+export function AlertActionButtonPreview() {
+  return (
+    <Alert
+      action={{
+        label: 'Open settings',
+        renderItem: ({ children }) => (
+          <button
+            className="text-fg-info underline"
+            onClick={() => {}}
+            type="button"
+          >
+            {children}
+          </button>
+        ),
+      }}
+      message="Your profile setup is incomplete."
+      tone="warning"
+    />
+  );
+}
+
 export function AlertDismissiblePreview() {
   const [isVisible, setIsVisible] = useState(true);
   return isVisible ? (
