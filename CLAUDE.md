@@ -13,6 +13,7 @@ pnpm check              # lint/format check (pnpm check:write to auto-fix)
 
 ## Gotchas
 
+- Run `pnpm build` before `pnpm check` / `pnpm typecheck` on a fresh checkout or worktree: docs/examples resolve `@k8o/arte-odyssey` types from `dist/`, so without it type-aware lint reports bogus `no-unsafe-*` errors (and parallel checks can die with exit 137). CI builds in the install action.
 - Use `type`, not `interface`.
 - No `@ts-ignore` — use `@ts-expect-error` with an explanation.
 - No skipped tests (`test.skip`, `describe.skip`).
