@@ -58,7 +58,7 @@ import { Button } from '@k8o/arte-odyssey';
 import { IconButton } from '@k8o/arte-odyssey';
 
 <IconButton label="閉じる" color="transparent" size="md">
-  <XIcon />
+  <CloseIcon />
 </IconButton>;
 ```
 
@@ -73,7 +73,7 @@ Props:
 ```tsx
 <IconButton
   color="base"
-  label="ホーム"
+  label="メール"
   renderItem={({
     className,
     children,
@@ -83,14 +83,14 @@ Props:
     <a
       aria-label={ariaLabel}
       className={className}
-      href="/home"
+      href="/contact"
       {...triggerProps}
     >
       {children}
     </a>
   )}
 >
-  <HomeIcon />
+  <MailIcon />
 </IconButton>
 ```
 
@@ -504,7 +504,13 @@ import { Switch } from '@k8o/arte-odyssey';
 import { FileField } from '@k8o/arte-odyssey';
 
 <FileField.Root accept="image/*" multiple maxFiles={5}>
-  <FileField.Trigger>ファイルを選択</FileField.Trigger>
+  <FileField.Trigger
+    renderItem={({ onClick, disabled }) => (
+      <Button onClick={onClick} disabled={disabled}>
+        ファイルを選択
+      </Button>
+    )}
+  />
   <FileField.ItemList />
 </FileField.Root>;
 ```
@@ -646,7 +652,7 @@ onOpen('error', 'エラーが発生しました');
 
 `ToastProvider` は `ArteOdysseyProvider` に含まれるため、別途ラップ不要。
 
-- `onOpen`: `(tone: Status, message: string) => void`
+- `onOpen`: `(tone: Status, message: string, options?: { duration?: number; action?: ToastAction }) => void`
 - `onClose`: `(id: string) => void`
 - `onCloseAll`: `() => void`
 
