@@ -19,6 +19,21 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@k8o/arte-odyssey", "storybook"],
       "port": 6006
+    },
+    {
+      "name": "storybook-wt",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "@k8o/arte-odyssey",
+        "exec",
+        "storybook",
+        "dev",
+        "-p",
+        "6016",
+        "--no-open"
+      ],
+      "port": 6016
     }
   ]
 }

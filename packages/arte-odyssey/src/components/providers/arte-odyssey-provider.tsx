@@ -4,8 +4,8 @@ import type { FC, PropsWithChildren } from 'react';
 
 import { ToastProvider } from '../feedback/toast';
 
-// MotionConfig をここに置くと motion のランタイムが全利用者のバンドルに載るため、
-// reduced motion の指定は motion を使う各コンポーネント側でローカルに行う
+// アニメーションは全て CSS で実装しており、reduced motion は base.css の
+// @media (prefers-reduced-motion) が一元処理するため、Provider の責務はトーストのみ
 export const ArteOdysseyProvider: FC<PropsWithChildren> = ({ children }) => (
   <ToastProvider>{children}</ToastProvider>
 );

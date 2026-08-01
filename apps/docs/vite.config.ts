@@ -16,7 +16,4 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
-  optimizeDeps: {
-    include: ['motion/react-client', 'motion/react'],
-  },
 });

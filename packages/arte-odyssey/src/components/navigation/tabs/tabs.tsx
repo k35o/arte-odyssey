@@ -1,8 +1,7 @@
 'use client';
 
-import { MotionConfig } from 'motion/react';
-import * as motion from 'motion/react-client';
 import {
+  type CSSProperties,
   type FC,
   type KeyboardEvent,
   type PropsWithChildren,
@@ -28,6 +27,17 @@ type TabsContext = {
   selectedId: string;
   setSelectedId: (id: string) => void;
 };
+
+// React の CSSProperties はまだ anchor positioning 系プロパティを型に持たない
+type AnchorCSSProperties = CSSProperties & {
+  anchorName?: string;
+  anchorScope?: string;
+  positionAnchor?: string;
+};
+
+// useId() の戻り値は CSS の dashed-ident として無効な文字を含むので無害化する
+const toAnchorName = (rootId: string): string =>
+  `--ao-tab-${rootId.replaceAll(/[^a-zA-Z0-9_-]/gu, '')}`;
 
 const [TabsProvider, useTabsState] = createSafeContext<TabsContext>(
   'useTabsState must be used within a TabsProvider',
@@ -92,12 +102,24 @@ const List: FC<
     <div
       aria-label={label}
       aria-orientation={writingMode === 'vertical' ? 'vertical' : 'horizontal'}
-      className="border-border-base vertical:border-b-0 vertical:border-l vertical:overflow-x-hidden vertical:overflow-y-auto flex overflow-x-auto overflow-y-hidden border-b p-0.5 wrap-normal"
+      className="border-border-base vertical:border-b-0 vertical:border-l vertical:overflow-x-hidden vertical:overflow-y-auto relative flex overflow-x-auto overflow-y-hidden border-b p-0.5 wrap-normal"
       id={`${rootId}-tablist`}
       ref={listRef}
       role="tablist"
+      style={
+        // useId は React ルートを跨ぐと衝突しうるので、anchor 名の解決を
+        // この tablist のサブツリーに限定する
+        { anchorScope: toAnchorName(rootId) } satisfies AnchorCSSProperties
+      }
     >
       <TabsListProvider value={listContextValue}>{children}</TabsListProvider>
+      <div
+        aria-hidden="true"
+        className="ao-tab-indicator bg-primary-border"
+        style={
+          { positionAnchor: toAnchorName(rootId) } satisfies AnchorCSSProperties
+        }
+      />
     </div>
   );
 };
@@ -134,7 +156,7 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
       aria-controls={selectedId === id ? `${rootId}-panel-${id}` : undefined}
       aria-selected={selectedId === id}
       className={cn(
-        'relative cursor-pointer rounded-lg p-2 transition-colors',
+        'ao-tab relative cursor-pointer rounded-lg p-2 transition-colors',
         selectedId !== id && 'hover:bg-primary-bg-subtle hover:text-primary-fg',
         FOCUS_RING,
       )}
@@ -156,16 +178,14 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
       }}
       ref={ref}
       role="tab"
+      style={
+        // 選択中のタブをインジケータ(ao-tab-indicator)のアンカーにする
+        (selectedId === id
+          ? { anchorName: toAnchorName(rootId) }
+          : undefined) satisfies AnchorCSSProperties | undefined
+      }
       tabIndex={activeIndex === index ? 0 : -1}
     >
-      {selectedId === id && (
-        <MotionConfig reducedMotion="user">
-          <motion.div
-            className="bg-primary-border absolute inset-s-0 inset-e-0 -inset-be-0.5 block-1"
-            layoutId={`${rootId}-underline`}
-          />
-        </MotionConfig>
-      )}
       {children}
     </div>
   );
