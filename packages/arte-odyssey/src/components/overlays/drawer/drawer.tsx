@@ -9,6 +9,7 @@ import {
 } from 'react';
 
 import { cn } from '../../../helpers/cn';
+import { useMessages } from '../../../i18n/context';
 import { IconButton } from '../../buttons/icon-button';
 import { Heading } from '../../data-display/heading';
 import { CloseIcon } from '../../icons';
@@ -23,6 +24,7 @@ export const Drawer: FC<
     side?: 'left' | 'right';
   }>
 > = ({ title, isOpen, defaultOpen, onClose, side = 'right', children }) => {
+  const messages = useMessages();
   const rootId = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -57,7 +59,7 @@ export const Drawer: FC<
             )}
           >
             <IconButton
-              label="閉じる"
+              label={messages.close}
               onClick={(e) => {
                 e.stopPropagation();
                 dialogRef.current?.close();

@@ -37,13 +37,13 @@ export const Default: Story = {
     await expect(input).toHaveAttribute('type', 'password');
 
     await userEvent.click(
-      canvas.getByRole('button', { name: 'Show password' }),
+      canvas.getByRole('button', { name: 'パスワードを表示' }),
     );
 
     await expect(input).toHaveAttribute('type', 'text');
 
     await userEvent.click(
-      canvas.getByRole('button', { name: 'Hide password' }),
+      canvas.getByRole('button', { name: 'パスワードを非表示' }),
     );
 
     await expect(input).toHaveAttribute('type', 'password');

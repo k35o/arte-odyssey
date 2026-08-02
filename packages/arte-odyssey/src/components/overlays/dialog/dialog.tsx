@@ -9,6 +9,7 @@ import {
   useMemo,
 } from 'react';
 
+import { useMessages } from '../../../i18n/context';
 import { IconButton } from '../../buttons/icon-button';
 import { Heading } from '../../data-display/heading';
 import { CloseIcon } from '../../icons';
@@ -74,6 +75,7 @@ const Header: FC<{
   title: string;
   onClose: () => void;
 }> = ({ title, onClose }) => {
+  const messages = useMessages();
   const { rootId } = useDialogContext();
   return (
     <div className="flex items-center justify-center p-4 pb-2">
@@ -82,7 +84,7 @@ const Header: FC<{
       </Heading>
       <div className="absolute top-2 right-2">
         <IconButton
-          label="閉じる"
+          label={messages.close}
           onClick={(e) => {
             e.stopPropagation();
             onClose();

@@ -1,5 +1,9 @@
+'use client';
+
 import type { FC, HTMLAttributes, ReactNode } from 'react';
 
+import { useMessages } from '../../../i18n/context';
+import type { Messages } from '../../../i18n/messages';
 import { IconButton } from '../../buttons/icon-button';
 import { AlertIcon, CloseIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
@@ -21,21 +25,22 @@ type Props = {
   'children' | 'role' | 'className' | 'style'
 >;
 
-const STATUS_LABEL = {
-  success: '成功',
-  info: '情報',
-  warning: '警告',
-  error: 'エラー',
-} as const satisfies Record<Status, string>;
+const STATUS_MESSAGE_KEY = {
+  success: 'alertSuccess',
+  info: 'alertInfo',
+  warning: 'alertWarning',
+  error: 'alertError',
+} as const satisfies Record<Status, keyof Messages>;
 
 export const Alert: FC<Props> = ({
   tone,
   message,
   action,
   onClose,
-  closeLabel = '閉じる',
+  closeLabel,
   ...rest
 }) => {
+  const messages = useMessages();
   const actionNode = action
     ? action.renderItem({ children: action.label })
     : null;
@@ -92,13 +97,13 @@ export const Alert: FC<Props> = ({
         )}
       >
         <AlertIcon size="md" status={tone} />
-        <span className="sr-only">{STATUS_LABEL[tone]}</span>
+        <span className="sr-only">{messages[STATUS_MESSAGE_KEY[tone]]}</span>
       </span>
       <div className="min-w-0 flex-1">{messageContent}</div>
       {onClose ? (
         <span className="shrink-0">
           <IconButton
-            label={closeLabel}
+            label={closeLabel ?? messages.close}
             onClick={onClose}
             size="sm"
             tooltipDisabled

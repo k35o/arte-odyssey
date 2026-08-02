@@ -11,6 +11,7 @@ import type {
 import { useCallback, useId, useMemo, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import { useMessages } from '../../../i18n/context';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
 import { createSafeContext } from './../../../helpers/create-safe-context';
@@ -182,6 +183,7 @@ const ItemList: FC<{
   showWebkitRelativePath?: boolean;
   clearable?: boolean;
 }> = ({ showWebkitRelativePath, clearable }) => {
+  const messages = useMessages();
   const { acceptedFiles, onFileDelete } = useFileFieldContext();
 
   if (acceptedFiles.length === 0) {
@@ -212,7 +214,7 @@ const ItemList: FC<{
               <span className="text-fg-mute text-xs">{sizeInKB} KB</span>
             </div>
             {clearable === true && (
-              <IconButton label="ファイルを削除" onClick={onDelete}>
+              <IconButton label={messages.fileFieldRemove} onClick={onDelete}>
                 <CloseIcon size="sm" />
               </IconButton>
             )}

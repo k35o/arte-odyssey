@@ -2,6 +2,7 @@
 
 import type { FC } from 'react';
 
+import { useMessages } from '../../../i18n/context';
 import { Button } from '../../buttons/button';
 import { ChevronIcon } from '../../icons';
 
@@ -20,17 +21,18 @@ export const Pagination: FC<Props> = ({
   currentPage,
   onChange,
   disabled = false,
-  prevLabel = '前へ',
-  nextLabel = '次へ',
-  'aria-label': ariaLabel = 'ページネーション',
+  prevLabel,
+  nextLabel,
+  'aria-label': ariaLabel,
 }) => {
+  const messages = useMessages();
   const safeTotal = Math.max(1, totalPages);
   const safeCurrent = Math.min(Math.max(1, currentPage), safeTotal);
   const isFirst = safeCurrent <= 1;
   const isLast = safeCurrent >= safeTotal;
 
   return (
-    <nav aria-label={ariaLabel}>
+    <nav aria-label={ariaLabel ?? messages.paginationLabel}>
       <div className="flex items-center justify-center gap-2">
         <Button
           color="base"
@@ -46,7 +48,7 @@ export const Pagination: FC<Props> = ({
           }
           variant="skeleton"
         >
-          {prevLabel}
+          {prevLabel ?? messages.paginationPrevious}
         </Button>
         <p
           aria-live="polite"
@@ -70,7 +72,7 @@ export const Pagination: FC<Props> = ({
           size="sm"
           variant="skeleton"
         >
-          {nextLabel}
+          {nextLabel ?? messages.paginationNext}
         </Button>
       </div>
     </nav>

@@ -12,6 +12,7 @@ import {
 import { createPortal } from 'react-dom';
 
 import { cn } from './../../../helpers/cn';
+import { useMessages } from './../../../i18n/context';
 import type { Status } from './../../../types/variables';
 import {
   type ToastOptions,
@@ -66,6 +67,7 @@ export const ToastProvider: FC<
     position?: 'fixed' | 'absolute';
   }>
 > = ({ children, portalRef = null, position = 'fixed' }) => {
+  const messages = useMessages();
   const [state, setState] = useState<ToastState>({
     toasts: [],
     closingIds: [],
@@ -225,7 +227,9 @@ export const ToastProvider: FC<
             <section
               // 空の間は名前を付けず region ランドマークにしない（複数 Provider の
               // 共存時に同名ランドマークが重複して axe の landmark-unique に反するため）
-              aria-label={state.toasts.length > 0 ? '通知' : undefined}
+              aria-label={
+                state.toasts.length > 0 ? messages.toastRegion : undefined
+              }
               className={cn(
                 'bottom-3 z-toast flex w-full flex-col items-center justify-center',
                 position === 'fixed' && 'fixed',

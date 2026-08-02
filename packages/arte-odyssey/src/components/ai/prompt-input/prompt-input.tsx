@@ -13,6 +13,7 @@ import {
 import { cn } from '../../../helpers/cn';
 import { createSafeContext } from '../../../helpers/create-safe-context';
 import { useControllableState } from '../../../hooks/controllable-state';
+import { useMessages } from '../../../i18n/context';
 import { FOCUS_RING, FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
 import { SendIcon } from '../../icons';
 import type { ChatStatus } from '../types';
@@ -155,17 +156,15 @@ type SubmitProps = {
   stopLabel?: string;
 };
 
-const Submit: FC<SubmitProps> = ({
-  sendLabel = '送信',
-  stopLabel = '停止',
-}) => {
+const Submit: FC<SubmitProps> = ({ sendLabel, stopLabel }) => {
+  const messages = useMessages();
   const { value, status, stop } = usePromptInputContext();
   const isBusy = status === 'submitted' || status === 'streaming';
 
   if (isBusy) {
     return (
       <button
-        aria-label={stopLabel}
+        aria-label={stopLabel ?? messages.stop}
         className={cn(
           'flex size-9 shrink-0 items-center justify-center rounded-full bg-primary-bg text-primary-fg transition-colors duration-150 ease-out',
           FOCUS_RING,
@@ -180,7 +179,7 @@ const Submit: FC<SubmitProps> = ({
 
   return (
     <button
-      aria-label={sendLabel}
+      aria-label={sendLabel ?? messages.send}
       className={cn(
         'flex size-9 shrink-0 items-center justify-center rounded-full bg-primary-bg text-primary-fg transition-colors duration-150 ease-out',
         'disabled:cursor-not-allowed disabled:opacity-50',

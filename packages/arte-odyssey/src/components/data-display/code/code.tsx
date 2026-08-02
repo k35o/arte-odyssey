@@ -1,5 +1,8 @@
+'use client';
+
 import { type FC, Fragment, type HTMLAttributes } from 'react';
 
+import { useMessages } from '../../../i18n/context';
 import { findAllColors } from './find-all-colors';
 
 type Props = {
@@ -7,6 +10,7 @@ type Props = {
 } & Omit<HTMLAttributes<HTMLElement>, 'children' | 'className' | 'style'>;
 
 export const Code: FC<Props> = ({ children, ...rest }) => {
+  const messages = useMessages();
   const colors = findAllColors(children);
 
   if (colors.length === 0) {
@@ -28,7 +32,7 @@ export const Code: FC<Props> = ({ children, ...rest }) => {
     parts.push(
       <Fragment key={`color-${String(index)}`}>
         <span
-          aria-label={`Color: ${colorInfo.color}`}
+          aria-label={`${messages.color}: ${colorInfo.color}`}
           className="border-border-base inline-block size-3 shrink-0 rounded-sm border"
           role="img"
           style={{ backgroundColor: colorInfo.color }}

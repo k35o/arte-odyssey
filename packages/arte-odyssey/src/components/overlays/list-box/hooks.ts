@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 
 import { createSafeContext } from '../../../helpers/create-safe-context';
+import { useMessages } from '../../../i18n/context';
 import type { Option } from '../../../types/variables';
 import type { ListNavigation } from '../_internal/use-list-navigation';
 import { useOpenContext } from '../popover/hooks';
@@ -54,7 +55,7 @@ export const useMenuItem = (index: number) => {
 
 export const useMenuTrigger = () => {
   const menu = useMenuContext();
-  const defaultLabel = '選択してください';
+  const defaultLabel = useMessages().listBoxPlaceholder;
   const valueLabel =
     menu.selectedIndex < 0
       ? defaultLabel

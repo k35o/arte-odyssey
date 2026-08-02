@@ -14,6 +14,7 @@ import { cn } from '../../../helpers/cn';
 import { createSafeContext } from '../../../helpers/create-safe-context';
 import { useIntersectionObserver } from '../../../hooks/intersection-observer';
 import { useResize } from '../../../hooks/resize';
+import { useMessages } from '../../../i18n/context';
 import { FOCUS_RING, FOCUS_RING_NO_BORDER } from '../../_internal/focus-ring';
 import { ChevronIcon } from '../../icons';
 
@@ -104,16 +105,17 @@ type MessagesProps = {
 };
 
 const Messages: FC<MessagesProps> = ({
-  label = 'チャット',
+  label,
   isStreaming = false,
   children,
 }) => {
+  const messages = useMessages();
   const { setViewport, sentinelRef, contentRef } = useConversationContext();
 
   return (
     <div
       aria-busy={isStreaming}
-      aria-label={label}
+      aria-label={label ?? messages.chat}
       aria-live="polite"
       className={cn(
         'min-h-0 flex-1 overflow-y-auto overscroll-contain',
@@ -133,9 +135,8 @@ const Messages: FC<MessagesProps> = ({
   );
 };
 
-const ScrollButton: FC<{ label?: string }> = ({
-  label = '最新のメッセージへ移動',
-}) => {
+const ScrollButton: FC<{ label?: string }> = ({ label }) => {
+  const messages = useMessages();
   const { isAtBottom, scrollToBottom } = useConversationContext();
 
   if (isAtBottom) {
@@ -144,7 +145,7 @@ const ScrollButton: FC<{ label?: string }> = ({
 
   return (
     <button
-      aria-label={label}
+      aria-label={label ?? messages.scrollToLatest}
       className={cn(
         'absolute bottom-4 left-1/2 flex size-9 -translate-x-1/2 items-center justify-center rounded-full border border-border-base bg-bg-base text-fg-mute shadow-md transition-colors duration-150 ease-out hover:bg-bg-subtle',
         FOCUS_RING,

@@ -21,6 +21,7 @@ import {
   useDisclosure,
   useWritingMode,
 } from '../../../hooks';
+import { useMessages } from '../../../i18n/context';
 import type { Option } from '../../../types/variables';
 import { FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
 import { IconButton } from '../../buttons/icon-button';
@@ -77,13 +78,14 @@ export const Autocomplete: FC<Props> = ({
   value,
   defaultValue,
   onChange,
-  placeholder = '入力して絞り込めます',
+  placeholder,
   onBlur,
   onClick,
   onKeyDown,
   ref,
   ...rest
 }) => {
+  const messages = useMessages();
   const [currentValue, handleChange] = useControllableState({
     value,
     defaultValue: defaultValue ?? [],
@@ -257,7 +259,7 @@ export const Autocomplete: FC<Props> = ({
               >
                 {label}
                 <IconButton
-                  label="閉じる"
+                  label={messages.autocompleteRemoveTag}
                   onClick={(e) => {
                     e.stopPropagation();
                     reset();
@@ -299,7 +301,7 @@ export const Autocomplete: FC<Props> = ({
             }}
             onClick={chain(handleClick, onClick)}
             onKeyDown={chain(handleKeyDown, onKeyDown)}
-            placeholder={placeholder}
+            placeholder={placeholder ?? messages.autocompletePlaceholder}
             ref={ref}
             role="combobox"
             type="text"
@@ -308,7 +310,7 @@ export const Autocomplete: FC<Props> = ({
         </div>
         {currentValue.length > 0 && (
           <IconButton
-            label="すべて閉じる"
+            label={messages.autocompleteClear}
             onClick={(e) => {
               e.stopPropagation();
               handleChange([]);
@@ -337,7 +339,7 @@ export const Autocomplete: FC<Props> = ({
           >
             {filteredOptions.length === 0 && (
               <li className="text-fg-mute px-3 py-2" role="presentation">
-                該当なし
+                {messages.autocompleteEmpty}
               </li>
             )}
             {filteredOptions.map((option, idx) => {

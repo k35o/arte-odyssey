@@ -1,5 +1,8 @@
+'use client';
+
 import type { FC, PropsWithChildren } from 'react';
 
+import { useMessages } from '../../../i18n/context';
 import { ChevronIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
 
@@ -7,20 +10,24 @@ const List: FC<
   PropsWithChildren<{
     size?: 'sm' | 'md' | 'lg';
   }>
-> = ({ children, size = 'md' }) => (
-  <nav aria-label="パンくずリスト">
-    <ol
-      className={cn(
-        'flex list-none items-center gap-1 text-fg-mute',
-        size === 'sm' && 'text-xs',
-        size === 'md' && 'text-xs md:text-md',
-        size === 'lg' && 'text-xl md:text-2xl',
-      )}
-    >
-      {children}
-    </ol>
-  </nav>
-);
+> = ({ children, size = 'md' }) => {
+  const messages = useMessages();
+
+  return (
+    <nav aria-label={messages.breadcrumb}>
+      <ol
+        className={cn(
+          'flex list-none items-center gap-1 text-fg-mute',
+          size === 'sm' && 'text-xs',
+          size === 'md' && 'text-xs md:text-md',
+          size === 'lg' && 'text-xl md:text-2xl',
+        )}
+      >
+        {children}
+      </ol>
+    </nav>
+  );
+};
 
 const Item: FC<PropsWithChildren> = ({ children }) => (
   <li className="inline-flex items-center">{children}</li>

@@ -2,6 +2,8 @@
 
 import { type FC, type ReactElement, useId } from 'react';
 
+import { useMessages } from '../../../i18n/context';
+
 type FormControlProps = {
   disabled?: boolean;
   invalid?: boolean;
@@ -30,6 +32,7 @@ export const FormControl: FC<FormControlProps> = ({
   errorText,
   renderInput,
 }) => {
+  const messages = useMessages();
   const id = useId();
   const hasErrorText = errorText !== undefined && errorText !== '';
   const hasHelpText = helpText !== undefined && helpText !== '';
@@ -49,7 +52,11 @@ export const FormControl: FC<FormControlProps> = ({
           id={labelId}
         >
           {label}
-          {required && <span className="text-fg-error font-medium">必須</span>}
+          {required && (
+            <span className="text-fg-error font-medium">
+              {messages.required}
+            </span>
+          )}
         </label>
       ) : (
         <legend
@@ -57,7 +64,11 @@ export const FormControl: FC<FormControlProps> = ({
           id={labelId}
         >
           {label}
-          {required && <span className="text-fg-error font-medium">必須</span>}
+          {required && (
+            <span className="text-fg-error font-medium">
+              {messages.required}
+            </span>
+          )}
         </legend>
       )}
       {renderInput({

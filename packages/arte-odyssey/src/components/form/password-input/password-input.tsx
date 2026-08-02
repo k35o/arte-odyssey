@@ -5,6 +5,7 @@ import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
 import { useDisclosure } from '../../../hooks/disclosure';
+import { useMessages } from '../../../i18n/context';
 import {
   FOCUS_RING_NO_BORDER,
   FOCUS_RING_WITHIN,
@@ -21,13 +22,14 @@ type Props = {
 export const PasswordInput: FC<Props> = ({
   invalid = false,
   autoComplete = 'current-password',
-  showLabel = 'Show password',
-  hideLabel = 'Hide password',
+  showLabel,
+  hideLabel,
   disabled = false,
   readOnly,
   ref,
   ...rest
 }) => {
+  const messages = useMessages();
   const { isOpen: isVisible, toggle: toggleVisible } = useDisclosure();
   const { pending } = useFormStatus();
 
@@ -56,7 +58,11 @@ export const PasswordInput: FC<Props> = ({
         {...rest}
       />
       <button
-        aria-label={isVisible ? hideLabel : showLabel}
+        aria-label={
+          isVisible
+            ? (hideLabel ?? messages.passwordHide)
+            : (showLabel ?? messages.passwordShow)
+        }
         className={cn(
           'me-2 inline-flex shrink-0 items-center justify-center rounded-md p-1 text-fg-mute transition-colors',
           FOCUS_RING_NO_BORDER,
