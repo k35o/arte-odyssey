@@ -68,12 +68,19 @@ const useTooltipTriggerProps = (): TooltipTriggerProps => {
   );
 };
 
-const Root: FC<PropsWithChildren<{ placement?: Placement }>> = ({
-  children,
-  placement = 'bottom',
-}) => (
+const Root: FC<
+  PropsWithChildren<{
+    placement?: Placement;
+    isOpen?: boolean;
+    defaultOpen?: boolean;
+    onChange?: (isOpen: boolean) => void;
+  }>
+> = ({ children, placement = 'bottom', isOpen, defaultOpen, onChange }) => (
   <Popover.Root
     closeOnClickAway={false}
+    defaultOpen={defaultOpen}
+    isOpen={isOpen}
+    onChange={onChange}
     placement={placement}
     trapFocus={false}
     type="dialog"

@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, waitFor } from 'storybook/test';
+import { useState } from 'react';
+import { expect, fn, waitFor } from 'storybook/test';
 
 import type { Placement } from '../../../types/variables';
 import { Button } from '../../buttons/button';
+import { Modal } from '../modal';
 import { Popover } from './popover';
 
 const meta: Meta<typeof Popover.Root> = {
@@ -87,6 +89,235 @@ export const CloseOnTabOut: Story = {
     expect(
       canvas.getByRole('button', { name: '次のフォーカス先' }),
     ).toHaveFocus();
+  },
+};
+
+const ControllableRender = ({
+  onChange,
+}: {
+  onChange?: (isOpen: boolean) => void;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="flex flex-col items-start gap-4">
+      <Button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+        size="md"
+        type="button"
+      >
+        外から開く
+      </Button>
+      <p>状態: {isOpen ? '開' : '閉'}</p>
+      <Popover.Root
+        isOpen={isOpen}
+        onChange={(next) => {
+          onChange?.(next);
+          setIsOpen(next);
+        }}
+      >
+        <Popover.Trigger
+          renderItem={(props) => (
+            <Button {...props} size="md" type="button">
+              メニュー
+            </Button>
+          )}
+        />
+        <Popover.Content
+          renderItem={(props) => (
+            <div className="bg-bg-raised rounded-lg p-4 shadow-md" {...props}>
+              <button role="menuitem" type="button">
+                項目1
+              </button>
+            </div>
+          )}
+        />
+      </Popover.Root>
+    </div>
+  );
+};
+
+// isOpen / onChange で外から開閉できる（controlled）。
+export const Controllable: Story = {
+  args: { onChange: fn() },
+  render: ({ onChange }) => <ControllableRender onChange={onChange} />,
+  play: async ({ args, canvas, userEvent }) => {
+    const trigger = canvas.getByRole('button', { name: 'メニュー' });
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    // trigger を触らず、外側の state だけで開く
+    await userEvent.click(canvas.getByRole('button', { name: '外から開く' }));
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      expect(canvas.getByRole('menuitem', { name: '項目1' })).toHaveFocus();
+    });
+
+    // 内部の閉じる操作は onChange で外へ伝わる
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => {
+      expect(canvas.getByText('状態: 閉')).toBeInTheDocument();
+    });
+    await expect(args.onChange).toHaveBeenCalledWith(false);
+  },
+};
+
+// defaultOpen で初期表示から開く（uncontrolled）。
+export const DefaultOpen: Story = {
+  render: () => (
+    <Popover.Root defaultOpen>
+      <Popover.Trigger
+        renderItem={(props) => (
+          <Button {...props} size="md" type="button">
+            メニュー
+          </Button>
+        )}
+      />
+      <Popover.Content
+        renderItem={(props) => (
+          <div className="bg-bg-raised rounded-lg p-4 shadow-md" {...props}>
+            <button role="menuitem" type="button">
+              項目1
+            </button>
+          </div>
+        )}
+      />
+    </Popover.Root>
+  ),
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole('button', { name: 'メニュー' }),
+    ).toHaveAttribute('aria-expanded', 'true');
+    await waitFor(() => {
+      expect(canvas.getByRole('menuitem', { name: '項目1' })).toBeVisible();
+    });
+  },
+};
+
+const layerPopover = (name: string) => (
+  <Popover.Root closeOnClickAway={false} trapFocus={false} type="dialog">
+    <Popover.Trigger
+      renderItem={(props) => (
+        <Button {...props} size="md" type="button">
+          {name}
+        </Button>
+      )}
+    />
+    <Popover.Content
+      renderItem={(props) => (
+        <div
+          aria-label={`${name}の中身`}
+          className="bg-bg-raised rounded-lg p-4 shadow-md"
+          {...props}
+        >
+          <p>{name}</p>
+        </div>
+      )}
+    />
+  </Popover.Root>
+);
+
+// APG: Escape は最も内側（最後に開いた）レイヤーだけを閉じる。
+export const EscapeClosesOnlyTopLayer: Story = {
+  render: () => (
+    <div className="flex gap-4">
+      {layerPopover('下の層')}
+      {layerPopover('上の層')}
+    </div>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    const lower = canvas.getByRole('button', { name: '下の層' });
+    const upper = canvas.getByRole('button', { name: '上の層' });
+
+    await userEvent.click(lower);
+    await userEvent.click(upper);
+    await waitFor(() => {
+      expect(lower).toHaveAttribute('aria-expanded', 'true');
+      expect(upper).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => {
+      expect(upper).toHaveAttribute('aria-expanded', 'false');
+    });
+    await expect(lower).toHaveAttribute('aria-expanded', 'true');
+
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => {
+      expect(lower).toHaveAttribute('aria-expanded', 'false');
+    });
+  },
+};
+
+const EscapeInModalRender = () => (
+  <Modal aria-label="モーダル" defaultOpen>
+    <div className="p-4">
+      <Popover.Root>
+        <Popover.Trigger
+          renderItem={(props) => (
+            <Button {...props} size="md" type="button">
+              メニュー
+            </Button>
+          )}
+        />
+        <Popover.Content
+          renderItem={(props) => (
+            <div className="bg-bg-raised rounded-lg p-4 shadow-md" {...props}>
+              <button role="menuitem" type="button">
+                項目1
+              </button>
+            </div>
+          )}
+        />
+      </Popover.Root>
+    </div>
+  </Modal>
+);
+
+// Modal の中で開いた Popover の Escape は preventDefault され、
+// ネイティブ dialog の close request まで届かない。
+export const EscapeInModal: Story = {
+  render: () => <EscapeInModalRender />,
+  play: async ({ canvas, userEvent }) => {
+    const dialog = canvas.getByRole('dialog', { name: 'モーダル' });
+    const trigger = canvas.getByRole('button', { name: 'メニュー' });
+    await userEvent.click(trigger);
+    await waitFor(() => {
+      expect(canvas.getByRole('menuitem', { name: '項目1' })).toHaveFocus();
+    });
+
+    const prevented: boolean[] = [];
+    const spy = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        prevented.push(event.defaultPrevented);
+      }
+    };
+    // スタックのリスナ（先に登録済み）より後に走るので、消費されたかを観測できる
+    window.addEventListener('keydown', spy);
+
+    try {
+      await userEvent.keyboard('{Escape}');
+      await waitFor(() => {
+        expect(trigger).toHaveAttribute('aria-expanded', 'false');
+      });
+      await expect(prevented).toEqual([true]);
+      await expect(dialog.hasAttribute('open')).toBe(true);
+
+      // ポップオーバーが閉じたあとの Escape は誰も消費しない（Modal に届く）
+      await userEvent.keyboard('{Escape}');
+      await expect(prevented).toEqual([true, false]);
+    } finally {
+      window.removeEventListener('keydown', spy);
+    }
+  },
+  parameters: {
+    a11y: {
+      options: {
+        rules: {
+          'color-contrast': { enabled: false },
+        },
+      },
+    },
   },
 };
 

@@ -3,16 +3,12 @@
 import { useMemo } from 'react';
 
 import { createSafeContext } from '../../../helpers/create-safe-context';
+import type { Option } from '../../../types/variables';
 import type { ListNavigation } from '../_internal/use-list-navigation';
 import { useOpenContext } from '../popover/hooks';
 
-export type Option = {
-  key: string;
-  label: string;
-};
-
 type MenuContext = ListNavigation & {
-  options: Option[];
+  options: readonly Option[];
   selectedIndex: number;
   handleSelect: (index: number) => void;
 };
@@ -59,9 +55,9 @@ export const useMenuItem = (index: number) => {
 export const useMenuTrigger = () => {
   const menu = useMenuContext();
   const defaultLabel = '選択してください';
-  const label =
+  const valueLabel =
     menu.selectedIndex < 0
       ? defaultLabel
       : (menu.options[menu.selectedIndex]?.label ?? defaultLabel);
-  return useMemo(() => ({ label }), [label]);
+  return useMemo(() => ({ valueLabel }), [valueLabel]);
 };

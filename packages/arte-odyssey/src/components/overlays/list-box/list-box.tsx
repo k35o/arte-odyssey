@@ -5,10 +5,11 @@ import {
   type FC,
   type PropsWithChildren,
   type ReactElement,
+  useId,
   useState,
 } from 'react';
 
-import type { Placement } from '../../../types/variables';
+import type { Option, Placement } from '../../../types/variables';
 import { Button } from '../../buttons/button';
 import { IconButton } from '../../buttons/icon-button';
 import { CheckIcon, ChevronIcon } from '../../icons';
@@ -18,7 +19,6 @@ import { useOpenContext } from '../popover/hooks';
 import { cn } from './../../../helpers/cn';
 import {
   MenuContextProvider,
-  type Option,
   useMenuContent,
   useMenuItem,
   useMenuTrigger,
@@ -27,9 +27,9 @@ import {
 const Root: FC<
   PropsWithChildren<{
     placement?: Placement;
-    options: Option[];
-    value: Option['key'] | undefined;
-    onChange: (key: Option['key']) => void;
+    options: readonly Option[];
+    value: Option['value'] | undefined;
+    onChange: (value: Option['value']) => void;
   }>
 > = ({ children, placement = 'bottom', options, value, onChange }) => (
   <Popover.Root flipDisabled placement={placement} type="listbox">
@@ -41,13 +41,13 @@ const Root: FC<
 
 const MenuProvider: FC<
   PropsWithChildren<{
-    options: Option[];
-    value: Option['key'] | undefined;
-    onChange: (key: Option['key']) => void;
+    options: readonly Option[];
+    value: Option['value'] | undefined;
+    onChange: (value: Option['value']) => void;
   }>
 > = ({ children, options, onChange, value }) => {
   const { isOpen } = useOpenContext();
-  const selectedIndex = options.findIndex((option) => option.key === value);
+  const selectedIndex = options.findIndex((option) => option.value === value);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const nav = useListNavigation({
@@ -59,9 +59,9 @@ const MenuProvider: FC<
   });
 
   const handleSelect = (index: number) => {
-    const key = options[index]?.key;
-    if (key !== undefined && key !== '') {
-      onChange(key);
+    const next = options[index]?.value;
+    if (next !== undefined && next !== '') {
+      onChange(next);
     }
   };
 
@@ -81,16 +81,23 @@ const Content: FC<{
 
   return (
     <Popover.Content
-      renderItem={(props) => (
+      // helpContent は role="listbox" の直下に置くと aria-required-children 違反に
+      // なるため listbox の外へ出す。ref（外側クリック判定）は最外周に置く。
+      renderItem={({ ref, ...listProps }) => (
         <div
-          {...props}
-          {...contentProps}
-          className="bg-bg-raised border-border-subtle vertical:max-h-none vertical:min-w-0 vertical:max-w-48 vertical:min-h-40 vertical:overflow-x-auto vertical:overflow-y-visible flex max-h-48 min-w-40 flex-col overflow-y-auto rounded-lg border py-2 shadow-md"
+          className="bg-bg-raised border-border-subtle vertical:max-h-none vertical:min-w-0 vertical:max-w-48 vertical:min-h-40 flex max-h-48 min-w-40 flex-col rounded-lg border py-2 shadow-md"
+          ref={ref}
         >
           {helpContent}
-          {options.map(({ key, label }, idx) => (
-            <Item index={idx} key={key} label={label} />
-          ))}
+          <div
+            {...listProps}
+            {...contentProps}
+            className="vertical:overflow-x-auto vertical:overflow-y-visible flex min-h-0 min-w-0 flex-col overflow-y-auto"
+          >
+            {options.map(({ value, label }, idx) => (
+              <Item index={idx} key={value} label={label} />
+            ))}
+          </div>
         </div>
       )}
     />
@@ -123,43 +130,85 @@ const Item: FC<{
   );
 };
 
+// role="combobox" は「内容から名前を取る」ことができないため、現在値は
+// 参照用の要素に包んで aria-labelledby で明示的に名前へ組み込む。
+// label があれば「ラベル + 現在値」、無ければ従来どおり現在値だけが名前になる。
+const useTriggerLabels = (label: string | undefined) => {
+  const { valueLabel } = useMenuTrigger();
+  const labelId = useId();
+  const valueId = useId();
+
+  return {
+    valueLabel,
+    labelId,
+    valueId,
+    labelledBy: label === undefined ? valueId : `${labelId} ${valueId}`,
+  };
+};
+
 const Trigger: FC<{
   size?: ComponentProps<typeof Button>['size'];
-}> = ({ size = 'md' }) => {
-  const { label } = useMenuTrigger();
+  label?: string;
+}> = ({ size = 'md', label }) => {
+  const { valueLabel, labelId, valueId, labelledBy } = useTriggerLabels(label);
 
   return (
     <Popover.Trigger
       renderItem={(props) => (
-        <Button
-          {...props}
-          aria-label={label}
-          color="gray"
-          endIcon={<ChevronIcon direction="down" />}
-          fullWidth
-          size={size}
-          type="button"
-          variant="solid"
-        >
-          {label}
-        </Button>
+        <>
+          {label !== undefined && (
+            <span className="sr-only" id={labelId}>
+              {label}
+            </span>
+          )}
+          <Button
+            {...props}
+            aria-labelledby={labelledBy}
+            color="base"
+            endIcon={<ChevronIcon direction="down" />}
+            fullWidth
+            size={size}
+            type="button"
+            variant="solid"
+          >
+            <span id={valueId}>{valueLabel}</span>
+          </Button>
+        </>
       )}
     />
   );
 };
 
-const TriggerIcon: FC<{
+const IconTrigger: FC<{
   size?: ComponentProps<typeof Button>['size'];
   icon: ReactElement;
-}> = ({ size = 'md', icon }) => {
-  const { label } = useMenuTrigger();
+  label?: string;
+}> = ({ size = 'md', icon, label }) => {
+  const { valueLabel, labelId, valueId, labelledBy } = useTriggerLabels(label);
 
   return (
     <Popover.Trigger
       renderItem={(props) => (
-        <IconButton label={label} size={size} tooltipDisabled {...props}>
-          {icon}
-        </IconButton>
+        <>
+          {label !== undefined && (
+            <span className="sr-only" id={labelId}>
+              {label}
+            </span>
+          )}
+          <IconButton
+            aria-labelledby={labelledBy}
+            label={label ?? valueLabel}
+            size={size}
+            tooltipDisabled
+            {...props}
+          >
+            {icon}
+            {/* アイコンには可視テキストが無いので、現在値は読み上げ専用テキストで持つ */}
+            <span className="sr-only" id={valueId}>
+              {valueLabel}
+            </span>
+          </IconButton>
+        </>
       )}
     />
   );
@@ -169,5 +218,5 @@ export const ListBox = {
   Root,
   Content,
   Trigger,
-  TriggerIcon,
+  IconTrigger,
 } as const;

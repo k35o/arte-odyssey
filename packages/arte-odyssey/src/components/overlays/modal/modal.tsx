@@ -6,25 +6,46 @@ import {
   type RefObject,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
 
 import { ToastProvider } from '../../feedback/toast';
 import { PortalRootProvider } from '../../providers';
+import { ModalDialogProvider } from '../_internal/modal-dialog-context';
 import { cn } from './../../../helpers/cn';
 
 export const Modal: FC<
   PropsWithChildren<{
     ref?: RefObject<HTMLDialogElement | null>;
-    type?: 'center' | 'bottom' | 'right' | 'left';
+    placement?: 'center' | 'bottom' | 'right' | 'left';
     defaultOpen?: boolean;
     isOpen?: boolean;
     onClose?: () => void;
+    'aria-label'?: string;
+    'aria-labelledby'?: string;
+    'aria-describedby'?: string;
   }>
-> = ({ ref, type = 'center', defaultOpen, isOpen, onClose, children }) => {
+> = ({
+  ref,
+  placement = 'center',
+  defaultOpen,
+  isOpen,
+  onClose,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
+  'aria-describedby': ariaDescribedBy,
+  children,
+}) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [dialogOpen, setDialogOpen] = useState(defaultOpen ?? false);
+  const [registeredLabelledBy, setRegisteredLabelledBy] = useState<
+    string | undefined
+  >(undefined);
+  const [registeredDescribedBy, setRegisteredDescribedBy] = useState<
+    string | undefined
+  >(undefined);
 
   const realDialogOpen =
     isOpen === true || isOpen === false ? isOpen : dialogOpen;
@@ -36,6 +57,19 @@ export const Modal: FC<
     setDialogOpen(false);
   }, [isOpen, onClose]);
   const realRef = ref ?? dialogRef;
+
+  const modalDialogContext = useMemo(
+    () => ({
+      registerLabelledBy: setRegisteredLabelledBy,
+      registerDescribedBy: setRegisteredDescribedBy,
+    }),
+    [],
+  );
+
+  const labelledBy =
+    ariaLabelledBy ??
+    (ariaLabel === undefined ? registeredLabelledBy : undefined);
+  const describedBy = ariaDescribedBy ?? registeredDescribedBy;
 
   useEffect(() => {
     const dialog = realRef.current;
@@ -65,15 +99,18 @@ export const Modal: FC<
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- onClick は枠外(backdrop)クリックで閉じるためのもの。キーボード等価操作はネイティブ modal dialog の Escape が担う
     <dialog
+      aria-describedby={describedBy}
+      aria-label={ariaLabel}
+      aria-labelledby={labelledBy}
       className={cn(
         'ao-modal bg-bg-raised text-fg-base z-modal shadow-md backdrop:bg-back-drop',
-        type === 'center' &&
+        placement === 'center' &&
           'ao-modal-center m-auto max-h-lg w-5/6 max-w-2xl rounded-lg vertical:h-5/6 vertical:max-h-2xl vertical:w-auto vertical:max-w-lg',
-        type === 'bottom' &&
+        placement === 'bottom' &&
           'ao-modal-bottom mt-auto w-screen max-w-screen rounded-t-lg',
-        type === 'right' &&
+        placement === 'right' &&
           'ao-modal-right ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg',
-        type === 'left' &&
+        placement === 'left' &&
           'ao-modal-left mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg',
       )}
       onClick={(e) => {
@@ -84,11 +121,13 @@ export const Modal: FC<
       onClose={realOnClose}
       ref={realRef}
     >
-      <PortalRootProvider value={realRef}>
-        <ToastProvider portalRef={realRef} position="absolute">
-          {children}
-        </ToastProvider>
-      </PortalRootProvider>
+      <ModalDialogProvider value={modalDialogContext}>
+        <PortalRootProvider value={realRef}>
+          <ToastProvider portalRef={realRef} position="absolute">
+            {children}
+          </ToastProvider>
+        </PortalRootProvider>
+      </ModalDialogProvider>
     </dialog>
   );
 };

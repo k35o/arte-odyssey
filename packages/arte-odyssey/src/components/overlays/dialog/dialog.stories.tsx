@@ -52,12 +52,18 @@ export const PopoverDialog: Story = {
       <Popover.Content renderItem={(props) => <StoryDialog {...props} />} />
     </Popover.Root>
   ),
+  // Popover 配下（Modal の外）では Dialog.Root 自身が dialog ロールと名前を持つ
   play: async ({ canvas, userEvent }) => {
     const trigger = canvas.getByRole('button', {
       name: 'ポップオーバー',
     });
     trigger.focus();
     await userEvent.keyboard('{Enter}');
+    await waitFor(() => {
+      expect(
+        canvas.getByRole('dialog', { name: 'ダイアログ' }),
+      ).toBeInTheDocument();
+    });
   },
   parameters: {
     a11y: {
@@ -89,7 +95,7 @@ const ModalDialogRender = () => {
         onClose={() => {
           setOpen(false);
         }}
-        type="center"
+        placement="center"
       >
         <Dialog.Root>
           <Dialog.Header onClose={fn} title="モーダル" />
@@ -100,6 +106,8 @@ const ModalDialogRender = () => {
   );
 };
 
+// Modal 配下では内側の Dialog.Root は role を出さず、名前だけを外側の
+// <dialog> へ渡す（dialog ロールが二重にならない）。
 export const ModalDialog: Story = {
   render: () => <ModalDialogRender />,
   play: async ({ canvas, userEvent }) => {
@@ -108,11 +116,11 @@ export const ModalDialog: Story = {
     });
     trigger.focus();
     await userEvent.keyboard('{Enter}');
-    await waitFor(() => {
-      expect(
-        canvas.getByRole('dialog', { name: 'モーダル' }),
-      ).toBeInTheDocument();
-    });
+    const dialog = await waitFor(() =>
+      canvas.getByRole('dialog', { name: 'モーダル' }),
+    );
+    await expect(dialog).toBeInstanceOf(HTMLDialogElement);
+    await expect(canvas.getAllByRole('dialog')).toHaveLength(1);
   },
   parameters: {
     a11y: {

@@ -4,6 +4,7 @@ import {
   type FC,
   type PropsWithChildren,
   type Ref,
+  useEffect,
   useId,
   useMemo,
 } from 'react';
@@ -11,6 +12,7 @@ import {
 import { IconButton } from '../../buttons/icon-button';
 import { Heading } from '../../data-display/heading';
 import { CloseIcon } from '../../icons';
+import { useModalDialogContext } from '../_internal/modal-dialog-context';
 import { createSafeContext } from './../../../helpers/create-safe-context';
 
 const [DialogContext, useDialogContext] = createSafeContext<{
@@ -24,19 +26,43 @@ const Root: FC<
     tabIndex?: number | undefined;
     role?: string | undefined;
   }>
-> = ({ ref, id, children, tabIndex, role = 'dialog' }) => {
+> = ({ ref, id, children, tabIndex, role }) => {
   const fallbackId = useId();
   const rootId = id ?? fallbackId;
   const contextValue = useMemo(() => ({ rootId }), [rootId]);
+  const modal = useModalDialogContext();
+
+  // Modal 配下では外側の <dialog> が dialog ロールを持つため、ここでは role を出さない。
+  // 名前を持つ role なし section は region ランドマークになるので、
+  // aria-labelledby / aria-describedby も role とセットで出す。
+  const resolvedRole = role ?? (modal === null ? 'dialog' : undefined);
+  const labelledBy = resolvedRole === undefined ? undefined : `${rootId}-title`;
+  const describedBy =
+    resolvedRole === undefined ? undefined : `${rootId}-content`;
+
+  // 自分の role を外した場合だけ、名前付けの責務を祖先の Modal へ委譲する。
+  // 参照 id を持つのは子（Header / Content）を描画するこの階層なので、
+  // 祖先の state へは effect でしか渡せない。
+  useEffect(() => {
+    if (modal === null || resolvedRole !== undefined) {
+      return undefined;
+    }
+    modal.registerLabelledBy(`${rootId}-title`);
+    modal.registerDescribedBy(`${rootId}-content`);
+    return () => {
+      modal.registerLabelledBy(undefined);
+      modal.registerDescribedBy(undefined);
+    };
+  }, [modal, resolvedRole, rootId]);
 
   return (
     <section
-      aria-describedby={`${rootId}-content`}
-      aria-labelledby={`${rootId}-title`}
+      aria-describedby={describedBy}
+      aria-labelledby={labelledBy}
       className="bg-bg-raised relative w-full rounded-lg shadow-md"
       id={id}
       ref={ref}
-      role={role}
+      role={resolvedRole}
       tabIndex={tabIndex}
     >
       <DialogContext value={contextValue}>{children}</DialogContext>

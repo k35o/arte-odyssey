@@ -28,18 +28,17 @@ export const Drawer: FC<
 
   return (
     <Modal
+      aria-describedby={`${rootId}-content`}
+      aria-labelledby={`${rootId}-title`}
       defaultOpen={defaultOpen}
       isOpen={isOpen}
       onClose={onClose}
+      placement={side}
       ref={dialogRef}
-      type={side}
     >
-      <section
-        aria-describedby={`${rootId}-content`}
-        aria-labelledby={`${rootId}-title`}
-        className="vertical:flex-row flex h-full flex-col"
-        id={rootId}
-      >
+      {/* section にすると名前付き region ランドマークになるため div。
+          名前は外側の <dialog> が aria-labelledby で受け持つ */}
+      <div className="vertical:flex-row flex h-full flex-col" id={rootId}>
         <div className="flex shrink-0 items-center justify-center p-4 pb-2">
           {typeof title === 'string' ? (
             <Heading id={`${rootId}-title`} type="h3">
@@ -82,7 +81,7 @@ export const Drawer: FC<
           {children}
         </div>
         {/* oxlint-enable eslint-plugin-jsx-a11y/click-events-have-key-events, eslint-plugin-jsx-a11y/no-static-element-interactions */}
-      </section>
+      </div>
     </Modal>
   );
 };
