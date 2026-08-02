@@ -1,16 +1,10 @@
 'use client';
 
-import type {
-  FC,
-  FieldsetHTMLAttributes,
-  KeyboardEvent,
-  ReactNode,
-} from 'react';
-import { useId, useRef } from 'react';
+import type { FC, FieldsetHTMLAttributes, ReactNode, Ref } from 'react';
+import { useId } from 'react';
 
 import { cn } from '../../../helpers/cn';
 import { useControllableState } from '../../../hooks/controllable-state';
-import { FOCUS_RING_NO_BORDER } from '../../_internal/focus-ring';
 
 export type RadioCardOption = Readonly<{
   value: string;
@@ -24,6 +18,7 @@ type BaseProps = {
   'aria-labelledby': string;
   invalid?: boolean;
   options: readonly RadioCardOption[];
+  ref?: Ref<HTMLFieldSetElement>;
 } & Omit<
   FieldsetHTMLAttributes<HTMLFieldSetElement>,
   | 'className'
@@ -32,6 +27,7 @@ type BaseProps = {
   | 'onChange'
   | 'defaultValue'
   | 'aria-labelledby'
+  | 'role'
 >;
 
 type ControlledProps = {
@@ -57,10 +53,10 @@ export const RadioCard: FC<Props> = ({
   value,
   defaultValue,
   onChange,
+  ref,
   ...rest
 }) => {
   const groupId = useId();
-  const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [currentValue, setCurrentValue] = useControllableState<
     string | undefined
   >({
@@ -73,21 +69,6 @@ export const RadioCard: FC<Props> = ({
     onChange?.(nextValue);
   };
 
-  const focusIndex = (index: number) => {
-    buttonRefs.current[index]?.focus();
-  };
-
-  const getNextIndex = (index: number, direction: 1 | -1) => {
-    const nextIndex = index + direction;
-    if (nextIndex < 0) {
-      return options.length - 1;
-    }
-    if (nextIndex >= options.length) {
-      return 0;
-    }
-    return nextIndex;
-  };
-
   return (
     <fieldset
       {...rest}
@@ -97,11 +78,10 @@ export const RadioCard: FC<Props> = ({
         'grid gap-3',
         disabled && 'opacity-70',
       )}
+      ref={ref}
+      role="radiogroup"
     >
-      {name !== undefined && name !== '' ? (
-        <input name={name} type="hidden" value={currentValue ?? ''} />
-      ) : null}
-      {options.map((option, index) => {
+      {options.map((option) => {
         const checked = currentValue === option.value;
         const optionDisabled = disabled || option.disabled === true;
         const hasDescription =
@@ -110,14 +90,10 @@ export const RadioCard: FC<Props> = ({
         const optionId = `${groupId}-${option.value}`;
 
         return (
-          <button
-            aria-describedby={
-              hasDescription ? `${optionId}-description` : undefined
-            }
-            aria-pressed={checked}
+          <label
             className={cn(
               'flex min-w-0 rounded-xl border bg-bg-base p-4 text-left transition-colors inline-full',
-              FOCUS_RING_NO_BORDER,
+              'has-[input:focus-visible]:outline-hidden has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-border-info',
               checked &&
                 'border-primary-border bg-primary-bg-subtle hover:bg-primary-bg-mute',
               invalid
@@ -126,53 +102,38 @@ export const RadioCard: FC<Props> = ({
               optionDisabled &&
                 'cursor-not-allowed border-border-mute bg-bg-subtle text-fg-mute',
             )}
-            disabled={optionDisabled}
             id={optionId}
             key={option.value}
-            onClick={() => {
-              selectValue(option.value);
-            }}
-            onKeyDown={(event: KeyboardEvent<HTMLButtonElement>) => {
-              if (
-                event.key !== 'ArrowDown' &&
-                event.key !== 'ArrowRight' &&
-                event.key !== 'ArrowUp' &&
-                event.key !== 'ArrowLeft'
-              ) {
-                return;
-              }
-
-              event.preventDefault();
-              const isVerticalRl =
-                getComputedStyle(event.currentTarget).writingMode ===
-                'vertical-rl';
-              const forwardKey = isVerticalRl ? 'ArrowLeft' : 'ArrowRight';
-              const direction =
-                event.key === 'ArrowDown' || event.key === forwardKey ? 1 : -1;
-              const nextIndex = getNextIndex(index, direction);
-              const nextOption = options[nextIndex];
-              if (!nextOption) {
-                return;
-              }
-              selectValue(nextOption.value);
-              focusIndex(nextIndex);
-            }}
-            onMouseDown={(event) => {
-              event.preventDefault();
-            }}
-            ref={(element) => {
-              buttonRefs.current[index] = element;
-            }}
-            tabIndex={checked ? 0 : -1}
-            type="button"
           >
+            <input
+              aria-describedby={
+                hasDescription ? `${optionId}-description` : undefined
+              }
+              aria-labelledby={`${optionId}-label`}
+              checked={checked}
+              className="sr-only"
+              disabled={optionDisabled}
+              // 矢印キーのローミングと単一選択はブラウザが name 単位で束ねる。
+              // name 未指定でも束ねるために一意な名前を割り当てる。
+              name={name ?? groupId}
+              onChange={() => {
+                selectValue(option.value);
+              }}
+              type="radio"
+              value={option.value}
+            />
             {hasVisual ? (
               <span aria-hidden className="mr-4 shrink-0">
                 {option.visual}
               </span>
             ) : null}
             <span className="flex min-w-0 flex-1 flex-col gap-1">
-              <span className="text-fg-base font-medium">{option.label}</span>
+              <span
+                className="text-fg-base font-medium"
+                id={`${optionId}-label`}
+              >
+                {option.label}
+              </span>
               {hasDescription ? (
                 <span
                   className="text-fg-mute text-sm"
@@ -198,7 +159,7 @@ export const RadioCard: FC<Props> = ({
                 )}
               />
             </span>
-          </button>
+          </label>
         );
       })}
     </fieldset>
