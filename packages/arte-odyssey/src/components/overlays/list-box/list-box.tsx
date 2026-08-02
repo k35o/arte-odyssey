@@ -9,13 +9,13 @@ import {
   useState,
 } from 'react';
 
+import { useControllableState } from '../../../hooks/controllable-state';
 import type { Option, Placement } from '../../../types/variables';
 import { Button } from '../../buttons/button';
 import { IconButton } from '../../buttons/icon-button';
 import { CheckIcon, ChevronIcon } from '../../icons';
 import { useListNavigation } from '../_internal/use-list-navigation';
-import { Popover } from '../popover';
-import { useOpenContext } from '../popover/hooks';
+import { Popover, useOpenContext } from '../popover';
 import { cn } from './../../../helpers/cn';
 import {
   MenuContextProvider,
@@ -28,16 +28,44 @@ const Root: FC<
   PropsWithChildren<{
     placement?: Placement;
     options: readonly Option[];
-    value: Option['value'] | undefined;
-    onChange: (value: Option['value']) => void;
+    value?: Option['value'];
+    defaultValue?: Option['value'];
+    onChange?: (value: Option['value']) => void;
   }>
-> = ({ children, placement = 'bottom', options, value, onChange }) => (
-  <Popover.Root flipDisabled placement={placement} type="listbox">
-    <MenuProvider onChange={onChange} options={options} value={value}>
-      {children}
-    </MenuProvider>
-  </Popover.Root>
-);
+> = ({
+  children,
+  placement = 'bottom',
+  options,
+  value,
+  defaultValue,
+  onChange,
+}) => {
+  const [selectedValue, setSelectedValue] = useControllableState<
+    Option['value'] | undefined
+  >({
+    value,
+    defaultValue,
+    // 未選択（undefined）は初期状態としてのみ存在し、選択操作からは必ず値が来る。
+    // 利用者に undefined を通知しないよう内部状態の型とは分けている
+    onChange: (next) => {
+      if (next !== undefined) {
+        onChange?.(next);
+      }
+    },
+  });
+
+  return (
+    <Popover.Root flipDisabled placement={placement} type="listbox">
+      <MenuProvider
+        onChange={setSelectedValue}
+        options={options}
+        value={selectedValue}
+      >
+        {children}
+      </MenuProvider>
+    </Popover.Root>
+  );
+};
 
 const MenuProvider: FC<
   PropsWithChildren<{

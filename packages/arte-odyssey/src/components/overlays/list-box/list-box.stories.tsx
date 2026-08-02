@@ -173,3 +173,29 @@ export const IconTrigger: Story = {
     });
   },
 };
+
+// value / onChange を渡さない非制御利用。defaultValue が初期選択になり、
+// 選択状態はコンポーネント内部で保持される
+export const Uncontrolled: Story = {
+  render: () => (
+    <ListBox.Root defaultValue="2" options={OPTIONS}>
+      <ListBox.Trigger label="果物" />
+      <ListBox.Content />
+    </ListBox.Root>
+  ),
+  play: async ({ canvas, userEvent }) => {
+    const trigger = canvas.getByRole('combobox', { name: '果物 バナナ' });
+    trigger.focus();
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => {
+      expect(canvas.getByRole('listbox')).toBeVisible();
+    });
+    await userEvent.click(canvas.getByRole('option', { name: 'りんご' }));
+    // onChange を渡していなくても内部状態が更新される
+    await waitFor(() => {
+      expect(
+        canvas.getByRole('combobox', { name: '果物 りんご' }),
+      ).toBeVisible();
+    });
+  },
+};
