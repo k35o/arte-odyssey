@@ -65,11 +65,7 @@ export const Button: FC<Props> = ({
 
   const spinnerSize = size === 'lg' ? 'md' : 'sm';
   const resolvedStartIcon =
-    !renderItem && isPending ? (
-      <Spinner label="Loading" size={spinnerSize} />
-    ) : (
-      startIcon
-    );
+    !renderItem && isPending ? <Spinner size={spinnerSize} /> : startIcon;
   const hasStartIcon = resolvedStartIcon !== undefined;
   const hasEndIcon = endIcon !== undefined;
 

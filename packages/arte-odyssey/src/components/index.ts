@@ -51,6 +51,7 @@ export {
 export { Tooltip, type TooltipTriggerProps } from './overlays/tooltip';
 export {
   ArteOdysseyProvider,
+  type Messages,
   PortalRootProvider,
   usePortalRoot,
 } from './providers';
