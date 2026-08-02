@@ -37,7 +37,7 @@ export function ModalBasicPreview() {
   );
 }
 
-export function ModalTypesPreview() {
+export function ModalPlacementsPreview() {
   const [centerOpen, setCenterOpen] = useState(false);
   const [bottomOpen, setBottomOpen] = useState(false);
   const [rightOpen, setRightOpen] = useState(false);

@@ -6,7 +6,10 @@ import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-import { RadioCardControlledPreview } from './_previews/radio-card-previews';
+import {
+  RadioCardControlledPreview,
+  RadioCardFormPreview,
+} from './_previews/radio-card-previews';
 
 const radioCardProps: PropItem[] = [
   { name: 'aria-labelledby', types: ['string'], defaultValue: null },
@@ -142,6 +145,38 @@ const [value, setValue] = useState('pro');
                 options={options}
               />
             </div>
+          </ComponentPreview>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="components.radioCard.formTitle" />
+          </Heading>
+          <p className="text-fg-mute text-sm">
+            <T k="components.radioCard.formDescription" />
+          </p>
+          <ComponentPreview
+            code={`const [submitted, setSubmitted] = useState<string | null>(null);
+
+<Form
+  action={(formData) => {
+    const plan = formData.get('plan');
+    setSubmitted(typeof plan === 'string' ? plan : null);
+  }}
+>
+  <p id="plan-form-label">プランを選択</p>
+  <RadioCard
+    defaultValue="pro"
+    disabled={false}
+    invalid={false}
+    aria-labelledby="plan-form-label"
+    name="plan"
+    options={options}
+  />
+  <Button type="submit">送信</Button>
+</Form>`}
+          >
+            <RadioCardFormPreview />
           </ComponentPreview>
         </div>
       </section>

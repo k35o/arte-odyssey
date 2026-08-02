@@ -9,7 +9,7 @@ import { STORYBOOK_URL } from '../../constants';
 import {
   DefaultOpenPreview,
   ModalBasicPreview,
-  ModalTypesPreview,
+  ModalPlacementsPreview,
 } from './_previews/modal-previews';
 
 const modalProps: PropItem[] = [
@@ -101,7 +101,7 @@ export function ModalPage() {
 
         <div className="flex flex-col gap-4">
           <Heading type="h3">
-            <T k="components.modal.typesTitle" />
+            <T k="components.modal.placementTitle" />
           </Heading>
           <ComponentPreview
             code={`<Button onClick={() => setCenterOpen(true)}>Center</Button>
@@ -129,7 +129,7 @@ export function ModalPage() {
   </Dialog.Root>
 </Modal>`}
           >
-            <ModalTypesPreview />
+            <ModalPlacementsPreview />
           </ComponentPreview>
         </div>
 

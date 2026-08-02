@@ -84,6 +84,7 @@ import { UseTimeoutPage } from './pages/hooks/use-timeout-page';
 import { UseWindowResizePage } from './pages/hooks/use-window-resize-page';
 import { UseWindowSizePage } from './pages/hooks/use-window-size-page';
 import { UseWritingModePage } from './pages/hooks/use-writing-mode-page';
+import { I18n } from './pages/i18n';
 import { RootRedirect } from './pages/root-redirect';
 import { Theming } from './pages/theming';
 import { Router } from './router';
@@ -304,6 +305,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/theming',
         component: <Theming />,
+      }),
+      route({
+        path: '/i18n',
+        component: <I18n />,
       }),
       route({
         path: '/hooks',

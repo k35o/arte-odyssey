@@ -5,6 +5,7 @@ export const en = {
   'nav.getStarted': 'Get Started',
   'nav.components': 'Components',
   'nav.theming': 'Theming',
+  'nav.i18n': 'i18n',
   'nav.hooks': 'Hooks',
   'nav.helpers': 'Helpers',
   'nav.generativeUi': 'Generative UI',
@@ -103,6 +104,8 @@ export const en = {
   'getStarted.nextStepsComponents':
     'Browse the component catalog to discover available UI parts',
   'getStarted.nextStepsTheming': 'Learn how to customize the theme',
+  'getStarted.nextStepsI18n':
+    'Switch the built-in wording to English or replace it',
   'getStarted.nextStepsStorybook':
     'View detailed documentation for each component in Storybook',
   'getStarted.packageManagerLabel': 'Package manager',
@@ -124,6 +127,8 @@ export const en = {
   'components.common.propsTitle': 'Props',
   'components.common.inheritsLabel':
     'Type base (some attrs are managed internally):',
+  'components.common.messagesNote':
+    'Props whose default is messages.* fall back to the message dictionary. To change them, see:',
   'components.button.description':
     'A button component that triggers user actions.',
   'components.button.variantsTitle': 'Variants',
@@ -188,6 +193,9 @@ export const en = {
   'components.radioCard.description':
     'A single-select card group for larger, more descriptive choices.',
   'components.radioCard.defaultValueTitle': 'Default Value',
+  'components.radioCard.formTitle': 'Form Integration',
+  'components.radioCard.formDescription':
+    'The cards are backed by real input[type=radio] elements, so passing name lets the browser group them and the selected value comes straight out of FormData.',
   'components.autocomplete.description':
     'A selection component with autocomplete.',
   'components.autocomplete.disabledTitle': 'Disabled',
@@ -287,12 +295,12 @@ export const en = {
     'A catalog of icon components provided by ArteOdyssey.',
   'components.icons.sizesTitle': 'Sizes',
   'components.common.basicUsageTitle': 'Basic Usage',
-  'components.modal.typesTitle': 'Types',
+  'components.modal.placementTitle': 'Placement',
   'components.toast.useToastTitle': 'useToast Hook',
   'components.popover.placementTitle': 'Placement',
   'components.tooltip.placementTitle': 'Placement',
   'components.listBox.sizesTitle': 'Sizes',
-  'components.listBox.triggerIconTitle': 'With TriggerIcon',
+  'components.listBox.iconTriggerTitle': 'With Icon Trigger',
   'components.modal.defaultOpenTitle': 'Default Open',
   'components.dropdownMenu.sizesTitle': 'Sizes',
   'components.dropdownMenu.placementTitle': 'Placement',
@@ -470,6 +478,30 @@ export const en = {
   'theming.zIndexTitle': 'Z-Index Layers',
   'theming.zIndexDescription':
     'A three-tier scale that defines stacking order for overlay components. Anchored floating UI (Popover / DropdownMenu / ListBox / Tooltip) sits on overlay, Modal / Drawer on modal, and Toast on toast.',
+  'i18n.introduction':
+    'Wording the components render on their own — close button labels, the required badge, the loading announcement — comes from a message dictionary. Replace the dictionary and the language changes without touching your own code.',
+  'i18n.defaultTitle': 'Japanese by default',
+  'i18n.defaultDescription':
+    'No setup required. ArteOdysseyProvider uses the Japanese dictionary, and components fall back to the same Japanese wording even without a provider.',
+  'i18n.englishTitle': 'Switching to English',
+  'i18n.englishDescription':
+    'Import en from @k8o/arte-odyssey/i18n and pass it to messages. ja ships from the same entry point.',
+  'i18n.overrideTitle': 'Overriding part of a dictionary',
+  'i18n.overrideDescription':
+    'messages is a Partial<Messages>. Only the keys you pass are replaced; the rest fall back to the Japanese defaults. To start from English instead, spread en first and layer your changes on top.',
+  'i18n.priorityTitle': 'Resolution order',
+  'i18n.priorityDescription':
+    'Three sources can decide a string, and they win in the order prop > dictionary > default. Per-instance props (such as the Spinner label) always beat the dictionary, so reach for them when only one place should read differently.',
+  'i18n.customTitle': 'Writing your own dictionary',
+  'i18n.customDescription':
+    'Annotate with the Messages type and missing or misspelled keys become compile errors — including when the library adds a key.',
+  'i18n.keysTitle': 'Key reference',
+  'i18n.keysDescription':
+    'Every key in Messages. The values below are read from the shipped dictionaries themselves.',
+  'i18n.keyColumn': 'Key',
+  'i18n.usedByColumn': 'Used by',
+  'i18n.jaColumn': 'ja (default)',
+  'i18n.enColumn': 'en',
   'sideNav.openNavigation': 'Open navigation',
   'common.switchToDarkMode': 'Switch to dark mode',
   'common.switchToLightMode': 'Switch to light mode',

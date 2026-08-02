@@ -136,7 +136,7 @@ const [selected, setSelected] = useState<string>();
 
         <div className="flex flex-col gap-4">
           <Heading type="h3">
-            <T k="components.listBox.triggerIconTitle" />
+            <T k="components.listBox.iconTriggerTitle" />
           </Heading>
           <ComponentPreview
             code={`import { ListIcon } from '@k8o/arte-odyssey';

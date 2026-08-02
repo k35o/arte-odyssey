@@ -25,6 +25,11 @@ const autocompleteProps: PropItem[] = [
   { name: 'disabled', types: ['boolean'], defaultValue: null },
   { name: 'required', types: ['boolean'], defaultValue: null },
   { name: 'options', types: ['Option[]'], defaultValue: null },
+  {
+    name: 'placeholder',
+    types: ['string'],
+    defaultValue: 'messages.autocompletePlaceholder',
+  },
   { name: 'value', types: ['string[]'], defaultValue: null },
   {
     name: 'onChange',
@@ -187,6 +192,7 @@ const options = [
         <PropsTable
           inherits="InputHTMLAttributes<HTMLInputElement>"
           items={autocompleteProps}
+          messagesNote
         />
       </section>
     </div>

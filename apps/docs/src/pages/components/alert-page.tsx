@@ -37,7 +37,7 @@ const alertProps: PropItem[] = [
   {
     name: 'closeLabel',
     types: ['string'],
-    defaultValue: "'閉じる'",
+    defaultValue: 'messages.close',
   },
 ];
 
@@ -210,6 +210,7 @@ export function AlertPage() {
         <PropsTable
           inherits="HTMLAttributes<HTMLDivElement>"
           items={alertProps}
+          messagesNote
         />
       </section>
     </div>

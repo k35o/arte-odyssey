@@ -14,11 +14,11 @@ Start with the Design Guide, then follow the reference most relevant to the task
 
 ## Guide
 
-- [Design Guide](https://arte-odyssey.k8o.me/design.md): setup, design direction, aesthetic guidelines, component usage principles, anti-patterns, implementation principles.
+- [Design Guide](https://arte-odyssey.k8o.me/design.md): setup, i18n (default Japanese, switching to English), design direction, aesthetic guidelines, component usage principles, anti-patterns, implementation principles.
 
 ## References
 
-- [Components](https://arte-odyssey.k8o.me/ja/components): full component list, import paths, props.
+- [Components](https://arte-odyssey.k8o.me/ja/components): full component list, import paths, props, and i18n — component wording comes from a dictionary that defaults to Japanese; `@k8o/arte-odyssey/i18n` exports `ja` / `en` / the `Messages` type for `<ArteOdysseyProvider messages={...}>` (per-component wording props win over the dictionary).
 - [AI chat](https://arte-odyssey.k8o.me/ja/ai-chat): AI chat components from `@k8o/arte-odyssey/ai` (Conversation / Message / PromptInput / Reasoning / Suggestion / ToolInvocation), streaming Markdown `Response` from `@k8o/arte-odyssey/ai/response` (optional peer `streamdown`), and `mapMessageParts` from `@k8o/arte-odyssey/ai-sdk` to render AI SDK `UIMessage.parts` (optional peer `ai`).
 - [Generative UI](https://arte-odyssey.k8o.me/ja/generative-ui): use json-render / OpenUI to make an LLM generate UIs — `catalog.prompt()` (server-safe), `<JsonRenderUI spec={spec} />` (client), `validateGeneratedSpec()` (validate/repair LLM output), `satisfies ArteSpec` (typed specs), and `@k8o/arte-odyssey/openui/prompt`.
 - [Typography](https://arte-odyssey.k8o.me/design.md): type scale and usage.

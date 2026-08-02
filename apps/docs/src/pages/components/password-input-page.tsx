@@ -19,8 +19,16 @@ const passwordInputProps: PropItem[] = [
     types: ['string'],
     defaultValue: '"current-password"',
   },
-  { name: 'showLabel', types: ['string'], defaultValue: '"Show password"' },
-  { name: 'hideLabel', types: ['string'], defaultValue: '"Hide password"' },
+  {
+    name: 'showLabel',
+    types: ['string'],
+    defaultValue: 'messages.passwordShow',
+  },
+  {
+    name: 'hideLabel',
+    types: ['string'],
+    defaultValue: 'messages.passwordHide',
+  },
   { name: 'value', types: ['string'], defaultValue: null },
   {
     name: 'onChange',
@@ -134,6 +142,7 @@ export function PasswordInputPage() {
         <PropsTable
           inherits="InputHTMLAttributes<HTMLInputElement>"
           items={passwordInputProps}
+          messagesNote
         />
       </section>
     </div>

@@ -8,6 +8,7 @@ import { LocaleAnchor } from './locale-anchor';
 const DOC_LINKS: Array<{ path: string; labelKey: MessageKey }> = [
   { path: '/get-started', labelKey: 'nav.getStarted' },
   { path: '/theming', labelKey: 'nav.theming' },
+  { path: '/i18n', labelKey: 'nav.i18n' },
   { path: '/components', labelKey: 'nav.components' },
   { path: '/hooks', labelKey: 'nav.hooks' },
   { path: '/helpers', labelKey: 'nav.helpers' },

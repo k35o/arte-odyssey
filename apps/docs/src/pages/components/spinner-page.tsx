@@ -8,7 +8,7 @@ import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 
 const spinnerProps: PropItem[] = [
-  { name: 'label', types: ['string'], defaultValue: "'Loading'" },
+  { name: 'label', types: ['string'], defaultValue: 'messages.loading' },
   { name: 'size', types: ["'sm'", "'md'", "'lg'"], defaultValue: "'md'" },
 ];
 
@@ -76,6 +76,7 @@ export function SpinnerPage() {
         <PropsTable
           inherits="OutputHTMLAttributes<HTMLOutputElement>"
           items={spinnerProps}
+          messagesNote
         />
       </section>
     </div>
