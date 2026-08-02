@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, InputHTMLAttributes } from 'react';
+import type { FC, InputHTMLAttributes, Ref } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
@@ -15,6 +15,7 @@ type Props = {
   invalid?: boolean;
   showLabel?: string;
   hideLabel?: string;
+  ref?: Ref<HTMLInputElement>;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className' | 'style'>;
 
 export const PasswordInput: FC<Props> = ({
@@ -24,6 +25,7 @@ export const PasswordInput: FC<Props> = ({
   hideLabel = 'Hide password',
   disabled = false,
   readOnly,
+  ref,
   ...rest
 }) => {
   const { isOpen: isVisible, toggle: toggleVisible } = useDisclosure();
@@ -49,6 +51,7 @@ export const PasswordInput: FC<Props> = ({
         )}
         disabled={disabled}
         readOnly={pending || readOnly}
+        ref={ref}
         type={isVisible ? 'text' : 'password'}
         {...rest}
       />

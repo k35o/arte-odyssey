@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useRef } from 'react';
+import { expect } from 'storybook/test';
 
 import { TextField } from './text-field';
 
@@ -30,6 +32,49 @@ export const Default: Story = {
     disabled: false,
     invalid: false,
     required: false,
+  },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('textbox')).toHaveAttribute('type', 'text');
+  },
+};
+
+export const Email: Story = {
+  args: {
+    disabled: false,
+    invalid: false,
+    required: false,
+    type: 'email',
+    placeholder: 'mail@example.com',
+  },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('textbox')).toHaveAttribute('type', 'email');
+  },
+};
+
+const RefRender = () => {
+  const ref = useRef<HTMLInputElement>(null);
+
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <TextField id="text-field-ref" ref={ref} />
+      <button
+        onClick={() => {
+          ref.current?.focus();
+        }}
+        type="button"
+      >
+        focus
+      </button>
+    </div>
+  );
+};
+
+export const ForwardsRef: Story = {
+  render: () => <RefRender />,
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('button', { name: 'focus' }));
+
+    await expect(canvas.getByRole('textbox')).toHaveFocus();
   },
 };
 

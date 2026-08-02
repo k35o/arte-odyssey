@@ -7,6 +7,7 @@ import {
   type InputHTMLAttributes,
   type KeyboardEventHandler,
   type MouseEventHandler,
+  type Ref,
   useCallback,
   useRef,
   useState,
@@ -31,6 +32,9 @@ type BaseProps = {
   id: string;
   invalid?: boolean;
   options: readonly Option[];
+  // フォームライブラリの register が入力値を読めるよう、ref は外枠ではなく
+  // combobox の input に向ける
+  ref?: Ref<HTMLInputElement>;
 } & Omit<
   InputHTMLAttributes<HTMLInputElement>,
   | 'type'
@@ -77,6 +81,7 @@ export const Autocomplete: FC<Props> = ({
   onBlur,
   onClick,
   onKeyDown,
+  ref,
   ...rest
 }) => {
   const [currentValue, handleChange] = useControllableState({
@@ -85,7 +90,7 @@ export const Autocomplete: FC<Props> = ({
     onChange,
   });
 
-  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { isOpen, open, close } = useDisclosure();
   const [text, setText] = useState('');
   const [selectIndex, setSelectIndex] = useState<number>();
@@ -93,7 +98,7 @@ export const Autocomplete: FC<Props> = ({
   // floating-ui の位置決め（offset/flip/size/autoUpdate）を CSS Anchor Positioning に置換。
   // reference の inline 寸法に幅を合わせる。縦書きでは inline 軸が物理 height になるため、
   // 元実装と同様に書字方向で anchor-size の物理キーワードを切り替える（論理 inline より広くサポート）。
-  const writingMode = useWritingMode(ref);
+  const writingMode = useWritingMode(containerRef);
   const anchorName = `--ao-ac-${id.replaceAll(/[^a-zA-Z0-9_-]/gu, '')}`;
   const listboxStyle: CSSProperties & {
     positionAnchor?: string;
@@ -131,7 +136,7 @@ export const Autocomplete: FC<Props> = ({
     setSelectIndex(undefined);
   }, [close]);
 
-  useClickAway(ref, reset, isOpen);
+  useClickAway(containerRef, reset, isOpen);
 
   const scrollActiveIntoView = useCallback((node: HTMLLIElement | null) => {
     node?.scrollIntoView({ block: 'nearest' });
@@ -139,7 +144,7 @@ export const Autocomplete: FC<Props> = ({
 
   const setReferenceRef = useCallback(
     (node: HTMLDivElement | null) => {
-      ref.current = node;
+      containerRef.current = node;
       if (node) {
         node.style.setProperty('anchor-name', anchorName);
       }
@@ -295,6 +300,7 @@ export const Autocomplete: FC<Props> = ({
             onClick={chain(handleClick, onClick)}
             onKeyDown={chain(handleKeyDown, onKeyDown)}
             placeholder={placeholder}
+            ref={ref}
             role="combobox"
             type="text"
             value={text}

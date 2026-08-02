@@ -6,6 +6,7 @@ import type {
   InputHTMLAttributes,
   PropsWithChildren,
   ReactElement,
+  Ref,
 } from 'react';
 import { useCallback, useId, useMemo, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
@@ -13,6 +14,7 @@ import { useFormStatus } from 'react-dom';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
 import { createSafeContext } from './../../../helpers/create-safe-context';
+import { mergeRefs } from './../../../helpers/merge-refs';
 
 type AcceptedFile = {
   file: File;
@@ -44,6 +46,7 @@ type RootProps = PropsWithChildren<
       event?: ChangeEvent<HTMLInputElement>,
     ) => void;
     webkitDirectory?: boolean;
+    ref?: Ref<HTMLInputElement>;
   } & Omit<
     InputHTMLAttributes<HTMLInputElement>,
     | 'type'
@@ -66,6 +69,7 @@ const Root = ({
   defaultValue,
   onChange,
   webkitDirectory = false,
+  ref,
   ...rest
 }: RootProps) => {
   const generatedId = useId();
@@ -146,7 +150,7 @@ const Root = ({
           id={rest.id ?? generatedId}
           multiple={multiple}
           onChange={onFilesChange}
-          ref={inputRef}
+          ref={mergeRefs(inputRef, ref)}
           required={required}
           type="file"
           // @ts-expect-error -- webkitdirectoryがReactのHTMLInputElementのPropsに存在しないため

@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, SelectHTMLAttributes } from 'react';
+import type { FC, Ref, SelectHTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import type { Option } from '../../../types/variables';
@@ -11,12 +11,14 @@ import { cn } from './../../../helpers/cn';
 type Props = {
   invalid?: boolean;
   options: readonly Option[];
+  ref?: Ref<HTMLSelectElement>;
 } & Omit<SelectHTMLAttributes<HTMLSelectElement>, 'className' | 'style'>;
 
 export const Select: FC<Props> = ({
   invalid = false,
   options,
   disabled = false,
+  ref,
   ...rest
 }) => {
   const { pending } = useFormStatus();
@@ -37,6 +39,7 @@ export const Select: FC<Props> = ({
           'disabled:cursor-not-allowed',
         )}
         disabled={disabled || pending}
+        ref={ref}
         {...rest}
       >
         {options.map((option) => (

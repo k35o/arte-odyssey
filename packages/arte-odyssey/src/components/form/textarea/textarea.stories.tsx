@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useRef, useState } from 'react';
+import { expect, waitFor } from 'storybook/test';
 
 import { Textarea } from './textarea';
 
@@ -89,5 +91,59 @@ export const Disabled: Story = {
     disabled: true,
     invalid: false,
     required: false,
+  },
+};
+
+const AutoResizeWithRefRender = () => {
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const [value, setValue] = useState('1行だけ');
+
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <Textarea
+        autoResize
+        id="textarea-ref"
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+        ref={ref}
+        value={value}
+      />
+      <button
+        onClick={() => {
+          setValue('1\n2\n3\n4\n5\n6\n7\n8');
+        }}
+        type="button"
+      >
+        expand
+      </button>
+      <button
+        onClick={() => {
+          ref.current?.focus();
+        }}
+        type="button"
+      >
+        focus
+      </button>
+    </div>
+  );
+};
+
+// 利用者の ref が内部 ref を上書きすると value 変更時の自動リサイズが死ぬ
+export const AutoResizeWithRef: Story = {
+  render: () => <AutoResizeWithRefRender />,
+  play: async ({ canvas, userEvent }) => {
+    const textarea = canvas.getByRole('textbox');
+    const initialHeight = textarea.clientHeight;
+
+    await userEvent.click(canvas.getByRole('button', { name: 'expand' }));
+
+    await waitFor(async () => {
+      await expect(textarea.clientHeight).toBeGreaterThan(initialHeight);
+    });
+
+    await userEvent.click(canvas.getByRole('button', { name: 'focus' }));
+
+    await expect(textarea).toHaveFocus();
   },
 };

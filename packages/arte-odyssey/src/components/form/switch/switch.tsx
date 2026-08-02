@@ -1,6 +1,6 @@
 'use client';
 
-import type { ChangeEvent, FC, InputHTMLAttributes } from 'react';
+import type { ChangeEvent, FC, InputHTMLAttributes, Ref } from 'react';
 import { useId } from 'react';
 import { useFormStatus } from 'react-dom';
 
@@ -11,6 +11,7 @@ import { FOCUS_RING_PEER_NO_BORDER } from '../../_internal/focus-ring';
 type BaseProps = {
   invalid?: boolean;
   label: string;
+  ref?: Ref<HTMLInputElement>;
 } & Omit<
   InputHTMLAttributes<HTMLInputElement>,
   | 'type'
@@ -25,21 +26,21 @@ type BaseProps = {
 >;
 
 type ControlledProps = {
-  value: boolean;
+  checked: boolean;
   onChange: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: never;
 };
 
 type UncontrolledProps = {
   defaultChecked?: boolean;
-  value?: never;
+  checked?: never;
   onChange?: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Switch: FC<Props> = ({
-  value,
+  checked,
   defaultChecked,
   id,
   disabled = false,
@@ -47,17 +48,18 @@ export const Switch: FC<Props> = ({
   required = false,
   label,
   onChange,
+  ref,
   ...rest
 }) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const [isSelected, setSelected] = useControllableState({
-    value,
+    value: checked,
     defaultValue: defaultChecked ?? false,
   });
   const { pending } = useFormStatus();
 
-  const isControlled = value !== undefined;
+  const isControlled = checked !== undefined;
   const disabledResolved = disabled || pending;
 
   return (
@@ -74,7 +76,7 @@ export const Switch: FC<Props> = ({
           aria-checked={isSelected}
           aria-invalid={invalid}
           aria-required={required}
-          {...(isControlled ? { checked: value } : { defaultChecked })}
+          {...(isControlled ? { checked: isSelected } : { defaultChecked })}
           className="peer sr-only"
           disabled={disabledResolved}
           id={inputId}
@@ -82,6 +84,7 @@ export const Switch: FC<Props> = ({
             setSelected(event.target.checked);
             onChange?.(event.target.checked, event);
           }}
+          ref={ref}
           required={required}
           role="switch"
           type="checkbox"

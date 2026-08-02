@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, InputHTMLAttributes } from 'react';
+import type { FC, InputHTMLAttributes, Ref } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { FOCUS_RING } from '../../_internal/focus-ring';
@@ -8,11 +8,14 @@ import { cn } from './../../../helpers/cn';
 
 type Props = {
   invalid?: boolean;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className' | 'style'>;
+  ref?: Ref<HTMLInputElement>;
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'className' | 'style'>;
 
 export const TextField: FC<Props> = ({
   invalid = false,
   readOnly,
+  ref,
+  type = 'text',
   ...rest
 }) => {
   const { pending } = useFormStatus();
@@ -27,7 +30,8 @@ export const TextField: FC<Props> = ({
         FOCUS_RING,
       )}
       readOnly={pending || readOnly}
-      type="text"
+      ref={ref}
+      type={type}
       {...rest}
     />
   );

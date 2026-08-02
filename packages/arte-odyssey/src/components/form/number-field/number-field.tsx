@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, type InputHTMLAttributes, useState } from 'react';
+import { type FC, type InputHTMLAttributes, type Ref, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
@@ -15,6 +15,7 @@ import { cast } from './cast';
 type BaseProps = {
   invalid?: boolean;
   precision?: number;
+  ref?: Ref<HTMLInputElement>;
 } & Omit<
   InputHTMLAttributes<HTMLInputElement>,
   | 'type'
@@ -57,6 +58,7 @@ export const NumberField: FC<Props> = ({
   onChange,
   onBlur,
   onKeyDown,
+  ref,
   step = 1,
   precision = 0,
   max = 9_007_199_254_740_991,
@@ -144,6 +146,7 @@ export const NumberField: FC<Props> = ({
           }
         })}
         pattern="[0-9]*(.[0-9]+)?"
+        ref={ref}
         role="spinbutton"
         type="text"
         value={displayValue}
