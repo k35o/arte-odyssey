@@ -142,7 +142,8 @@ export const WithHelpContent: Story = {
       OPTIONS.length,
     );
     await expect(listbox).not.toHaveTextContent('ひとつだけ選べます');
-    await expect(canvas.getByText('ひとつだけ選べます')).toBeVisible();
+    // listbox の外に出しても、読み上げには aria-describedby で繋がっている
+    await expect(listbox).toHaveAccessibleDescription('ひとつだけ選べます');
   },
 };
 

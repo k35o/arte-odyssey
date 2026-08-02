@@ -109,6 +109,16 @@ const ControllableRender = ({
       >
         外から開く
       </Button>
+      <Button
+        onClick={() => {
+          setIsOpen(false);
+        }}
+        size="md"
+        type="button"
+      >
+        外から閉じる
+      </Button>
+      <input aria-label="別の入力" type="text" />
       <p>状態: {isOpen ? '開' : '閉'}</p>
       <Popover.Root
         isOpen={isOpen}
@@ -159,6 +169,35 @@ export const Controllable: Story = {
       expect(canvas.getByText('状態: 閉')).toBeInTheDocument();
     });
     await expect(args.onChange).toHaveBeenCalledWith(false);
+  },
+};
+
+// controllable 化で isOpen はユーザー操作以外でも落ちるようになった。
+// 親がプログラム的に閉じたとき、focus-trap の cleanup が「内側にいた」と
+// 誤判定してユーザーの現在位置からフォーカスを奪わないことを固定する。
+export const ControlledCloseKeepsOutsideFocus: Story = {
+  args: { onChange: fn() },
+  render: ({ onChange }) => <ControllableRender onChange={onChange} />,
+  play: async ({ canvas, userEvent }) => {
+    const trigger = canvas.getByRole('button', { name: 'メニュー' });
+    await userEvent.click(canvas.getByRole('button', { name: '外から開く' }));
+    await waitFor(() => {
+      expect(canvas.getByRole('menuitem', { name: '項目1' })).toHaveFocus();
+    });
+
+    // ユーザーがポップオーバーの外へフォーカスを移す
+    const outside = canvas.getByRole('textbox', { name: '別の入力' });
+    await userEvent.click(outside);
+    await expect(outside).toHaveFocus();
+
+    // element.click() はフォーカスを移さないので、外側にフォーカスを
+    // 残したまま親の state だけで閉じられる
+    canvas.getByRole('button', { name: '外から閉じる' }).click();
+
+    await waitFor(() => {
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    });
+    await expect(outside).toHaveFocus();
   },
 };
 

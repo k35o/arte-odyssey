@@ -106,6 +106,7 @@ const Content: FC<{
   helpContent?: ReactElement;
 }> = ({ helpContent }) => {
   const { options, contentProps } = useMenuContent();
+  const helpId = useId();
 
   return (
     <Popover.Content
@@ -116,10 +117,15 @@ const Content: FC<{
           className="bg-bg-raised border-border-subtle vertical:max-h-none vertical:min-w-0 vertical:max-w-48 vertical:min-h-40 flex max-h-48 min-w-40 flex-col rounded-lg border py-2 shadow-md"
           ref={ref}
         >
-          {helpContent}
+          {helpContent === undefined ? null : (
+            <div id={helpId}>{helpContent}</div>
+          )}
           <div
             {...listProps}
             {...contentProps}
+            // listbox の外に出した helpContent を読み上げに繋ぎ直す。
+            // トリガー側から参照すると閉じている間は空参照になるため listbox に付ける
+            aria-describedby={helpContent === undefined ? undefined : helpId}
             className="vertical:overflow-x-auto vertical:overflow-y-visible flex min-h-0 min-w-0 flex-col overflow-y-auto"
           >
             {options.map(({ value, label }, idx) => (
