@@ -70,6 +70,10 @@
       "types": "./dist/integrations/ai-sdk/index.d.mts",
       "default": "./dist/integrations/ai-sdk/index.mjs"
     },
+    "./i18n": {
+      "types": "./dist/i18n/index.d.mts",
+      "default": "./dist/i18n/index.mjs"
+    },
     "./styles.css": "./dist/styles/index.css"
   },
   "publishConfig": {
