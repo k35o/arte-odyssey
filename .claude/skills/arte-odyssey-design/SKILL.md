@@ -162,7 +162,7 @@ import { ArteOdysseyProvider, Button } from '@k8o/arte-odyssey';
 <Button color="primary" variant="solid">保存する</Button>
 
 // セカンダリアクション
-<Button color="gray" variant="outline">キャンセル</Button>
+<Button color="base" variant="outline">キャンセル</Button>
 
 // テキストのみ
 <Button variant="skeleton">詳細を見る</Button>

@@ -57,7 +57,7 @@ src/components/<name>/
 - `Checkbox` / `Switch`: `(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void`
 - `Radio`: `(value: string, event: ChangeEvent<HTMLInputElement>) => void`
 - `FileField`: `(files: FileList | null, event?: ChangeEvent<HTMLInputElement>) => void`（プログラム的削除時は `event` 無し）
-- `RadioCard`（`<button>` 駆動で change イベントが無い）/ `ListBox`: 値のみ（`(value) => void` / `(key) => void`）
+- `RadioCard`（選択肢ごとの input ではなくグループ単位で通知する）/ `ListBox`: 値のみ（どちらも `(value) => void`）
 
 第2引数は後方互換に追加でき（`(value) => void` は `(value, event) => void` に代入可能）、利用側は値だけ使うなら第1引数のみ受け取れば良い。
 
@@ -66,15 +66,20 @@ src/components/<name>/
 ### Standard Component
 
 ```tsx
-import type { FC, HTMLProps, ReactNode } from 'react';
+import type { FC, HTMLAttributes, Ref } from 'react';
 import { cn } from '../../helpers/cn';
 
 export const MyComponent: FC<
-  { customProp?: string } & Omit<HTMLProps<HTMLDivElement>, 'customProp'>
-> = ({ customProp, className, ...rest }) => {
-  return <div className={cn('base-classes', className)} {...rest} />;
+  { customProp?: string; ref?: Ref<HTMLDivElement> } & Omit<
+    HTMLAttributes<HTMLDivElement>,
+    'className' | 'style'
+  >
+> = ({ customProp, ...rest }) => {
+  return <div className={cn('base-classes')} {...rest} />;
 };
 ```
+
+基底には要素固有の `*HTMLAttributes` を使う。`HTMLProps` は `AllHTMLAttributes` を継承しており、`href` や `src` のようにその要素に存在しない属性まで型チェックを通してしまう（v12 で Button / IconButton をこの理由で移行した）。`*HTMLAttributes` は `ref` を含まないので、必要なら明示的に足す。
 
 ### Compound Component (Dialog, Tabs, FileField pattern)
 
@@ -136,7 +141,18 @@ Standard pattern: `focus-visible:border-transparent focus-visible:outline-hidden
 
 ## Export Structure
 
+The authoritative list is the `exports` map in `package.json`.
+
 ```
-@k8o/arte-odyssey              → dist/index.mjs       (all components)
-@k8o/arte-odyssey/styles.css   → dist/styles/index.css
+@k8o/arte-odyssey                     all components, hooks, helpers, public types
+@k8o/arte-odyssey/i18n                ja / en dictionaries and the Messages type
+@k8o/arte-odyssey/ai                  AI chat components
+@k8o/arte-odyssey/ai/response         Response renderer only
+@k8o/arte-odyssey/ai-sdk              AI SDK adapter
+@k8o/arte-odyssey/json-render         json-render catalog
+@k8o/arte-odyssey/json-render/registry
+@k8o/arte-odyssey/openui              OpenUI component library
+@k8o/arte-odyssey/openui/prompt
+@k8o/arte-odyssey/tokens              design tokens as JS values
+@k8o/arte-odyssey/styles.css          the stylesheet
 ```

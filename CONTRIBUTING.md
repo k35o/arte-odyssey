@@ -50,6 +50,42 @@ src/components/<category>/<name>/
 
 To expose the component from the package root, add a re-export to `src/components/index.ts` (the root entry `src/index.ts` re-exports everything from there).
 
+## Changing the public API
+
+### No deprecation period
+
+Breaking changes ship as **immediate removal, plus a codemod, plus a migration guide** — we do not keep deprecated aliases around.
+
+Two `value` props with different meanings, or a `type` that means placement on one component and heading level on another, cost every reader more than a one-time rename costs every caller. A deprecated alias postpones that cost without removing it, and it doubles the surface every future change has to stay compatible with. So rename in place, ship the codemod that rewrites call sites mechanically, and document the parts the codemod cannot reach (data-shape changes, DOM/role changes, type-only breakage) in the migration guide.
+
+Write the codemod for what is mechanically safe, and be explicit about what is not:
+
+- A prop rename on **one** component is not a global attribute rename. `Modal`'s `type` → `placement` must not touch `Heading` / `Button` / `Popover`, which use `type` for something else.
+- A value rename is not a string replace. `Button`'s `color="gray"` → `color="base"` must not touch the `gray` palette name used elsewhere.
+- Data-shape changes (e.g. `ListBox` options `{ key, label }` → `{ value, label }`) are out of reach for a codemod. They must be covered by the migration guide and by making the old shape a type error.
+
+### Generative UI schema key order is public ABI
+
+The prop schemas under `src/integrations/_shared/schemas.ts` are not just validation. OpenUI Lang serializes component calls as **fully positional arguments**, mapped back to named props by the schema's key order. So, for those schemas:
+
+- **Renaming a key is safe** — positions are unchanged.
+- **Deleting or reordering keys is breaking** — every stored spec shifts by one.
+- **New keys must be appended at the end**, never inserted in the middle.
+
+`validateGeneratedSpec()` reports keys it does not recognize, so specs saved against an older schema surface as explicit unknown-key findings rather than silently dropped props.
+
+### Documentation ships with the package
+
+`packages/arte-odyssey/docs/**` is published to npm (see `files` in the package manifest) and is read by AI coding assistants out of `node_modules/@k8o/arte-odyssey/docs/`. Stale examples there are shipped defects, not just documentation debt.
+
+Any pull request that changes the public API must update, **in the same PR**:
+
+- `packages/arte-odyssey/README.md`
+- `packages/arte-odyssey/docs/GUIDE.md`
+- `packages/arte-odyssey/docs/references/*.md`
+- `packages/arte-odyssey/docs/llms.txt`
+- `.claude/skills/arte-odyssey-design/` (SKILL.md and its `references/`, which mirror the shipped examples)
+
 ## Testing: writing a story is writing a test
 
 Component tests use Storybook stories as fixtures via `@storybook/addon-vitest`: every story runs as a Vitest browser-mode test in headless Chromium (the `components` test project). There are no separate component test files — cover the states you want guaranteed with stories, and use `play` functions for interaction behavior.

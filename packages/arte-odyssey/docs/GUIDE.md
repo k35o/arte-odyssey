@@ -35,6 +35,33 @@ import { Button, Card } from '@k8o/arte-odyssey';
 @import '@k8o/arte-odyssey/styles.css';
 ```
 
+### 文言の言語（i18n）
+
+コンポーネントが内部で持つ文言（「閉じる」「必須」「読み込み中」など）は**既定で日本語**。Provider を置かなくても、`messages` を渡さなくても日本語で動くので、日本語のアプリでは何も設定しなくてよい。
+
+英語にするときは `@k8o/arte-odyssey/i18n` の `en` を渡す。
+
+```tsx
+import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
+import { en } from '@k8o/arte-odyssey/i18n';
+
+<ArteOdysseyProvider messages={en}>
+  <App />
+</ArteOdysseyProvider>;
+```
+
+一部だけ差し替えたいときは辞書をスプレッドして上書きする。
+
+```tsx
+<ArteOdysseyProvider messages={{ ...en, close: 'Dismiss' }}>
+  <App />
+</ArteOdysseyProvider>
+```
+
+優先順位は **コンポーネントの prop > Provider の辞書 > 既定（日本語）**。`Spinner` の `label` のように個別の文言 prop を持つコンポーネントでは、その prop が辞書より優先される。
+
+> [キー一覧・詳細](references/components.md)（「i18n（文言辞書）」の節）
+
 ## デザインの方向性
 
 ### コアコンセプト
@@ -147,14 +174,14 @@ import { Button } from '@k8o/arte-odyssey';
 <Button color="primary" variant="solid">保存する</Button>
 
 // セカンダリアクション
-<Button color="gray" variant="outline">キャンセル</Button>
+<Button color="base" variant="outline">キャンセル</Button>
 
 // テキストのみ
 <Button variant="skeleton">詳細を見る</Button>
 
 // リンクとしてレンダーする（renderItem prop）
 <Button
-  color="gray"
+  color="base"
   renderItem={({ className, children }) => (
     <a className={className} href="/settings">{children}</a>
   )}
@@ -210,7 +237,13 @@ import { Card } from '@k8o/arte-odyssey';
 `FormControl` + 各フォームコンポーネントの `renderInput` パターン。
 
 ```tsx
-import { FormControl, TextField, Select, FileField } from '@k8o/arte-odyssey';
+import {
+  Button,
+  FileField,
+  FormControl,
+  Select,
+  TextField,
+} from '@k8o/arte-odyssey';
 
 <FormControl label="メール" required renderInput={(props) => (
   <TextField {...props} placeholder="example@mail.com" />
@@ -226,7 +259,11 @@ import { FormControl, TextField, Select, FileField } from '@k8o/arte-odyssey';
 )} />
 
 <FileField.Root accept="image/*" multiple>
-  <FileField.Trigger>ファイルを選択</FileField.Trigger>
+  <FileField.Trigger
+    renderItem={({ onClick, disabled }) => (
+      <Button disabled={disabled} onClick={onClick}>ファイルを選択</Button>
+    )}
+  />
   <FileField.ItemList />
 </FileField.Root>
 ```

@@ -15,6 +15,18 @@ pnpm add @k8o/arte-odyssey
 yarn add @k8o/arte-odyssey
 ```
 
+## Migrating from v11
+
+v12 renames a handful of props and turns `RadioCard` into a real `radiogroup`. Most call sites are rewritten for you:
+
+```bash
+npx --yes --package @ast-grep/cli@0.45.0 -- ast-grep scan --update-all \
+  --inline-rules "$(curl -fsSL https://raw.githubusercontent.com/k35o/arte-odyssey/main/codemods/rules/v12.yml)" \
+  src
+```
+
+Then run your type checker — everything the codemod cannot reach is a type error in v12 by design. [codemods/README.md](https://github.com/k35o/arte-odyssey/blob/main/codemods/README.md) lists what it rewrites, what it only reports, and what is out of scope.
+
 ## Peer Dependencies
 
 Make sure you have the following peer dependencies installed:
@@ -75,6 +87,43 @@ function MyPage() {
   );
 }
 ```
+
+## Internationalization (i18n)
+
+The wording that components own internally — "close", "required", "loading", and so on — comes from a message dictionary. **It defaults to Japanese**, and that default applies even without a provider, so a Japanese app needs no setup at all.
+
+To switch to English, pass the `en` dictionary from `@k8o/arte-odyssey/i18n`:
+
+```tsx
+import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
+import { en } from '@k8o/arte-odyssey/i18n';
+
+function App() {
+  return (
+    <ArteOdysseyProvider messages={en}>
+      <YourApp />
+    </ArteOdysseyProvider>
+  );
+}
+```
+
+`messages` takes a `Partial<Messages>`, so you can spread a dictionary and override only the keys you care about:
+
+```tsx
+<ArteOdysseyProvider messages={{ ...en, close: 'Dismiss' }}>
+  <YourApp />
+</ArteOdysseyProvider>
+```
+
+Resolution order is **component prop > provider dictionary > built-in default (Japanese)**. Components that expose a wording prop of their own — `Spinner`'s `label`, `Alert`'s `closeLabel`, `PasswordInput`'s `showLabel` / `hideLabel`, `Pagination`'s `prevLabel` / `nextLabel` — take that prop over the dictionary.
+
+The subpath exports both dictionaries and the type:
+
+```tsx
+import { en, ja, type Messages } from '@k8o/arte-odyssey/i18n';
+```
+
+`ja` / `en` live behind `@k8o/arte-odyssey/i18n` rather than the root entry so the dictionaries stay out of the main bundle. See [docs/references/components.md](docs/references/components.md) for the full key list.
 
 ## AI Agent Documentation
 
@@ -166,7 +215,7 @@ import { Button } from '@k8o/arte-odyssey';
 </Button>
 
 // Secondary action
-<Button color="gray" variant="outline">
+<Button color="base" variant="outline">
   Cancel
 </Button>
 
@@ -241,6 +290,7 @@ Optional features live behind dedicated subpath exports:
 | ---------------------------------------- | --------------------------------------------------------------- |
 | `@k8o/arte-odyssey`                      | All components and hooks                                        |
 | `@k8o/arte-odyssey/tokens`               | Design token definitions                                        |
+| `@k8o/arte-odyssey/i18n`                 | Message dictionaries (`ja` / `en`) and the `Messages` type      |
 | `@k8o/arte-odyssey/ai`                   | AI chat components                                              |
 | `@k8o/arte-odyssey/ai/response`          | `Response` Markdown renderer (needs optional peer `streamdown`) |
 | `@k8o/arte-odyssey/ai-sdk`               | AI SDK adapter (needs optional peer `ai`)                       |

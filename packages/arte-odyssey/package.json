@@ -26,6 +26,7 @@
     "url": "git+https://github.com/k35o/arte-odyssey.git"
   },
   "files": [
+    "CHANGELOG.md",
     "dist/**",
     "docs/**"
   ],
