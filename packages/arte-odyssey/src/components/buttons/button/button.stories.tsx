@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useRef, useState } from 'react';
+import { expect } from 'storybook/test';
 
 import { CopyIcon } from '../../icons';
 import { Button } from './button';
@@ -45,16 +47,22 @@ export const Skeleton: Story = {
   },
 };
 
-export const Gray: Story = {
+export const Base: Story = {
   args: {
-    color: 'gray',
+    color: 'base',
+  },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('button')).toHaveClass('bg-bg-subtle');
   },
 };
 
-export const OutlineGray: Story = {
+export const OutlineBase: Story = {
   args: {
-    color: 'gray',
+    color: 'base',
     variant: 'outline',
+  },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('button')).toHaveClass('border-border-base');
   },
 };
 
@@ -121,5 +129,36 @@ export const AsyncAction: Story = {
       });
       console.warn('async action completed');
     },
+  },
+};
+
+const NativeAttributesRender = () => {
+  const ref = useRef<HTMLButtonElement>(null);
+  const [tagName, setTagName] = useState('');
+  return (
+    <>
+      <Button
+        name="action"
+        onClick={() => {
+          setTagName(ref.current?.tagName ?? '');
+        }}
+        ref={ref}
+        value="save"
+      >
+        ボタン
+      </Button>
+      <p>{tagName}</p>
+    </>
+  );
+};
+
+export const NativeAttributes: Story = {
+  render: () => <NativeAttributesRender />,
+  play: async ({ canvas, userEvent }) => {
+    const button = canvas.getByRole('button');
+    await expect(button).toHaveAttribute('name', 'action');
+    await expect(button).toHaveAttribute('value', 'save');
+    await userEvent.click(button);
+    await expect(canvas.getByRole('paragraph')).toHaveTextContent('BUTTON');
   },
 };

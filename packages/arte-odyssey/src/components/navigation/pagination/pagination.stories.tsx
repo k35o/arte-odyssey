@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { expect } from 'storybook/test';
+import { expect, fn } from 'storybook/test';
 
 import { Pagination } from './pagination';
 
@@ -14,23 +14,17 @@ type Story = StoryObj<typeof Pagination>;
 
 const DefaultRender = () => {
   const [page, setPage] = useState(1);
-  return (
-    <Pagination currentPage={page} onPageChange={setPage} totalPages={10} />
-  );
+  return <Pagination currentPage={page} onChange={setPage} totalPages={10} />;
 };
 
 const MiddleRender = () => {
   const [page, setPage] = useState(5);
-  return (
-    <Pagination currentPage={page} onPageChange={setPage} totalPages={10} />
-  );
+  return <Pagination currentPage={page} onChange={setPage} totalPages={10} />;
 };
 
 const LastRender = () => {
   const [page, setPage] = useState(10);
-  return (
-    <Pagination currentPage={page} onPageChange={setPage} totalPages={10} />
-  );
+  return <Pagination currentPage={page} onChange={setPage} totalPages={10} />;
 };
 
 export const Default: Story = {
@@ -54,11 +48,20 @@ export const Last: Story = {
 
 export const Disabled: Story = {
   render: () => (
-    <Pagination
-      currentPage={3}
-      disabled
-      onPageChange={() => {}}
-      totalPages={10}
-    />
+    <Pagination currentPage={3} disabled onChange={() => {}} totalPages={10} />
   ),
+};
+
+export const OnChange: Story = {
+  args: {
+    currentPage: 5,
+    totalPages: 10,
+    onChange: fn(),
+  },
+  play: async ({ args, canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('button', { name: '次へ' }));
+    await expect(args.onChange).toHaveBeenCalledWith(6);
+    await userEvent.click(canvas.getByRole('button', { name: '前へ' }));
+    await expect(args.onChange).toHaveBeenLastCalledWith(4);
+  },
 };

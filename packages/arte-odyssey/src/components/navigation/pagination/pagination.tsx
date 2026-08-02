@@ -8,7 +8,7 @@ import { ChevronIcon } from '../../icons';
 type Props = {
   totalPages: number;
   currentPage: number;
-  onPageChange: (page: number) => void;
+  onChange: (page: number) => void;
   disabled?: boolean;
   prevLabel?: string;
   nextLabel?: string;
@@ -18,7 +18,7 @@ type Props = {
 export const Pagination: FC<Props> = ({
   totalPages,
   currentPage,
-  onPageChange,
+  onChange,
   disabled = false,
   prevLabel = '前へ',
   nextLabel = '次へ',
@@ -33,10 +33,10 @@ export const Pagination: FC<Props> = ({
     <nav aria-label={ariaLabel}>
       <div className="flex items-center justify-center gap-2">
         <Button
-          color="gray"
+          color="base"
           disabled={disabled || isFirst}
           onClick={() => {
-            onPageChange(safeCurrent - 1);
+            onChange(safeCurrent - 1);
           }}
           size="sm"
           startIcon={
@@ -57,7 +57,7 @@ export const Pagination: FC<Props> = ({
           <span>{safeTotal}</span>
         </p>
         <Button
-          color="gray"
+          color="base"
           disabled={disabled || isLast}
           endIcon={
             <span className="vertical:rotate-90 inline-flex">
@@ -65,7 +65,7 @@ export const Pagination: FC<Props> = ({
             </span>
           }
           onClick={() => {
-            onPageChange(safeCurrent + 1);
+            onChange(safeCurrent + 1);
           }}
           size="sm"
           variant="skeleton"
