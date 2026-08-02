@@ -5,6 +5,7 @@ import {
   type Ref,
   type TextareaHTMLAttributes,
   useEffect,
+  useMemo,
   useRef,
 } from 'react';
 import { useFormStatus } from 'react-dom';
@@ -37,6 +38,9 @@ export const Textarea: FC<Props> = ({
   ...rest
 }) => {
   const innerRef = useRef<HTMLTextAreaElement>(null);
+  // 参照が変わるたびに React が ref の解除と再設定を行うため、
+  // 利用者が副作用付きのコールバック ref を渡しても毎レンダー走らないようにする
+  const mergedRef = useMemo(() => mergeRefs(innerRef, ref), [ref]);
   const { pending } = useFormStatus();
 
   useEffect(() => {
@@ -67,7 +71,7 @@ export const Textarea: FC<Props> = ({
         onKeyDown?.(e);
       }}
       readOnly={pending || readOnly}
-      ref={mergeRefs(innerRef, ref)}
+      ref={mergedRef}
       value={value}
       {...rest}
     />

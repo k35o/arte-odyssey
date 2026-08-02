@@ -75,6 +75,9 @@ const Root = ({
 }: RootProps) => {
   const generatedId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
+  // 参照が変わるたびに React が ref の解除と再設定を行うため、
+  // 利用者が副作用付きのコールバック ref を渡しても毎レンダー走らないようにする
+  const mergedRef = useMemo(() => mergeRefs(inputRef, ref), [ref]);
   const { pending } = useFormStatus();
   const disabledResolved = disabled || pending;
 
@@ -151,7 +154,7 @@ const Root = ({
           id={rest.id ?? generatedId}
           multiple={multiple}
           onChange={onFilesChange}
-          ref={mergeRefs(inputRef, ref)}
+          ref={mergedRef}
           required={required}
           type="file"
           // @ts-expect-error -- webkitdirectoryがReactのHTMLInputElementのPropsに存在しないため
