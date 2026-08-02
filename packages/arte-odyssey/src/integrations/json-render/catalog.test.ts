@@ -1,4 +1,6 @@
-import { validateGeneratedSpec } from './catalog';
+import { z } from 'zod';
+
+import { catalog, validateGeneratedSpec } from './catalog';
 
 const specWithTarget = (element: Record<string, unknown>) => ({
   root: 'root',
@@ -93,5 +95,23 @@ describe('validateGeneratedSpec', () => {
     expect(messages(result)).toContainEqual(
       expect.stringContaining('Unknown component type "Marquee"'),
     );
+  });
+});
+
+// 未知キー検出は props スキーマから shape を取れることに依存している。
+// いずれかが .refine() や .transform() で包まれて ZodObject でなくなると、
+// そのコンポーネントだけ検出が無言でスキップされる（この機能が防ごうと
+// している「壊れたことに気づけない」失敗モードそのもの）
+describe('カタログの props スキーマ', () => {
+  it('すべて ZodObject で、未知キー検出が働く', () => {
+    const components = catalog.data.components as Record<
+      string,
+      { props: unknown }
+    >;
+    const notObject = Object.entries(components)
+      .filter(([, def]) => !(def.props instanceof z.ZodObject))
+      .map(([name]) => name);
+
+    expect(notObject).toEqual([]);
   });
 });

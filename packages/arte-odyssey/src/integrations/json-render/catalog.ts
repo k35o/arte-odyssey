@@ -7,7 +7,9 @@ import {
   type UIElement,
 } from '@json-render/core';
 import { schema } from '@json-render/react/schema';
-import type { z } from 'zod';
+// 型ではなく値として使う（instanceof で ZodObject を判定するため）。
+// 同じサブパスの _shared/schemas.ts が既に zod を実行時依存にしている
+import { z } from 'zod';
 
 import * as s from '../_shared/schemas';
 
@@ -297,12 +299,10 @@ const buildRepairPrompt = (issues: GeneratedSpecIssue[]): string =>
  * 既定値のまま描画されて壊れたことにすら気づけない。キー集合を取り出して
  * 自前で照合する。
  */
-const knownPropKeys = (
-  propsSchema: z.ZodType,
-): readonly string[] | undefined => {
-  const { shape } = propsSchema as { shape?: Record<string, unknown> };
-  return shape === undefined ? undefined : Object.keys(shape);
-};
+const knownPropKeys = (propsSchema: z.ZodType): readonly string[] | undefined =>
+  propsSchema instanceof z.ZodObject
+    ? Object.keys(propsSchema.shape as Record<string, unknown>)
+    : undefined;
 
 /** spec 側は LLM 出力なので、型に反して props が欠けていることがある。 */
 const givenPropKeys = (props: unknown): readonly string[] =>
