@@ -30,6 +30,7 @@ const passwordInputProps: PropItem[] = [
   { name: 'defaultValue', types: ['string'], defaultValue: null },
   { name: 'id', types: ['string'], defaultValue: null },
   { name: 'name', types: ['string'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
 ];
 
 export function PasswordInputPage() {

@@ -10,9 +10,14 @@ import { RadioCardControlledPreview } from './_previews/radio-card-previews';
 
 const radioCardProps: PropItem[] = [
   { name: 'aria-labelledby', types: ['string'], defaultValue: null },
+  { name: 'name', types: ['string'], defaultValue: null },
   { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
   { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'options', types: ['RadioCardOption[]'], defaultValue: null },
+  {
+    name: 'options',
+    types: ['readonly RadioCardOption[]'],
+    defaultValue: null,
+  },
   { name: 'value', types: ['string'], defaultValue: null },
   {
     name: 'onChange',
@@ -20,6 +25,7 @@ const radioCardProps: PropItem[] = [
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['string'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLFieldSetElement>'], defaultValue: null },
 ];
 
 const options = [
@@ -146,7 +152,7 @@ const [value, setValue] = useState('pro');
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="FieldsetHTMLAttributes<HTMLFieldSetElement>"
+          inherits="Omit<FieldsetHTMLAttributes<HTMLFieldSetElement>, 'role'>"
           items={radioCardProps}
         />
       </section>

@@ -28,6 +28,7 @@ const fileFieldProps: PropItem[] = [
     ],
     defaultValue: null,
   },
+  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
 ];
 
 export function FileFieldPage() {

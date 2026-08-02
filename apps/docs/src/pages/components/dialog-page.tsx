@@ -18,6 +18,9 @@ const dialogRootProps: PropItem[] = [
     types: ['string'],
     defaultValue: "'dialog'",
   },
+  { name: 'id', types: ['string'], defaultValue: null },
+  { name: 'tabIndex', types: ['number'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLElement>'], defaultValue: null },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];
 
@@ -89,7 +92,7 @@ import { Modal } from '@k8o/arte-odyssey';`}
 <Modal
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
-  type="center"
+  placement="center"
 >
   <Dialog.Root>
     <Dialog.Header
@@ -117,7 +120,7 @@ import { Modal } from '@k8o/arte-odyssey';`}
 <Modal
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
-  type="center"
+  placement="center"
 >
   <Dialog.Root role="alertdialog">
     <Dialog.Header
@@ -132,7 +135,7 @@ import { Modal } from '@k8o/arte-odyssey';`}
         </p>
         <div className="flex justify-end gap-2">
           <Button
-            color="gray"
+            color="base"
             onClick={() => setIsOpen(false)}
             variant="outline"
           >

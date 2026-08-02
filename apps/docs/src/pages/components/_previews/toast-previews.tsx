@@ -16,7 +16,7 @@ function ToastDemo() {
         Success
       </Button>
       <Button
-        color="gray"
+        color="base"
         onClick={() => {
           onOpen('info', 'Here is some information');
         }}
@@ -24,7 +24,7 @@ function ToastDemo() {
         Info
       </Button>
       <Button
-        color="gray"
+        color="base"
         onClick={() => {
           onOpen('warning', 'Please check your input');
         }}
@@ -32,7 +32,7 @@ function ToastDemo() {
         Warning
       </Button>
       <Button
-        color="gray"
+        color="base"
         onClick={() => {
           onOpen('error', 'Something went wrong');
         }}
@@ -49,7 +49,7 @@ function CloseAllDemo() {
   return (
     <div className="flex flex-wrap gap-2">
       <Button
-        color="gray"
+        color="base"
         onClick={() => {
           onOpen('info', 'Notification 1');
         }}
@@ -57,7 +57,7 @@ function CloseAllDemo() {
         Add Toast
       </Button>
       <Button
-        color="gray"
+        color="base"
         onClick={() => {
           onOpen('success', 'Notification 2');
         }}

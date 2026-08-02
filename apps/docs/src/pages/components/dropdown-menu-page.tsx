@@ -19,6 +19,13 @@ const dropdownMenuRootProps: PropItem[] = [
     types: ['Placement'],
     defaultValue: "'bottom-start'",
   },
+  { name: 'isOpen', types: ['boolean'], defaultValue: null },
+  { name: 'defaultOpen', types: ['boolean'], defaultValue: null },
+  {
+    name: 'onChange',
+    types: ['(isOpen: boolean) => void'],
+    defaultValue: null,
+  },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];
 

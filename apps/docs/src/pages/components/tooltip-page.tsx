@@ -15,7 +15,14 @@ const tooltipRootProps: PropItem[] = [
   {
     name: 'placement',
     types: ['Placement'],
-    defaultValue: "'bottom-start'",
+    defaultValue: "'bottom'",
+  },
+  { name: 'isOpen', types: ['boolean'], defaultValue: null },
+  { name: 'defaultOpen', types: ['boolean'], defaultValue: null },
+  {
+    name: 'onChange',
+    types: ['(isOpen: boolean) => void'],
+    defaultValue: null,
   },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];

@@ -24,6 +24,7 @@ const sliderProps: PropItem[] = [
   { name: 'id', types: ['string'], defaultValue: null },
   { name: 'name', types: ['string'], defaultValue: null },
   { name: 'aria-describedby', types: ['string'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
 ];
 
 export function SliderPage() {

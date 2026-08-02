@@ -32,6 +32,7 @@ const autocompleteProps: PropItem[] = [
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['string[]'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
 ];
 
 export function AutocompletePage() {

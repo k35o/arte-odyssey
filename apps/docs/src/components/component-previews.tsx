@@ -76,9 +76,9 @@ const checkboxCardOptions = [
 ] as const;
 
 const listBoxOptions = [
-  { key: 'apple', label: 'Apple' },
-  { key: 'banana', label: 'Banana' },
-  { key: 'cherry', label: 'Cherry' },
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'cherry', label: 'Cherry' },
 ];
 
 /**
@@ -357,7 +357,7 @@ function PaginationPreview(): ReactNode {
       <Pagination
         currentPage={page}
         nextLabel="Next"
-        onPageChange={setPage}
+        onChange={setPage}
         prevLabel="Prev"
         totalPages={5}
       />

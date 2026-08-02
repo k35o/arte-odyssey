@@ -243,7 +243,7 @@ const spec = {
       props: {
         label: 'ヘルプ',
         variant: 'outline',
-        color: 'gray',
+        color: 'base',
         href: 'https://example.com',
       },
       children: [],

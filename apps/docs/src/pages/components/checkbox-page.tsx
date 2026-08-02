@@ -16,13 +16,14 @@ const checkboxProps: PropItem[] = [
   { name: 'label', types: ['string'], defaultValue: null },
   { name: 'itemValue', types: ['string'], defaultValue: null },
   { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'value', types: ['boolean'], defaultValue: null },
+  { name: 'checked', types: ['boolean'], defaultValue: null },
   {
     name: 'onChange',
-    types: ['(checked: boolean) => void'],
+    types: ['(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void'],
     defaultValue: null,
   },
   { name: 'defaultChecked', types: ['boolean'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
 ];
 
 const checkboxGroupProps: PropItem[] = [
@@ -39,6 +40,7 @@ const checkboxGroupProps: PropItem[] = [
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['string[]'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLFieldSetElement>'], defaultValue: null },
 ];
 
 export function CheckboxPage() {
@@ -98,9 +100,9 @@ export function CheckboxPage() {
             code={`const [checked, setChecked] = useState(false);
 
 <Checkbox
+  checked={checked}
   label="Controlled checkbox"
   onChange={(checked) => setChecked(checked)}
-  value={checked}
 />`}
           >
             <CheckboxControlledPreview />

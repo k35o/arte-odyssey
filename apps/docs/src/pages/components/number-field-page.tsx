@@ -23,6 +23,7 @@ const numberFieldProps: PropItem[] = [
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['number'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
 ];
 
 export function NumberFieldPage() {

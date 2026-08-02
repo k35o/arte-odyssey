@@ -15,7 +15,7 @@ const paginationProps: PropItem[] = [
   { name: 'totalPages', types: ['number'], defaultValue: null },
   { name: 'currentPage', types: ['number'], defaultValue: null },
   {
-    name: 'onPageChange',
+    name: 'onChange',
     types: ['(page: number) => void'],
     defaultValue: null,
   },
@@ -65,7 +65,7 @@ export function PaginationPage() {
 
 <Pagination
   currentPage={page}
-  onPageChange={setPage}
+  onChange={setPage}
   totalPages={10}
 />`}
           >
@@ -81,7 +81,7 @@ export function PaginationPage() {
             code={`<Pagination
   currentPage={3}
   disabled
-  onPageChange={() => {}}
+  onChange={() => {}}
   totalPages={10}
 />`}
           >

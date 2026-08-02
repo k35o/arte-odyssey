@@ -25,6 +25,7 @@ const selectProps: PropItem[] = [
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['string'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLSelectElement>'], defaultValue: null },
 ];
 
 const options = [

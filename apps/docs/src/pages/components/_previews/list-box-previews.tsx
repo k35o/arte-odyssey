@@ -1,14 +1,14 @@
 'use client';
 
-import { ListBox, ListIcon } from '@k8o/arte-odyssey';
+import { ListBox, ListIcon, type Option } from '@k8o/arte-odyssey';
 import { useState } from 'react';
 
-const OPTIONS = [
-  { key: 'apple', label: 'Apple' },
-  { key: 'banana', label: 'Banana' },
-  { key: 'cherry', label: 'Cherry' },
-  { key: 'grape', label: 'Grape' },
-  { key: 'melon', label: 'Melon' },
+const OPTIONS: readonly Option[] = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'cherry', label: 'Cherry' },
+  { value: 'grape', label: 'Grape' },
+  { value: 'melon', label: 'Melon' },
 ];
 
 export function ListBoxBasicPreview() {
@@ -16,13 +16,13 @@ export function ListBoxBasicPreview() {
   return (
     <div className="w-56">
       <ListBox.Root
-        onChange={(key: string) => {
-          setSelected(key);
+        onChange={(value: string) => {
+          setSelected(value);
         }}
         options={OPTIONS}
         value={selected}
       >
-        <ListBox.Trigger />
+        <ListBox.Trigger label="Fruit" />
         <ListBox.Content />
       </ListBox.Root>
     </div>
@@ -37,37 +37,37 @@ export function ListBoxSizesPreview() {
     <div className="flex flex-wrap items-start gap-4">
       <div className="w-44">
         <ListBox.Root
-          onChange={(key: string) => {
-            setSm(key);
+          onChange={(value: string) => {
+            setSm(value);
           }}
           options={OPTIONS}
           value={sm}
         >
-          <ListBox.Trigger size="sm" />
+          <ListBox.Trigger label="Fruit (sm)" size="sm" />
           <ListBox.Content />
         </ListBox.Root>
       </div>
       <div className="w-48">
         <ListBox.Root
-          onChange={(key: string) => {
-            setMd(key);
+          onChange={(value: string) => {
+            setMd(value);
           }}
           options={OPTIONS}
           value={md}
         >
-          <ListBox.Trigger size="md" />
+          <ListBox.Trigger label="Fruit (md)" size="md" />
           <ListBox.Content />
         </ListBox.Root>
       </div>
       <div className="w-56">
         <ListBox.Root
-          onChange={(key: string) => {
-            setLg(key);
+          onChange={(value: string) => {
+            setLg(value);
           }}
           options={OPTIONS}
           value={lg}
         >
-          <ListBox.Trigger size="lg" />
+          <ListBox.Trigger label="Fruit (lg)" size="lg" />
           <ListBox.Content />
         </ListBox.Root>
       </div>
@@ -75,17 +75,17 @@ export function ListBoxSizesPreview() {
   );
 }
 
-export function ListBoxTriggerIconPreview() {
+export function ListBoxIconTriggerPreview() {
   const [selected, setSelected] = useState<string>();
   return (
     <ListBox.Root
-      onChange={(key: string) => {
-        setSelected(key);
+      onChange={(value: string) => {
+        setSelected(value);
       }}
       options={OPTIONS}
       value={selected}
     >
-      <ListBox.TriggerIcon icon={<ListIcon />} />
+      <ListBox.IconTrigger icon={<ListIcon />} label="Fruit" />
       <ListBox.Content />
     </ListBox.Root>
   );

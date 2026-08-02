@@ -12,6 +12,7 @@ const textFieldProps: PropItem[] = [
   { name: 'disabled', types: ['boolean'], defaultValue: null },
   { name: 'required', types: ['boolean'], defaultValue: null },
   { name: 'placeholder', types: ['string'], defaultValue: null },
+  { name: 'type', types: ['HTMLInputTypeAttribute'], defaultValue: "'text'" },
   { name: 'value', types: ['string'], defaultValue: null },
   {
     name: 'onChange',
@@ -19,6 +20,7 @@ const textFieldProps: PropItem[] = [
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['string'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
 ];
 
 export function TextFieldPage() {
@@ -85,6 +87,17 @@ export function TextFieldPage() {
               required={false}
               placeholder="Enter your name"
             />
+          </ComponentPreview>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">Type</Heading>
+          <ComponentPreview
+            code={`<TextField placeholder="you@example.com" type="email" />
+<TextField placeholder="090-0000-0000" type="tel" />`}
+          >
+            <TextField placeholder="you@example.com" type="email" />
+            <TextField placeholder="090-0000-0000" type="tel" />
           </ComponentPreview>
         </div>
 
