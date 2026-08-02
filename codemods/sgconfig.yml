@@ -1,0 +1,21 @@
+# ast-grep project config.
+#
+# The one-liner in README.md passes `--rule rules/v12.yml` and therefore only
+# reaches `.tsx` files, because that is the only extension ast-grep maps to the
+# TSX grammar. Use this config instead when the project keeps JSX in `.jsx` /
+# `.js` files:
+#
+#   ast-grep scan --config codemods/sgconfig.yml --update-all src
+#
+# The TSX grammar is a superset of JavaScript, so parsing `.js` with it is safe.
+# `.ts` is deliberately not remapped: there `<T>value` is a type assertion, not
+# a JSX element, and a `.ts` file cannot contain JSX anyway.
+ruleDirs:
+  - rules
+
+languageGlobs:
+  tsx:
+    - '*.jsx'
+    - '*.js'
+    - '*.mjs'
+    - '*.cjs'
