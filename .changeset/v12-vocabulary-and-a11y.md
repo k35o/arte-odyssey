@@ -34,6 +34,8 @@ npx --yes --package @ast-grep/cli@0.45.0 -- ast-grep scan --update-all \
 
 - **`ListBox` の選択肢が `{ key, label }` から `{ value, label }` になりました。** `Select` や `RadioCard` と同じ `Option` 型に揃えたためです。データの形の変更なので codemod では届きません（型が付いていれば型エラーになります）。`option.key` を読んでいる箇所も併せて改名してください。
 - **`RadioCard` の DOM とロールが変わりました。** `button[aria-pressed]` の集まりから、`fieldset[role="radiogroup"]` の中に本物の `input[type="radio"]` を並べる形になり、矢印キーのローミングと単一選択をブラウザに任せられるようになりました。**props は変わりません**が、テストの `getByRole('button', { pressed })` は `getByRole('radio', { checked })` に、`getByRole('group')` は `getByRole('radiogroup')` に置き換えが必要です。CSS セレクタも同様です。
+
+  あわせて**送信されるデータが変わります**。旧実装は `name` を渡したときだけ hidden input を出していたので、`name` 無しの `RadioCard` は `FormData` に一切現れませんでした。新実装はネイティブの radio group を使う都合上つねに `name` が要るため、未指定のときは `useId()` 由来の自動生成キー（`:r0:` のような文字列）で選択値が送信されます。`<form>` の中で純粋な controlled UI として使っていた場合、`FormData` に意図しないキーが増えます。送信したくない場合は `<form>` の外に出すか、送信側で除外してください。
 - **`Button` / `IconButton` の props が `ButtonHTMLAttributes` になりました。** これまでは `HTMLProps`（= `AllHTMLAttributes`）だったため、`<button>` が持たない `href` / `target` / `src` なども型上は通っていました。**実行時の挙動は変わらず、型だけが壊れます**。要素そのものを差し替えたい場合は `renderItem` で描画してください。
 - **既定の文言がすべて日本語になりました。** 日英が混在していたものを揃えたためで、`Spinner` の `Loading` は `読み込み中` になります。英語のまま使うには辞書を渡してください。
 
