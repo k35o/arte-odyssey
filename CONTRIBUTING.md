@@ -52,18 +52,6 @@ To expose the component from the package root, add a re-export to `src/component
 
 ## Changing the public API
 
-### No deprecation period
-
-Breaking changes ship as **immediate removal, plus a codemod, plus a migration guide** — we do not keep deprecated aliases around.
-
-Two `value` props with different meanings, or a `type` that means placement on one component and heading level on another, cost every reader more than a one-time rename costs every caller. A deprecated alias postpones that cost without removing it, and it doubles the surface every future change has to stay compatible with. So rename in place, ship the codemod that rewrites call sites mechanically, and document the parts the codemod cannot reach (data-shape changes, DOM/role changes, type-only breakage) in the migration guide.
-
-Write the codemod for what is mechanically safe, and be explicit about what is not:
-
-- A prop rename on **one** component is not a global attribute rename. `Modal`'s `type` → `placement` must not touch `Heading` / `Button` / `Popover`, which use `type` for something else.
-- A value rename is not a string replace. `Button`'s `color="gray"` → `color="base"` must not touch the `gray` palette name used elsewhere.
-- Data-shape changes (e.g. `ListBox` options `{ key, label }` → `{ value, label }`) are out of reach for a codemod. They must be covered by the migration guide and by making the old shape a type error.
-
 ### Generative UI schema key order is public ABI
 
 The prop schemas under `src/integrations/_shared/schemas.ts` are not just validation. OpenUI Lang serializes component calls as **fully positional arguments**, mapped back to named props by the schema's key order. So, for those schemas:

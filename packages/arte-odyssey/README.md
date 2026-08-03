@@ -15,18 +15,6 @@ pnpm add @k8o/arte-odyssey
 yarn add @k8o/arte-odyssey
 ```
 
-## Migrating from v11
-
-v12 renames a handful of props and turns `RadioCard` into a real `radiogroup`. Most call sites are rewritten for you:
-
-```bash
-npx --yes --package @ast-grep/cli@0.45.0 -- ast-grep scan --update-all \
-  --inline-rules "$(curl -fsSL https://raw.githubusercontent.com/k35o/arte-odyssey/main/codemods/rules/v12.yml)" \
-  src
-```
-
-Then run your type checker — everything the codemod cannot reach is a type error in v12 by design. [codemods/README.md](https://github.com/k35o/arte-odyssey/blob/main/codemods/README.md) lists what it rewrites, what it only reports, and what is out of scope.
-
 ## Peer Dependencies
 
 Make sure you have the following peer dependencies installed:

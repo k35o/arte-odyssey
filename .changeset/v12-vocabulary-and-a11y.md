@@ -2,67 +2,50 @@
 '@k8o/arte-odyssey': major
 ---
 
-語彙を統一し、RadioCard を本物の `radiogroup` にし、文言を辞書化しました。破壊的変更のうち機械的に直せるものは codemod で書き換えられます。
+語彙を統一し、RadioCard を本物の `radiogroup` にし、文言を辞書化しました。
 
-## 移行
+## 改名
 
-プロジェクトのルートで 1 コマンド。ast-grep のルールを流し込むだけで、ダウンロードしたものが実行されることはありません。
+| 旧                                                                              | 新                      |
+| ------------------------------------------------------------------------------- | ----------------------- |
+| `<Checkbox value={b}>` / `<Switch value={b}>` / `<CheckboxGroup.Item value={b}>` | `checked={b}`           |
+| `<Modal type="center">`                                                         | `placement="center"`    |
+| `<Button color="gray">`                                                         | `color="base"`          |
+| `<Pagination onPageChange={fn}>`                                                | `onChange={fn}`         |
+| `<ListBox.TriggerIcon>`                                                         | `<ListBox.IconTrigger>` |
+| `ListBox` の options `{ key, label }`                                           | `{ value, label }`      |
 
-```sh
-npx --yes --package @ast-grep/cli@0.45.0 -- ast-grep scan --update-all \
-  --inline-rules "$(curl -fsSL https://raw.githubusercontent.com/k35o/arte-odyssey/main/codemods/rules/v12.yml)" \
-  src
-```
+値が `string[]` の `<CheckboxGroup value>`、`<CheckboxCard value>`、`<RadioCard value>` はそのままです。`Modal` の配置の値（`center` / `bottom` / `right` / `left`）も変わりません。
 
-そのあと型チェックを走らせてください。codemod が届かない変更は、すべて v12 では型エラーになるように設計しています。ルールは JSX の要素名で絞ってあるので、`Heading` / `Button` / `Popover` の `type` や Tailwind の `gray` といった同名の別物は書き換わりません。詳細と、codemod が「報告するだけ」にとどめる項目は [codemods/README.md](https://github.com/k35o/arte-odyssey/blob/main/codemods/README.md) にあります。
+## 型・DOM が変わるもの
 
-## 破壊的変更
+- **`RadioCard` が `input[type="radio"]` の `radiogroup` になりました。** props は変わりませんが、テストの `getByRole('button', { pressed })` は `getByRole('radio', { checked })` に、`getByRole('group')` は `getByRole('radiogroup')` に置き換えが必要です。ネイティブの radio group はグループ化に `name` が要るため、`name` 未指定でも `useId()` 由来のキーで選択値が送信されるようになります（旧実装は `name` 無しなら `FormData` に現れませんでした）。
+- **`Button` / `IconButton` の props が `ButtonHTMLAttributes` になりました。** `HTMLProps`（= `AllHTMLAttributes`）だったので `href` / `src` なども型上は通っていました。実行時の挙動は変わらず、型だけが壊れます。
+- **既定の文言がすべて日本語になりました。** `Spinner` の `Loading` は `読み込み中` になります。英語のままにするには辞書を渡してください。
+- **生成 UI のスキーマが上記の改名に追随しました。** 保存済みの spec は `validateGeneratedSpec()` が旧 prop 名を未知のキーとして報告します（従来は無言で既定値に落ちていました）。
 
-**codemod が書き換えるもの**
+## 追加
 
-| 旧                                                             | 新                    |
-| -------------------------------------------------------------- | --------------------- |
-| `<Checkbox value={b}>` / `<Switch value={b}>` / `<CheckboxGroup.Item value={b}>` | `checked={b}`         |
-| `<Modal type="center">`                                        | `placement="center"`  |
-| `<Button color="gray">`                                        | `color="base"`        |
-| `<Pagination onPageChange={fn}>`                               | `onChange={fn}`       |
-| `<ListBox.TriggerIcon>`                                        | `<ListBox.IconTrigger>` |
-
-`Checkbox` / `Switch` が受け取るのは boolean なので、DOM 属性に合わせて `checked` に改名しました。値が `string[]` の `<CheckboxGroup value>`、`<CheckboxCard value>`、`<RadioCard value>` は**そのまま**です。`Modal` の配置の値（`center` / `bottom` / `right` / `left`）も変わりません。
-
-**手で直すもの**
-
-- **`ListBox` の選択肢が `{ key, label }` から `{ value, label }` になりました。** `Select` や `RadioCard` と同じ `Option` 型に揃えたためです。データの形の変更なので codemod では届きません（型が付いていれば型エラーになります）。`option.key` を読んでいる箇所も併せて改名してください。
-- **`RadioCard` の DOM とロールが変わりました。** `button[aria-pressed]` の集まりから、`fieldset[role="radiogroup"]` の中に本物の `input[type="radio"]` を並べる形になり、矢印キーのローミングと単一選択をブラウザに任せられるようになりました。**props は変わりません**が、テストの `getByRole('button', { pressed })` は `getByRole('radio', { checked })` に、`getByRole('group')` は `getByRole('radiogroup')` に置き換えが必要です。CSS セレクタも同様です。
-
-  あわせて**送信されるデータが変わります**。旧実装は `name` を渡したときだけ hidden input を出していたので、`name` 無しの `RadioCard` は `FormData` に一切現れませんでした。新実装はネイティブの radio group を使う都合上つねに `name` が要るため、未指定のときは `useId()` 由来の自動生成キー（`:r0:` のような文字列）で選択値が送信されます。`<form>` の中で純粋な controlled UI として使っていた場合、`FormData` に意図しないキーが増えます。送信したくない場合は `<form>` の外に出すか、送信側で除外してください。
-- **`Button` / `IconButton` の props が `ButtonHTMLAttributes` になりました。** これまでは `HTMLProps`（= `AllHTMLAttributes`）だったため、`<button>` が持たない `href` / `target` / `src` なども型上は通っていました。**実行時の挙動は変わらず、型だけが壊れます**。要素そのものを差し替えたい場合は `renderItem` で描画してください。
-- **既定の文言がすべて日本語になりました。** 日英が混在していたものを揃えたためで、`Spinner` の `Loading` は `読み込み中` になります。英語のまま使うには辞書を渡してください。
+- **フォーム系が `ref` を受け取れるようになりました。** 内部で ref を持つ `Textarea` / `FileField` は `mergeRefs` で合成します。
+- **`TextField` が `type` を受け取れるようになりました**（`text` / `email` / `tel` / `url` / `search`）。
+- **`Popover` / `DropdownMenu` / `Tooltip` が `isOpen` / `defaultOpen` / `onChange` に対応しました。**
+- **`ListBox` が非制御でも使えるようになりました**（`defaultValue`）。`ListBox.Trigger` / `IconTrigger` の `label` でアクセシブル名を「値」ではなく「ラベル + 値」にできます。
+- **`Modal` が `aria-label` / `aria-labelledby` を受け取れるようになりました。**
+- **文言辞書を追加しました。** `@k8o/arte-odyssey/i18n` から `ja` / `en` と `Messages` 型を export します。
 
   ```tsx
   import { en } from '@k8o/arte-odyssey/i18n';
 
-  <ArteOdysseyProvider messages={en}>{children}</ArteOdysseyProvider>;
+  <ArteOdysseyProvider messages={{ ...en, close: 'Dismiss' }}>{children}</ArteOdysseyProvider>;
   ```
 
-- **生成 UI のスキーマが上記の改名に追随しました。** 保存済みの spec は `validateGeneratedSpec()` が旧 prop 名を未知のキーとして報告します。再生成するか手で直してください。
+  優先順位は「コンポーネントの prop > 辞書 > 既定」です。Provider を置かなければ日本語で動きます。
 
-なお `<Checkbox {...props} />` のように spread した props に旧名が含まれる場合と、別の場所で組み立てたオブジェクトを渡している場合は、静的には検出できないため codemod も型チェックも素通りします。
-
-## 追加
-
-- **フォーム系コンポーネントが `ref` を受け取れるようになりました。** 内部で ref を持つ `Textarea` / `FileField` は `mergeRefs` で合成するので、利用側の ref と両立します。
-- **`TextField` が `type` を受け取れるようになりました**（既定は `"text"`）。パスワードは引き続き `PasswordInput` を使ってください（表示/非表示トグルが `type` を占有するため、`PasswordInput` は `type` を開放していません）。
-- **`Popover` / `DropdownMenu` / `Tooltip` が `isOpen` / `defaultOpen` / `onChange` に対応しました。** controlled / uncontrolled のどちらでも書けます。
-- **`ListBox.Trigger` / `ListBox.IconTrigger` に `label` を追加しました。** 渡すとトリガーのアクセシブル名が「ラベル + 現在値」になります。省略時は従来どおり現在値だけなので、周囲に見出しが無いときは渡してください。
-- **`ListBox` が非制御でも使えるようになりました。** `value` / `onChange` が任意になり、`defaultValue` を渡せば選択状態はコンポーネント内部で保持されます。
-- **`Modal` が `aria-label` / `aria-labelledby` を受け取れるようになりました。**
-- **文言辞書を追加しました。** `@k8o/arte-odyssey/i18n` から `ja` / `en` と `Messages` 型を export します。`<ArteOdysseyProvider messages={...}>` に部分辞書を渡せば、渡したキーだけが差し替わります。優先順位は「コンポーネントの prop > 辞書 > 既定」です。
 - **公開型をルートから export しました**（`Placement` / `Option` / `TooltipTriggerProps` / `RadioCardOption` / `Messages` など）。
 
 ## 挙動の改善（API は不変）
 
-- **Toast**: 閉じたときにフォーカスを元の要素へ返すようにしました。上限を超えた古いトーストの追い出しは、ホバー中・フォーカス中は保留します。ライブリージョンが二重に読み上げられる問題も解消しました。
-- **Popover**: Escape がレイヤースタックの**最も内側の 1 枚だけ**を閉じるようになりました。これまでは `IconButton` の数だけ window のリスナが積まれ、Escape 一発で開いているものが全部閉じていました。
+- **Toast**: 閉じたときにフォーカスを元の要素へ返します。上限を超えた古いトーストの追い出しは、ホバー中・フォーカス中は保留します。ライブリージョンの二重読み上げも解消しました。
+- **Popover**: Escape がレイヤースタックの最も内側の 1 枚だけを閉じます。これまでは `IconButton` の数だけ window のリスナが積まれ、Escape 一発で開いているものが全部閉じていました。
 - **Modal**: 名前の無い `dialog` が生まれる問題と、`Modal` 配下で role が二重に付く問題を解消しました。
-- **ListBox**: `helpContent` を `role="listbox"` の外へ出し、`aria-required-children` 違反を解消しました。
+- **ListBox**: `helpContent` を `role="listbox"` の外へ出し、`aria-required-children` 違反を解消しました（読み上げには `aria-describedby` で繋いでいます）。
