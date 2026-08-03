@@ -1,18 +1,34 @@
 'use client';
 
-import type { FC, InputHTMLAttributes } from 'react';
+import type {
+  FC,
+  HTMLInputTypeAttribute,
+  InputHTMLAttributes,
+  Ref,
+} from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { FOCUS_RING } from '../../_internal/focus-ring';
 import { cn } from './../../../helpers/cn';
 
+// 1 行テキスト入力に絞る。number は NumberField、password は PasswordInput、
+// file は FileField が別途あり、checkbox / radio / color 等は見た目が別物になる
+type TextInputType = Extract<
+  HTMLInputTypeAttribute,
+  'text' | 'email' | 'tel' | 'url' | 'search'
+>;
+
 type Props = {
   invalid?: boolean;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'className' | 'style'>;
+  ref?: Ref<HTMLInputElement>;
+  type?: TextInputType;
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'className' | 'style' | 'type'>;
 
 export const TextField: FC<Props> = ({
   invalid = false,
   readOnly,
+  ref,
+  type = 'text',
   ...rest
 }) => {
   const { pending } = useFormStatus();
@@ -27,7 +43,8 @@ export const TextField: FC<Props> = ({
         FOCUS_RING,
       )}
       readOnly={pending || readOnly}
-      type="text"
+      ref={ref}
+      type={type}
       {...rest}
     />
   );

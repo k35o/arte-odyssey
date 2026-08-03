@@ -15,14 +15,26 @@ const paginationProps: PropItem[] = [
   { name: 'totalPages', types: ['number'], defaultValue: null },
   { name: 'currentPage', types: ['number'], defaultValue: null },
   {
-    name: 'onPageChange',
+    name: 'onChange',
     types: ['(page: number) => void'],
     defaultValue: null,
   },
   { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'prevLabel', types: ['string'], defaultValue: "'前へ'" },
-  { name: 'nextLabel', types: ['string'], defaultValue: "'次へ'" },
-  { name: 'aria-label', types: ['string'], defaultValue: "'ページネーション'" },
+  {
+    name: 'prevLabel',
+    types: ['string'],
+    defaultValue: 'messages.paginationPrevious',
+  },
+  {
+    name: 'nextLabel',
+    types: ['string'],
+    defaultValue: 'messages.paginationNext',
+  },
+  {
+    name: 'aria-label',
+    types: ['string'],
+    defaultValue: 'messages.paginationLabel',
+  },
 ];
 
 export function PaginationPage() {
@@ -65,7 +77,7 @@ export function PaginationPage() {
 
 <Pagination
   currentPage={page}
-  onPageChange={setPage}
+  onChange={setPage}
   totalPages={10}
 />`}
           >
@@ -81,7 +93,7 @@ export function PaginationPage() {
             code={`<Pagination
   currentPage={3}
   disabled
-  onPageChange={() => {}}
+  onChange={() => {}}
   totalPages={10}
 />`}
           >
@@ -95,7 +107,7 @@ export function PaginationPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={paginationProps} />
+        <PropsTable items={paginationProps} messagesNote />
       </section>
     </div>
   );

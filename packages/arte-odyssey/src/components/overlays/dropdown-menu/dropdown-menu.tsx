@@ -23,11 +23,27 @@ import { useOpenContext } from '../popover/hooks';
 import { cn } from './../../../helpers/cn';
 import { MenuContextProvider, useMenuContent, useMenuItem } from './hooks';
 
-const Root: FC<PropsWithChildren<{ placement?: Placement }>> = ({
+const Root: FC<
+  PropsWithChildren<{
+    placement?: Placement;
+    isOpen?: boolean;
+    defaultOpen?: boolean;
+    onChange?: (isOpen: boolean) => void;
+  }>
+> = ({
   children,
   placement = 'bottom-start',
+  isOpen,
+  defaultOpen,
+  onChange,
 }) => (
-  <Popover.Root placement={placement} type="menu">
+  <Popover.Root
+    defaultOpen={defaultOpen}
+    isOpen={isOpen}
+    onChange={onChange}
+    placement={placement}
+    type="menu"
+  >
     <MenuProvider>{children}</MenuProvider>
   </Popover.Root>
 );
@@ -101,7 +117,7 @@ const Trigger: FC<{
     renderItem={(props) => (
       <Button
         {...props}
-        color="gray"
+        color="base"
         endIcon={<ChevronIcon direction="down" />}
         size={size}
         type="button"

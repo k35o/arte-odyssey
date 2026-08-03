@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, HTMLProps, MouseEvent, ReactNode } from 'react';
+import type { ComponentPropsWithRef, FC, MouseEvent, ReactNode } from 'react';
 import { useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 
@@ -11,7 +11,7 @@ import { cn } from './../../../helpers/cn';
 type Props = {
   type?: 'button' | 'submit';
   size?: 'sm' | 'md' | 'lg';
-  color?: 'primary' | 'secondary' | 'gray';
+  color?: 'primary' | 'secondary' | 'base';
   variant?: 'solid' | 'outline' | 'skeleton';
   fullWidth?: boolean;
   isActive?: boolean;
@@ -26,7 +26,7 @@ type Props = {
    */
   onAction?: () => void | Promise<void>;
   renderItem?: (props: { className: string; children: ReactNode }) => ReactNode;
-} & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type' | 'className' | 'style'>;
+} & Omit<ComponentPropsWithRef<'button'>, 'type' | 'className' | 'style'>;
 
 export const Button: FC<Props> = ({
   ref,
@@ -65,11 +65,7 @@ export const Button: FC<Props> = ({
 
   const spinnerSize = size === 'lg' ? 'md' : 'sm';
   const resolvedStartIcon =
-    !renderItem && isPending ? (
-      <Spinner label="Loading" size={spinnerSize} />
-    ) : (
-      startIcon
-    );
+    !renderItem && isPending ? <Spinner size={spinnerSize} /> : startIcon;
   const hasStartIcon = resolvedStartIcon !== undefined;
   const hasEndIcon = endIcon !== undefined;
 
@@ -81,13 +77,13 @@ export const Button: FC<Props> = ({
       'border-transparent bg-secondary-bg text-secondary-fg hover:bg-secondary-bg-emphasize/80 active:bg-secondary-bg-emphasize':
         variant === 'solid' && color === 'secondary',
       'border-transparent bg-bg-subtle text-fg-base hover:bg-bg-mute/80 active:bg-bg-mute':
-        variant === 'solid' && color === 'gray',
+        variant === 'solid' && color === 'base',
       'border-primary-border bg-bg-base text-primary-fg hover:bg-bg-subtle active:bg-bg-mute':
         variant === 'outline' && color === 'primary',
       'border-secondary-border bg-bg-base text-secondary-fg hover:bg-bg-subtle active:bg-bg-mute':
         variant === 'outline' && color === 'secondary',
       'border-border-base bg-bg-base text-fg-base hover:bg-bg-subtle active:bg-bg-mute':
-        variant === 'outline' && color === 'gray',
+        variant === 'outline' && color === 'base',
       'border-transparent bg-transparent text-fg-mute hover:bg-bg-subtle hover:text-fg-base active:bg-bg-mute active:text-fg-base':
         variant === 'skeleton',
     },
@@ -129,7 +125,7 @@ export const Button: FC<Props> = ({
         'cursor-not-allowed opacity-35 hover:bg-secondary-bg active:bg-secondary-bg':
           isDisabled && variant === 'solid' && color === 'secondary',
         'cursor-not-allowed opacity-35 hover:bg-bg-subtle active:bg-bg-subtle':
-          isDisabled && variant === 'solid' && color === 'gray',
+          isDisabled && variant === 'solid' && color === 'base',
         'cursor-not-allowed bg-bg-base opacity-35':
           isDisabled && variant === 'outline',
         'cursor-not-allowed bg-transparent text-fg-mute opacity-35':

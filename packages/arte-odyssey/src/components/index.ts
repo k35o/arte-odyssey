@@ -1,5 +1,5 @@
 export { Button } from './buttons/button';
-export { IconButton } from './buttons/icon-button';
+export { IconButton, type IconButtonTriggerProps } from './buttons/icon-button';
 export { Accordion } from './data-display/accordion';
 export { Avatar } from './data-display/avatar';
 export { Badge } from './data-display/badge';
@@ -7,14 +7,14 @@ export { Card } from './data-display/card';
 export { Code } from './data-display/code';
 export { Heading } from './data-display/heading';
 export { Table } from './data-display/table';
-export { Alert } from './feedback/alert';
+export { Alert, type AlertAction } from './feedback/alert';
 export { Progress } from './feedback/progress';
 export { Skeleton } from './feedback/skeleton';
 export { Spinner } from './feedback/spinner';
 export { ToastProvider, useToast } from './feedback/toast';
 export { Autocomplete } from './form/autocomplete';
 export { Checkbox } from './form/checkbox';
-export { CheckboxCard } from './form/checkbox-card';
+export { CheckboxCard, type CheckboxCardOption } from './form/checkbox-card';
 export { CheckboxGroup } from './form/checkbox-group';
 export { FileField } from './form/file-field';
 export { Form } from './form/form';
@@ -22,7 +22,7 @@ export { FormControl } from './form/form-control';
 export { NumberField } from './form/number-field';
 export { PasswordInput } from './form/password-input';
 export { Radio } from './form/radio';
-export { RadioCard } from './form/radio-card';
+export { RadioCard, type RadioCardOption } from './form/radio-card';
 export { Select } from './form/select';
 export { Slider } from './form/slider';
 export { Switch } from './form/switch';
@@ -42,10 +42,16 @@ export { Drawer } from './overlays/drawer';
 export { DropdownMenu } from './overlays/dropdown-menu';
 export { ListBox } from './overlays/list-box';
 export { Modal } from './overlays/modal';
-export { Popover, useOpenContext } from './overlays/popover';
-export { Tooltip } from './overlays/tooltip';
+export {
+  Popover,
+  type PopoverContentProps,
+  type PopoverTriggerProps,
+  useOpenContext,
+} from './overlays/popover/popover';
+export { Tooltip, type TooltipTriggerProps } from './overlays/tooltip';
 export {
   ArteOdysseyProvider,
+  type Messages,
   PortalRootProvider,
   usePortalRoot,
 } from './providers';

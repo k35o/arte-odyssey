@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useRef } from 'react';
 import { expect, fn } from 'storybook/test';
 
 import { NumberField } from './number-field';
@@ -133,5 +134,32 @@ export const Disabled: Story = {
     disabled: true,
     invalid: false,
     required: false,
+  },
+};
+
+const RefRender = () => {
+  const ref = useRef<HTMLInputElement>(null);
+
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <NumberField defaultValue={0} id="number-field-ref" ref={ref} />
+      <button
+        onClick={() => {
+          ref.current?.focus();
+        }}
+        type="button"
+      >
+        focus
+      </button>
+    </div>
+  );
+};
+
+export const ForwardsRef: Story = {
+  render: () => <RefRender />,
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('button', { name: 'focus' }));
+
+    await expect(canvas.getByRole('spinbutton')).toHaveFocus();
   },
 };

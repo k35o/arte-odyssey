@@ -52,7 +52,7 @@ export const Interactive: Story = {
             >
               詳細を見る
             </Button>
-            <Button color="gray" size="sm" variant="outline">
+            <Button color="base" size="sm" variant="outline">
               保存
             </Button>
           </nav>

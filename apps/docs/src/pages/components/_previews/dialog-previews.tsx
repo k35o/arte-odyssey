@@ -28,7 +28,7 @@ export function DialogWithModalPreview() {
         onClose={() => {
           setIsOpen(false);
         }}
-        type="center"
+        placement="center"
       >
         <Dialog.Root>
           <Dialog.Header
@@ -62,7 +62,7 @@ export function AlertDialogPreview() {
         onClose={() => {
           setIsOpen(false);
         }}
-        type="center"
+        placement="center"
       >
         <Dialog.Root role="alertdialog">
           <Dialog.Header
@@ -79,7 +79,7 @@ export function AlertDialogPreview() {
               </p>
               <div className="flex justify-end gap-2">
                 <Button
-                  color="gray"
+                  color="base"
                   onClick={() => {
                     setIsOpen(false);
                   }}

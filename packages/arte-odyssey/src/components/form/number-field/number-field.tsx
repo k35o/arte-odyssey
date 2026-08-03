@@ -1,12 +1,12 @@
 'use client';
 
-import { type FC, type InputHTMLAttributes, useState } from 'react';
+import { type FC, type InputHTMLAttributes, type Ref, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import { useMessages } from '../../../i18n/context';
 import { FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
 import { ChevronIcon } from '../../icons';
-import { chain } from './../../../helpers/chain';
-import { cn } from './../../../helpers/cn';
+import { chain, cn } from './../../../helpers';
 import { useControllableState } from './../../../hooks/controllable-state';
 import { clamp } from './../../../internal/clamp';
 import { toPrecision } from './../../../internal/to-precision';
@@ -15,6 +15,7 @@ import { cast } from './cast';
 type BaseProps = {
   invalid?: boolean;
   precision?: number;
+  ref?: Ref<HTMLInputElement>;
 } & Omit<
   InputHTMLAttributes<HTMLInputElement>,
   | 'type'
@@ -57,12 +58,14 @@ export const NumberField: FC<Props> = ({
   onChange,
   onBlur,
   onKeyDown,
+  ref,
   step = 1,
   precision = 0,
   max = 9_007_199_254_740_991,
   min = -9_007_199_254_740_991,
   ...rest
 }) => {
+  const messages = useMessages();
   const [currentValue, setCurrentValue] = useControllableState<number>({
     value,
     defaultValue: defaultValue ?? 0,
@@ -144,6 +147,7 @@ export const NumberField: FC<Props> = ({
           }
         })}
         pattern="[0-9]*(.[0-9]+)?"
+        ref={ref}
         role="spinbutton"
         type="text"
         value={displayValue}
@@ -171,7 +175,7 @@ export const NumberField: FC<Props> = ({
           tabIndex={-1}
           type="button"
         >
-          <span className="sr-only">増やす</span>
+          <span className="sr-only">{messages.numberFieldIncrement}</span>
           <ChevronIcon direction="up" size="sm" />
         </button>
         <button
@@ -193,7 +197,7 @@ export const NumberField: FC<Props> = ({
           tabIndex={-1}
           type="button"
         >
-          <span className="sr-only">減らす</span>
+          <span className="sr-only">{messages.numberFieldDecrement}</span>
           <ChevronIcon direction="down" size="sm" />
         </button>
       </div>

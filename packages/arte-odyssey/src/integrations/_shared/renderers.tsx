@@ -395,11 +395,11 @@ export function renderCheckbox(
 ): ReactNode {
   return (
     <Checkbox
+      checked={checked}
       disabled={u(props.disabled)}
       label={props.label}
       name={props.name}
       onChange={onChange}
-      value={checked}
     />
   );
 }
@@ -411,13 +411,13 @@ export function renderSwitch(
 ): ReactNode {
   return (
     <Switch
+      checked={checked}
       disabled={u(props.disabled)}
       invalid={u(props.invalid)}
       label={props.label}
       name={props.name}
       onChange={onChange}
       required={u(props.required)}
-      value={checked}
     />
   );
 }
@@ -611,14 +611,14 @@ export function renderCheckboxCard(
 export function renderPagination(
   props: PaginationProps,
   currentPage: number,
-  onPageChange: (next: number) => void,
+  onChange: (next: number) => void,
 ): ReactNode {
   return (
     <Pagination
       currentPage={currentPage}
       disabled={u(props.disabled)}
       nextLabel={u(props.nextLabel)}
-      onPageChange={onPageChange}
+      onChange={onChange}
       prevLabel={u(props.prevLabel)}
       totalPages={props.totalPages}
     />
@@ -771,10 +771,10 @@ export function renderForm(props: FormProps, children: ReactNode): ReactNode {
 const OverlayWidget: FC<{
   triggerLabel: string;
   title: string;
-  type: ModalProps['type'];
+  placement: ModalProps['placement'];
   buttonProps?: Pick<ComponentProps<typeof Button>, 'size' | 'variant'>;
   children: ReactNode;
-}> = ({ triggerLabel, title, type, buttonProps, children }) => {
+}> = ({ triggerLabel, title, placement, buttonProps, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -791,7 +791,7 @@ const OverlayWidget: FC<{
         onClose={() => {
           setIsOpen(false);
         }}
-        type={type}
+        placement={placement}
       >
         <Dialog.Root>
           <Dialog.Header
@@ -813,9 +813,9 @@ export const ModalWidget: FC<{ props: ModalProps; children: ReactNode }> = ({
 }) => (
   <OverlayWidget
     buttonProps={{ size: 'md', variant: 'solid' }}
+    placement={u(props.placement)}
     title={props.title}
     triggerLabel={props.triggerLabel}
-    type={u(props.type)}
   >
     {children}
   </OverlayWidget>
@@ -826,9 +826,9 @@ export const DialogWidget: FC<{ props: DialogProps; children: ReactNode }> = ({
   children,
 }) => (
   <OverlayWidget
+    placement="center"
     title={props.title}
     triggerLabel={props.triggerLabel}
-    type="center"
   >
     {children}
   </OverlayWidget>
@@ -955,14 +955,13 @@ export function renderListBox(
   value: string,
   onChange: (next: string) => void,
 ): ReactNode {
-  const options = props.options.map((o) => ({ key: o.value, label: o.label }));
   return (
     <ListBox.Root
       onChange={onChange}
-      options={options}
+      options={props.options}
       value={value === '' ? undefined : value}
     >
-      <ListBox.Trigger />
+      <ListBox.Trigger label={u(props.label)} />
       <ListBox.Content />
     </ListBox.Root>
   );

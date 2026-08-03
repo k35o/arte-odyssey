@@ -1,15 +1,24 @@
 'use client';
 
-import { type FC, type TextareaHTMLAttributes, useEffect, useRef } from 'react';
+import {
+  type FC,
+  type Ref,
+  type TextareaHTMLAttributes,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { FOCUS_RING } from '../../_internal/focus-ring';
 import { cn } from './../../../helpers/cn';
+import { mergeRefs } from './../../../helpers/merge-refs';
 
 type Props = {
   invalid?: boolean;
   fullHeight?: boolean;
   autoResize?: boolean;
+  ref?: Ref<HTMLTextAreaElement>;
 } & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'className' | 'style'>;
 
 const resizeToContent = (el: HTMLTextAreaElement) => {
@@ -22,17 +31,21 @@ export const Textarea: FC<Props> = ({
   fullHeight = false,
   autoResize = false,
   readOnly,
+  ref,
   value,
   onInput,
   onKeyDown,
   ...rest
 }) => {
-  const ref = useRef<HTMLTextAreaElement>(null);
+  const innerRef = useRef<HTMLTextAreaElement>(null);
+  // 参照が変わるたびに React が ref の解除と再設定を行うため、
+  // 利用者が副作用付きのコールバック ref を渡しても毎レンダー走らないようにする
+  const mergedRef = useMemo(() => mergeRefs(innerRef, ref), [ref]);
   const { pending } = useFormStatus();
 
   useEffect(() => {
-    if (ref.current && autoResize) {
-      resizeToContent(ref.current);
+    if (innerRef.current && autoResize) {
+      resizeToContent(innerRef.current);
     }
   }, [autoResize, value]);
 
@@ -58,7 +71,7 @@ export const Textarea: FC<Props> = ({
         onKeyDown?.(e);
       }}
       readOnly={pending || readOnly}
-      ref={ref}
+      ref={mergedRef}
       value={value}
       {...rest}
     />

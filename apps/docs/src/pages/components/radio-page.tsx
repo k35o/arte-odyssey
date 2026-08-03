@@ -11,11 +11,11 @@ import { RadioControlledPreview } from './_previews/radio-previews';
 const radioProps: PropItem[] = [
   { name: 'aria-labelledby', types: ['string'], defaultValue: null },
   { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'options', types: ['Option[]'], defaultValue: null },
+  { name: 'options', types: ['readonly Option[]'], defaultValue: null },
   { name: 'value', types: ['string'], defaultValue: null },
   {
     name: 'onChange',
-    types: ['(value: string) => void'],
+    types: ['(value: string, event: ChangeEvent<HTMLInputElement>) => void'],
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['string'], defaultValue: null },

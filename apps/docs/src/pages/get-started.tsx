@@ -130,6 +130,11 @@ function MyComponent() {
             </LocaleAnchor>
           </li>
           <li className="list-disc">
+            <LocaleAnchor path="/i18n">
+              <T k="getStarted.nextStepsI18n" />
+            </LocaleAnchor>
+          </li>
+          <li className="list-disc">
             <Anchor href={STORYBOOK_URL} openInNewTab>
               <T k="getStarted.nextStepsStorybook" />
             </Anchor>

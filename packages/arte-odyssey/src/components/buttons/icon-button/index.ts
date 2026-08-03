@@ -1,1 +1,1 @@
-export { IconButton } from './icon-button';
+export { IconButton, type IconButtonTriggerProps } from './icon-button';

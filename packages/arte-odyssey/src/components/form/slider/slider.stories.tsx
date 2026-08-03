@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useRef } from 'react';
 import { expect } from 'storybook/test';
 
 import { Slider } from './slider';
@@ -70,5 +71,32 @@ export const FractionalRange: Story = {
     await expect(wrapper?.style.getPropertyValue('--slider-progress')).toBe(
       '50%',
     );
+  },
+};
+
+const RefRender = () => {
+  const ref = useRef<HTMLInputElement>(null);
+
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <Slider defaultValue={50} ref={ref} />
+      <button
+        onClick={() => {
+          ref.current?.focus();
+        }}
+        type="button"
+      >
+        focus
+      </button>
+    </div>
+  );
+};
+
+export const ForwardsRef: Story = {
+  render: () => <RefRender />,
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('button', { name: 'focus' }));
+
+    await expect(canvas.getByRole('slider')).toHaveFocus();
   },
 };

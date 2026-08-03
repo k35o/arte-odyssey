@@ -11,10 +11,10 @@ export function UseDisclosurePreview() {
         <Button onClick={toggle} size="sm">
           Toggle
         </Button>
-        <Button color="gray" onClick={open} size="sm">
+        <Button color="base" onClick={open} size="sm">
           Open
         </Button>
-        <Button color="gray" onClick={close} size="sm">
+        <Button color="base" onClick={close} size="sm">
           Close
         </Button>
       </div>

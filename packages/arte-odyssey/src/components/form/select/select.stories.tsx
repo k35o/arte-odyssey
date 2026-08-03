@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { useRef } from 'react';
+import { expect } from 'storybook/test';
 
 import { Select } from './select';
 
@@ -53,5 +55,39 @@ export const Disabled: Story = {
     disabled: true,
     invalid: false,
     required: false,
+  },
+};
+
+const RefRender = () => {
+  const ref = useRef<HTMLSelectElement>(null);
+
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <Select
+        id="select-ref"
+        options={[
+          { value: '2', label: '2進数' },
+          { value: '10', label: '10進数' },
+        ]}
+        ref={ref}
+      />
+      <button
+        onClick={() => {
+          ref.current?.focus();
+        }}
+        type="button"
+      >
+        focus
+      </button>
+    </div>
+  );
+};
+
+export const ForwardsRef: Story = {
+  render: () => <RefRender />,
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('button', { name: 'focus' }));
+
+    await expect(canvas.getByRole('combobox')).toHaveFocus();
   },
 };

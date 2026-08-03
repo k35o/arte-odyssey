@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, FieldsetHTMLAttributes, ReactNode } from 'react';
+import type { FC, FieldsetHTMLAttributes, ReactNode, Ref } from 'react';
 import { useId } from 'react';
 
 import { cn } from '../../../helpers/cn';
@@ -18,6 +18,7 @@ export type CheckboxCardOption = Readonly<{
 type BaseProps = {
   invalid?: boolean;
   options: readonly CheckboxCardOption[];
+  ref?: Ref<HTMLFieldSetElement>;
 } & Omit<
   FieldsetHTMLAttributes<HTMLFieldSetElement>,
   'className' | 'style' | 'children' | 'onChange' | 'defaultValue'
@@ -45,6 +46,7 @@ export const CheckboxCard: FC<Props> = ({
   value,
   defaultValue,
   onChange,
+  ref,
   ...rest
 }) => {
   const groupId = useId();
@@ -69,6 +71,7 @@ export const CheckboxCard: FC<Props> = ({
         'grid gap-3',
         disabled && 'opacity-70',
       )}
+      ref={ref}
     >
       {options.map((option) => {
         const checked = selectedValues.includes(option.value);

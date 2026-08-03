@@ -28,6 +28,7 @@ const textareaProps: PropItem[] = [
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['string'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLTextAreaElement>'], defaultValue: null },
 ];
 
 export function TextareaPage() {

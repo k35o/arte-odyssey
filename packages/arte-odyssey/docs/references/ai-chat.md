@@ -51,6 +51,8 @@ import 'streamdown/styles.css';
 
 なお本リファレンスの例で使う `useChat` は AI SDK の React バインディング（`pnpm add @ai-sdk/react`）から import する。
 
+以下に出てくる `label` / `sendLabel` などの「デフォルト」は文言辞書の既定値（日本語）。`<ArteOdysseyProvider messages={en}>` で辞書ごと切り替えられる（[i18n](components.md)）。個別の prop を渡した場合はそちらが辞書より優先される。
+
 ## 全体像
 
 `Conversation`（会話ログ）+ `Message`（吹き出し）+ `PromptInput`（入力欄）が骨組み。`Response` / `Reasoning` / `ToolInvocation` は後から足せる。

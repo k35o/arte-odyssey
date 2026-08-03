@@ -9,6 +9,7 @@ import {
 } from 'react';
 
 import { cn } from '../../../helpers/cn';
+import { useMessages } from '../../../i18n/context';
 import { IconButton } from '../../buttons/icon-button';
 import { Heading } from '../../data-display/heading';
 import { CloseIcon } from '../../icons';
@@ -23,23 +24,23 @@ export const Drawer: FC<
     side?: 'left' | 'right';
   }>
 > = ({ title, isOpen, defaultOpen, onClose, side = 'right', children }) => {
+  const messages = useMessages();
   const rootId = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   return (
     <Modal
+      aria-describedby={`${rootId}-content`}
+      aria-labelledby={`${rootId}-title`}
       defaultOpen={defaultOpen}
       isOpen={isOpen}
       onClose={onClose}
+      placement={side}
       ref={dialogRef}
-      type={side}
     >
-      <section
-        aria-describedby={`${rootId}-content`}
-        aria-labelledby={`${rootId}-title`}
-        className="vertical:flex-row flex h-full flex-col"
-        id={rootId}
-      >
+      {/* section にすると名前付き region ランドマークになるため div。
+          名前は外側の <dialog> が aria-labelledby で受け持つ */}
+      <div className="vertical:flex-row flex h-full flex-col" id={rootId}>
         <div className="flex shrink-0 items-center justify-center p-4 pb-2">
           {typeof title === 'string' ? (
             <Heading id={`${rootId}-title`} type="h3">
@@ -58,7 +59,7 @@ export const Drawer: FC<
             )}
           >
             <IconButton
-              label="閉じる"
+              label={messages.close}
               onClick={(e) => {
                 e.stopPropagation();
                 dialogRef.current?.close();
@@ -82,7 +83,7 @@ export const Drawer: FC<
           {children}
         </div>
         {/* oxlint-enable eslint-plugin-jsx-a11y/click-events-have-key-events, eslint-plugin-jsx-a11y/no-static-element-interactions */}
-      </section>
+      </div>
     </Modal>
   );
 };

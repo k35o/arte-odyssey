@@ -5,6 +5,7 @@ export const ja = {
   'nav.getStarted': 'Get Started',
   'nav.components': 'Components',
   'nav.theming': 'Theming',
+  'nav.i18n': 'i18n',
   'nav.hooks': 'Hooks',
   'nav.helpers': 'Helpers',
   'nav.generativeUi': 'Generative UI',
@@ -103,6 +104,7 @@ export const ja = {
   'getStarted.nextStepsComponents':
     'コンポーネント一覧を確認して、使用できるUIパーツを探す',
   'getStarted.nextStepsTheming': 'テーマのカスタマイズ方法を学ぶ',
+  'getStarted.nextStepsI18n': '組み込み文言を英語にする・差し替える',
   'getStarted.nextStepsStorybook':
     'Storybookで各コンポーネントの詳細なドキュメントを確認する',
   'getStarted.packageManagerLabel': 'パッケージマネージャー',
@@ -123,6 +125,8 @@ export const ja = {
   'components.common.propsTitle': 'Props',
   'components.common.inheritsLabel':
     '型ベース（内部で固定する一部 attrs は除外）:',
+  'components.common.messagesNote':
+    'Default が messages.* の props は、未指定のとき文言辞書から解決されます。差し替え方は次を参照してください:',
   'components.button.description': 'ユーザー操作を受け付けるボタン',
   'components.button.variantsTitle': 'バリアント',
   'components.button.colorsTitle': 'カラー',
@@ -183,6 +187,9 @@ export const ja = {
   'components.radio.defaultValueTitle': 'デフォルト値',
   'components.radioCard.description': '選択肢をカードで見せる単一選択',
   'components.radioCard.defaultValueTitle': 'デフォルト値',
+  'components.radioCard.formTitle': 'フォーム連携',
+  'components.radioCard.formDescription':
+    '中身は本物の input[type=radio] なので、name を渡せばブラウザが同じ名前のラジオをグループにまとめ、選択値は FormData からそのまま取り出せます。',
   'components.autocomplete.description': '入力補完付きの選択フィールド',
   'components.autocomplete.disabledTitle': '無効',
   'components.autocomplete.invalidTitle': 'エラー',
@@ -275,12 +282,12 @@ export const ja = {
   'components.icons.description': 'ArteOdysseyが提供するアイコン一覧',
   'components.icons.sizesTitle': 'サイズ',
   'components.common.basicUsageTitle': '基本的な使い方',
-  'components.modal.typesTitle': 'タイプ',
+  'components.modal.placementTitle': '配置',
   'components.toast.useToastTitle': 'useToastフック',
   'components.popover.placementTitle': '配置',
   'components.tooltip.placementTitle': '配置',
   'components.listBox.sizesTitle': 'サイズ',
-  'components.listBox.triggerIconTitle': 'TriggerIcon',
+  'components.listBox.iconTriggerTitle': 'アイコントリガー',
   'components.modal.defaultOpenTitle': 'デフォルトで開く',
   'components.dropdownMenu.sizesTitle': 'サイズ',
   'components.dropdownMenu.placementTitle': '配置',
@@ -445,6 +452,30 @@ export const ja = {
   'theming.zIndexTitle': 'Z-Index レイヤ',
   'theming.zIndexDescription':
     'オーバーレイ系コンポーネントの重なり順を定義する 3 層スケールです。trigger に紐付く浮遊 UI（Popover / DropdownMenu / ListBox / Tooltip）はoverlay、Modal / Drawer はmodal、Toast はtoastに配置されます。',
+  'i18n.introduction':
+    'コンポーネントが自前で描画する文言（閉じるボタンのラベル、必須バッジ、読み込み中の読み上げなど）は文言辞書から引かれます。辞書を差し替えれば、アプリのコードを変えずに言語や語彙を切り替えられます。',
+  'i18n.defaultTitle': '既定は日本語',
+  'i18n.defaultDescription':
+    '設定は不要です。ArteOdysseyProvider を置くだけで日本語の辞書が使われ、Provider を置いていない場合も同じ日本語にフォールバックします。',
+  'i18n.englishTitle': '英語に切り替える',
+  'i18n.englishDescription':
+    '@k8o/arte-odyssey/i18n から en を読み込み、messages に渡します。ja も同じ場所から読み込めます。',
+  'i18n.overrideTitle': '一部だけ差し替える',
+  'i18n.overrideDescription':
+    'messages は Partial<Messages> です。渡したキーだけが上書きされ、残りは日本語の既定辞書で埋まります。英語をベースに一部だけ変えたいときは en を展開してから重ねます。',
+  'i18n.priorityTitle': '優先順位',
+  'i18n.priorityDescription':
+    '同じ文言を決める経路は 3 つあり、prop > 辞書 > 既定 の順に強くなります。個別の props（Spinner の label など）は常に辞書より優先されるので、1 箇所だけ違う文言にしたいときはそちらを使ってください。',
+  'i18n.customTitle': '独自の辞書を作る',
+  'i18n.customDescription':
+    'Messages 型を注釈すれば、キーの過不足はコンパイル時に検出されます。ライブラリにキーが増えたときも型エラーで気付けます。',
+  'i18n.keysTitle': 'キー一覧',
+  'i18n.keysDescription':
+    'Messages が持つキーの全てです。値はライブラリの辞書そのものを読み込んで表示しています。',
+  'i18n.keyColumn': 'キー',
+  'i18n.usedByColumn': '使うコンポーネント',
+  'i18n.jaColumn': 'ja（既定）',
+  'i18n.enColumn': 'en',
   'sideNav.openNavigation': 'ナビゲーションを開く',
   'common.switchToDarkMode': 'ダークモードに切り替え',
   'common.switchToLightMode': 'ライトモードに切り替え',

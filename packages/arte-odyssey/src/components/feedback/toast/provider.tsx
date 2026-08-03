@@ -12,6 +12,7 @@ import {
 import { createPortal } from 'react-dom';
 
 import { cn } from './../../../helpers/cn';
+import { useMessages } from './../../../i18n/context';
 import type { Status } from './../../../types/variables';
 import {
   type ToastOptions,
@@ -26,10 +27,38 @@ const DEFAULT_DURATION_MS = 5000;
 // 依存しない(reduced motion で transition が無効でも確実に取り除くため)
 const EXIT_MS = 200;
 
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not(:disabled), [tabindex]:not([tabindex="-1"])';
+
 type ToastState = {
   toasts: ToastType[];
   // 閉じ演出中(高さ 0 へ畳む transition 中)のトースト。EXIT_MS 後に除去する
   closingIds: string[];
+  isHovered: boolean;
+  isFocused: boolean;
+};
+
+// 上限超過分を最古から追い出す。ホバー/フォーカス中は保留し、一時停止が
+// 解けた時点で改めて捌く（読んでいる最中・操作している最中のトーストが
+// inert 化されてフォーカスごと消えるのを防ぐため）
+const enforceLimit = (state: ToastState): ToastState => {
+  if (state.isHovered || state.isFocused) {
+    return state;
+  }
+  const active = state.toasts.filter(
+    (toast) => !state.closingIds.includes(toast.id),
+  );
+  const overflow = active.length - MAX_TOAST_COUNT;
+  if (overflow <= 0) {
+    return state;
+  }
+  return {
+    ...state,
+    closingIds: [
+      ...state.closingIds,
+      ...active.slice(0, overflow).map((toast) => toast.id),
+    ],
+  };
 };
 
 export const ToastProvider: FC<
@@ -38,17 +67,21 @@ export const ToastProvider: FC<
     position?: 'fixed' | 'absolute';
   }>
 > = ({ children, portalRef = null, position = 'fixed' }) => {
+  const messages = useMessages();
   const [state, setState] = useState<ToastState>({
     toasts: [],
     closingIds: [],
+    isHovered: false,
+    isFocused: false,
   });
-  const [isHovered, setIsHovered] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  // ライブリージョン(section)はトーストが増える前から DOM に存在している必要が
-  // あるため、ref ではなく state で持ちマウント直後の再レンダーで描画する
+  // document.body はレンダー中に読めない(SSR)ため、マウント後に state へ移す
   const [defaultContainer, setDefaultContainer] = useState<HTMLElement | null>(
     null,
   );
+  const viewportRef = useRef<HTMLElement | null>(null);
+  // 閉じ演出中のトーストは祖先が inert になり、ブラウザが強制的に blur するため
+  // activeElement からは追えない。focusin の時点でどのトーストにいたかを控える
+  const focusedToastIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     setDefaultContainer(document.body);
@@ -66,6 +99,7 @@ export const ToastProvider: FC<
       const timerId = window.setTimeout(() => {
         exitTimersRef.current.delete(id);
         setState((prev) => ({
+          ...prev,
           toasts: prev.toasts.filter((toast) => toast.id !== id),
           closingIds: prev.closingIds.filter((closingId) => closingId !== id),
         }));
@@ -83,49 +117,83 @@ export const ToastProvider: FC<
     };
   }, []);
 
+  // フォーカスを持っていたトーストが閉じ始めたら、フォーカスを返す
+  useEffect(() => {
+    const closedId = focusedToastIdRef.current;
+    const viewport = viewportRef.current;
+    if (
+      closedId === null ||
+      viewport === null ||
+      !state.closingIds.includes(closedId)
+    ) {
+      return;
+    }
+    focusedToastIdRef.current = null;
+
+    const focusIfPossible = (element: HTMLElement | null | undefined) => {
+      if (element === null || element === undefined || !element.isConnected) {
+        return false;
+      }
+      element.focus();
+      return viewport.ownerDocument.activeElement === element;
+    };
+
+    for (const item of viewport.querySelectorAll<HTMLElement>(
+      '[data-toast-id]:not([data-closing])',
+    )) {
+      if (
+        focusIfPossible(item.querySelector<HTMLElement>(FOCUSABLE_SELECTOR))
+      ) {
+        return;
+      }
+    }
+    const opener = state.toasts
+      .find((toast) => toast.id === closedId)
+      ?.opener?.deref();
+    if (focusIfPossible(opener)) {
+      return;
+    }
+    viewport.focus();
+  }, [state.closingIds, state.toasts]);
+
   const store = useMemo(
     () => ({
       open: (tone: Status, message: string, options?: ToastOptions) => {
         // updater は StrictMode で二重実行されうるので、非決定的な ID 生成は外で行う
         const id = crypto.randomUUID();
-        setState((prev) => {
-          const toasts: ToastType[] = [
-            ...prev.toasts,
-            {
-              id,
-              tone,
-              message,
-              duration: options?.duration ?? DEFAULT_DURATION_MS,
-              action: options?.action,
-            },
-          ];
-          const active = toasts.filter(
-            (toast) => !prev.closingIds.includes(toast.id),
-          );
-          const overflow = active.length - MAX_TOAST_COUNT;
-          if (overflow <= 0) {
-            return { toasts, closingIds: prev.closingIds };
-          }
-          // 上限を超えた分は最古のものから閉じ演出つきで退避させる
-          return {
-            toasts,
-            closingIds: [
-              ...prev.closingIds,
-              ...active.slice(0, overflow).map((toast) => toast.id),
+        const { activeElement } = document;
+        const opener =
+          activeElement instanceof HTMLElement &&
+          activeElement !== document.body
+            ? new WeakRef(activeElement)
+            : undefined;
+        setState((prev) =>
+          enforceLimit({
+            ...prev,
+            toasts: [
+              ...prev.toasts,
+              {
+                id,
+                tone,
+                message,
+                duration: options?.duration ?? DEFAULT_DURATION_MS,
+                action: options?.action,
+                opener,
+              },
             ],
-          };
-        });
+          }),
+        );
       },
       close: (id: string) => {
         setState((prev) =>
           prev.closingIds.includes(id)
             ? prev
-            : { toasts: prev.toasts, closingIds: [...prev.closingIds, id] },
+            : { ...prev, closingIds: [...prev.closingIds, id] },
         );
       },
       closeAll: () => {
         setState((prev) => ({
-          toasts: prev.toasts,
+          ...prev,
           closingIds: prev.toasts.map((toast) => toast.id),
         }));
       },
@@ -133,8 +201,23 @@ export const ToastProvider: FC<
     [],
   );
 
+  const setHovered = (isHovered: boolean) => {
+    setState((prev) =>
+      prev.isHovered === isHovered
+        ? prev
+        : enforceLimit({ ...prev, isHovered }),
+    );
+  };
+  const setFocused = (isFocused: boolean) => {
+    setState((prev) =>
+      prev.isFocused === isFocused
+        ? prev
+        : enforceLimit({ ...prev, isFocused }),
+    );
+  };
+
   const container = portalRef?.current ?? defaultContainer;
-  const isPaused = isHovered || isFocused;
+  const isPaused = state.isHovered || state.isFocused;
 
   return (
     <ToastStoreContext value={store}>
@@ -143,29 +226,41 @@ export const ToastProvider: FC<
         ? createPortal(
             <section
               // 空の間は名前を付けず region ランドマークにしない（複数 Provider の
-              // 共存時に同名ランドマークが重複して axe の landmark-unique に反するため）。
-              // aria-live 自体は最初から存在し、初回トーストも読み上げ対象になる
-              aria-label={state.toasts.length > 0 ? '通知' : undefined}
-              aria-live="polite"
+              // 共存時に同名ランドマークが重複して axe の landmark-unique に反するため）
+              aria-label={
+                state.toasts.length > 0 ? messages.toastRegion : undefined
+              }
               className={cn(
                 'bottom-3 z-toast flex w-full flex-col items-center justify-center',
                 position === 'fixed' && 'fixed',
                 position === 'absolute' && 'absolute',
               )}
               onBlur={(event) => {
-                if (!event.currentTarget.contains(event.relatedTarget)) {
-                  setIsFocused(false);
+                if (event.currentTarget.contains(event.relatedTarget)) {
+                  return;
+                }
+                setFocused(false);
+                // 閉じ演出中(inert)の要素からの blur はブラウザによる強制 blur。
+                // 返還先を決めるまでフォーカス位置を捨てない
+                if (event.target.closest('[data-closing]') === null) {
+                  focusedToastIdRef.current = null;
                 }
               }}
-              onFocus={() => {
-                setIsFocused(true);
+              onFocus={(event) => {
+                const item =
+                  event.target.closest<HTMLElement>('[data-toast-id]');
+                focusedToastIdRef.current = item?.dataset.toastId ?? null;
+                // 返還先の最終手段である viewport 自身へのフォーカスでは止めない
+                setFocused(item !== null);
               }}
               onPointerEnter={() => {
-                setIsHovered(true);
+                setHovered(true);
               }}
               onPointerLeave={() => {
-                setIsHovered(false);
+                setHovered(false);
               }}
+              ref={viewportRef}
+              tabIndex={-1}
             >
               {state.toasts.map((toast) => {
                 const isClosing = state.closingIds.includes(toast.id);
@@ -173,12 +268,13 @@ export const ToastProvider: FC<
                   <div
                     className="ao-toast-item w-full justify-items-center"
                     data-closing={isClosing || undefined}
+                    data-toast-id={toast.id}
                     // 閉じ演出中は不可視のままフォーカス可能な要素が残らないようにする
                     inert={isClosing || undefined}
                     key={toast.id}
                   >
                     <div className="min-h-0">
-                      {/* role は Alert 自身が tone に応じて持つ(status / alert) */}
+                      {/* 読み上げは Alert 自身の role(status / alert)に一本化する */}
                       <div className="ao-toast-enter shadow-lg">
                         <Toast
                           action={toast.action}

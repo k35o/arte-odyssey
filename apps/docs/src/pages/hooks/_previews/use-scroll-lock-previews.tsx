@@ -11,7 +11,7 @@ export function UseScrollLockPreview() {
       <Button onClick={lock} size="sm">
         Lock body
       </Button>
-      <Button color="gray" onClick={unlock} size="sm">
+      <Button color="base" onClick={unlock} size="sm">
         Unlock body
       </Button>
     </div>
@@ -28,7 +28,7 @@ export function UseScrollLockTargetPreview() {
         <Button onClick={lock} size="sm">
           Lock area
         </Button>
-        <Button color="gray" onClick={unlock} size="sm">
+        <Button color="base" onClick={unlock} size="sm">
           Unlock area
         </Button>
       </div>

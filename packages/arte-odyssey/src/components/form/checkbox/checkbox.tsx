@@ -1,6 +1,6 @@
 'use client';
 
-import type { ChangeEvent, FC, InputHTMLAttributes } from 'react';
+import type { ChangeEvent, FC, InputHTMLAttributes, Ref } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { FOCUS_RING_PEER } from '../../_internal/focus-ring';
@@ -12,6 +12,7 @@ import { useControllableState } from './../../../hooks/controllable-state';
 type BaseProps = {
   itemValue?: string;
   label: string;
+  ref?: Ref<HTMLInputElement>;
 } & Omit<
   InputHTMLAttributes<HTMLInputElement>,
   | 'type'
@@ -25,14 +26,14 @@ type BaseProps = {
 >;
 
 type ControlledProps = {
-  value: boolean;
+  checked: boolean;
   onChange: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
   defaultChecked?: never;
 };
 
 type UncontrolledProps = {
   defaultChecked?: boolean;
-  value?: never;
+  checked?: never;
   onChange?: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -43,15 +44,16 @@ export const Checkbox: FC<Props> = ({
   itemValue,
   disabled = false,
   label,
-  value,
+  checked,
   defaultChecked,
   onChange,
+  ref,
   ...rest
 }) => {
   const groupContext = useCheckboxGroupContext();
   const { pending } = useFormStatus();
   const [internalChecked, setInternalChecked] = useControllableState({
-    value,
+    value: checked,
     defaultValue: defaultChecked ?? false,
   });
   const groupItemValue = itemValue ?? '';
@@ -60,10 +62,10 @@ export const Checkbox: FC<Props> = ({
     throw new Error('Checkbox inside CheckboxGroup requires itemValue');
   }
 
-  const isControlled = value !== undefined;
+  const isControlled = checked !== undefined;
   const disabledResolved =
     disabled || groupContext?.disabled === true || pending;
-  const checked = groupContext
+  const isChecked = groupContext
     ? groupContext.currentValue.includes(groupItemValue)
     : internalChecked;
 
@@ -85,7 +87,7 @@ export const Checkbox: FC<Props> = ({
       <input
         {...rest}
         {...(groupContext || isControlled
-          ? { checked: groupContext ? checked : value }
+          ? { checked: isChecked }
           : { defaultChecked })}
         className="peer sr-only"
         disabled={disabledResolved}
@@ -98,6 +100,7 @@ export const Checkbox: FC<Props> = ({
 
           setChecked(event.target.checked, event);
         }}
+        ref={ref}
         type="checkbox"
         value={groupContext ? groupItemValue : undefined}
       />
@@ -107,12 +110,12 @@ export const Checkbox: FC<Props> = ({
           'inline-flex size-5 items-center justify-center rounded-md border-2 transition-colors',
           FOCUS_RING_PEER,
           disabledResolved && 'border-border-mute bg-bg-mute',
-          checked
+          isChecked
             ? 'border-border-base bg-primary-bg text-fg-base'
             : 'border-border-mute bg-bg-base',
         )}
       >
-        {checked ? <CheckIcon size="sm" /> : null}
+        {isChecked ? <CheckIcon size="sm" /> : null}
       </span>
       <span className="text-lg">{label}</span>
     </label>

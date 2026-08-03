@@ -5,6 +5,7 @@ import {
   type FC,
   type FieldsetHTMLAttributes,
   type PropsWithChildren,
+  type Ref,
   use,
   useCallback,
   useMemo,
@@ -31,6 +32,7 @@ type RootBaseProps = PropsWithChildren<
     invalid?: boolean;
     required?: boolean;
     name: string;
+    ref?: Ref<HTMLFieldSetElement>;
   } & Omit<
     FieldsetHTMLAttributes<HTMLFieldSetElement>,
     'className' | 'style' | 'onChange' | 'defaultValue' | 'name'
@@ -59,6 +61,7 @@ const Root: FC<RootProps> = ({
   required = false,
   name,
   onChange,
+  ref,
   value,
   ...rest
 }) => {
@@ -95,6 +98,7 @@ const Root: FC<RootProps> = ({
       aria-invalid={invalid}
       aria-required={required}
       className={cn('flex flex-col gap-2', disabled && 'cursor-not-allowed')}
+      ref={ref}
     >
       <CheckboxGroupContext value={contextValue}>
         {children}

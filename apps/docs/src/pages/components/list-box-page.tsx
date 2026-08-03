@@ -8,8 +8,8 @@ import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 import {
   ListBoxBasicPreview,
+  ListBoxIconTriggerPreview,
   ListBoxSizesPreview,
-  ListBoxTriggerIconPreview,
 } from './_previews/list-box-previews';
 
 const listBoxRootProps: PropItem[] = [
@@ -18,11 +18,11 @@ const listBoxRootProps: PropItem[] = [
     types: ['Placement'],
     defaultValue: "'bottom'",
   },
-  { name: 'options', types: ['Option[]'], defaultValue: null },
+  { name: 'options', types: ['readonly Option[]'], defaultValue: null },
   { name: 'value', types: ['string', 'undefined'], defaultValue: null },
   {
     name: 'onChange',
-    types: ['(key: string) => void'],
+    types: ['(value: string) => void'],
     defaultValue: null,
   },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
@@ -34,15 +34,17 @@ const listBoxTriggerProps: PropItem[] = [
     types: ["'sm'", "'md'", "'lg'"],
     defaultValue: "'md'",
   },
+  { name: 'label', types: ['string'], defaultValue: null },
 ];
 
-const listBoxTriggerIconProps: PropItem[] = [
+const listBoxIconTriggerProps: PropItem[] = [
   {
     name: 'size',
     types: ["'sm'", "'md'", "'lg'"],
     defaultValue: "'md'",
   },
   { name: 'icon', types: ['ReactElement'], defaultValue: null },
+  { name: 'label', types: ['string'], defaultValue: null },
 ];
 
 const listBoxContentProps: PropItem[] = [
@@ -85,22 +87,22 @@ export function ListBoxPage() {
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
-            code={`const OPTIONS = [
-  { key: 'apple', label: 'Apple' },
-  { key: 'banana', label: 'Banana' },
-  { key: 'cherry', label: 'Cherry' },
-  { key: 'grape', label: 'Grape' },
-  { key: 'melon', label: 'Melon' },
+            code={`const OPTIONS: readonly Option[] = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'cherry', label: 'Cherry' },
+  { value: 'grape', label: 'Grape' },
+  { value: 'melon', label: 'Melon' },
 ];
 
 const [selected, setSelected] = useState<string>();
 
 <ListBox.Root
-  onChange={(key) => setSelected(key)}
+  onChange={(value) => setSelected(value)}
   options={OPTIONS}
   value={selected}
 >
-  <ListBox.Trigger />
+  <ListBox.Trigger label="Fruit" />
   <ListBox.Content />
 </ListBox.Root>`}
           >
@@ -114,17 +116,17 @@ const [selected, setSelected] = useState<string>();
           </Heading>
           <ComponentPreview
             code={`<ListBox.Root onChange={onChange} options={OPTIONS} value={value}>
-  <ListBox.Trigger size="sm" />
+  <ListBox.Trigger label="Fruit (sm)" size="sm" />
   <ListBox.Content />
 </ListBox.Root>
 
 <ListBox.Root onChange={onChange} options={OPTIONS} value={value}>
-  <ListBox.Trigger size="md" />
+  <ListBox.Trigger label="Fruit (md)" size="md" />
   <ListBox.Content />
 </ListBox.Root>
 
 <ListBox.Root onChange={onChange} options={OPTIONS} value={value}>
-  <ListBox.Trigger size="lg" />
+  <ListBox.Trigger label="Fruit (lg)" size="lg" />
   <ListBox.Content />
 </ListBox.Root>`}
           >
@@ -134,17 +136,17 @@ const [selected, setSelected] = useState<string>();
 
         <div className="flex flex-col gap-4">
           <Heading type="h3">
-            <T k="components.listBox.triggerIconTitle" />
+            <T k="components.listBox.iconTriggerTitle" />
           </Heading>
           <ComponentPreview
             code={`import { ListIcon } from '@k8o/arte-odyssey';
 
 <ListBox.Root onChange={onChange} options={OPTIONS} value={value}>
-  <ListBox.TriggerIcon icon={<ListIcon />} />
+  <ListBox.IconTrigger icon={<ListIcon />} label="Fruit" />
   <ListBox.Content />
 </ListBox.Root>`}
           >
-            <ListBoxTriggerIconPreview />
+            <ListBoxIconTriggerPreview />
           </ComponentPreview>
         </div>
       </section>
@@ -158,8 +160,8 @@ const [selected, setSelected] = useState<string>();
         <PropsTable items={listBoxRootProps} />
         <Heading type="h3">ListBox.Trigger</Heading>
         <PropsTable items={listBoxTriggerProps} />
-        <Heading type="h3">ListBox.TriggerIcon</Heading>
-        <PropsTable items={listBoxTriggerIconProps} />
+        <Heading type="h3">ListBox.IconTrigger</Heading>
+        <PropsTable items={listBoxIconTriggerProps} />
         <Heading type="h3">ListBox.Content</Heading>
         <PropsTable items={listBoxContentProps} />
       </section>

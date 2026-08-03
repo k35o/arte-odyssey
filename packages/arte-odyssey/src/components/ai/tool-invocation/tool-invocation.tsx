@@ -2,6 +2,7 @@
 
 import type { FC, ReactNode } from 'react';
 
+import { useMessages } from '../../../i18n/context';
 import { Spinner } from '../../feedback/spinner';
 import { AlertIcon, CheckIcon } from '../../icons';
 import { Collapsible } from '../_internal/collapsible';
@@ -56,39 +57,47 @@ export const ToolInvocation: FC<Props> = ({
   isOpen,
   defaultOpen = false,
   onChange,
-}) => (
-  <Collapsible
-    defaultOpen={defaultOpen}
-    icon={stateIcon(state)}
-    isOpen={isOpen}
-    label={<span className="text-fg-base font-medium">{name}</span>}
-    onChange={onChange}
-  >
-    <div className="flex flex-col gap-3">
-      {input !== undefined && (
-        <div>
-          <p className="text-fg-mute mb-1 text-xs font-medium">入力</p>
-          <pre className="bg-bg-mute text-fg-base overflow-x-auto rounded-lg p-2 text-xs">
-            {stringify(input)}
-          </pre>
-        </div>
-      )}
-      {state === 'output-error' ? (
-        <p className="text-fg-error text-sm">
-          {errorText ?? 'ツールの実行でエラーが発生しました。'}
-        </p>
-      ) : output === undefined ? null : (
-        <div>
-          <p className="text-fg-mute mb-1 text-xs font-medium">出力</p>
-          {typeof output === 'string' ? (
+}) => {
+  const messages = useMessages();
+
+  return (
+    <Collapsible
+      defaultOpen={defaultOpen}
+      icon={stateIcon(state)}
+      isOpen={isOpen}
+      label={<span className="text-fg-base font-medium">{name}</span>}
+      onChange={onChange}
+    >
+      <div className="flex flex-col gap-3">
+        {input !== undefined && (
+          <div>
+            <p className="text-fg-mute mb-1 text-xs font-medium">
+              {messages.toolInput}
+            </p>
             <pre className="bg-bg-mute text-fg-base overflow-x-auto rounded-lg p-2 text-xs">
-              {output}
+              {stringify(input)}
             </pre>
-          ) : (
-            output
-          )}
-        </div>
-      )}
-    </div>
-  </Collapsible>
-);
+          </div>
+        )}
+        {state === 'output-error' ? (
+          <p className="text-fg-error text-sm">
+            {errorText ?? messages.toolError}
+          </p>
+        ) : output === undefined ? null : (
+          <div>
+            <p className="text-fg-mute mb-1 text-xs font-medium">
+              {messages.toolOutput}
+            </p>
+            {typeof output === 'string' ? (
+              <pre className="bg-bg-mute text-fg-base overflow-x-auto rounded-lg p-2 text-xs">
+                {output}
+              </pre>
+            ) : (
+              output
+            )}
+          </div>
+        )}
+      </div>
+    </Collapsible>
+  );
+};

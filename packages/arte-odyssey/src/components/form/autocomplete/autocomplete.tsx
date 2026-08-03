@@ -7,6 +7,7 @@ import {
   type InputHTMLAttributes,
   type KeyboardEventHandler,
   type MouseEventHandler,
+  type Ref,
   useCallback,
   useRef,
   useState,
@@ -20,6 +21,7 @@ import {
   useDisclosure,
   useWritingMode,
 } from '../../../hooks';
+import { useMessages } from '../../../i18n/context';
 import type { Option } from '../../../types/variables';
 import { FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
 import { IconButton } from '../../buttons/icon-button';
@@ -31,6 +33,9 @@ type BaseProps = {
   id: string;
   invalid?: boolean;
   options: readonly Option[];
+  // フォームライブラリの register が入力値を読めるよう、ref は外枠ではなく
+  // combobox の input に向ける
+  ref?: Ref<HTMLInputElement>;
 } & Omit<
   InputHTMLAttributes<HTMLInputElement>,
   | 'type'
@@ -73,19 +78,21 @@ export const Autocomplete: FC<Props> = ({
   value,
   defaultValue,
   onChange,
-  placeholder = '入力して絞り込めます',
+  placeholder,
   onBlur,
   onClick,
   onKeyDown,
+  ref,
   ...rest
 }) => {
+  const messages = useMessages();
   const [currentValue, handleChange] = useControllableState({
     value,
     defaultValue: defaultValue ?? [],
     onChange,
   });
 
-  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { isOpen, open, close } = useDisclosure();
   const [text, setText] = useState('');
   const [selectIndex, setSelectIndex] = useState<number>();
@@ -93,7 +100,7 @@ export const Autocomplete: FC<Props> = ({
   // floating-ui の位置決め（offset/flip/size/autoUpdate）を CSS Anchor Positioning に置換。
   // reference の inline 寸法に幅を合わせる。縦書きでは inline 軸が物理 height になるため、
   // 元実装と同様に書字方向で anchor-size の物理キーワードを切り替える（論理 inline より広くサポート）。
-  const writingMode = useWritingMode(ref);
+  const writingMode = useWritingMode(containerRef);
   const anchorName = `--ao-ac-${id.replaceAll(/[^a-zA-Z0-9_-]/gu, '')}`;
   const listboxStyle: CSSProperties & {
     positionAnchor?: string;
@@ -131,7 +138,7 @@ export const Autocomplete: FC<Props> = ({
     setSelectIndex(undefined);
   }, [close]);
 
-  useClickAway(ref, reset, isOpen);
+  useClickAway(containerRef, reset, isOpen);
 
   const scrollActiveIntoView = useCallback((node: HTMLLIElement | null) => {
     node?.scrollIntoView({ block: 'nearest' });
@@ -139,7 +146,7 @@ export const Autocomplete: FC<Props> = ({
 
   const setReferenceRef = useCallback(
     (node: HTMLDivElement | null) => {
-      ref.current = node;
+      containerRef.current = node;
       if (node) {
         node.style.setProperty('anchor-name', anchorName);
       }
@@ -252,7 +259,7 @@ export const Autocomplete: FC<Props> = ({
               >
                 {label}
                 <IconButton
-                  label="閉じる"
+                  label={messages.autocompleteRemoveTag}
                   onClick={(e) => {
                     e.stopPropagation();
                     reset();
@@ -294,7 +301,8 @@ export const Autocomplete: FC<Props> = ({
             }}
             onClick={chain(handleClick, onClick)}
             onKeyDown={chain(handleKeyDown, onKeyDown)}
-            placeholder={placeholder}
+            placeholder={placeholder ?? messages.autocompletePlaceholder}
+            ref={ref}
             role="combobox"
             type="text"
             value={text}
@@ -302,7 +310,7 @@ export const Autocomplete: FC<Props> = ({
         </div>
         {currentValue.length > 0 && (
           <IconButton
-            label="すべて閉じる"
+            label={messages.autocompleteClear}
             onClick={(e) => {
               e.stopPropagation();
               handleChange([]);
@@ -331,7 +339,7 @@ export const Autocomplete: FC<Props> = ({
           >
             {filteredOptions.length === 0 && (
               <li className="text-fg-mute px-3 py-2" role="presentation">
-                該当なし
+                {messages.autocompleteEmpty}
               </li>
             )}
             {filteredOptions.map((option, idx) => {

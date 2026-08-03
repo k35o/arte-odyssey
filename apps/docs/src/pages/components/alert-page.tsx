@@ -8,6 +8,7 @@ import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 import {
   AlertActionButtonPreview,
+  AlertActionLinkPreview,
   AlertDismissiblePreview,
   AlertWithActionPreview,
 } from './_previews/alert-previews';
@@ -36,7 +37,7 @@ const alertProps: PropItem[] = [
   {
     name: 'closeLabel',
     types: ['string'],
-    defaultValue: "'閉じる'",
+    defaultValue: 'messages.close',
   },
 ];
 
@@ -161,18 +162,7 @@ export function AlertPage() {
   }}
 />`}
           >
-            <Alert
-              action={{
-                label: 'Learn more',
-                renderItem: ({ children }) => (
-                  <Anchor href="https://example.com" openInNewTab>
-                    {children}
-                  </Anchor>
-                ),
-              }}
-              message="A new version is available."
-              tone="info"
-            />
+            <AlertActionLinkPreview />
             <AlertActionButtonPreview />
           </ComponentPreview>
         </div>
@@ -220,6 +210,7 @@ export function AlertPage() {
         <PropsTable
           inherits="HTMLAttributes<HTMLDivElement>"
           items={alertProps}
+          messagesNote
         />
       </section>
     </div>

@@ -93,6 +93,22 @@ Props:
 - `Breadcrumb.List`: `size?: 'sm' | 'md' | 'lg'`
 - `Breadcrumb.Link`: `href: string`, `current?: boolean`, `component?: FC`（カスタムリンクコンポーネント）
 
+### Pagination
+
+ページ送り。前後ボタンと現在ページの表示のみで、ページ番号のリストは持たない。
+
+```tsx
+import { Pagination } from '@k8o/arte-odyssey';
+
+<Pagination currentPage={page} onChange={setPage} totalPages={10} />
+```
+
+Props:
+- `totalPages: number`（必須）, `currentPage: number`（必須）
+- `onChange: (page: number) => void`（必須）
+- `disabled?: boolean`
+- `prevLabel?: string`, `nextLabel?: string`, `aria-label?: string`（未指定なら文言辞書の既定値）
+
 ### Card
 
 コンテンツをグループ化するカード。
@@ -203,7 +219,7 @@ import { Button } from '@k8o/arte-odyssey';
 
 <Button
   size="sm" | "md" | "lg"
-  color="primary" | "secondary" | "gray"
+  color="primary" | "secondary" | "base"
   variant="solid" | "outline" | "skeleton"
   fullWidth={false}
   startIcon={<Icon />}
@@ -214,11 +230,19 @@ import { Button } from '@k8o/arte-odyssey';
 </Button>
 ```
 
+Props:
+- `color?: 'primary' | 'secondary' | 'base'`（デフォルト: `'primary'`）
+- `variant?: 'solid' | 'outline' | 'skeleton'`（デフォルト: `'solid'`）
+- `size?: 'sm' | 'md' | 'lg'`, `fullWidth?: boolean`, `isActive?: boolean`
+- `type?: 'button' | 'submit'`（デフォルト: `'button'`）
+- `onAction?: () => void | Promise<void>`（非同期処理を `useTransition` で包み、保留中はスピナー表示。素のイベントが要るときは `onClick`）
+- そのほか `<button>` の HTML 属性。`<button>` に無い属性（`href` 等）は渡せないので、リンクにするときは `renderItem` を使う
+
 リンクとしてレンダーする場合は `renderItem` prop を使う。Next.js の `<Link>` などにも応用できる。
 
 ```tsx
 <Button
-  color="gray"
+  color="base"
   variant="outline"
   renderItem={({ className, children }) => (
     <a className={className} href="/page">
@@ -285,6 +309,8 @@ Props:
 
 フォーム系コンポーネントの boolean props は HTML 標準の属性名（`disabled` / `required` / `invalid`）で、対応する `HTMLAttributes` を extend するため `name` / `placeholder` / `autoComplete` / `aria-describedby` などの HTML 属性がそのまま渡せる。
 
+`ref` は実要素（`input` / `textarea` / `select` / `fieldset`）に届く。内部で ref を使う `Textarea` / `FileField` も内部 ref と合成されるため、`react-hook-form` の `register()` などをそのまま渡せる。`Radio`（複数の input を描くグループ）と `FormControl`（ラッパー）は `ref` を受け取らない。
+
 ### FormControl
 
 フォームフィールドのラッパー。`renderInput` で入力コンポーネントに id / aria 属性等を渡す。
@@ -327,12 +353,16 @@ import { TextField } from '@k8o/arte-odyssey';
   required={false}
   placeholder="example@mail.com"
 />
+
+// type も渡せる（デフォルト: "text"）
+<TextField id="tel" type="tel" inputMode="numeric" />
 ```
 
 Props:
-- `invalid?: boolean`
-- そのほか `<input>` の HTML 属性（`id`, `name`, `disabled`, `required`, `placeholder`, `aria-describedby` 等）をそのまま受け取る
+- `invalid?: boolean`, `ref?: Ref<HTMLInputElement>`
+- そのほか `<input>` の HTML 属性（`type`, `id`, `name`, `disabled`, `required`, `placeholder`, `aria-describedby` 等）をそのまま受け取る
 - Controlled: `value` + `onChange` / Uncontrolled: `defaultValue`
+- パスワードは `type="password"` ではなく `PasswordInput` を使う（表示/非表示トグルが `type` を占有するため `PasswordInput` は `type` を受け取らない）
 
 ### Textarea
 
@@ -363,6 +393,8 @@ Props:
 import { Checkbox } from '@k8o/arte-odyssey';
 
 <Checkbox label="同意する" disabled={false} />
+// Controlled
+<Checkbox checked={checked} label="同意する" onChange={onChange} />
 // CheckboxGroup 内で使う場合
 <Checkbox label="選択肢A" itemValue="a" />
 ```
@@ -370,8 +402,8 @@ import { Checkbox } from '@k8o/arte-odyssey';
 Props:
 - `label: string`（必須）
 - `itemValue?: string`（CheckboxGroup 内で必須）
-- `disabled?: boolean`
-- Controlled: `value: boolean` + `onChange: (checked, event) => void` / Uncontrolled: `defaultChecked`
+- `disabled?: boolean`, `ref?: Ref<HTMLInputElement>`
+- Controlled: `checked: boolean` + `onChange: (checked, event) => void` / Uncontrolled: `defaultChecked`
 
 ### CheckboxGroup
 
@@ -391,7 +423,7 @@ Props (Root):
 - `disabled?: boolean`, `invalid?: boolean`, `required?: boolean`
 - Controlled: `value: string[]` + `onChange` / Uncontrolled: `defaultValue?: string[]`
 
-Note: `CheckboxGroup.Item` は `Checkbox` コンポーネントのエイリアス。
+Note: `CheckboxGroup.Item` は `Checkbox` コンポーネントのエイリアス。グループの選択状態は `value`（`string[]`）で持つ。単体の `Checkbox` が真偽値を `checked` で持つのとは別物なので混同しないこと。
 
 ### CheckboxCard
 
@@ -443,7 +475,7 @@ Props:
 
 ### RadioCard
 
-カードスタイルのラジオ選択。
+カードスタイルのラジオ選択。`fieldset[role="radiogroup"]` の中に本物の `input[type="radio"]` を並べるため、矢印キーのローミングと単一選択はブラウザに任せている。テストからは `getByRole('radio', { checked })` で参照する。
 
 ```tsx
 import { RadioCard } from '@k8o/arte-odyssey';
@@ -462,8 +494,8 @@ import { RadioCard } from '@k8o/arte-odyssey';
 
 Props:
 - `aria-labelledby: string`（必須）
-- `name?: string`, `disabled?: boolean`, `invalid?: boolean`
-- `options: ReadonlyArray<{ value: string; label: string; description?: string; visual?: ReactNode; disabled?: boolean }>`
+- `name?: string`, `disabled?: boolean`, `invalid?: boolean`, `ref?: Ref<HTMLFieldSetElement>`
+- `options: readonly RadioCardOption[]`（`{ value: string; label: string; description?: string; visual?: ReactNode; disabled?: boolean }`。型はルートから export）
 - Controlled: `value: string` + `onChange: (value) => void` / Uncontrolled: `defaultValue?: string`
 
 ### Select
@@ -566,16 +598,16 @@ Props:
 import { Switch } from '@k8o/arte-odyssey';
 
 <Switch
+  checked={checked}
   label="通知を有効にする"
-  value={value}
   onChange={onChange}
 />
 ```
 
 Props:
 - `label: string`（必須）
-- `disabled?: boolean`, `invalid?: boolean`, `required?: boolean`
-- Controlled: `value: boolean` + `onChange: (checked, event) => void` / Uncontrolled: `defaultChecked`
+- `disabled?: boolean`, `invalid?: boolean`, `required?: boolean`, `ref?: Ref<HTMLInputElement>`
+- Controlled: `checked: boolean` + `onChange: (checked, event) => void` / Uncontrolled: `defaultChecked`
 
 ### Autocomplete
 
@@ -753,17 +785,25 @@ Props:
 ```tsx
 import { Modal } from '@k8o/arte-odyssey';
 
-<Modal isOpen={isOpen} onClose={onClose} type="center">
+<Modal isOpen={isOpen} onClose={onClose} placement="center">
   コンテンツ
+</Modal>
+
+// Dialog を入れずに直接コンテンツを置くときは名前を明示する
+<Modal aria-label="画像プレビュー" isOpen={isOpen} onClose={onClose}>
+  <img alt="" src={src} />
 </Modal>
 ```
 
 Props:
 - `isOpen?: boolean`
 - `onClose?: () => void`
-- `type?: 'center' | 'bottom' | 'right' | 'left'`
+- `placement?: 'center' | 'bottom' | 'right' | 'left'`（デフォルト: `'center'`）
 - `defaultOpen?: boolean`
+- `aria-label?: string`, `aria-labelledby?: string`, `aria-describedby?: string`
 - `ref?: RefObject<HTMLDialogElement | null>`
+
+名前の解決順は `aria-label` / `aria-labelledby` > 中の `Dialog.Root` が登録した見出し。どちらも無いと無名の dialog になる。
 
 ### Popover
 
@@ -779,9 +819,12 @@ import { Popover } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `Popover.Root`: `placement?: Placement`（デフォルト: `'bottom-start'`）, `type?: 'dialog' | 'menu' | 'listbox'`, `flipDisabled?: boolean`
+- `Popover.Root`: `placement?: Placement`（デフォルト: `'bottom-start'`）, `type?: 'dialog' | 'menu' | 'listbox'`, `flipDisabled?: boolean`, `closeOnClickAway?: boolean`, `trapFocus?: boolean`
+- `Popover.Root` の開閉状態: Controlled は `isOpen` + `onChange: (isOpen: boolean) => void`、Uncontrolled は `defaultOpen`
 - `Popover.Trigger`: `renderItem: (props) => ReactElement`
 - `Popover.Content`: `renderItem: (props) => ReactElement`
+
+Escape は入れ子のうち最も内側の 1 枚だけを閉じる。
 
 ### Tooltip
 
@@ -797,7 +840,7 @@ import { Tooltip } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `Tooltip.Root`: `placement?: Placement`
+- `Tooltip.Root`: `placement?: Placement`（デフォルト: `'bottom'`）, 開閉状態は `isOpen` / `defaultOpen` / `onChange`（Popover と同じ）
 - `Tooltip.Trigger`: `renderItem: (props) => ReactElement`
 
 ### DropdownMenu
@@ -825,6 +868,7 @@ import { DropdownMenu } from '@k8o/arte-odyssey';
 ```
 
 Props:
+- `DropdownMenu.Root`: `placement?: Placement`（デフォルト: `'bottom-start'`）, 開閉状態は `isOpen` / `defaultOpen` / `onChange`（Popover と同じ）
 - `DropdownMenu.Trigger`: `text: string`, `size?: ButtonSize`, `variant?: ButtonVariant`（`'solid' | 'outline' | 'skeleton'`）
 - `DropdownMenu.IconTrigger`: `icon: ReactNode`, `label: string`（アイコンのみのトリガー）
 - `DropdownMenu.Item`: `label: string`, `onClick: MouseEventHandler`
@@ -864,29 +908,31 @@ Props:
 
 ### ListBox
 
-リスト選択。コンパウンドコンポーネント。
+リスト選択。コンパウンドコンポーネント。選択肢は `Select` と同じ `Option`（`{ value, label }`）。
 
 ```tsx
 import { ListBox } from '@k8o/arte-odyssey';
 
 <ListBox.Root
+  onChange={(value) => setValue(value)}
   options={[
-    { key: '1', label: 'アイテム1' },
-    { key: '2', label: 'アイテム2' },
+    { value: '1', label: 'アイテム1' },
+    { value: '2', label: 'アイテム2' },
   ]}
   value="1"
-  onChange={(key) => setValue(key)}
 >
-  <ListBox.Trigger size="md" />
+  <ListBox.Trigger label="表示件数" size="md" />
   <ListBox.Content />
 </ListBox.Root>
 ```
 
 Props:
-- `ListBox.Root`: `options: Option[]`, `value: Option['key'] | undefined`, `onChange: (key) => void`, `placement?: Placement`
-- `ListBox.Trigger`: `size?: ButtonSize`
-- `ListBox.TriggerIcon`: `size?: ButtonSize`, `icon: ReactElement`（アイコンのみのトリガー）
-- `ListBox.Content`: `helpContent?: ReactElement`
+- `ListBox.Root`: `options: readonly Option[]`, `value: string | undefined`, `onChange: (value: string) => void`, `placement?: Placement`（デフォルト: `'bottom'`）
+- `ListBox.Trigger`: `size?: ButtonSize`, `label?: string`
+- `ListBox.IconTrigger`: `size?: ButtonSize`, `icon: ReactElement`, `label?: string`（アイコンのみのトリガー）
+- `ListBox.Content`: `helpContent?: ReactElement`（listbox の外側に置かれる補足表示）
+
+`label` を渡すとトリガーのアクセシブル名が「ラベル + 現在値」になる。省略すると現在値だけになるため、周囲に見出しが無いときは渡す。
 
 ### Avatar
 
@@ -938,13 +984,13 @@ import { Spinner } from '@k8o/arte-odyssey';
 
 Props:
 - `size?: 'sm' | 'md' | 'lg'`
-- `label?: string`（aria-live でスクリーンリーダーに通知）
+- `label?: string`（aria-live でスクリーンリーダーに通知。省略時は文言辞書の `loading` = 「読み込み中」）
 
 ## ユーティリティ
 
 ### ArteOdysseyProvider
 
-アプリのルートで1回ラップする。ToastProvider を含む。
+アプリのルートで1回ラップする。ToastProvider と文言辞書を含む。
 
 ```tsx
 import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
@@ -953,3 +999,53 @@ import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
   <App />
 </ArteOdysseyProvider>
 ```
+
+Props:
+- `messages?: Partial<Messages>`（省略時は日本語辞書）
+
+## i18n（文言辞書）
+
+コンポーネントが内部で持つ文言（「閉じる」「必須」「読み込み中」など）は辞書から引く。**既定は日本語**で、Provider を置かなくても、`messages` を渡さなくても日本語で動く。日本語のUIでは何も設定しなくてよい。
+
+英語にするときは `@k8o/arte-odyssey/i18n` の `en` を渡す。
+
+```tsx
+import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
+import { en } from '@k8o/arte-odyssey/i18n';
+
+<ArteOdysseyProvider messages={en}>
+  <App />
+</ArteOdysseyProvider>
+```
+
+一部だけ差し替えるときは辞書をスプレッドして上書きする（`Partial<Messages>` なので全キーを埋める必要はない）。
+
+```tsx
+<ArteOdysseyProvider messages={{ ...en, close: 'Dismiss' }}>
+  <App />
+</ArteOdysseyProvider>
+```
+
+優先順位は **コンポーネントの prop > Provider の辞書 > 既定（日本語）**。`Spinner` の `label`、`Alert` の `closeLabel`、`PasswordInput` の `showLabel` / `hideLabel`、`Pagination` の `prevLabel` / `nextLabel` のような個別の文言 prop は辞書より優先される。
+
+エクスポート（`ja` / `en` は本体のバンドルに載らないよう、ルートではなくサブパスからのみ）:
+
+```tsx
+import { en, ja, type Messages } from '@k8o/arte-odyssey/i18n';
+```
+
+`Messages` 型の全キー:
+
+| 分類 | キー |
+|------|------|
+| 共通 | `close`, `required`, `loading`, `avatar`, `color` |
+| Alert | `alertSuccess`, `alertInfo`, `alertWarning`, `alertError` |
+| Toast | `toastRegion` |
+| Autocomplete | `autocompletePlaceholder`, `autocompleteRemoveTag`, `autocompleteClear`, `autocompleteEmpty` |
+| FileField | `fileFieldRemove` |
+| NumberField | `numberFieldIncrement`, `numberFieldDecrement` |
+| PasswordInput | `passwordShow`, `passwordHide` |
+| ListBox | `listBoxPlaceholder` |
+| Breadcrumb | `breadcrumb` |
+| Pagination | `paginationLabel`, `paginationPrevious`, `paginationNext` |
+| AI チャット | `chat`, `scrollToLatest`, `reasoning`, `reasoningStreaming`, `suggestions`, `send`, `stop`, `toolInput`, `toolOutput`, `toolError` |

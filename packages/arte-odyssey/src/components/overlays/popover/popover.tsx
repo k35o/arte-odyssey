@@ -12,10 +12,11 @@ import {
 } from 'react';
 
 import { cn } from '../../../helpers';
-import { useDisclosure, useWritingMode } from '../../../hooks';
+import { useControllableState, useWritingMode } from '../../../hooks';
 import { useFocusTrap } from '../../../hooks/focus-trap';
 import type { Placement } from '../../../types/variables';
 import { getContentAnchorStyle, toAnchorName } from './anchor-positioning';
+import { pushEscapeLayer } from './escape-stack';
 import {
   type PopoverContentProps,
   PopoverProvider,
@@ -38,6 +39,9 @@ const Root: FC<
     flipDisabled?: boolean;
     closeOnClickAway?: boolean;
     trapFocus?: boolean;
+    isOpen?: boolean;
+    defaultOpen?: boolean;
+    onChange?: (isOpen: boolean) => void;
   }>
 > = ({
   children,
@@ -46,9 +50,26 @@ const Root: FC<
   flipDisabled = false,
   closeOnClickAway = true,
   trapFocus = true,
+  isOpen: isOpenProp,
+  defaultOpen = false,
+  onChange,
 }) => {
   const id = useId();
-  const { isOpen, open, close, toggle } = useDisclosure();
+  const [isOpen, setIsOpen] = useControllableState({
+    value: isOpenProp,
+    defaultValue: defaultOpen,
+    onChange,
+  });
+
+  const open = useCallback(() => {
+    setIsOpen(true);
+  }, [setIsOpen]);
+  const close = useCallback(() => {
+    setIsOpen(false);
+  }, [setIsOpen]);
+  const toggle = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, [setIsOpen]);
 
   const anchorName = toAnchorName(id);
   const triggerRef = useRef<HTMLElement | null>(null);
@@ -63,19 +84,13 @@ const Root: FC<
     [anchorName],
   );
 
+  // 開いている間だけレイヤースタックに積む。Escape は最上位の 1 枚だけが消費する。
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        close();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [close]);
+    if (!isOpen) {
+      return undefined;
+    }
+    return pushEscapeLayer(close);
+  }, [isOpen, close]);
 
   return (
     <PopoverProvider

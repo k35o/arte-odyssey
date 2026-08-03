@@ -14,15 +14,16 @@ const switchProps: PropItem[] = [
   { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
   { name: 'required', types: ['boolean'], defaultValue: 'false' },
   { name: 'label', types: ['string'], defaultValue: null },
-  { name: 'value', types: ['boolean'], defaultValue: null },
+  { name: 'checked', types: ['boolean'], defaultValue: null },
   {
     name: 'onChange',
-    types: ['(checked: boolean) => void'],
+    types: ['(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void'],
     defaultValue: null,
   },
   { name: 'defaultChecked', types: ['boolean'], defaultValue: null },
   { name: 'id', types: ['string'], defaultValue: null },
   { name: 'name', types: ['string'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
 ];
 
 export function SwitchPage() {
@@ -105,15 +106,15 @@ export function SwitchPage() {
             <T k="components.switch.controlledTitle" />
           </Heading>
           <ComponentPreview
-            code={`const [value, setValue] = useState(false);
+            code={`const [checked, setChecked] = useState(false);
 
 <Switch
+  checked={checked}
   disabled={false}
   invalid={false}
   required={false}
   label="Controlled switch"
-  onChange={(checked) => setValue(checked)}
-  value={value}
+  onChange={(next) => setChecked(next)}
 />`}
           >
             <SwitchControlledPreview />

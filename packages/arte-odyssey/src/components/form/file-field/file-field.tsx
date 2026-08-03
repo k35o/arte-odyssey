@@ -6,13 +6,16 @@ import type {
   InputHTMLAttributes,
   PropsWithChildren,
   ReactElement,
+  Ref,
 } from 'react';
 import { useCallback, useId, useMemo, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import { useMessages } from '../../../i18n/context';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
 import { createSafeContext } from './../../../helpers/create-safe-context';
+import { mergeRefs } from './../../../helpers/merge-refs';
 
 type AcceptedFile = {
   file: File;
@@ -44,6 +47,7 @@ type RootProps = PropsWithChildren<
       event?: ChangeEvent<HTMLInputElement>,
     ) => void;
     webkitDirectory?: boolean;
+    ref?: Ref<HTMLInputElement>;
   } & Omit<
     InputHTMLAttributes<HTMLInputElement>,
     | 'type'
@@ -66,10 +70,14 @@ const Root = ({
   defaultValue,
   onChange,
   webkitDirectory = false,
+  ref,
   ...rest
 }: RootProps) => {
   const generatedId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
+  // 参照が変わるたびに React が ref の解除と再設定を行うため、
+  // 利用者が副作用付きのコールバック ref を渡しても毎レンダー走らないようにする
+  const mergedRef = useMemo(() => mergeRefs(inputRef, ref), [ref]);
   const { pending } = useFormStatus();
   const disabledResolved = disabled || pending;
 
@@ -146,7 +154,7 @@ const Root = ({
           id={rest.id ?? generatedId}
           multiple={multiple}
           onChange={onFilesChange}
-          ref={inputRef}
+          ref={mergedRef}
           required={required}
           type="file"
           // @ts-expect-error -- webkitdirectoryがReactのHTMLInputElementのPropsに存在しないため
@@ -178,6 +186,7 @@ const ItemList: FC<{
   showWebkitRelativePath?: boolean;
   clearable?: boolean;
 }> = ({ showWebkitRelativePath, clearable }) => {
+  const messages = useMessages();
   const { acceptedFiles, onFileDelete } = useFileFieldContext();
 
   if (acceptedFiles.length === 0) {
@@ -208,7 +217,7 @@ const ItemList: FC<{
               <span className="text-fg-mute text-xs">{sizeInKB} KB</span>
             </div>
             {clearable === true && (
-              <IconButton label="ファイルを削除" onClick={onDelete}>
+              <IconButton label={messages.fileFieldRemove} onClick={onDelete}>
                 <CloseIcon size="sm" />
               </IconButton>
             )}

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { type ComponentProps, useState } from 'react';
+import { type ComponentProps, useRef, useState } from 'react';
 import { expect, waitFor } from 'storybook/test';
 
 import { Autocomplete } from './autocomplete';
@@ -164,6 +164,53 @@ export const EscapeCloses: Story = {
 
     await expect(canvas.queryByRole('listbox')).not.toBeInTheDocument();
     await expect(input).not.toHaveAttribute('aria-activedescendant');
+  },
+};
+
+const RefRender = () => {
+  const ref = useRef<HTMLInputElement>(null);
+
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <Autocomplete
+        id="autocomplete-ref"
+        options={[
+          { value: '2', label: '2進数' },
+          { value: '10', label: '10進数' },
+        ]}
+        ref={ref}
+      />
+      <p data-testid="outside">枠外</p>
+      <button
+        onClick={() => {
+          ref.current?.focus();
+        }}
+        type="button"
+      >
+        focus
+      </button>
+    </div>
+  );
+};
+
+// ref は combobox の input に届く。外枠は内部 ref のまま（clickaway が生きている）
+export const ForwardsRef: Story = {
+  render: () => <RefRender />,
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    await userEvent.click(canvas.getByRole('combobox'));
+    await canvas.findByRole('listbox');
+
+    await userEvent.click(canvas.getByTestId('outside'));
+
+    await expect(canvas.queryByRole('listbox')).not.toBeInTheDocument();
+    // 外枠は内部 ref のまま anchor-name を受け取る
+    await expect(
+      canvasElement.querySelector('[style*="anchor-name"]'),
+    ).not.toBeNull();
+
+    await userEvent.click(canvas.getByRole('button', { name: 'focus' }));
+
+    await expect(canvas.getByRole('combobox')).toHaveFocus();
   },
 };
 

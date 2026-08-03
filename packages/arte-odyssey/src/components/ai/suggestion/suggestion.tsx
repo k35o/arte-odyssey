@@ -3,6 +3,7 @@
 import type { FC, ReactNode } from 'react';
 
 import { cn } from '../../../helpers/cn';
+import { useMessages } from '../../../i18n/context';
 import { FOCUS_RING } from '../../_internal/focus-ring';
 
 type ListProps = {
@@ -10,11 +11,19 @@ type ListProps = {
   children: ReactNode;
 };
 
-const List: FC<ListProps> = ({ label = '候補', children }) => (
-  <div aria-label={label} className="flex flex-wrap gap-2" role="group">
-    {children}
-  </div>
-);
+const List: FC<ListProps> = ({ label, children }) => {
+  const messages = useMessages();
+
+  return (
+    <div
+      aria-label={label ?? messages.suggestions}
+      className="flex flex-wrap gap-2"
+      role="group"
+    >
+      {children}
+    </div>
+  );
+};
 
 type ItemProps = {
   value: string;

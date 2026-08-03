@@ -1,7 +1,24 @@
 'use client';
 
-import { Alert, Button } from '@k8o/arte-odyssey';
+import { Alert, Anchor, Button } from '@k8o/arte-odyssey';
 import { useState } from 'react';
+
+export function AlertActionLinkPreview() {
+  return (
+    <Alert
+      action={{
+        label: 'Learn more',
+        renderItem: ({ children }) => (
+          <Anchor href="https://example.com" openInNewTab>
+            {children}
+          </Anchor>
+        ),
+      }}
+      message="A new version is available."
+      tone="info"
+    />
+  );
+}
 
 export function AlertActionButtonPreview() {
   return (

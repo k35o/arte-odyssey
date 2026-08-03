@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { type ComponentProps, useRef, useState } from 'react';
+import { expect, fn } from 'storybook/test';
 
 import { Button } from '../../buttons/button';
 import { FileField } from './file-field';
@@ -137,6 +138,52 @@ export const ShowWebkitRelativePath: Story = {
       <FileField.ItemList showWebkitRelativePath />
     </FileField.Root>
   ),
+};
+
+const RefRender = (args: ComponentProps<typeof FileField.Root>) => {
+  const ref = useRef<HTMLInputElement>(null);
+  const [refType, setRefType] = useState('');
+
+  return (
+    <FileField.Root {...args} ref={ref}>
+      <FileField.ItemList clearable />
+      <Button
+        onClick={() => {
+          setRefType(ref.current?.type ?? 'none');
+        }}
+      >
+        ref を確認
+      </Button>
+      <p data-testid="ref-type">{refType}</p>
+    </FileField.Root>
+  );
+};
+
+// 利用者の ref が内部 ref を上書きすると、削除時に input.files を差し替えられず
+// onChange が飛ばなくなる
+export const ForwardsRef: Story = {
+  args: {
+    disabled: false,
+    invalid: false,
+    required: false,
+    onChange: fn(),
+    defaultValue: [
+      new File(['file content'], 'default.txt', { type: 'text/plain' }),
+    ],
+  },
+  render: (args) => <RefRender {...args} />,
+  play: async ({ args, canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('button', { name: 'ref を確認' }));
+
+    await expect(canvas.getByTestId('ref-type')).toHaveTextContent('file');
+
+    await userEvent.click(
+      canvas.getByRole('button', { name: 'ファイルを削除' }),
+    );
+
+    await expect(canvas.queryByText('default.txt')).not.toBeInTheDocument();
+    await expect(args.onChange).toHaveBeenCalled();
+  },
 };
 
 export const OnlyTrigger: Story = {

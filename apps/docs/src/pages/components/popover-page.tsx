@@ -19,10 +19,19 @@ const popoverRootProps: PropItem[] = [
   },
   {
     name: 'type',
-    types: ["'dialog'", "'menu'", "'tooltip'", "'listbox'"],
+    types: ["'dialog'", "'menu'", "'listbox'"],
     defaultValue: "'menu'",
   },
   { name: 'flipDisabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'closeOnClickAway', types: ['boolean'], defaultValue: 'true' },
+  { name: 'trapFocus', types: ['boolean'], defaultValue: 'true' },
+  { name: 'isOpen', types: ['boolean'], defaultValue: null },
+  { name: 'defaultOpen', types: ['boolean'], defaultValue: 'false' },
+  {
+    name: 'onChange',
+    types: ['(isOpen: boolean) => void'],
+    defaultValue: null,
+  },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];
 

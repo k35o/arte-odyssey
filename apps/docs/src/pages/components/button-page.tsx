@@ -23,7 +23,7 @@ const buttonProps: PropItem[] = [
   },
   {
     name: 'color',
-    types: ["'primary'", "'secondary'", "'gray'"],
+    types: ["'primary'", "'secondary'", "'base'"],
     defaultValue: "'primary'",
   },
   {
@@ -122,11 +122,11 @@ export function ButtonPage() {
           <ComponentPreview
             code={`<Button color="primary">Primary</Button>
 <Button color="secondary">Secondary</Button>
-<Button color="gray">Gray</Button>`}
+<Button color="base">Base</Button>`}
           >
             <Button color="primary">Primary</Button>
             <Button color="secondary">Secondary</Button>
-            <Button color="gray">Gray</Button>
+            <Button color="base">Base</Button>
           </ComponentPreview>
         </div>
 

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { type ComponentProps, useState } from 'react';
+import { type ComponentProps, useRef, useState } from 'react';
+import { expect } from 'storybook/test';
 
 import { CheckboxCard } from './checkbox-card';
 
@@ -96,4 +97,40 @@ export const Disabled: Story = {
     defaultValue: ['comments'],
   },
   render: DefaultValue.render,
+};
+
+const RefRender = () => {
+  const ref = useRef<HTMLFieldSetElement>(null);
+
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <p className="text-fg-base font-medium" id="checkbox-card-ref-label">
+        Enable collaboration features
+      </p>
+      <CheckboxCard
+        aria-labelledby="checkbox-card-ref-label"
+        options={OPTIONS}
+        ref={ref}
+      />
+      <button
+        onClick={() => {
+          ref.current?.querySelector('input')?.focus();
+        }}
+        type="button"
+      >
+        focus
+      </button>
+    </div>
+  );
+};
+
+export const ForwardsRef: Story = {
+  render: () => <RefRender />,
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('button', { name: 'focus' }));
+
+    await expect(
+      canvas.getByRole('checkbox', { name: 'Version history' }),
+    ).toHaveFocus();
+  },
 };

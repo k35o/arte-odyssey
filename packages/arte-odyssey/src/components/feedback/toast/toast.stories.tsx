@@ -30,6 +30,14 @@ const ToastTrigger = ({
   );
 };
 
+const closestToastItem = (element: HTMLElement) => {
+  const item = element.closest('[data-toast-id]');
+  if (!(item instanceof HTMLElement)) {
+    throw new Error('トーストの外側の要素が渡されました');
+  }
+  return item;
+};
+
 const meta: Meta<typeof ToastProvider> = {
   title: 'components/feedback/toast',
   component: ToastProvider,
@@ -269,5 +277,156 @@ export const MaxCount: Story = {
     await waitFor(() => {
       expect(body.getAllByRole('status')).toHaveLength(5);
     });
+  },
+};
+
+export const FocusReturnToOpener: Story = {
+  render: () => (
+    <ToastTrigger
+      message="閉じたら起動元に戻ります"
+      options={{ duration: Number.POSITIVE_INFINITY }}
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: 'トーストを呼ぶ' });
+    await userEvent.click(trigger);
+    const body = within(canvasElement.ownerDocument.body);
+    const toast = await body.findByRole('status');
+    await userEvent.tab();
+    await expect(
+      within(toast).getByRole('button', { name: '閉じる' }),
+    ).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    // 閉じ演出の inert でフォーカスが body に落ちず、起動元に返る (WCAG 2.4.3)
+    await waitFor(() => {
+      expect(trigger).toHaveFocus();
+    });
+    await waitFor(() => {
+      expect(body.queryByRole('status')).not.toBeInTheDocument();
+    });
+  },
+};
+
+export const FocusMovesToNextToast: Story = {
+  render: () => (
+    <div className="flex gap-2">
+      <ToastTrigger
+        label="先に開く"
+        message="先に開いたトースト"
+        options={{ duration: Number.POSITIVE_INFINITY }}
+        tone="error"
+      />
+      <ToastTrigger
+        label="後に開く"
+        message="後に開いたトースト"
+        options={{ duration: Number.POSITIVE_INFINITY }}
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: '先に開く' }));
+    await userEvent.click(canvas.getByRole('button', { name: '後に開く' }));
+    const firstToast = await body.findByRole('alert');
+    const secondToast = await body.findByRole('status');
+    await userEvent.tab();
+    await expect(
+      within(firstToast).getByRole('button', { name: '閉じる' }),
+    ).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    // 残っているトーストがあれば起動元より優先してそちらへ返す
+    await waitFor(() => {
+      expect(
+        within(secondToast).getByRole('button', { name: '閉じる' }),
+      ).toHaveFocus();
+    });
+  },
+};
+
+const OverflowRender = () => {
+  const { onOpen } = useToast();
+  const open = (message: string) => {
+    onOpen('success', message, { duration: Number.POSITIVE_INFINITY });
+  };
+  return (
+    <div className="flex gap-2">
+      <Button
+        onClick={() => {
+          for (const index of [1, 2, 3, 4, 5]) {
+            open(`トースト${index}`);
+          }
+        }}
+      >
+        5件開く
+      </Button>
+      <Button
+        onClick={() => {
+          // フォーカスをトースト内に置いたまま 6 件目を開くため遅延させる
+          window.setTimeout(() => {
+            open('トースト6');
+          }, 400);
+        }}
+      >
+        遅れて6件目
+      </Button>
+    </div>
+  );
+};
+
+export const OverflowHeldWhileFocused: Story = {
+  render: () => <OverflowRender />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: '5件開く' }));
+    await waitFor(() => {
+      expect(body.getAllByRole('status')).toHaveLength(5);
+    });
+    const oldest = closestToastItem(await body.findByText('トースト1'));
+    await userEvent.click(canvas.getByRole('button', { name: '遅れて6件目' }));
+    await userEvent.tab();
+    const oldestClose = within(oldest).getByRole('button', { name: '閉じる' });
+    await expect(oldestClose).toHaveFocus();
+    // フォーカス中は上限を超えても追い出さない（操作中の要素が黙って消えない）
+    await waitFor(
+      () => {
+        expect(body.getAllByRole('status')).toHaveLength(6);
+      },
+      { timeout: 3000 },
+    );
+    await expect(oldestClose).toHaveFocus();
+    // フォーカスが外れた時点で保留していた追い出しが走る
+    await userEvent.tab({ shift: true });
+    await waitFor(() => {
+      expect(body.getAllByRole('status')).toHaveLength(5);
+    });
+    await expect(body.queryByText('トースト1')).not.toBeInTheDocument();
+  },
+};
+
+export const LiveRegionStructure: Story = {
+  render: () => (
+    <div className="flex gap-2">
+      <ToastTrigger label="success" message="成功しました" tone="success" />
+      <ToastTrigger label="error" message="失敗しました" tone="error" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: 'success' }));
+    const status = await body.findByRole('status');
+    // viewport は名前付きのコンテナに徹し、読み上げは各トーストの role が担う。
+    // ライブリージョンを入れ子にしない
+    const viewport = body.getByRole('region', { name: '通知' });
+    await expect(viewport).not.toHaveAttribute('aria-live');
+    await expect(viewport.querySelectorAll('[aria-live]')).toHaveLength(0);
+    await expect(status.closest('[aria-live]')).toBeNull();
+    await userEvent.click(canvas.getByRole('button', { name: 'error' }));
+    const alert = await body.findByRole('alert');
+    await expect(alert.closest('[aria-live]')).toBeNull();
+    await expect(closestToastItem(alert).parentElement).toBe(viewport);
   },
 };

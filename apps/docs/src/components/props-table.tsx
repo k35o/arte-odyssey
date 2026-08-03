@@ -1,6 +1,7 @@
 import { Code } from '@k8o/arte-odyssey';
 import type { FC } from 'react';
 
+import { LocaleAnchor } from './locale-anchor';
 import { T } from './t';
 
 export type PropItem = {
@@ -26,7 +27,9 @@ const DefaultValue: FC<{ value: string | null }> = ({ value }) =>
 export const PropsTable: FC<{
   items: readonly PropItem[];
   inherits?: string;
-}> = ({ items, inherits }) => (
+  /** Default 欄に `messages.*` を持つ props があるとき、辞書の説明へ導く */
+  messagesNote?: boolean;
+}> = ({ items, inherits, messagesNote = false }) => (
   <div className="flex flex-col gap-4">
     <dl className="flex flex-col gap-4 md:hidden">
       {items.map((prop) => (
@@ -75,6 +78,14 @@ export const PropsTable: FC<{
     {inherits !== undefined && inherits !== '' ? (
       <p className="text-fg-mute text-sm">
         <T k="components.common.inheritsLabel" /> <Code>{inherits}</Code>
+      </p>
+    ) : null}
+    {messagesNote ? (
+      <p className="text-fg-mute text-sm">
+        <T k="components.common.messagesNote" />{' '}
+        <LocaleAnchor path="/i18n">
+          <T k="nav.i18n" />
+        </LocaleAnchor>
       </p>
     ) : null}
   </div>

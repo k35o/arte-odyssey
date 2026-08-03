@@ -9,18 +9,26 @@ import { STORYBOOK_URL } from '../../constants';
 import {
   DefaultOpenPreview,
   ModalBasicPreview,
-  ModalTypesPreview,
+  ModalPlacementsPreview,
 } from './_previews/modal-previews';
 
 const modalProps: PropItem[] = [
   {
-    name: 'type',
-    types: ["'center'", "'bottom'", "'right'"],
+    name: 'placement',
+    types: ["'center'", "'bottom'", "'right'", "'left'"],
     defaultValue: "'center'",
   },
   { name: 'defaultOpen', types: ['boolean'], defaultValue: null },
   { name: 'isOpen', types: ['boolean'], defaultValue: null },
   { name: 'onClose', types: ['() => void'], defaultValue: null },
+  { name: 'aria-label', types: ['string'], defaultValue: null },
+  { name: 'aria-labelledby', types: ['string'], defaultValue: null },
+  { name: 'aria-describedby', types: ['string'], defaultValue: null },
+  {
+    name: 'ref',
+    types: ['RefObject<HTMLDialogElement | null>'],
+    defaultValue: null,
+  },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];
 
@@ -74,7 +82,7 @@ export function ModalPage() {
 <Modal
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
-  type="center"
+  placement="center"
 >
   <Dialog.Root>
     <Dialog.Header
@@ -93,35 +101,35 @@ export function ModalPage() {
 
         <div className="flex flex-col gap-4">
           <Heading type="h3">
-            <T k="components.modal.typesTitle" />
+            <T k="components.modal.placementTitle" />
           </Heading>
           <ComponentPreview
             code={`<Button onClick={() => setCenterOpen(true)}>Center</Button>
 <Button onClick={() => setBottomOpen(true)}>Bottom</Button>
 <Button onClick={() => setRightOpen(true)}>Right</Button>
 
-<Modal isOpen={centerOpen} onClose={() => setCenterOpen(false)} type="center">
+<Modal isOpen={centerOpen} onClose={() => setCenterOpen(false)} placement="center">
   <Dialog.Root>
     <Dialog.Header onClose={() => setCenterOpen(false)} title="Center Modal" />
     <Dialog.Content>Centered on screen</Dialog.Content>
   </Dialog.Root>
 </Modal>
 
-<Modal isOpen={bottomOpen} onClose={() => setBottomOpen(false)} type="bottom">
+<Modal isOpen={bottomOpen} onClose={() => setBottomOpen(false)} placement="bottom">
   <Dialog.Root>
     <Dialog.Header onClose={() => setBottomOpen(false)} title="Bottom Modal" />
     <Dialog.Content>Slides up from bottom</Dialog.Content>
   </Dialog.Root>
 </Modal>
 
-<Modal isOpen={rightOpen} onClose={() => setRightOpen(false)} type="right">
+<Modal isOpen={rightOpen} onClose={() => setRightOpen(false)} placement="right">
   <Dialog.Root>
     <Dialog.Header onClose={() => setRightOpen(false)} title="Right Modal" />
     <Dialog.Content>Slides in from right</Dialog.Content>
   </Dialog.Root>
 </Modal>`}
           >
-            <ModalTypesPreview />
+            <ModalPlacementsPreview />
           </ComponentPreview>
         </div>
 
@@ -130,7 +138,7 @@ export function ModalPage() {
             <T k="components.modal.defaultOpenTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Modal defaultOpen type="center">
+            code={`<Modal defaultOpen placement="center">
   <Dialog.Root>
     <Dialog.Header
       onClose={() => {}}

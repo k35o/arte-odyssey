@@ -1,6 +1,6 @@
 'use client';
 
-import { RadioCard } from '@k8o/arte-odyssey';
+import { Button, Form, RadioCard } from '@k8o/arte-odyssey';
 import { useState } from 'react';
 
 const options = [
@@ -42,6 +42,37 @@ export function RadioCardControlledPreview() {
         options={options}
         value={value}
       />
+    </div>
+  );
+}
+
+export function RadioCardFormPreview() {
+  const [submitted, setSubmitted] = useState<string | null>(null);
+
+  return (
+    <div className="flex w-full max-w-2xl flex-col gap-4">
+      <Form
+        action={(formData) => {
+          const plan = formData.get('plan');
+          setSubmitted(typeof plan === 'string' ? plan : null);
+        }}
+      >
+        <p className="text-fg-base font-medium" id="radio-card-form-label">
+          プランを選択
+        </p>
+        <RadioCard
+          defaultValue="pro"
+          disabled={false}
+          invalid={false}
+          aria-labelledby="radio-card-form-label"
+          name="plan"
+          options={options}
+        />
+        <Button type="submit">送信</Button>
+      </Form>
+      {submitted !== null && (
+        <p className="text-fg-base text-sm">送信されたプラン: {submitted}</p>
+      )}
     </div>
   );
 }

@@ -20,6 +20,7 @@ const checkboxCardProps: PropItem[] = [
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['string[]'], defaultValue: null },
+  { name: 'ref', types: ['Ref<HTMLFieldSetElement>'], defaultValue: null },
 ];
 
 const options = [

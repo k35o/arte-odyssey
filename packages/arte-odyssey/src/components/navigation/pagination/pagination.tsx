@@ -2,13 +2,14 @@
 
 import type { FC } from 'react';
 
+import { useMessages } from '../../../i18n/context';
 import { Button } from '../../buttons/button';
 import { ChevronIcon } from '../../icons';
 
 type Props = {
   totalPages: number;
   currentPage: number;
-  onPageChange: (page: number) => void;
+  onChange: (page: number) => void;
   disabled?: boolean;
   prevLabel?: string;
   nextLabel?: string;
@@ -18,25 +19,26 @@ type Props = {
 export const Pagination: FC<Props> = ({
   totalPages,
   currentPage,
-  onPageChange,
+  onChange,
   disabled = false,
-  prevLabel = '前へ',
-  nextLabel = '次へ',
-  'aria-label': ariaLabel = 'ページネーション',
+  prevLabel,
+  nextLabel,
+  'aria-label': ariaLabel,
 }) => {
+  const messages = useMessages();
   const safeTotal = Math.max(1, totalPages);
   const safeCurrent = Math.min(Math.max(1, currentPage), safeTotal);
   const isFirst = safeCurrent <= 1;
   const isLast = safeCurrent >= safeTotal;
 
   return (
-    <nav aria-label={ariaLabel}>
+    <nav aria-label={ariaLabel ?? messages.paginationLabel}>
       <div className="flex items-center justify-center gap-2">
         <Button
-          color="gray"
+          color="base"
           disabled={disabled || isFirst}
           onClick={() => {
-            onPageChange(safeCurrent - 1);
+            onChange(safeCurrent - 1);
           }}
           size="sm"
           startIcon={
@@ -46,7 +48,7 @@ export const Pagination: FC<Props> = ({
           }
           variant="skeleton"
         >
-          {prevLabel}
+          {prevLabel ?? messages.paginationPrevious}
         </Button>
         <p
           aria-live="polite"
@@ -57,7 +59,7 @@ export const Pagination: FC<Props> = ({
           <span>{safeTotal}</span>
         </p>
         <Button
-          color="gray"
+          color="base"
           disabled={disabled || isLast}
           endIcon={
             <span className="vertical:rotate-90 inline-flex">
@@ -65,12 +67,12 @@ export const Pagination: FC<Props> = ({
             </span>
           }
           onClick={() => {
-            onPageChange(safeCurrent + 1);
+            onChange(safeCurrent + 1);
           }}
           size="sm"
           variant="skeleton"
         >
-          {nextLabel}
+          {nextLabel ?? messages.paginationNext}
         </Button>
       </div>
     </nav>

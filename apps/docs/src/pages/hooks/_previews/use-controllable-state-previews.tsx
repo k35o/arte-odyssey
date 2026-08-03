@@ -17,7 +17,7 @@ export function UseControllableStatePreview() {
           Increment
         </Button>
         <Button
-          color="gray"
+          color="base"
           onClick={() => {
             setCount(0);
           }}

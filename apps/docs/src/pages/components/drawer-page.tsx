@@ -12,8 +12,10 @@ import {
 } from './_previews/drawer-previews';
 
 const drawerProps: PropItem[] = [
-  { name: 'title', types: ['string'], defaultValue: null },
+  { name: 'title', types: ['ReactNode'], defaultValue: null },
+  { name: 'side', types: ["'left'", "'right'"], defaultValue: "'right'" },
   { name: 'isOpen', types: ['boolean'], defaultValue: null },
+  { name: 'defaultOpen', types: ['boolean'], defaultValue: null },
   { name: 'onClose', types: ['() => void'], defaultValue: null },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];

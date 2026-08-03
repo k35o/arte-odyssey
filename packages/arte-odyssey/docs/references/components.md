@@ -22,7 +22,7 @@ import { Button } from '@k8o/arte-odyssey';
 
 <Button
   size="sm" | "md" | "lg"
-  color="primary" | "secondary" | "gray"
+  color="primary" | "secondary" | "base"
   variant="solid" | "outline" | "skeleton"
   fullWidth={false}
   startIcon={<Icon />}
@@ -34,11 +34,20 @@ import { Button } from '@k8o/arte-odyssey';
 </Button>
 ```
 
+Props:
+
+- `color`: `'primary'` | `'secondary'` | `'base'`（デフォルト: `'primary'`）
+- `variant`: `'solid'` | `'outline'` | `'skeleton'`（デフォルト: `'solid'`）
+- `size`: `'sm'` | `'md'` | `'lg'`
+- `type`: `'button'` | `'submit'`（デフォルト: `'button'`）
+- `onAction`: `() => void | Promise<void>`（非同期処理を `useTransition` で包み、保留中は自動でスピナー表示。素のイベントが要るときは `onClick`）
+- そのほか `<button>` の HTML 属性（`disabled`, `name`, `aria-*` 等）をそのまま受け取る。`<button>` に無い属性（`href` 等）は渡せないので、リンクにするときは `renderItem` を使う
+
 リンクとしてレンダーする場合は `renderItem` prop を使う。Next.js の `<Link>` などにも応用できる。
 
 ```tsx
 <Button
-  color="gray"
+  color="base"
   variant="outline"
   renderItem={({ className, children }) => (
     <a className={className} href="/page">
@@ -66,7 +75,10 @@ Props:
 
 - `color`: `'transparent'` | `'base'` | `'primary'` | `'secondary'`（デフォルト: `'transparent'`）
 - `size`: `'sm'` | `'md'` | `'lg'`
-- `label`: string（必須、aria-label として使用）
+- `label`: string（必須、aria-label として使用。hover / focus で Tooltip に出る）
+- `tooltipPlacement`: Placement（デフォルト: `'top'`）, `tooltipDisabled`: boolean
+- `onAction`: `() => void | Promise<void>`（Button と同じ）
+- そのほか `<button>` の HTML 属性。Button と同様、`<button>` に無い属性（`href` 等）は `renderItem` 経由で渡す
 
 リンクとしてレンダーする場合は `renderItem` prop を使う。`triggerProps` を `<a>` にスプレッドすると hover/focus 時に `label` が Tooltip として表示される。
 
@@ -163,6 +175,24 @@ Props (Breadcrumb.Link):
 - `current`: boolean
 - `component`: カスタムリンクコンポーネント
 
+### Pagination
+
+ページ送り。前後ボタンと現在ページの表示のみで、ページ番号のリストは持たない。
+
+```tsx
+import { Pagination } from '@k8o/arte-odyssey';
+
+<Pagination currentPage={page} onChange={setPage} totalPages={10} />;
+```
+
+Props:
+
+- `totalPages`: number（必須）
+- `currentPage`: number（必須）
+- `onChange`: `(page: number) => void`（必須）
+- `disabled`: boolean
+- `prevLabel`, `nextLabel`, `aria-label`: string（未指定なら文言辞書の既定値）
+
 ### Tabs
 
 タブ切り替え。Compound component パターン。
@@ -237,6 +267,8 @@ import { ScrollLinked } from '@k8o/arte-odyssey';
 
 フォームコンポーネントは `FormControl` の `renderInput` パターンと組み合わせて使用する。各フォームコンポーネントは controlled / uncontrolled の両方に対応。
 
+`ref` は実要素（`input` / `textarea` / `select` / `fieldset`）に届く。内部で ref を使う `Textarea` / `FileField` も内部 ref と合成されるため、`react-hook-form` の `register()` などをそのまま渡せる。`Radio`（複数の input を描くグループ）と `FormControl`（ラッパー）は `ref` を受け取らない。
+
 ### FormControl
 
 フォームフィールドのラッパー。ラベル・ヘルプテキスト・エラー表示を統一する。
@@ -277,7 +309,16 @@ import { TextField } from '@k8o/arte-odyssey';
 // Controlled
 <TextField id="email" value={value} onChange={onChange}
   invalid={false} disabled={false} required={false} />
+
+// type も渡せる（デフォルト: "text"）
+<TextField id="tel" type="tel" inputMode="numeric" />
 ```
+
+Props:
+
+- `invalid`: boolean
+- `ref`: `Ref<HTMLInputElement>`
+- そのほか `<input>` の HTML 属性（`type`, `id`, `name`, `placeholder`, `autoComplete` 等）をそのまま受け取る。パスワードは `type="password"` ではなく `PasswordInput` を使う（表示/非表示トグルが `type` を占有するため `PasswordInput` は `type` を受け取らない）
 
 ### Textarea
 
@@ -375,15 +416,24 @@ import { Autocomplete } from '@k8o/arte-odyssey';
 import { Checkbox } from '@k8o/arte-odyssey';
 
 // Controlled
-<Checkbox label="同意する" value={checked} onChange={onChange} />
+<Checkbox checked={checked} label="同意する" onChange={onChange} />
 
 // Uncontrolled
-<Checkbox label="同意する" defaultChecked />
+<Checkbox defaultChecked label="同意する" />
 ```
+
+Props:
+
+- `label`: string（必須）
+- `itemValue`: string（`CheckboxGroup` 内では必須）
+- Controlled: `checked: boolean` + `onChange: (checked, event) => void` / Uncontrolled: `defaultChecked`
+- `ref`: `Ref<HTMLInputElement>`
 
 ### CheckboxGroup
 
-複数チェックボックスのグループ。`value` / `onChange` は `string[]`。子は `CheckboxGroup.Item`（= `Checkbox`）で、`itemValue` が必須。
+複数チェックボックスのグループ。子は `CheckboxGroup.Item`（= `Checkbox`）で、`itemValue` が必須。
+
+グループの選択状態は `value` / `onChange`（`string[]`）で持つ。単体の `Checkbox` が真偽値を `checked` で持つのとは別物なので、混同しないこと。
 
 ```tsx
 import { CheckboxGroup } from '@k8o/arte-odyssey';
@@ -437,7 +487,7 @@ import { Radio } from '@k8o/arte-odyssey';
 
 ### RadioCard
 
-カードスタイルのラジオボタン。
+カードスタイルのラジオボタン。`fieldset[role="radiogroup"]` の中に本物の `input[type="radio"]` を並べるため、矢印キーのローミングと単一選択はブラウザに任せている。テストからは `getByRole('radio', { checked })` で参照する。
 
 ```tsx
 import { RadioCard } from '@k8o/arte-odyssey';
@@ -487,14 +537,21 @@ import { Slider } from '@k8o/arte-odyssey';
 import { Switch } from '@k8o/arte-odyssey';
 
 <Switch
-  label="通知を有効にする"
-  value={checked}
-  onChange={onChange}
+  checked={checked}
   disabled={false}
   invalid={false}
+  label="通知を有効にする"
+  onChange={onChange}
   required={false}
 />;
 ```
+
+Props:
+
+- `label`: string（必須）
+- Controlled: `checked: boolean` + `onChange: (checked, event) => void` / Uncontrolled: `defaultChecked`
+- `disabled`, `invalid`, `required`: boolean
+- `ref`: `Ref<HTMLInputElement>`
 
 ### FileField
 
@@ -685,7 +742,7 @@ import { Spinner } from '@k8o/arte-odyssey';
 Props:
 
 - `size`: `'sm'` | `'md'` | `'lg'`
-- `label`: string
+- `label`: string（省略時は文言辞書の `loading`。既定は「読み込み中」）
 
 ### Skeleton
 
@@ -714,17 +771,27 @@ Props:
 ```tsx
 import { Modal } from '@k8o/arte-odyssey';
 
-<Modal isOpen={open} onClose={onClose} type="center">
+<Modal isOpen={open} onClose={onClose} placement="center">
   コンテンツ
 </Modal>;
 ```
 
 Props:
 
-- `type`: `'center'` | `'bottom'` | `'right'` | `'left'`
+- `placement`: `'center'` | `'bottom'` | `'right'` | `'left'`（デフォルト: `'center'`）
 - `isOpen`: boolean
 - `defaultOpen`: boolean
 - `onClose`: () => void
+- `aria-label` / `aria-labelledby` / `aria-describedby`: string
+- `ref`: `RefObject<HTMLDialogElement | null>`
+
+名前の解決順は `aria-label` / `aria-labelledby` > 中の `Dialog.Root` が登録した見出し。どちらも無ければ無名の dialog になるため、`Dialog` を入れずに直接コンテンツを置くときは `aria-label` を渡す。
+
+```tsx
+<Modal aria-label="画像プレビュー" isOpen={open} onClose={onClose}>
+  <img alt="" src={src} />
+</Modal>
+```
 
 ### Dialog
 
@@ -779,7 +846,10 @@ Props (Root):
 
 - `placement`: Placement（デフォルト: `'bottom-start'`）
 - `type`: `'dialog'` | `'menu'` | `'listbox'`（デフォルト: `'menu'`）
-- `flipDisabled`: boolean
+- `flipDisabled`, `closeOnClickAway`, `trapFocus`: boolean
+- 開閉状態: Controlled は `isOpen` + `onChange: (isOpen: boolean) => void`、Uncontrolled は `defaultOpen`
+
+Escape は入れ子のうち**最も内側の 1 枚だけ**を閉じる。
 
 ### Tooltip
 
@@ -793,6 +863,11 @@ import { Tooltip } from '@k8o/arte-odyssey';
   <Tooltip.Content>ヒント</Tooltip.Content>
 </Tooltip.Root>;
 ```
+
+Props (Root):
+
+- `placement`: Placement（デフォルト: `'bottom'`）
+- 開閉状態: `isOpen` / `defaultOpen` / `onChange`（Popover と同じ）
 
 ### DropdownMenu
 
@@ -810,6 +885,11 @@ import { DropdownMenu } from '@k8o/arte-odyssey';
 </DropdownMenu.Root>;
 ```
 
+Props (Root):
+
+- `placement`: Placement（デフォルト: `'bottom-start'`）
+- 開閉状態: `isOpen` / `defaultOpen` / `onChange`（Popover と同じ）
+
 Trigger バリアント:
 
 - `DropdownMenu.Trigger`: テキストベース（`text`, `size`, `variant`）
@@ -817,29 +897,47 @@ Trigger バリアント:
 
 ### ListBox
 
-リスト選択。Compound component パターン。
+リスト選択。Compound component パターン。選択肢は `Select` と同じ `Option`（`{ value, label }`）。
 
 ```tsx
 import { ListBox } from '@k8o/arte-odyssey';
 
 <ListBox.Root
+  onChange={onChange}
   options={[
-    { key: '1', label: 'オプション1' },
-    { key: '2', label: 'オプション2' },
+    { value: '1', label: 'オプション1' },
+    { value: '2', label: 'オプション2' },
   ]}
   value={value}
-  onChange={onChange}
 >
-  <ListBox.Trigger size="md" />
+  <ListBox.Trigger label="表示件数" size="md" />
   <ListBox.Content />
 </ListBox.Root>;
 ```
+
+Props (Root):
+
+- `options`: `readonly Option[]`（`{ value: string; label: string }`）（必須）
+- `value`: `string | undefined`（必須）
+- `onChange`: `(value: string) => void`（必須）
+- `placement`: Placement（デフォルト: `'bottom'`）
+
+Trigger バリアント:
+
+- `ListBox.Trigger`: テキストベース（`size`, `label`）
+- `ListBox.IconTrigger`: アイコンベース（`size`, `icon`, `label`）
+
+`label` を渡すとトリガーのアクセシブル名が「ラベル + 現在値」になる。省略すると現在値だけになるため、周囲に見出しが無いときは渡す。
+
+Props (Content):
+
+- `helpContent`: ReactElement（listbox の外側に置かれる補足表示）
 
 ## プロバイダー
 
 ### ArteOdysseyProvider
 
-アプリのルートで1回ラップする。MotionConfig と ToastProvider を含む。
+アプリのルートで1回ラップする。ToastProvider と文言辞書（下記 i18n）を含む。
 
 ```tsx
 import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
@@ -848,6 +946,10 @@ import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
   <App />
 </ArteOdysseyProvider>;
 ```
+
+Props:
+
+- `messages`: `Partial<Messages>`（省略時は日本語辞書）
 
 ### PortalRootProvider
 
@@ -858,3 +960,71 @@ import { PortalRootProvider, usePortalRoot } from '@k8o/arte-odyssey';
 
 <PortalRootProvider value={containerRef}>{children}</PortalRootProvider>;
 ```
+
+## i18n（文言辞書）
+
+コンポーネントが内部で持つ文言（閉じる、必須、読み込み中 …）は辞書から引く。**既定は日本語**で、Provider を置かなくても、`messages` を渡さなくても日本語で動く。
+
+英語に切り替えるときは `@k8o/arte-odyssey/i18n` の `en` を渡す。
+
+```tsx
+import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
+import { en } from '@k8o/arte-odyssey/i18n';
+
+<ArteOdysseyProvider messages={en}>
+  <App />
+</ArteOdysseyProvider>;
+```
+
+一部だけ差し替えるときは辞書をスプレッドして上書きする（`Partial<Messages>` なので全キーを埋める必要はない）。
+
+```tsx
+<ArteOdysseyProvider messages={{ ...en, close: 'Dismiss' }}>
+  <App />
+</ArteOdysseyProvider>
+```
+
+日本語のまま一部だけ変えるなら、そのキーだけ渡せばよい。
+
+```tsx
+<ArteOdysseyProvider messages={{ close: '閉じる（Esc）' }}>
+  <App />
+</ArteOdysseyProvider>
+```
+
+### 優先順位
+
+**コンポーネントの prop > Provider に渡した辞書 > 既定（日本語）**。
+
+`Spinner` の `label`、`Alert` の `closeLabel`、`PasswordInput` の `showLabel` / `hideLabel`、`Pagination` の `prevLabel` / `nextLabel` のように個別の文言 prop を持つコンポーネントは、その prop が辞書より優先される。
+
+```tsx
+// 辞書が en でも、この Spinner だけは「保存中」になる
+<Spinner label="保存中" />
+```
+
+### エクスポート
+
+```tsx
+import { en, ja, type Messages } from '@k8o/arte-odyssey/i18n';
+```
+
+`ja` / `en` は本体のバンドルに載らないよう、ルートではなく `@k8o/arte-odyssey/i18n` サブパスからのみ export される。
+
+### キー一覧
+
+`Messages` 型の全キー。値はすべて `string`。
+
+| 分類          | キー                                                                                                                               |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| 共通          | `close`, `required`, `loading`, `avatar`, `color`                                                                                  |
+| Alert         | `alertSuccess`, `alertInfo`, `alertWarning`, `alertError`                                                                          |
+| Toast         | `toastRegion`                                                                                                                      |
+| Autocomplete  | `autocompletePlaceholder`, `autocompleteRemoveTag`, `autocompleteClear`, `autocompleteEmpty`                                       |
+| FileField     | `fileFieldRemove`                                                                                                                  |
+| NumberField   | `numberFieldIncrement`, `numberFieldDecrement`                                                                                     |
+| PasswordInput | `passwordShow`, `passwordHide`                                                                                                     |
+| ListBox       | `listBoxPlaceholder`                                                                                                               |
+| Breadcrumb    | `breadcrumb`                                                                                                                       |
+| Pagination    | `paginationLabel`, `paginationPrevious`, `paginationNext`                                                                          |
+| AI チャット   | `chat`, `scrollToLatest`, `reasoning`, `reasoningStreaming`, `suggestions`, `send`, `stop`, `toolInput`, `toolOutput`, `toolError` |

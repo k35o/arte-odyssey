@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, HTMLProps, MouseEvent, ReactNode } from 'react';
+import type { ComponentPropsWithRef, FC, MouseEvent, ReactNode } from 'react';
 import { useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 
@@ -32,7 +32,7 @@ type Props = {
     'aria-label': string;
     triggerProps: IconButtonTriggerProps;
   }) => ReactNode;
-} & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type' | 'className' | 'style'>;
+} & Omit<ComponentPropsWithRef<'button'>, 'type' | 'className' | 'style'>;
 
 const joinIds = (
   ...ids: ReadonlyArray<string | undefined>

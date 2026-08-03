@@ -21,6 +21,11 @@ export type ToastType = {
   message: string;
   duration: number;
   action?: ToastAction;
+  /**
+   * 開いた時点のフォーカス位置。閉じたときの返還先候補として使う。
+   * 参照を握り続けて DOM のリークを起こさないよう WeakRef で持つ。
+   */
+  opener?: WeakRef<HTMLElement>;
 };
 
 export type ToastStore = {

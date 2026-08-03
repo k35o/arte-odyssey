@@ -18,6 +18,7 @@ import type { Separator } from '../../components/layout/separator';
 import type { Stack } from '../../components/layout/stack';
 import type { Breadcrumb } from '../../components/navigation/breadcrumb';
 import type { Drawer } from '../../components/overlays/drawer';
+import type { ListBox } from '../../components/overlays/list-box';
 import type { Modal } from '../../components/overlays/modal';
 
 /**
@@ -42,6 +43,17 @@ import type { Modal } from '../../components/overlays/modal';
  *
  * enum 値はトークン由来の固定値に制約することで、生成 UI が崩れないように
  * している。
+ *
+ * ## キーの並び順は公開 ABI
+ *
+ * OpenUI Lang は完全な位置引数（`Button("ヘルプ", "outline", "base", ...)`）で、
+ * @openuidev/lang-core が `Object.keys(properties)` の順に params を作る。
+ * そのため **各 schema のキーの並び順がそのまま公開 ABI** になる。
+ *
+ * - 既存キーのリネーム: 位置が変わらないので安全。
+ * - 既存キーの削除・並べ替え: 保存済みの OpenUI 文字列の引数が全部ずれる。
+ * - 新しいキーの追加: **必ず末尾に足す**。途中に挿入すると以降の位置が 1 つずつ
+ *   ずれ、既存の文字列が無言で誤描画される（型エラーにもならない）。
  */
 
 /**
@@ -65,7 +77,7 @@ type ButtonIntegrationProps = {
 export const buttonProps = z.object({
   label: z.string(),
   variant: z.enum(['solid', 'outline', 'skeleton']).optional(),
-  color: z.enum(['primary', 'secondary', 'gray']).optional(),
+  color: z.enum(['primary', 'secondary', 'base']).optional(),
   size: z.enum(['sm', 'md', 'lg']).optional(),
   fullWidth: z.boolean().optional(),
   href: safeUrl.optional(),
@@ -614,11 +626,13 @@ type ListBoxIntegrationProps = {
   name: string;
   options: readonly SelectOption[];
   defaultValue?: string;
+  label?: ComponentProps<typeof ListBox.Trigger>['label'];
 };
 export const listBoxProps = z.object({
   name: z.string(),
   options: z.array(selectOption).min(1),
   defaultValue: z.string().optional(),
+  label: z.string().optional().describe('トリガーのアクセシブル名'),
 }) satisfies z.ZodType<ListBoxIntegrationProps>;
 
 type CheckboxGroupIntegrationProps = {
@@ -698,12 +712,12 @@ export const formProps = z.object({
 type ModalIntegrationProps = {
   triggerLabel: string;
   title: string;
-  type?: ComponentProps<typeof Modal>['type'];
+  placement?: ComponentProps<typeof Modal>['placement'];
 };
 export const modalProps = z.object({
   triggerLabel: z.string().describe('モーダルを開くボタンの文言'),
   title: z.string(),
-  type: z.enum(['center', 'bottom', 'right', 'left']).optional(),
+  placement: z.enum(['center', 'bottom', 'right', 'left']).optional(),
 }) satisfies z.ZodType<ModalIntegrationProps>;
 
 type DialogIntegrationProps = { triggerLabel: string; title: string };
@@ -859,7 +873,10 @@ export type _EnumCoverage = [
     >
   >,
   AssertCovered<
-    CoversComponent<ComponentProps<typeof Modal>['type'], ModalProps['type']>
+    CoversComponent<
+      ComponentProps<typeof Modal>['placement'],
+      ModalProps['placement']
+    >
   >,
   AssertCovered<
     CoversComponent<ComponentProps<typeof Drawer>['side'], DrawerProps['side']>

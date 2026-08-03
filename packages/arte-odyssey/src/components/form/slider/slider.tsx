@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, InputHTMLAttributes } from 'react';
+import type { FC, InputHTMLAttributes, Ref } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
@@ -11,6 +11,7 @@ type BaseProps = {
   step?: number;
   max?: number;
   min?: number;
+  ref?: Ref<HTMLInputElement>;
 } & Omit<
   InputHTMLAttributes<HTMLInputElement>,
   | 'type'
@@ -46,6 +47,7 @@ export const Slider: FC<Props> = ({
   value,
   defaultValue,
   onChange,
+  ref,
   step = 1,
   max = 100,
   min = 0,
@@ -113,6 +115,7 @@ export const Slider: FC<Props> = ({
         onChange={(event) => {
           handleChange(Number(event.target.value));
         }}
+        ref={ref}
         required={required}
         step={step}
         type="range"

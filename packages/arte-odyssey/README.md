@@ -76,6 +76,43 @@ function MyPage() {
 }
 ```
 
+## Internationalization (i18n)
+
+The wording that components own internally — "close", "required", "loading", and so on — comes from a message dictionary. **It defaults to Japanese**, and that default applies even without a provider, so a Japanese app needs no setup at all.
+
+To switch to English, pass the `en` dictionary from `@k8o/arte-odyssey/i18n`:
+
+```tsx
+import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
+import { en } from '@k8o/arte-odyssey/i18n';
+
+function App() {
+  return (
+    <ArteOdysseyProvider messages={en}>
+      <YourApp />
+    </ArteOdysseyProvider>
+  );
+}
+```
+
+`messages` takes a `Partial<Messages>`, so you can spread a dictionary and override only the keys you care about:
+
+```tsx
+<ArteOdysseyProvider messages={{ ...en, close: 'Dismiss' }}>
+  <YourApp />
+</ArteOdysseyProvider>
+```
+
+Resolution order is **component prop > provider dictionary > built-in default (Japanese)**. Components that expose a wording prop of their own — `Spinner`'s `label`, `Alert`'s `closeLabel`, `PasswordInput`'s `showLabel` / `hideLabel`, `Pagination`'s `prevLabel` / `nextLabel` — take that prop over the dictionary.
+
+The subpath exports both dictionaries and the type:
+
+```tsx
+import { en, ja, type Messages } from '@k8o/arte-odyssey/i18n';
+```
+
+`ja` / `en` live behind `@k8o/arte-odyssey/i18n` rather than the root entry so the dictionaries stay out of the main bundle. See [docs/references/components.md](docs/references/components.md) for the full key list.
+
 ## AI Agent Documentation
 
 ArteOdyssey includes design system documentation in `docs/` directory. When installed via npm, AI coding assistants can reference `node_modules/@k8o/arte-odyssey/docs/GUIDE.md` for design principles, component APIs, and usage patterns.
@@ -166,7 +203,7 @@ import { Button } from '@k8o/arte-odyssey';
 </Button>
 
 // Secondary action
-<Button color="gray" variant="outline">
+<Button color="base" variant="outline">
   Cancel
 </Button>
 
@@ -241,6 +278,7 @@ Optional features live behind dedicated subpath exports:
 | ---------------------------------------- | --------------------------------------------------------------- |
 | `@k8o/arte-odyssey`                      | All components and hooks                                        |
 | `@k8o/arte-odyssey/tokens`               | Design token definitions                                        |
+| `@k8o/arte-odyssey/i18n`                 | Message dictionaries (`ja` / `en`) and the `Messages` type      |
 | `@k8o/arte-odyssey/ai`                   | AI chat components                                              |
 | `@k8o/arte-odyssey/ai/response`          | `Response` Markdown renderer (needs optional peer `streamdown`) |
 | `@k8o/arte-odyssey/ai-sdk`               | AI SDK adapter (needs optional peer `ai`)                       |

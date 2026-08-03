@@ -98,7 +98,7 @@ export function Home() {
               {t('home.getStarted')}
             </Button>
             <Button
-              color="gray"
+              color="base"
               renderItem={({ className, children }) => (
                 <a
                   className={className}
@@ -113,7 +113,7 @@ export function Home() {
               {t('home.viewComponents')}
             </Button>
             <Button
-              color="gray"
+              color="base"
               renderItem={({ className, children }) => (
                 <a
                   className={className}

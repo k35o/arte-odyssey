@@ -7,7 +7,9 @@ import {
   type UIElement,
 } from '@json-render/core';
 import { schema } from '@json-render/react/schema';
-import type { z } from 'zod';
+// 型ではなく値として使う（instanceof で ZodObject を判定するため）。
+// 同じサブパスの _shared/schemas.ts が既に zod を実行時依存にしている
+import { z } from 'zod';
 
 import * as s from '../_shared/schemas';
 
@@ -290,12 +292,29 @@ const buildRepairPrompt = (issues: GeneratedSpecIssue[]): string =>
   ].join('\n');
 
 /**
+ * スキーマが受け付ける prop キーの集合。
+ *
+ * zod の `z.object` は未知のキーを **エラーにせず黙って落とす**。そのため
+ * `safeParse` だけでは「旧 API のキーを渡した spec」が `ok: true` で通り、
+ * 既定値のまま描画されて壊れたことにすら気づけない。キー集合を取り出して
+ * 自前で照合する。
+ */
+const knownPropKeys = (propsSchema: z.ZodType): readonly string[] | undefined =>
+  propsSchema instanceof z.ZodObject
+    ? Object.keys(propsSchema.shape as Record<string, unknown>)
+    : undefined;
+
+/** spec 側は LLM 出力なので、型に反して props が欠けていることがある。 */
+const givenPropKeys = (props: unknown): readonly string[] =>
+  typeof props === 'object' && props !== null ? Object.keys(props) : [];
+
+/**
  * LLM が生成した spec を検証し、描画可能なら型付き spec を、壊れていれば
  * そのまま LLM に投げ返せる修復プロンプトを返す。
  *
  * 内部では (1) 機械修正（`autoFixSpec`）→ (2) 構造検証（`validateSpec`）→
- * (3) 要素ごとに catalog の Zod スキーマで props 検証、を行う。
- * `catalog.validate()` は使わない（現行の上流バージョンでは正常な spec を
+ * (3) 要素ごとに catalog の Zod スキーマで props 検証（未知キーの検出を含む）、
+ * を行う。`catalog.validate()` は使わない（現行の上流バージョンでは正常な spec を
  * 誤って弾き、props 検証も実質無効になるため）。
  *
  * @example
@@ -343,6 +362,19 @@ export const validateGeneratedSpec = (
         issues.push({
           elementKey: key,
           message: `${element.type}${path ? `.${path}` : ''}: ${issue.message}`,
+        });
+      }
+    }
+
+    const allowed = knownPropKeys(def.props);
+    if (allowed === undefined) {
+      continue;
+    }
+    for (const propKey of givenPropKeys(element.props)) {
+      if (!allowed.includes(propKey)) {
+        issues.push({
+          elementKey: key,
+          message: `${element.type}: Unknown prop "${propKey}". Allowed props: ${allowed.join(', ')}.`,
         });
       }
     }

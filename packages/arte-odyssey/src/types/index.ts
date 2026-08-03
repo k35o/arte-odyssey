@@ -1,1 +1,1 @@
-export type { Direction, Option, Status } from './variables';
+export type { Direction, Option, Placement, Status } from './variables';
