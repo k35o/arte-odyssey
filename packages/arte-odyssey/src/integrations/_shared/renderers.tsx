@@ -260,8 +260,8 @@ export function renderButton(props: ButtonProps): ReactNode {
 export function renderBadge(props: BadgeProps): ReactNode {
   return (
     <Badge
+      label={props.label}
       size={u(props.size)}
-      text={props.text}
       tone={u(props.tone)}
       variant={u(props.variant)}
     />
@@ -784,10 +784,10 @@ export function renderForm(props: FormProps, children: ReactNode): ReactNode {
 const OverlayWidget: FC<{
   triggerLabel: string;
   title: string;
-  placement: ModalProps['placement'];
+  side: ModalProps['side'];
   buttonProps?: Pick<ComponentProps<typeof Button>, 'size' | 'variant'>;
   children: ReactNode;
-}> = ({ triggerLabel, title, placement, buttonProps, children }) => {
+}> = ({ triggerLabel, title, side, buttonProps, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -804,7 +804,7 @@ const OverlayWidget: FC<{
         onClose={() => {
           setIsOpen(false);
         }}
-        placement={placement}
+        side={side}
       >
         <Dialog.Root>
           <Dialog.Header
@@ -826,7 +826,7 @@ export const ModalWidget: FC<{ props: ModalProps; children: ReactNode }> = ({
 }) => (
   <OverlayWidget
     buttonProps={{ size: 'md', variant: 'solid' }}
-    placement={u(props.placement)}
+    side={u(props.side)}
     title={props.title}
     triggerLabel={props.triggerLabel}
   >
@@ -839,7 +839,7 @@ export const DialogWidget: FC<{ props: DialogProps; children: ReactNode }> = ({
   children,
 }) => (
   <OverlayWidget
-    placement="center"
+    side="center"
     title={props.title}
     triggerLabel={props.triggerLabel}
   >
@@ -922,7 +922,7 @@ export function renderTooltip(props: TooltipProps): ReactNode {
 export function renderDropdownMenu(props: DropdownMenuProps): ReactNode {
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger text={props.triggerLabel} />
+      <DropdownMenu.Trigger label={props.triggerLabel} />
       <DropdownMenu.Content>
         {props.items.map((item) => (
           <DropdownMenu.Item
@@ -986,15 +986,24 @@ export function renderCheckboxGroup(
   onChange: (next: string[]) => void,
 ): ReactNode {
   return (
-    <CheckboxGroup.Root name={props.name} onChange={onChange} value={value}>
-      {props.options.map((option) => (
-        <CheckboxGroup.Item
-          itemValue={option.value}
-          key={option.value}
-          label={option.label}
-        />
-      ))}
-    </CheckboxGroup.Root>
+    <LabeledField label={props.label}>
+      {(labelId) => (
+        <CheckboxGroup.Root
+          aria-labelledby={labelId}
+          name={props.name}
+          onChange={onChange}
+          value={value}
+        >
+          {props.options.map((option) => (
+            <CheckboxGroup.Item
+              itemValue={option.value}
+              key={option.value}
+              label={option.label}
+            />
+          ))}
+        </CheckboxGroup.Root>
+      )}
+    </LabeledField>
   );
 }
 

@@ -189,13 +189,13 @@ export const statusIconProps = z.object({
 }) satisfies z.ZodType<StatusIconIntegrationProps>;
 
 type BadgeIntegrationProps = {
-  text: string;
+  label: string;
   tone?: ComponentProps<typeof Badge>['tone'];
   variant?: ComponentProps<typeof Badge>['variant'];
   size?: ComponentProps<typeof Badge>['size'];
 };
 export const badgeProps = z.object({
-  text: z.string(),
+  label: z.string(),
   tone: z.enum(['neutral', 'info', 'success', 'warning', 'error']).optional(),
   variant: z.enum(['solid', 'outline']).optional(),
   size: z.enum(['sm', 'md', 'lg']).optional(),
@@ -680,11 +680,15 @@ type CheckboxGroupIntegrationProps = {
   name: string;
   options: readonly SelectOption[];
   defaultValue?: readonly string[];
+  label: string;
 };
 export const checkboxGroupProps = z.object({
   name: z.string(),
   options: z.array(selectOption).min(1),
   defaultValue: z.array(z.string()).optional(),
+  // グループのアクセシブル名。後から足したので末尾に置く
+  // （冒頭「キーの並び順が公開 ABI」参照）
+  label: z.string(),
 }) satisfies z.ZodType<CheckboxGroupIntegrationProps>;
 
 type AutocompleteIntegrationProps = {
@@ -753,12 +757,12 @@ export const formProps = z.object({
 type ModalIntegrationProps = {
   triggerLabel: string;
   title: string;
-  placement?: ComponentProps<typeof Modal>['placement'];
+  side?: ComponentProps<typeof Modal>['side'];
 };
 export const modalProps = z.object({
   triggerLabel: z.string().describe('モーダルを開くボタンの文言'),
   title: z.string(),
-  placement: z.enum(['center', 'bottom', 'right', 'left']).optional(),
+  side: z.enum(['center', 'bottom', 'right', 'left']).optional(),
 }) satisfies z.ZodType<ModalIntegrationProps>;
 
 type DialogIntegrationProps = { triggerLabel: string; title: string };
@@ -914,10 +918,7 @@ export type _EnumCoverage = [
     >
   >,
   AssertCovered<
-    CoversComponent<
-      ComponentProps<typeof Modal>['placement'],
-      ModalProps['placement']
-    >
+    CoversComponent<ComponentProps<typeof Modal>['side'], ModalProps['side']>
   >,
   AssertCovered<
     CoversComponent<ComponentProps<typeof Drawer>['side'], DrawerProps['side']>

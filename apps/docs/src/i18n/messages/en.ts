@@ -295,7 +295,7 @@ export const en = {
     'A catalog of icon components provided by ArteOdyssey.',
   'components.icons.sizesTitle': 'Sizes',
   'components.common.basicUsageTitle': 'Basic Usage',
-  'components.modal.placementTitle': 'Placement',
+  'components.modal.sideTitle': 'Side',
   'components.toast.useToastTitle': 'useToast Hook',
   'components.popover.placementTitle': 'Placement',
   'components.tooltip.placementTitle': 'Placement',

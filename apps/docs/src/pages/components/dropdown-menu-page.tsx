@@ -30,7 +30,7 @@ const dropdownMenuRootProps: PropItem[] = [
 ];
 
 const dropdownMenuTriggerProps: PropItem[] = [
-  { name: 'text', types: ['string'], defaultValue: null },
+  { name: 'label', types: ['string'], defaultValue: null },
   {
     name: 'size',
     types: ["'sm'", "'md'", "'lg'"],
@@ -94,7 +94,7 @@ export function DropdownMenuPage() {
           </Heading>
           <ComponentPreview
             code={`<DropdownMenu.Root>
-  <DropdownMenu.Trigger text="Actions" />
+  <DropdownMenu.Trigger label="Actions" />
   <DropdownMenu.Content>
     <DropdownMenu.Item label="Edit" onClick={() => {}} />
     <DropdownMenu.Item label="Duplicate" onClick={() => {}} />
@@ -135,7 +135,7 @@ export function DropdownMenuPage() {
           </Heading>
           <ComponentPreview
             code={`<DropdownMenu.Root>
-  <DropdownMenu.Trigger size="sm" text="Small" />
+  <DropdownMenu.Trigger label="Small" size="sm" />
   <DropdownMenu.Content>
     <DropdownMenu.Item label="Edit" onClick={() => {}} />
     <DropdownMenu.Item label="Delete" onClick={() => {}} />
@@ -143,7 +143,7 @@ export function DropdownMenuPage() {
 </DropdownMenu.Root>
 
 <DropdownMenu.Root>
-  <DropdownMenu.Trigger size="md" text="Medium" />
+  <DropdownMenu.Trigger label="Medium" size="md" />
   <DropdownMenu.Content>
     <DropdownMenu.Item label="Edit" onClick={() => {}} />
     <DropdownMenu.Item label="Delete" onClick={() => {}} />
@@ -151,7 +151,7 @@ export function DropdownMenuPage() {
 </DropdownMenu.Root>
 
 <DropdownMenu.Root>
-  <DropdownMenu.Trigger size="lg" text="Large" />
+  <DropdownMenu.Trigger label="Large" size="lg" />
   <DropdownMenu.Content>
     <DropdownMenu.Item label="Edit" onClick={() => {}} />
     <DropdownMenu.Item label="Delete" onClick={() => {}} />
@@ -168,7 +168,7 @@ export function DropdownMenuPage() {
           </Heading>
           <ComponentPreview
             code={`<DropdownMenu.Root placement="bottom-start">
-  <DropdownMenu.Trigger text="Bottom Start" />
+  <DropdownMenu.Trigger label="Bottom Start" />
   <DropdownMenu.Content>
     <DropdownMenu.Item label="Edit" onClick={() => {}} />
     <DropdownMenu.Item label="Delete" onClick={() => {}} />
@@ -176,7 +176,7 @@ export function DropdownMenuPage() {
 </DropdownMenu.Root>
 
 <DropdownMenu.Root placement="bottom-end">
-  <DropdownMenu.Trigger text="Bottom End" />
+  <DropdownMenu.Trigger label="Bottom End" />
   <DropdownMenu.Content>
     <DropdownMenu.Item label="Edit" onClick={() => {}} />
     <DropdownMenu.Item label="Delete" onClick={() => {}} />
@@ -184,7 +184,7 @@ export function DropdownMenuPage() {
 </DropdownMenu.Root>
 
 <DropdownMenu.Root placement="top-start">
-  <DropdownMenu.Trigger text="Top Start" />
+  <DropdownMenu.Trigger label="Top Start" />
   <DropdownMenu.Content>
     <DropdownMenu.Item label="Edit" onClick={() => {}} />
     <DropdownMenu.Item label="Delete" onClick={() => {}} />

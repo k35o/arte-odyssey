@@ -8,7 +8,7 @@ import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 
 const badgeProps: PropItem[] = [
-  { name: 'text', types: ['string'], defaultValue: null },
+  { name: 'label', types: ['string'], defaultValue: null },
   { name: 'interactive', types: ['boolean'], defaultValue: 'false' },
   { name: 'size', types: ["'sm'", "'md'"], defaultValue: "'md'" },
   {
@@ -58,8 +58,8 @@ export function BadgePage() {
           <Heading type="h2">
             <T k="components.common.usageTitle" />
           </Heading>
-          <ComponentPreview code='<Badge text="New" />'>
-            <Badge text="New" />
+          <ComponentPreview code='<Badge label="New" />'>
+            <Badge label="New" />
           </ComponentPreview>
         </div>
 
@@ -68,17 +68,17 @@ export function BadgePage() {
             <T k="components.badge.tonesTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Badge text="Neutral" />
-<Badge text="Info" tone="info" />
-<Badge text="Success" tone="success" />
-<Badge text="Warning" tone="warning" />
-<Badge text="Error" tone="error" />`}
+            code={`<Badge label="Neutral" />
+<Badge label="Info" tone="info" />
+<Badge label="Success" tone="success" />
+<Badge label="Warning" tone="warning" />
+<Badge label="Error" tone="error" />`}
           >
-            <Badge text="Neutral" />
-            <Badge text="Info" tone="info" />
-            <Badge text="Success" tone="success" />
-            <Badge text="Warning" tone="warning" />
-            <Badge text="Error" tone="error" />
+            <Badge label="Neutral" />
+            <Badge label="Info" tone="info" />
+            <Badge label="Success" tone="success" />
+            <Badge label="Warning" tone="warning" />
+            <Badge label="Error" tone="error" />
           </ComponentPreview>
         </div>
 
@@ -87,11 +87,11 @@ export function BadgePage() {
             <T k="components.badge.variantsTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Badge text="Solid" tone="success" />
-<Badge text="Outline" tone="success" variant="outline" />`}
+            code={`<Badge label="Solid" tone="success" />
+<Badge label="Outline" tone="success" variant="outline" />`}
           >
-            <Badge text="Solid" tone="success" />
-            <Badge text="Outline" tone="success" variant="outline" />
+            <Badge label="Solid" tone="success" />
+            <Badge label="Outline" tone="success" variant="outline" />
           </ComponentPreview>
         </div>
 
@@ -100,44 +100,44 @@ export function BadgePage() {
             <T k="components.badge.interactiveTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Badge interactive text="Neutral Solid" />
-<Badge interactive text="Neutral Outline" variant="outline" />
-<Badge interactive text="Info Solid" tone="info" />
-<Badge interactive text="Info Outline" tone="info" variant="outline" />
-<Badge interactive text="Success Solid" tone="success" />
-<Badge interactive text="Success Outline" tone="success" variant="outline" />
-<Badge interactive text="Warning Solid" tone="warning" />
-<Badge interactive text="Warning Outline" tone="warning" variant="outline" />
-<Badge interactive text="Error Solid" tone="error" />
-<Badge interactive text="Error Outline" tone="error" variant="outline" />`}
+            code={`<Badge interactive label="Neutral Solid" />
+<Badge interactive label="Neutral Outline" variant="outline" />
+<Badge interactive label="Info Solid" tone="info" />
+<Badge interactive label="Info Outline" tone="info" variant="outline" />
+<Badge interactive label="Success Solid" tone="success" />
+<Badge interactive label="Success Outline" tone="success" variant="outline" />
+<Badge interactive label="Warning Solid" tone="warning" />
+<Badge interactive label="Warning Outline" tone="warning" variant="outline" />
+<Badge interactive label="Error Solid" tone="error" />
+<Badge interactive label="Error Outline" tone="error" variant="outline" />`}
           >
-            <Badge interactive text="Neutral Solid" />
-            <Badge interactive text="Neutral Outline" variant="outline" />
-            <Badge interactive text="Info Solid" tone="info" />
+            <Badge interactive label="Neutral Solid" />
+            <Badge interactive label="Neutral Outline" variant="outline" />
+            <Badge interactive label="Info Solid" tone="info" />
             <Badge
               interactive
-              text="Info Outline"
+              label="Info Outline"
               tone="info"
               variant="outline"
             />
-            <Badge interactive text="Success Solid" tone="success" />
+            <Badge interactive label="Success Solid" tone="success" />
             <Badge
               interactive
-              text="Success Outline"
+              label="Success Outline"
               tone="success"
               variant="outline"
             />
-            <Badge interactive text="Warning Solid" tone="warning" />
+            <Badge interactive label="Warning Solid" tone="warning" />
             <Badge
               interactive
-              text="Warning Outline"
+              label="Warning Outline"
               tone="warning"
               variant="outline"
             />
-            <Badge interactive text="Error Solid" tone="error" />
+            <Badge interactive label="Error Solid" tone="error" />
             <Badge
               interactive
-              text="Error Outline"
+              label="Error Outline"
               tone="error"
               variant="outline"
             />

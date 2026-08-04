@@ -13,7 +13,7 @@ import {
 
 const drawerProps: PropItem[] = [
   { name: 'title', types: ['ReactNode'], defaultValue: null },
-  { name: 'side', types: ["'left'", "'right'"], defaultValue: "'right'" },
+  { name: 'side', types: ['DrawerSide'], defaultValue: "'right'" },
   { name: 'isOpen', types: ['boolean'], defaultValue: null },
   { name: 'defaultOpen', types: ['boolean'], defaultValue: null },
   { name: 'onClose', types: ['() => void'], defaultValue: null },

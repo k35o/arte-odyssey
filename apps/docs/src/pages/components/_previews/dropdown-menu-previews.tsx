@@ -5,7 +5,7 @@ import { DarkModeIcon, DropdownMenu } from '@k8o/arte-odyssey';
 export function DropdownMenuBasicPreview() {
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger text="Actions" />
+      <DropdownMenu.Trigger label="Actions" />
       <DropdownMenu.Content>
         <DropdownMenu.Item label="Edit" onClick={() => undefined} />
         <DropdownMenu.Item label="Duplicate" onClick={() => undefined} />
@@ -35,21 +35,21 @@ export function DropdownMenuSizesPreview() {
   return (
     <>
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger size="sm" text="Small" />
+        <DropdownMenu.Trigger label="Small" size="sm" />
         <DropdownMenu.Content>
           <DropdownMenu.Item label="Edit" onClick={() => undefined} />
           <DropdownMenu.Item label="Delete" onClick={() => undefined} />
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger size="md" text="Medium" />
+        <DropdownMenu.Trigger label="Medium" size="md" />
         <DropdownMenu.Content>
           <DropdownMenu.Item label="Edit" onClick={() => undefined} />
           <DropdownMenu.Item label="Delete" onClick={() => undefined} />
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger size="lg" text="Large" />
+        <DropdownMenu.Trigger label="Large" size="lg" />
         <DropdownMenu.Content>
           <DropdownMenu.Item label="Edit" onClick={() => undefined} />
           <DropdownMenu.Item label="Delete" onClick={() => undefined} />
@@ -63,21 +63,21 @@ export function DropdownMenuPlacementPreview() {
   return (
     <>
       <DropdownMenu.Root placement="bottom-start">
-        <DropdownMenu.Trigger text="Bottom Start" />
+        <DropdownMenu.Trigger label="Bottom Start" />
         <DropdownMenu.Content>
           <DropdownMenu.Item label="Edit" onClick={() => undefined} />
           <DropdownMenu.Item label="Delete" onClick={() => undefined} />
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <DropdownMenu.Root placement="bottom-end">
-        <DropdownMenu.Trigger text="Bottom End" />
+        <DropdownMenu.Trigger label="Bottom End" />
         <DropdownMenu.Content>
           <DropdownMenu.Item label="Edit" onClick={() => undefined} />
           <DropdownMenu.Item label="Delete" onClick={() => undefined} />
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <DropdownMenu.Root placement="top-start">
-        <DropdownMenu.Trigger text="Top Start" />
+        <DropdownMenu.Trigger label="Top Start" />
         <DropdownMenu.Content>
           <DropdownMenu.Item label="Edit" onClick={() => undefined} />
           <DropdownMenu.Item label="Delete" onClick={() => undefined} />

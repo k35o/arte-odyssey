@@ -92,7 +92,7 @@ import { Modal } from '@k8o/arte-odyssey';`}
 <Modal
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
-  placement="center"
+  side="center"
 >
   <Dialog.Root>
     <Dialog.Header
@@ -120,7 +120,7 @@ import { Modal } from '@k8o/arte-odyssey';`}
 <Modal
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
-  placement="center"
+  side="center"
 >
   <Dialog.Root role="alertdialog">
     <Dialog.Header
