@@ -357,6 +357,14 @@ import 'streamdown/styles.css';
 </Message.Content>;
 ```
 
+`Response` forwards the rest of streamdown's props (`translations`, `controls`, `linkSafety`, `plugins`, …); only `className` and `mode` are owned by the library. Built-in labels come from the message dictionary, so they follow the app's language by default.
+
+`linkSafety` defaults to **disabled** here, unlike streamdown. With it enabled, links render as `<button>` instead of `<a>`, which loses ⌘-click, middle-click, "copy link address", and the `link` role for assistive tech. Dangerous schemes such as `javascript:` are neutralized by rehype-harden regardless, so links stay safe with the default. Opt in when you want the confirmation dialog:
+
+```tsx
+<Response linkSafety={{ enabled: true }}>{markdownText}</Response>
+```
+
 ```css
 /* In your CSS entry (path is relative to the CSS file) */
 @source '../node_modules/streamdown/dist/*.js';

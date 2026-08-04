@@ -22,6 +22,8 @@ type FormControlProps = {
   }) => ReactElement;
 };
 
+const LABEL_CLASS = 'text-fg-base text-md mb-1 flex gap-2 pl-0.5 font-bold';
+
 export const FormControl: FC<FormControlProps> = ({
   disabled = false,
   invalid = false,
@@ -43,32 +45,23 @@ export const FormControl: FC<FormControlProps> = ({
         ? `${id}-helptext`
         : undefined;
   const labelId = `${id}-label`;
-  return (
-    <fieldset className="flex w-full min-w-0 flex-col">
+  const labelContent = (
+    <>
+      {label}
+      {required && (
+        <span className="text-fg-error font-medium">{messages.required}</span>
+      )}
+    </>
+  );
+  const content = (
+    <>
       {labelAs === 'label' ? (
-        <label
-          className="text-fg-base text-md mb-1 flex gap-2 pl-0.5 font-bold"
-          htmlFor={id}
-          id={labelId}
-        >
-          {label}
-          {required && (
-            <span className="text-fg-error font-medium">
-              {messages.required}
-            </span>
-          )}
+        <label className={LABEL_CLASS} htmlFor={id} id={labelId}>
+          {labelContent}
         </label>
       ) : (
-        <legend
-          className="text-fg-base text-md mb-1 flex gap-2 pl-0.5 font-bold"
-          id={labelId}
-        >
-          {label}
-          {required && (
-            <span className="text-fg-error font-medium">
-              {messages.required}
-            </span>
-          )}
+        <legend className={LABEL_CLASS} id={labelId}>
+          {labelContent}
         </legend>
       )}
       {renderInput({
@@ -92,6 +85,14 @@ export const FormControl: FC<FormControlProps> = ({
           {helpText}
         </p>
       ) : null}
-    </fieldset>
+    </>
+  );
+
+  // 単一フィールドまで fieldset で包むと、名前の無いグループが全フィールドに増える。
+  // legend を置けるのは fieldset の中だけなので、legend のときだけ fieldset にする。
+  return labelAs === 'legend' ? (
+    <fieldset className="flex w-full min-w-0 flex-col">{content}</fieldset>
+  ) : (
+    <div className="flex w-full min-w-0 flex-col">{content}</div>
   );
 };

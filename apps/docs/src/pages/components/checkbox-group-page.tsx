@@ -15,10 +15,10 @@ import { STORYBOOK_URL } from '../../constants';
 import { CheckboxGroupControlledPreview } from './_previews/checkbox-group-previews';
 
 const checkboxGroupProps: PropItem[] = [
+  { name: 'aria-labelledby', types: ['string'], defaultValue: null },
   { name: 'name', types: ['string'], defaultValue: null },
   { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
   { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'required', types: ['boolean'], defaultValue: 'false' },
   { name: 'value', types: ['string[]'], defaultValue: null },
   {
     name: 'onChange',
@@ -67,7 +67,13 @@ export function CheckboxGroupPage() {
           <ComponentPreview
             code={`const [value, setValue] = useState(['react']);
 
-<CheckboxGroup name="frameworks" onChange={setValue} value={value}>
+<p id="frameworks-label">Frameworks</p>
+<CheckboxGroup
+  aria-labelledby="frameworks-label"
+  name="frameworks"
+  onChange={setValue}
+  value={value}
+>
   <Checkbox itemValue="react" label="React" />
   <Checkbox itemValue="vue" label="Vue" />
   <Checkbox itemValue="svelte" label="Svelte" />
@@ -82,17 +88,34 @@ export function CheckboxGroupPage() {
             <T k="components.checkboxGroup.defaultValueTitle" />
           </Heading>
           <ComponentPreview
-            code={`<CheckboxGroup defaultValue={['vue']} name="frameworks-default">
+            code={`<p id="frameworks-default-label">Frameworks</p>
+<CheckboxGroup
+  aria-labelledby="frameworks-default-label"
+  defaultValue={['vue']}
+  name="frameworks-default"
+>
   <Checkbox itemValue="react" label="React" />
   <Checkbox itemValue="vue" label="Vue" />
   <Checkbox itemValue="svelte" label="Svelte" />
 </CheckboxGroup>`}
           >
-            <CheckboxGroup defaultValue={['vue']} name="frameworks-default">
-              <Checkbox itemValue="react" label="React" />
-              <Checkbox itemValue="vue" label="Vue" />
-              <Checkbox itemValue="svelte" label="Svelte" />
-            </CheckboxGroup>
+            <div>
+              <p
+                className="text-fg-base mb-2 font-medium"
+                id="frameworks-default-label"
+              >
+                Frameworks
+              </p>
+              <CheckboxGroup
+                aria-labelledby="frameworks-default-label"
+                defaultValue={['vue']}
+                name="frameworks-default"
+              >
+                <Checkbox itemValue="react" label="React" />
+                <Checkbox itemValue="vue" label="Vue" />
+                <Checkbox itemValue="svelte" label="Svelte" />
+              </CheckboxGroup>
+            </div>
           </ComponentPreview>
         </div>
 
@@ -101,21 +124,36 @@ export function CheckboxGroupPage() {
             <T k="components.checkboxGroup.disabledTitle" />
           </Heading>
           <ComponentPreview
-            code={`<CheckboxGroup defaultValue={['vue']} disabled name="frameworks-disabled">
+            code={`<p id="frameworks-disabled-label">Frameworks</p>
+<CheckboxGroup
+  aria-labelledby="frameworks-disabled-label"
+  defaultValue={['vue']}
+  disabled
+  name="frameworks-disabled"
+>
   <Checkbox itemValue="react" label="React" />
   <Checkbox itemValue="vue" label="Vue" />
   <Checkbox itemValue="svelte" label="Svelte" />
 </CheckboxGroup>`}
           >
-            <CheckboxGroup
-              defaultValue={['vue']}
-              disabled
-              name="frameworks-disabled"
-            >
-              <Checkbox itemValue="react" label="React" />
-              <Checkbox itemValue="vue" label="Vue" />
-              <Checkbox itemValue="svelte" label="Svelte" />
-            </CheckboxGroup>
+            <div>
+              <p
+                className="text-fg-base mb-2 font-medium"
+                id="frameworks-disabled-label"
+              >
+                Frameworks
+              </p>
+              <CheckboxGroup
+                aria-labelledby="frameworks-disabled-label"
+                defaultValue={['vue']}
+                disabled
+                name="frameworks-disabled"
+              >
+                <Checkbox itemValue="react" label="React" />
+                <Checkbox itemValue="vue" label="Vue" />
+                <Checkbox itemValue="svelte" label="Svelte" />
+              </CheckboxGroup>
+            </div>
           </ComponentPreview>
         </div>
       </section>

@@ -4,4 +4,7 @@ import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  test: {
+    globals: true,
+  },
 });

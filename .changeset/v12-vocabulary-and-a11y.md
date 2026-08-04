@@ -9,13 +9,17 @@
 | 旧                                                                              | 新                      |
 | ------------------------------------------------------------------------------- | ----------------------- |
 | `<Checkbox value={b}>` / `<Switch value={b}>` / `<CheckboxGroup.Item value={b}>` | `checked={b}`           |
-| `<Modal type="center">`                                                         | `placement="center"`    |
+| `<Modal type="center">`                                                         | `side="center"`         |
+| `<Badge text="新着">`                                                           | `label="新着"`          |
+| `<DropdownMenu.Trigger text="操作">`                                            | `label="操作"`          |
 | `<Button color="gray">`                                                         | `color="base"`          |
 | `<Pagination onPageChange={fn}>`                                                | `onChange={fn}`         |
 | `<ListBox.TriggerIcon>`                                                         | `<ListBox.IconTrigger>` |
 | `ListBox` の options `{ key, label }`                                           | `{ value, label }`      |
 
 値が `string[]` の `<CheckboxGroup value>`、`<CheckboxCard value>`、`<RadioCard value>` はそのままです。`Modal` の配置の値（`center` / `bottom` / `right` / `left`）も変わりません。
+
+`placement` はアンカー要素からの相対配置（`Placement` 型）専用の語彙にし、ビューポートの縁に貼り付く `Modal` / `Drawer` は `side` に統一しました。`Modal` の `side` は `ModalSide`、`Drawer` の `side` はその部分集合の `DrawerSide` で、どちらもルートから export します。これまで `Placement` を受け取るラッパーを `Modal` にそのまま渡すと型エラーになっていました。
 
 ## 型・DOM が変わるもの
 
@@ -41,7 +45,7 @@
 
   優先順位は「コンポーネントの prop > 辞書 > 既定」です。Provider を置かなければ日本語で動きます。
 
-- **公開型をルートから export しました**（`Placement` / `Option` / `TooltipTriggerProps` / `RadioCardOption` / `Messages` など）。
+- **公開型をルートから export しました**（`Placement` / `ModalSide` / `DrawerSide` / `Option` / `TooltipTriggerProps` / `RadioCardOption` / `Messages` など）。
 
 ## 挙動の改善（API は不変）
 

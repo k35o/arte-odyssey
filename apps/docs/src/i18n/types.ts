@@ -242,7 +242,7 @@ export const MESSAGE_KEYS = [
   'components.icons.description',
   'components.icons.sizesTitle',
   'components.common.basicUsageTitle',
-  'components.modal.placementTitle',
+  'components.modal.sideTitle',
   'components.toast.useToastTitle',
   'components.popover.placementTitle',
   'components.tooltip.placementTitle',

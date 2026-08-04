@@ -243,8 +243,8 @@ export const componentPreviews: Record<string, ReactNode> = {
   Avatar: <Avatar name="Arte Odyssey" />,
   Badge: (
     <div className="flex gap-2">
-      <Badge text="New" tone="info" />
-      <Badge text="Stable" tone="success" />
+      <Badge label="New" tone="info" />
+      <Badge label="Stable" tone="success" />
     </div>
   ),
   Card: (
@@ -306,7 +306,7 @@ export const componentPreviews: Record<string, ReactNode> = {
   ),
   DropdownMenu: (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger text="Actions" />
+      <DropdownMenu.Trigger label="Actions" />
     </DropdownMenu.Root>
   ),
   Tooltip: (

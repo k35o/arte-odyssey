@@ -24,7 +24,7 @@ type Story = StoryObj<typeof DropdownMenu.Root>;
 export const Default: Story = {
   render: () => (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger text="操作" />
+      <DropdownMenu.Trigger label="操作" />
       <DropdownMenu.Content>
         <DropdownMenu.Item
           label="編集"

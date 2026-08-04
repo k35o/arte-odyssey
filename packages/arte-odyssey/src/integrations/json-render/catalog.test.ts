@@ -29,7 +29,7 @@ describe('validateGeneratedSpec', () => {
     const result = validateGeneratedSpec(
       specWithTarget({
         type: 'Modal',
-        props: { triggerLabel: '開く', title: '設定', placement: 'center' },
+        props: { triggerLabel: '開く', title: '設定', side: 'center' },
         children: [],
       }),
     );
@@ -42,7 +42,7 @@ describe('validateGeneratedSpec', () => {
       specWithTarget({
         type: 'Modal',
         // 旧 API。zod は未知キーを黙って落とすため、検出しないと既定の
-        // placement で描画されてしまう。
+        // side で描画されてしまう。
         props: { triggerLabel: '開く', title: '設定', type: 'bottom' },
         children: [],
       }),

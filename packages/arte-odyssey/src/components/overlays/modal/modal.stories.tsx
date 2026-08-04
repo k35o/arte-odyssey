@@ -60,10 +60,10 @@ export const Labelled: Story = {
   },
 };
 
-export const BottomPlacement: Story = {
+export const BottomSide: Story = {
   args: {
     defaultOpen: true,
-    placement: 'bottom',
+    side: 'bottom',
     'aria-label': 'ボトムシート',
     children: <p className="p-4">下から出るモーダル</p>,
   },
@@ -73,10 +73,10 @@ export const BottomPlacement: Story = {
   },
 };
 
-export const LeftPlacement: Story = {
+export const LeftSide: Story = {
   args: {
     defaultOpen: true,
-    placement: 'left',
+    side: 'left',
     'aria-label': '左サイドシート',
     children: <p className="p-4">左から出るモーダル</p>,
   },
@@ -99,7 +99,7 @@ const ExternalRefControlRender = () => {
       >
         開く
       </Button>
-      <Modal placement="center" ref={ref}>
+      <Modal ref={ref} side="center">
         <Dialog.Root>
           <Dialog.Header
             onClose={() => {

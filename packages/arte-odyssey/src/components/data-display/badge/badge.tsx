@@ -4,7 +4,7 @@ import { cn } from '../../../helpers/cn';
 import { FOCUS_RING_NO_BORDER } from '../../_internal/focus-ring';
 
 type Props = {
-  text: string;
+  label: string;
   size?: 'sm' | 'md' | 'lg';
   interactive?: boolean;
   tone?: 'neutral' | 'info' | 'success' | 'warning' | 'error';
@@ -13,8 +13,8 @@ type Props = {
 
 export const Badge: FC<Props> = ({
   interactive = false,
+  label,
   size = 'md',
-  text,
   tone = 'neutral',
   variant = 'solid',
   ...rest
@@ -104,14 +104,14 @@ export const Badge: FC<Props> = ({
   if (interactive) {
     return (
       <button {...rest} className={badgeClassName} type="button">
-        {text}
+        {label}
       </button>
     );
   }
 
   return (
     <span {...rest} className={badgeClassName}>
-      {text}
+      {label}
     </span>
   );
 };

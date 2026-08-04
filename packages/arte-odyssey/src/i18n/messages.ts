@@ -58,4 +58,32 @@ export type Messages = {
   toolInput: string;
   toolOutput: string;
   toolError: string;
+
+  /**
+   * Response が描画する Markdown のコントロール文言。
+   * 書式名（Markdown / CSV / TSV / SVG / PNG / MMD）は翻訳対象にしない
+   */
+  responseCopied: string;
+  responseCopyCode: string;
+  responseCopyLink: string;
+  responseCopyTable: string;
+  responseCopyTableAsCsv: string;
+  responseCopyTableAsMarkdown: string;
+  responseCopyTableAsTsv: string;
+  responseDownloadDiagram: string;
+  responseDownloadDiagramAsMmd: string;
+  responseDownloadDiagramAsPng: string;
+  responseDownloadDiagramAsSvg: string;
+  responseDownloadFile: string;
+  responseDownloadImage: string;
+  responseDownloadTable: string;
+  responseDownloadTableAsCsv: string;
+  responseDownloadTableAsMarkdown: string;
+  responseExitFullscreen: string;
+  responseViewFullscreen: string;
+  responseImageNotAvailable: string;
+  /** linkSafety を有効にしたときだけ出る外部リンク確認の文言 */
+  responseOpenExternalLink: string;
+  responseExternalLinkWarning: string;
+  responseOpenLink: string;
 };

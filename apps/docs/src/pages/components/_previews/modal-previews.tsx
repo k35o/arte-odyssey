@@ -19,7 +19,7 @@ export function ModalBasicPreview() {
         onClose={() => {
           setIsOpen(false);
         }}
-        placement="center"
+        side="center"
       >
         <Dialog.Root>
           <Dialog.Header
@@ -37,7 +37,7 @@ export function ModalBasicPreview() {
   );
 }
 
-export function ModalPlacementsPreview() {
+export function ModalSidesPreview() {
   const [centerOpen, setCenterOpen] = useState(false);
   const [bottomOpen, setBottomOpen] = useState(false);
   const [rightOpen, setRightOpen] = useState(false);
@@ -70,7 +70,7 @@ export function ModalPlacementsPreview() {
         onClose={() => {
           setCenterOpen(false);
         }}
-        placement="center"
+        side="center"
       >
         <Dialog.Root>
           <Dialog.Header
@@ -87,7 +87,7 @@ export function ModalPlacementsPreview() {
         onClose={() => {
           setBottomOpen(false);
         }}
-        placement="bottom"
+        side="bottom"
       >
         <Dialog.Root>
           <Dialog.Header
@@ -104,7 +104,7 @@ export function ModalPlacementsPreview() {
         onClose={() => {
           setRightOpen(false);
         }}
-        placement="right"
+        side="right"
       >
         <Dialog.Root>
           <Dialog.Header
@@ -137,7 +137,7 @@ export function DefaultOpenPreview() {
           onClose={() => {
             setShow(false);
           }}
-          placement="center"
+          side="center"
         >
           <Dialog.Root>
             <Dialog.Header

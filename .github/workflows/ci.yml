@@ -81,6 +81,29 @@ jobs:
       - name: Check packaging
         run: pnpm --filter @k8o/arte-odyssey check:package
 
+  examples:
+    name: Examples
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Install
+        uses: ./.github/composite-actions/install
+
+      # examples は他ジョブが必要としないので composite install の build からは
+      # 外したまま、このジョブだけで面倒を見る。ビルドが通るだけでは
+      # 「生成 UI のデモが実は何も描画しない」を検出できないため、デモの
+      # spec / DSL を実パーサに通す test も併せて回す。
+      - name: Build examples
+        run: pnpm build:examples
+
+      - name: Verify generative UI demos are renderable
+        run: pnpm test:examples
+
   tokens:
     name: Tokens
     runs-on: ubuntu-latest

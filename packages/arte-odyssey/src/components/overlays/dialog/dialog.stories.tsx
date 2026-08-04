@@ -95,7 +95,7 @@ const ModalDialogRender = () => {
         onClose={() => {
           setOpen(false);
         }}
-        placement="center"
+        side="center"
       >
         <Dialog.Root>
           <Dialog.Header onClose={fn} title="モーダル" />

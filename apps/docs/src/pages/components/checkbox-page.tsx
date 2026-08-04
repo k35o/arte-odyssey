@@ -32,7 +32,6 @@ const checkboxGroupProps: PropItem[] = [
   { name: 'aria-describedby', types: ['string'], defaultValue: null },
   { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
   { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'required', types: ['boolean'], defaultValue: 'false' },
   { name: 'value', types: ['string[]'], defaultValue: null },
   {
     name: 'onChange',
@@ -125,7 +124,13 @@ export function CheckboxPage() {
         <div className="flex flex-col gap-4">
           <Heading type="h3">Group</Heading>
           <ComponentPreview
-            code={`<CheckboxGroup name="frameworks" onChange={setValue} value={value}>
+            code={`<p id="checkbox-group-label">Frameworks</p>
+<CheckboxGroup
+  aria-labelledby="checkbox-group-label"
+  name="frameworks"
+  onChange={setValue}
+  value={value}
+>
   <Checkbox itemValue="react" label="React" />
   <Checkbox itemValue="vue" label="Vue" />
   <Checkbox itemValue="svelte" label="Svelte" />
@@ -138,7 +143,13 @@ export function CheckboxPage() {
         <div className="flex flex-col gap-4">
           <Heading type="h3">Group Disabled</Heading>
           <ComponentPreview
-            code={`<CheckboxGroup defaultValue={['vue']} disabled name="frameworks-disabled">
+            code={`<p id="checkbox-group-disabled-label">Frameworks</p>
+<CheckboxGroup
+  aria-labelledby="checkbox-group-disabled-label"
+  defaultValue={['vue']}
+  disabled
+  name="frameworks-disabled"
+>
   <Checkbox itemValue="react" label="React" />
   <Checkbox itemValue="vue" label="Vue" />
   <Checkbox itemValue="svelte" label="Svelte" />

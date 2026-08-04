@@ -109,10 +109,10 @@ const Item: FC<{
 };
 
 const Trigger: FC<{
-  text: string;
+  label: string;
   size?: ComponentProps<typeof Button>['size'];
   variant?: ComponentProps<typeof Button>['variant'];
-}> = ({ text, size = 'md', variant = 'solid' }) => (
+}> = ({ label, size = 'md', variant = 'solid' }) => (
   <Popover.Trigger
     renderItem={(props) => (
       <Button
@@ -123,7 +123,7 @@ const Trigger: FC<{
         type="button"
         variant={variant}
       >
-        {text}
+        {label}
       </Button>
     )}
   />

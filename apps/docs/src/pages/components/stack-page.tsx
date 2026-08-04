@@ -70,14 +70,14 @@ export function StackPage() {
           </Heading>
           <ComponentPreview
             code={`<Stack direction="row" gap="sm">
-  <Badge text="有効" tone="success" />
-  <Badge text="保留" tone="warning" />
-  <Badge text="エラー" tone="error" />
+  <Badge label="有効" tone="success" />
+  <Badge label="保留" tone="warning" />
+  <Badge label="エラー" tone="error" />
 </Stack>`}
           >
             <Stack direction="row" gap="sm">
               {sampleItems.map((label, i) => (
-                <Badge key={label} text={label} tone={SAMPLE_TONE[i]} />
+                <Badge key={label} label={label} tone={SAMPLE_TONE[i]} />
               ))}
             </Stack>
           </ComponentPreview>
@@ -94,12 +94,12 @@ export function StackPage() {
             <Stack direction="column" gap="md">
               <Stack direction="column" gap="sm">
                 {sampleItems.map((label, i) => (
-                  <Badge key={label} text={label} tone={SAMPLE_TONE[i]} />
+                  <Badge key={label} label={label} tone={SAMPLE_TONE[i]} />
                 ))}
               </Stack>
               <Stack direction="row" gap="sm">
                 {sampleItems.map((label, i) => (
-                  <Badge key={label} text={label} tone={SAMPLE_TONE[i]} />
+                  <Badge key={label} label={label} tone={SAMPLE_TONE[i]} />
                 ))}
               </Stack>
             </Stack>
@@ -114,10 +114,10 @@ export function StackPage() {
             <Stack direction="column" gap="md">
               {(['none', 'sm', 'md', 'lg', 'xl'] as const).map((g) => (
                 <Stack direction="row" gap={g} key={g}>
-                  <Badge text={`gap=${g}`} tone="neutral" variant="outline" />
-                  <Badge text="A" tone="info" />
-                  <Badge text="B" tone="info" />
-                  <Badge text="C" tone="info" />
+                  <Badge label={`gap=${g}`} tone="neutral" variant="outline" />
+                  <Badge label="A" tone="info" />
+                  <Badge label="B" tone="info" />
+                  <Badge label="C" tone="info" />
                 </Stack>
               ))}
             </Stack>
@@ -131,9 +131,9 @@ export function StackPage() {
           <ComponentPreview code='<Stack direction="row" align="center" justify="between">…</Stack>'>
             <div className="bg-bg-mute rounded-lg p-3">
               <Stack align="center" direction="row" gap="md" justify="between">
-                <Badge text="L" tone="info" />
-                <Badge text="C" tone="success" />
-                <Badge text="R" tone="warning" />
+                <Badge label="L" tone="info" />
+                <Badge label="C" tone="success" />
+                <Badge label="R" tone="warning" />
               </Stack>
             </div>
           </ComponentPreview>

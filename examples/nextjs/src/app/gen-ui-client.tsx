@@ -1,8 +1,8 @@
 'use client';
 
-import type { Spec } from '@json-render/core';
+import type { ArteSpec } from '@k8o/arte-odyssey/json-render';
 import { JsonRenderUI } from '@k8o/arte-odyssey/json-render/registry';
 
-export function GenUiClient({ spec }: { spec: unknown }) {
-  return <JsonRenderUI spec={spec as Spec} />;
+export function GenUiClient({ spec }: { spec: ArteSpec }) {
+  return <JsonRenderUI spec={spec} />;
 }
