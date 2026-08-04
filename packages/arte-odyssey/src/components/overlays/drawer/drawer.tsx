@@ -10,6 +10,7 @@ import {
 
 import { cn } from '../../../helpers/cn';
 import { useMessages } from '../../../i18n/context';
+import type { DrawerSide } from '../../../types/variables';
 import { IconButton } from '../../buttons/icon-button';
 import { Heading } from '../../data-display/heading';
 import { CloseIcon } from '../../icons';
@@ -21,7 +22,7 @@ export const Drawer: FC<
     isOpen?: boolean;
     defaultOpen?: boolean;
     onClose?: () => void;
-    side?: 'left' | 'right';
+    side?: DrawerSide;
   }>
 > = ({ title, isOpen, defaultOpen, onClose, side = 'right', children }) => {
   const messages = useMessages();
@@ -35,8 +36,8 @@ export const Drawer: FC<
       defaultOpen={defaultOpen}
       isOpen={isOpen}
       onClose={onClose}
-      placement={side}
       ref={dialogRef}
+      side={side}
     >
       {/* section にすると名前付き region ランドマークになるため div。
           名前は外側の <dialog> が aria-labelledby で受け持つ */}
