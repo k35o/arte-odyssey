@@ -43,6 +43,15 @@ export const Default: Story = {
   args: {
     label: 'メールアドレス',
   },
+  play: async ({ canvas, canvasElement }) => {
+    await expect(
+      canvas.getByRole('textbox', { name: 'メールアドレス' }),
+    ).toBeVisible();
+    // fieldset で包むと、ラベルは label 要素に付くのでグループ側が名前の無い
+    // role="group" になる。1 フィールドをグループにしないことを固定する。
+    await expect(canvas.queryAllByRole('group')).toHaveLength(0);
+    await expect(canvasElement.querySelector('fieldset')).toBeNull();
+  },
 };
 
 export const HelpText: Story = {
@@ -57,6 +66,11 @@ export const Required: Story = {
     label: 'メールアドレス',
     helpText: 'RFCに準拠したメールアドレスを入力してください。',
     required: true,
+  },
+  play: async ({ canvas }) => {
+    const input = canvas.getByRole('textbox', { name: 'メールアドレス 必須' });
+
+    await expect(input).toBeRequired();
   },
 };
 
@@ -110,14 +124,20 @@ export const Legend: Story = {
     await expect(
       canvas.getByRole('textbox', { name: 'メールアドレス' }),
     ).toBeVisible();
+    // legend のときだけ fieldset になり、legend がグループの名前になる
+    await expect(
+      canvas.getByRole('group', { name: 'メールアドレス' }),
+    ).toBeVisible();
   },
 };
 
-// 回帰: fieldset は UA 標準で min-inline-size:min-content を持つため、min-w-0 が無いと
-// 狭いコンテナで中身（Autocomplete の選択チップ）がはみ出す。枠内に収まることを検証する。
+// 回帰: labelAs='legend' で出す fieldset は UA 標準で min-inline-size:min-content を
+// 持つため、min-w-0 が無いと狭いコンテナで中身（Autocomplete の選択チップ）がはみ出す。
+// 枠内に収まることを検証する。
 export const NarrowContainer: Story = {
   args: {
     label: 'ソース',
+    labelAs: 'legend',
     renderInput: (props) => (
       <Autocomplete
         {...props}
