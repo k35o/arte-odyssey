@@ -4,6 +4,10 @@
 
 グループ入力とフィールドラッパーのアクセシブルネームを整理しました。
 
+**CheckboxCard（破壊的変更）**
+
+`aria-labelledby` を必須にし、`role="group"` を明示しました。これまでは任意の ARIA 属性として渡せるだけで、省略するとグループに名前が付きませんでした。`RadioCard` と同じく、グループ名を指す要素の id を渡してください。生成 UI の `CheckboxCard` にもグループ名用の `label` を追加しています（キーは末尾に追加）。
+
 **CheckboxGroup（破壊的変更）**
 
 - `aria-labelledby` を必須にしました。`RadioCard` / `CheckboxCard` / `Radio` と同じく、グループ名を指す要素の id を渡してください。
