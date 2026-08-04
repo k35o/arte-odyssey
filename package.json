@@ -11,7 +11,9 @@
   "type": "module",
   "scripts": {
     "build": "vp run --filter './packages/*' --filter './apps/*' build",
+    "build:examples": "vp run --filter './examples/*' build",
     "test": "vp run -r test",
+    "test:examples": "vp run --filter './examples/*' test",
     "test:ui": "vp run -r test:ui",
     "test:coverage": "vp run -r test:coverage",
     "typecheck": "vp run -r typecheck",

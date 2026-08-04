@@ -1,7 +1,7 @@
 import type { ArteSpec } from '@k8o/arte-odyssey/json-render';
 import { JsonRenderUI } from '@k8o/arte-odyssey/json-render/registry';
 
-const spec = {
+export const jsonRenderSpec = {
   root: 'root',
   elements: {
     root: {
@@ -255,17 +255,17 @@ const spec = {
     },
     'b-on': {
       type: 'Badge',
-      props: { text: '有効', tone: 'success' },
+      props: { label: '有効', tone: 'success' },
       children: [],
     },
     'b-hold': {
       type: 'Badge',
-      props: { text: '保留', tone: 'warning', variant: 'outline' },
+      props: { label: '保留', tone: 'warning', variant: 'outline' },
       children: [],
     },
     'b-err': {
       type: 'Badge',
-      props: { text: 'エラー', tone: 'error' },
+      props: { label: 'エラー', tone: 'error' },
       children: [],
     },
     sep: { type: 'Separator', props: {}, children: [] },
@@ -293,5 +293,5 @@ const spec = {
 } satisfies ArteSpec;
 
 export function JsonRenderDemo() {
-  return <JsonRenderUI spec={spec} />;
+  return <JsonRenderUI spec={jsonRenderSpec} />;
 }
