@@ -448,6 +448,7 @@ export function renderTextarea(
 ): ReactNode {
   return (
     <Textarea
+      autoResize={u(props.autoResize)}
       disabled={u(props.disabled)}
       invalid={u(props.invalid)}
       name={props.name}
@@ -456,6 +457,7 @@ export function renderTextarea(
       }}
       placeholder={u(props.placeholder)}
       readOnly={u(props.readOnly)}
+      rows={u(props.rows)}
       value={value}
     />
   );
@@ -591,21 +593,32 @@ export function renderRadioCard(
   return <RadioCardView onChange={onChange} props={props} value={value} />;
 }
 
+const CheckboxCardView: FC<{
+  props: CheckboxCardProps;
+  value: string[];
+  onChange: (next: string[]) => void;
+}> = ({ props, value, onChange }) => (
+  <LabeledField label={props.label}>
+    {(labelId) => (
+      <CheckboxCard
+        aria-labelledby={labelId}
+        disabled={u(props.disabled)}
+        invalid={u(props.invalid)}
+        name={props.name}
+        onChange={onChange}
+        options={props.options}
+        value={value}
+      />
+    )}
+  </LabeledField>
+);
+
 export function renderCheckboxCard(
   props: CheckboxCardProps,
   value: string[],
   onChange: (next: string[]) => void,
 ): ReactNode {
-  return (
-    <CheckboxCard
-      disabled={u(props.disabled)}
-      invalid={u(props.invalid)}
-      name={props.name}
-      onChange={onChange}
-      options={props.options}
-      value={value}
-    />
-  );
+  return <CheckboxCardView onChange={onChange} props={props} value={value} />;
 }
 
 export function renderPagination(

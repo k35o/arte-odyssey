@@ -12,6 +12,7 @@ import type { Alert } from '../../components/feedback/alert';
 import type { Skeleton } from '../../components/feedback/skeleton';
 import type { Spinner } from '../../components/feedback/spinner';
 import type { FormControl } from '../../components/form/form-control';
+import type { Textarea } from '../../components/form/textarea';
 import type { AlertIcon, ChevronIcon } from '../../components/icons';
 import type { Grid } from '../../components/layout/grid';
 import type { Separator } from '../../components/layout/separator';
@@ -54,6 +55,14 @@ import type { Modal } from '../../components/overlays/modal';
  * - 既存キーの削除・並べ替え: 保存済みの OpenUI 文字列の引数が全部ずれる。
  * - 新しいキーの追加: **必ず末尾に足す**。途中に挿入すると以降の位置が 1 つずつ
  *   ずれ、既存の文字列が無言で誤描画される（型エラーにもならない）。
+ *
+ * ## スキーマの実体が同一性
+ *
+ * @openuidev/lang-core の `createLibrary` は `reg.add(comp.props, { id: name })`
+ * と **zod インスタンスそのもの**をキーに登録する。そのため 2 つのコンポーネントに
+ * 同じインスタンスを渡すと後勝ちで上書きされ、先に登録した方が JSON Schema の
+ * `$defs` から丸ごと消える（型エラーにもならない）。キーが同じ schema を作る
+ * ときは、プレーンな shape オブジェクトを spread して **別インスタンス**にする。
  */
 
 /**
@@ -465,6 +474,18 @@ export const tabsProps = z.object({
     .describe('各タブのラベルとテキストパネル'),
 }) satisfies z.ZodType<TabsIntegrationProps>;
 
+// TextField と Textarea はキーが揃っているが、`textareaProps = textFieldProps`
+// のようにインスタンスを共有してはいけない（冒頭「スキーマの実体が同一性」参照）。
+// 形だけを spread して別インスタンスにする。
+const textInputShape = {
+  name: z.string(),
+  placeholder: z.string().optional(),
+  defaultValue: z.string().optional(),
+  invalid: z.boolean().optional(),
+  disabled: z.boolean().optional(),
+  readOnly: z.boolean().optional(),
+};
+
 type TextFieldIntegrationProps = {
   name: string;
   placeholder?: string;
@@ -474,15 +495,21 @@ type TextFieldIntegrationProps = {
   readOnly?: boolean;
 };
 export const textFieldProps = z.object({
-  name: z.string(),
-  placeholder: z.string().optional(),
-  defaultValue: z.string().optional(),
-  invalid: z.boolean().optional(),
-  disabled: z.boolean().optional(),
-  readOnly: z.boolean().optional(),
+  ...textInputShape,
 }) satisfies z.ZodType<TextFieldIntegrationProps>;
 
-export const textareaProps = textFieldProps;
+type TextareaIntegrationProps = TextFieldIntegrationProps & {
+  rows?: ComponentProps<typeof Textarea>['rows'];
+  autoResize?: ComponentProps<typeof Textarea>['autoResize'];
+};
+export const textareaProps = z.object({
+  ...textInputShape,
+  rows: z.int().min(1).max(40).optional().describe('初期表示の行数'),
+  autoResize: z
+    .boolean()
+    .optional()
+    .describe('入力量に合わせて高さを自動で伸ばす'),
+}) satisfies z.ZodType<TextareaIntegrationProps>;
 
 type PasswordInputIntegrationProps = {
   name: string;
@@ -499,6 +526,17 @@ export const passwordInputProps = z.object({
   disabled: z.boolean().optional(),
 }) satisfies z.ZodType<PasswordInputIntegrationProps>;
 
+// NumberField と Slider も同様に、インスタンスではなく形だけを共有する。
+const numericInputShape = {
+  name: z.string(),
+  defaultValue: z.number().optional(),
+  min: z.number().optional(),
+  max: z.number().optional(),
+  step: z.number().optional(),
+  invalid: z.boolean().optional(),
+  disabled: z.boolean().optional(),
+};
+
 type NumberFieldIntegrationProps = {
   name: string;
   defaultValue?: number;
@@ -509,16 +547,15 @@ type NumberFieldIntegrationProps = {
   disabled?: boolean;
 };
 export const numberFieldProps = z.object({
-  name: z.string(),
-  defaultValue: z.number().optional(),
-  min: z.number().optional(),
-  max: z.number().optional(),
-  step: z.number().optional(),
-  invalid: z.boolean().optional(),
-  disabled: z.boolean().optional(),
+  ...numericInputShape,
 }) satisfies z.ZodType<NumberFieldIntegrationProps>;
 
-export const sliderProps = numberFieldProps;
+type SliderIntegrationProps = NumberFieldIntegrationProps;
+export const sliderProps = z.object({
+  ...numericInputShape,
+  min: z.number().optional().describe('下限（未指定なら 0）'),
+  max: z.number().optional().describe('上限（未指定なら 100）'),
+}) satisfies z.ZodType<SliderIntegrationProps>;
 
 type CheckboxIntegrationProps = {
   name: string;
@@ -613,6 +650,7 @@ type CheckboxCardIntegrationProps = {
   defaultValue?: readonly string[];
   invalid?: boolean;
   disabled?: boolean;
+  label: string;
 };
 export const checkboxCardProps = z.object({
   name: z.string(),
@@ -620,6 +658,9 @@ export const checkboxCardProps = z.object({
   defaultValue: z.array(z.string()).optional(),
   invalid: z.boolean().optional(),
   disabled: z.boolean().optional(),
+  // RadioCard は label を 2 番目に持つが、こちらは後から足したので末尾に置く
+  // （冒頭「キーの並び順が公開 ABI」参照）
+  label: z.string(),
 }) satisfies z.ZodType<CheckboxCardIntegrationProps>;
 
 type ListBoxIntegrationProps = {
