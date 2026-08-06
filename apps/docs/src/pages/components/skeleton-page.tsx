@@ -2,16 +2,10 @@ import { Anchor, Heading, Separator, Skeleton } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const skeletonProps: PropItem[] = [
-  { name: 'animate', types: ['boolean'], defaultValue: 'true' },
-  { name: 'shape', types: ["'rect'", "'circle'"], defaultValue: "'rect'" },
-  { name: 'size', types: ["'sm'", "'md'", "'lg'"], defaultValue: "'md'" },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function SkeletonPage() {
   return (
@@ -101,8 +95,8 @@ export function SkeletonPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="HTMLAttributes<HTMLDivElement>"
-          items={skeletonProps}
+          inherits={inheritsOf('Skeleton')}
+          items={propsOf('Skeleton')}
         />
       </section>
     </div>

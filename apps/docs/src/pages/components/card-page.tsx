@@ -2,29 +2,10 @@ import { Anchor, Card, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const cardProps: PropItem[] = [
-  {
-    name: 'appearance',
-    types: ["'shadow'", "'bordered'"],
-    defaultValue: "'shadow'",
-  },
-  {
-    name: 'width',
-    types: ["'full'", "'fit'"],
-    defaultValue: "'full'",
-  },
-  {
-    name: 'interactive',
-    types: ['boolean'],
-    defaultValue: 'false',
-  },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function CardPage() {
   return (
@@ -137,10 +118,7 @@ export function CardPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits="HTMLAttributes<HTMLDivElement>"
-          items={cardProps}
-        />
+        <PropsTable inherits={inheritsOf('Card')} items={propsOf('Card')} />
       </section>
     </div>
   );

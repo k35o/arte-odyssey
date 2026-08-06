@@ -2,39 +2,14 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 import {
   TabsBasicPreview,
   TabsDefaultSelectedPreview,
 } from './_previews/tabs-previews';
-
-const tabsRootProps: PropItem[] = [
-  { name: 'ids', types: ['[string, ...string[]]'], defaultValue: null },
-  {
-    name: 'defaultSelectedId',
-    types: ['string', 'null'],
-    defaultValue: 'null',
-  },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
-const tabsListProps: PropItem[] = [
-  { name: 'label', types: ['string'], defaultValue: null },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
-const tabsTabProps: PropItem[] = [
-  { name: 'id', types: ['string'], defaultValue: null },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
-const tabsPanelProps: PropItem[] = [
-  { name: 'id', types: ['string'], defaultValue: null },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
 
 export function TabsPage() {
   return (
@@ -126,13 +101,13 @@ export function TabsPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <Heading type="h3">Tabs.Root</Heading>
-        <PropsTable items={tabsRootProps} />
+        <PropsTable items={propsOf('Tabs.Root')} />
         <Heading type="h3">Tabs.List</Heading>
-        <PropsTable items={tabsListProps} />
+        <PropsTable items={propsOf('Tabs.List')} />
         <Heading type="h3">Tabs.Tab</Heading>
-        <PropsTable items={tabsTabProps} />
+        <PropsTable items={propsOf('Tabs.Tab')} />
         <Heading type="h3">Tabs.Panel</Heading>
-        <PropsTable items={tabsPanelProps} />
+        <PropsTable items={propsOf('Tabs.Panel')} />
       </section>
     </div>
   );

@@ -2,36 +2,15 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 import {
   AlertDialogPreview,
   DialogBasicPreview,
   DialogWithModalPreview,
 } from './_previews/dialog-previews';
-
-const dialogRootProps: PropItem[] = [
-  {
-    name: 'role',
-    types: ['string'],
-    defaultValue: "'dialog'",
-  },
-  { name: 'id', types: ['string'], defaultValue: null },
-  { name: 'tabIndex', types: ['number'], defaultValue: null },
-  { name: 'ref', types: ['Ref<HTMLElement>'], defaultValue: null },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
-const dialogHeaderProps: PropItem[] = [
-  { name: 'title', types: ['string'], defaultValue: null },
-  { name: 'onClose', types: ['() => void'], defaultValue: null },
-];
-
-const dialogContentProps: PropItem[] = [
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
 
 export function DialogPage() {
   return (
@@ -161,11 +140,11 @@ import { Modal } from '@k8o/arte-odyssey';`}
           <T k="components.common.propsTitle" />
         </Heading>
         <Heading type="h3">Dialog.Root</Heading>
-        <PropsTable items={dialogRootProps} />
+        <PropsTable items={propsOf('Dialog.Root')} />
         <Heading type="h3">Dialog.Header</Heading>
-        <PropsTable items={dialogHeaderProps} />
+        <PropsTable items={propsOf('Dialog.Header')} />
         <Heading type="h3">Dialog.Content</Heading>
-        <PropsTable items={dialogContentProps} />
+        <PropsTable items={propsOf('Dialog.Content')} />
       </section>
     </div>
   );

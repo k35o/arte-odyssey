@@ -2,33 +2,10 @@ import { Anchor, Badge, Heading, Separator, Stack } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const stackProps: PropItem[] = [
-  {
-    name: 'direction',
-    types: ["'row'", "'column'"],
-    defaultValue: "'column'",
-  },
-  {
-    name: 'gap',
-    types: ["'none'", "'sm'", "'md'", "'lg'", "'xl'"],
-    defaultValue: "'md'",
-  },
-  {
-    name: 'align',
-    types: ["'start'", "'center'", "'end'", "'stretch'"],
-    defaultValue: null,
-  },
-  {
-    name: 'justify',
-    types: ["'start'", "'center'", "'end'", "'between'"],
-    defaultValue: null,
-  },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 const sampleItems = ['有効', '保留', 'エラー'] as const;
 const SAMPLE_TONE = ['success', 'warning', 'error'] as const;
@@ -145,10 +122,7 @@ export function StackPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits="HTMLAttributes<HTMLDivElement>"
-          items={stackProps}
-        />
+        <PropsTable inherits={inheritsOf('Stack')} items={propsOf('Stack')} />
       </section>
     </div>
   );

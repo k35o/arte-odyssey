@@ -2,54 +2,14 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 import {
   PopoverBasicPreview,
   PopoverPlacementPreview,
 } from './_previews/popover-previews';
-
-const popoverRootProps: PropItem[] = [
-  {
-    name: 'placement',
-    types: ['Placement'],
-    defaultValue: "'bottom-start'",
-  },
-  {
-    name: 'type',
-    types: ["'dialog'", "'menu'", "'listbox'"],
-    defaultValue: "'menu'",
-  },
-  { name: 'flipDisabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'closeOnClickAway', types: ['boolean'], defaultValue: 'true' },
-  { name: 'trapFocus', types: ['boolean'], defaultValue: 'true' },
-  { name: 'isOpen', types: ['boolean'], defaultValue: null },
-  { name: 'defaultOpen', types: ['boolean'], defaultValue: 'false' },
-  {
-    name: 'onChange',
-    types: ['(isOpen: boolean) => void'],
-    defaultValue: null,
-  },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
-const popoverTriggerProps: PropItem[] = [
-  {
-    name: 'renderItem',
-    types: ['(props: HTMLProps<HTMLButtonElement>) => ReactElement'],
-    defaultValue: null,
-  },
-];
-
-const popoverContentProps: PropItem[] = [
-  {
-    name: 'renderItem',
-    types: ['(props: Record<string, unknown>) => ReactElement'],
-    defaultValue: null,
-  },
-];
 
 export function PopoverPage() {
   return (
@@ -187,11 +147,11 @@ export function PopoverPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <Heading type="h3">Popover.Root</Heading>
-        <PropsTable items={popoverRootProps} />
+        <PropsTable items={propsOf('Popover.Root')} />
         <Heading type="h3">Popover.Trigger</Heading>
-        <PropsTable items={popoverTriggerProps} />
+        <PropsTable items={propsOf('Popover.Trigger')} />
         <Heading type="h3">Popover.Content</Heading>
-        <PropsTable items={popoverContentProps} />
+        <PropsTable items={propsOf('Popover.Content')} />
       </section>
     </div>
   );

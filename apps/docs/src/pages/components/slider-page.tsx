@@ -2,30 +2,10 @@ import { Anchor, Heading, Separator, Slider } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const sliderProps: PropItem[] = [
-  { name: 'invalid', types: ['boolean'], defaultValue: null },
-  { name: 'disabled', types: ['boolean'], defaultValue: null },
-  { name: 'required', types: ['boolean'], defaultValue: null },
-  { name: 'step', types: ['number'], defaultValue: '1' },
-  { name: 'max', types: ['number'], defaultValue: '100' },
-  { name: 'min', types: ['number'], defaultValue: '0' },
-  { name: 'value', types: ['number'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['(value: number) => void'],
-    defaultValue: null,
-  },
-  { name: 'defaultValue', types: ['number'], defaultValue: null },
-  { name: 'id', types: ['string'], defaultValue: null },
-  { name: 'name', types: ['string'], defaultValue: null },
-  { name: 'aria-describedby', types: ['string'], defaultValue: null },
-  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function SliderPage() {
   return (
@@ -139,10 +119,7 @@ export function SliderPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits="InputHTMLAttributes<HTMLInputElement>"
-          items={sliderProps}
-        />
+        <PropsTable inherits={inheritsOf('Slider')} items={propsOf('Slider')} />
       </section>
     </div>
   );

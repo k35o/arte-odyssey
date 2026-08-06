@@ -2,42 +2,14 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 import {
   TooltipBasicPreview,
   TooltipPlacementPreview,
 } from './_previews/tooltip-previews';
-
-const tooltipRootProps: PropItem[] = [
-  {
-    name: 'placement',
-    types: ['Placement'],
-    defaultValue: "'bottom'",
-  },
-  { name: 'isOpen', types: ['boolean'], defaultValue: null },
-  { name: 'defaultOpen', types: ['boolean'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['(isOpen: boolean) => void'],
-    defaultValue: null,
-  },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
-const tooltipTriggerProps: PropItem[] = [
-  {
-    name: 'renderItem',
-    types: ['(props: Record<string, unknown>) => ReactElement'],
-    defaultValue: null,
-  },
-];
-
-const tooltipContentProps: PropItem[] = [
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
 
 export function TooltipPage() {
   return (
@@ -152,11 +124,11 @@ export function TooltipPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <Heading type="h3">Tooltip.Root</Heading>
-        <PropsTable items={tooltipRootProps} />
+        <PropsTable items={propsOf('Tooltip.Root')} />
         <Heading type="h3">Tooltip.Trigger</Heading>
-        <PropsTable items={tooltipTriggerProps} />
+        <PropsTable items={propsOf('Tooltip.Trigger')} />
         <Heading type="h3">Tooltip.Content</Heading>
-        <PropsTable items={tooltipContentProps} />
+        <PropsTable items={propsOf('Tooltip.Content')} />
       </section>
     </div>
   );

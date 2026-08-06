@@ -2,37 +2,10 @@ import { Anchor, Badge, Heading, Separator, Table } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const tableRootProps: PropItem[] = [
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-  { name: 'className', types: ['string'], defaultValue: null },
-  { name: 'containerClassName', types: ['string'], defaultValue: null },
-];
-
-const tableRowProps: PropItem[] = [
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-  { name: 'interactive', types: ['boolean'], defaultValue: 'false' },
-  { name: 'className', types: ['string'], defaultValue: null },
-];
-
-const tableCellProps: PropItem[] = [
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-  {
-    name: 'align',
-    types: ['"left" | "center" | "right"'],
-    defaultValue: '"left"',
-  },
-  {
-    name: 'tone',
-    types: ['"default" | "muted"'],
-    defaultValue: '"default"',
-  },
-  { name: 'className', types: ['string'], defaultValue: null },
-];
+import { propsOf } from '../../data/component-props';
 
 export function TablePage() {
   return (
@@ -159,11 +132,11 @@ export function TablePage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <Heading type="h3">Table.Root</Heading>
-        <PropsTable items={tableRootProps} />
+        <PropsTable items={propsOf('Table.Root')} />
         <Heading type="h3">Table.Row</Heading>
-        <PropsTable items={tableRowProps} />
+        <PropsTable items={propsOf('Table.Row')} />
         <Heading type="h3">Table.Cell / Table.HeaderCell</Heading>
-        <PropsTable items={tableCellProps} />
+        <PropsTable items={propsOf('Table.Cell')} />
       </section>
     </div>
   );

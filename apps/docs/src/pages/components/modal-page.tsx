@@ -2,35 +2,15 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 import {
   DefaultOpenPreview,
   ModalBasicPreview,
   ModalSidesPreview,
 } from './_previews/modal-previews';
-
-const modalProps: PropItem[] = [
-  {
-    name: 'side',
-    types: ['ModalSide'],
-    defaultValue: "'center'",
-  },
-  { name: 'defaultOpen', types: ['boolean'], defaultValue: null },
-  { name: 'isOpen', types: ['boolean'], defaultValue: null },
-  { name: 'onClose', types: ['() => void'], defaultValue: null },
-  { name: 'aria-label', types: ['string'], defaultValue: null },
-  { name: 'aria-labelledby', types: ['string'], defaultValue: null },
-  { name: 'aria-describedby', types: ['string'], defaultValue: null },
-  {
-    name: 'ref',
-    types: ['RefObject<HTMLDialogElement | null>'],
-    defaultValue: null,
-  },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
 
 export function ModalPage() {
   return (
@@ -160,7 +140,7 @@ export function ModalPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={modalProps} />
+        <PropsTable items={propsOf('Modal')} />
       </section>
     </div>
   );

@@ -2,34 +2,10 @@ import { Anchor, Heading, Separator, Textarea } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const textareaProps: PropItem[] = [
-  { name: 'id', types: ['string'], defaultValue: null },
-  {
-    name: 'aria-describedby',
-    types: ['string | undefined'],
-    defaultValue: null,
-  },
-  { name: 'invalid', types: ['boolean'], defaultValue: null },
-  { name: 'disabled', types: ['boolean'], defaultValue: null },
-  { name: 'required', types: ['boolean'], defaultValue: null },
-  { name: 'placeholder', types: ['string'], defaultValue: null },
-  { name: 'rows', types: ['number'], defaultValue: null },
-  { name: 'fullHeight', types: ['boolean'], defaultValue: 'false' },
-  { name: 'autoResize', types: ['boolean'], defaultValue: 'false' },
-  { name: 'value', types: ['string'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['ChangeEventHandler'],
-    defaultValue: null,
-  },
-  { name: 'defaultValue', types: ['string'], defaultValue: null },
-  { name: 'ref', types: ['Ref<HTMLTextAreaElement>'], defaultValue: null },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function TextareaPage() {
   return (
@@ -200,8 +176,8 @@ export function TextareaPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="TextareaHTMLAttributes<HTMLTextAreaElement>"
-          items={textareaProps}
+          inherits={inheritsOf('Textarea')}
+          items={propsOf('Textarea')}
         />
       </section>
     </div>
