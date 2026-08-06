@@ -17,17 +17,31 @@ const DefaultRender = () => {
   const [value, setValue] = useState(['react']);
 
   return (
-    <CheckboxGroup name="frameworks" onChange={setValue} value={value}>
-      <Checkbox itemValue="react" label="React" />
-      <Checkbox itemValue="vue" label="Vue" />
-      <Checkbox itemValue="svelte" label="Svelte" />
-    </CheckboxGroup>
+    <div>
+      <p className="text-fg-base mb-2 font-medium" id="frameworks-label">
+        フレームワーク
+      </p>
+      <CheckboxGroup
+        aria-labelledby="frameworks-label"
+        name="frameworks"
+        onChange={setValue}
+        value={value}
+      >
+        <Checkbox itemValue="react" label="React" />
+        <Checkbox itemValue="vue" label="Vue" />
+        <Checkbox itemValue="svelte" label="Svelte" />
+      </CheckboxGroup>
+    </div>
   );
 };
 
 export const Default: Story = {
   render: () => <DefaultRender />,
   play: async ({ canvas, userEvent }) => {
+    await expect(
+      canvas.getByRole('group', { name: 'フレームワーク' }),
+    ).toBeVisible();
+
     const react = canvas.getByRole('checkbox', { name: 'React' });
     const vue = canvas.getByRole('checkbox', { name: 'Vue' });
 
@@ -41,13 +55,55 @@ export const Default: Story = {
   },
 };
 
+export const Required: Story = {
+  render: () => (
+    <div>
+      <p
+        className="text-fg-base mb-2 flex gap-2 font-medium"
+        id="frameworks-required-label"
+      >
+        フレームワーク
+        <span className="text-fg-error">必須</span>
+      </p>
+      <CheckboxGroup
+        aria-labelledby="frameworks-required-label"
+        defaultValue={[]}
+        name="frameworks-required"
+      >
+        <CheckboxGroup.Item itemValue="react" label="React" />
+        <CheckboxGroup.Item itemValue="vue" label="Vue" />
+      </CheckboxGroup>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    // role="group" は aria-required を許可していない（axe: aria-allowed-attr）ので、
+    // 必須であることはグループのアクセシブルネームで伝える
+    const group = canvas.getByRole('group', { name: 'フレームワーク 必須' });
+
+    await expect(group).not.toHaveAttribute('aria-required');
+  },
+};
+
 export const Disabled: Story = {
   render: () => (
-    <CheckboxGroup defaultValue={['vue']} disabled name="frameworks-disabled">
-      <Checkbox itemValue="react" label="React" />
-      <Checkbox itemValue="vue" label="Vue" />
-      <Checkbox itemValue="svelte" label="Svelte" />
-    </CheckboxGroup>
+    <div>
+      <p
+        className="text-fg-base mb-2 font-medium"
+        id="frameworks-disabled-label"
+      >
+        フレームワーク
+      </p>
+      <CheckboxGroup
+        aria-labelledby="frameworks-disabled-label"
+        defaultValue={['vue']}
+        disabled
+        name="frameworks-disabled"
+      >
+        <Checkbox itemValue="react" label="React" />
+        <Checkbox itemValue="vue" label="Vue" />
+        <Checkbox itemValue="svelte" label="Svelte" />
+      </CheckboxGroup>
+    </div>
   ),
 };
 
@@ -56,7 +112,15 @@ const RefRender = () => {
 
   return (
     <div className="flex flex-col items-start gap-2">
-      <CheckboxGroup defaultValue={[]} name="frameworks-ref" ref={ref}>
+      <p className="text-fg-base font-medium" id="frameworks-ref-label">
+        フレームワーク
+      </p>
+      <CheckboxGroup
+        aria-labelledby="frameworks-ref-label"
+        defaultValue={[]}
+        name="frameworks-ref"
+        ref={ref}
+      >
         <CheckboxGroup.Item itemValue="react" label="React" />
         <CheckboxGroup.Item itemValue="vue" label="Vue" />
       </CheckboxGroup>

@@ -9,13 +9,13 @@ import { STORYBOOK_URL } from '../../constants';
 import {
   DefaultOpenPreview,
   ModalBasicPreview,
-  ModalPlacementsPreview,
+  ModalSidesPreview,
 } from './_previews/modal-previews';
 
 const modalProps: PropItem[] = [
   {
-    name: 'placement',
-    types: ["'center'", "'bottom'", "'right'", "'left'"],
+    name: 'side',
+    types: ['ModalSide'],
     defaultValue: "'center'",
   },
   { name: 'defaultOpen', types: ['boolean'], defaultValue: null },
@@ -82,7 +82,7 @@ export function ModalPage() {
 <Modal
   isOpen={isOpen}
   onClose={() => setIsOpen(false)}
-  placement="center"
+  side="center"
 >
   <Dialog.Root>
     <Dialog.Header
@@ -101,35 +101,35 @@ export function ModalPage() {
 
         <div className="flex flex-col gap-4">
           <Heading type="h3">
-            <T k="components.modal.placementTitle" />
+            <T k="components.modal.sideTitle" />
           </Heading>
           <ComponentPreview
             code={`<Button onClick={() => setCenterOpen(true)}>Center</Button>
 <Button onClick={() => setBottomOpen(true)}>Bottom</Button>
 <Button onClick={() => setRightOpen(true)}>Right</Button>
 
-<Modal isOpen={centerOpen} onClose={() => setCenterOpen(false)} placement="center">
+<Modal isOpen={centerOpen} onClose={() => setCenterOpen(false)} side="center">
   <Dialog.Root>
     <Dialog.Header onClose={() => setCenterOpen(false)} title="Center Modal" />
     <Dialog.Content>Centered on screen</Dialog.Content>
   </Dialog.Root>
 </Modal>
 
-<Modal isOpen={bottomOpen} onClose={() => setBottomOpen(false)} placement="bottom">
+<Modal isOpen={bottomOpen} onClose={() => setBottomOpen(false)} side="bottom">
   <Dialog.Root>
     <Dialog.Header onClose={() => setBottomOpen(false)} title="Bottom Modal" />
     <Dialog.Content>Slides up from bottom</Dialog.Content>
   </Dialog.Root>
 </Modal>
 
-<Modal isOpen={rightOpen} onClose={() => setRightOpen(false)} placement="right">
+<Modal isOpen={rightOpen} onClose={() => setRightOpen(false)} side="right">
   <Dialog.Root>
     <Dialog.Header onClose={() => setRightOpen(false)} title="Right Modal" />
     <Dialog.Content>Slides in from right</Dialog.Content>
   </Dialog.Root>
 </Modal>`}
           >
-            <ModalPlacementsPreview />
+            <ModalSidesPreview />
           </ComponentPreview>
         </div>
 
@@ -138,7 +138,7 @@ export function ModalPage() {
             <T k="components.modal.defaultOpenTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Modal defaultOpen placement="center">
+            code={`<Modal defaultOpen side="center">
   <Dialog.Root>
     <Dialog.Header
       onClose={() => {}}

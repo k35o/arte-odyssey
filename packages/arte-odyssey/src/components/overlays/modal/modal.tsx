@@ -11,6 +11,7 @@ import {
   useState,
 } from 'react';
 
+import type { ModalSide } from '../../../types/variables';
 import { ToastProvider } from '../../feedback/toast';
 import { PortalRootProvider } from '../../providers';
 import { ModalDialogProvider } from '../_internal/modal-dialog-context';
@@ -19,7 +20,7 @@ import { cn } from './../../../helpers/cn';
 export const Modal: FC<
   PropsWithChildren<{
     ref?: RefObject<HTMLDialogElement | null>;
-    placement?: 'center' | 'bottom' | 'right' | 'left';
+    side?: ModalSide;
     defaultOpen?: boolean;
     isOpen?: boolean;
     onClose?: () => void;
@@ -29,7 +30,7 @@ export const Modal: FC<
   }>
 > = ({
   ref,
-  placement = 'center',
+  side = 'center',
   defaultOpen,
   isOpen,
   onClose,
@@ -104,13 +105,13 @@ export const Modal: FC<
       aria-labelledby={labelledBy}
       className={cn(
         'ao-modal bg-bg-raised text-fg-base z-modal shadow-md backdrop:bg-back-drop',
-        placement === 'center' &&
+        side === 'center' &&
           'ao-modal-center m-auto max-h-lg w-5/6 max-w-2xl rounded-lg vertical:h-5/6 vertical:max-h-2xl vertical:w-auto vertical:max-w-lg',
-        placement === 'bottom' &&
+        side === 'bottom' &&
           'ao-modal-bottom mt-auto w-screen max-w-screen rounded-t-lg',
-        placement === 'right' &&
+        side === 'right' &&
           'ao-modal-right ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg',
-        placement === 'left' &&
+        side === 'left' &&
           'ao-modal-left mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg',
       )}
       onClick={(e) => {

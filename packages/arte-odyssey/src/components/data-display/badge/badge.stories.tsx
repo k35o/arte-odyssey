@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 
 import { Badge } from './badge';
 
@@ -6,21 +7,25 @@ const meta: Meta<typeof Badge> = {
   title: 'components/data-display/badge',
   component: Badge,
   args: {
-    text: 'New',
+    label: 'New',
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText('New')).toBeInTheDocument();
+  },
+};
 
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Badge size="sm" text="Small" />
-      <Badge size="md" text="Medium" />
-      <Badge size="lg" text="Large" />
+      <Badge label="Small" size="sm" />
+      <Badge label="Medium" size="md" />
+      <Badge label="Large" size="lg" />
     </div>
   ),
 };
@@ -28,19 +33,32 @@ export const Sizes: Story = {
 export const Tones: Story = {
   render: () => (
     <div className="flex flex-wrap gap-3">
-      <Badge text="Neutral" />
-      <Badge text="Info" tone="info" />
-      <Badge text="Success" tone="success" />
-      <Badge text="Warning" tone="warning" />
-      <Badge text="Error" tone="error" />
+      <Badge label="Neutral" />
+      <Badge label="Info" tone="info" />
+      <Badge label="Success" tone="success" />
+      <Badge label="Warning" tone="warning" />
+      <Badge label="Error" tone="error" />
     </div>
   ),
 };
 
 export const Outline: Story = {
   args: {
-    text: 'Preview',
+    label: 'Preview',
     tone: 'info',
     variant: 'outline',
+  },
+};
+
+// interactive のときは button になり、label がアクセシブル名になる。
+export const Interactive: Story = {
+  args: {
+    label: 'フィルター',
+    interactive: true,
+  },
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole('button', { name: 'フィルター' }),
+    ).toBeInTheDocument();
   },
 };

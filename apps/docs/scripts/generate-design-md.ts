@@ -420,7 +420,7 @@ import { ArteOdysseyProvider, Button, Card } from '@k8o/arte-odyssey';
 
 - **Accordion**（compound: \`Root\` / \`Item\`(\`defaultOpen?\`) / \`Button\` / \`Panel\`）
 - **Avatar** — \`src\` / \`name\`（イニシャル）/ \`fallback\`, \`size\`
-- **Badge** — \`text\`, \`tone: 'neutral'|'info'|'success'|'warning'|'error'\`, \`variant: 'solid'|'outline'\`, \`size\`, \`interactive\`
+- **Badge** — \`label\`, \`tone: 'neutral'|'info'|'success'|'warning'|'error'\`, \`variant: 'solid'|'outline'\`, \`size\`, \`interactive\`
 - **Card** — \`width: 'full'|'fit'\`, \`appearance: 'shadow'|'bordered'\`, \`interactive\`
 - **Code** — \`children: string\`（コードブロック）
 - **Heading** — \`type: 'h1'..'h6'\`（必須）, \`id?\`, \`lineClamp?\`
@@ -466,12 +466,12 @@ import { ArteOdysseyProvider, Button, Card } from '@k8o/arte-odyssey';
 
 ### Overlays
 
-- **Modal** — \`isOpen?\`/\`onClose?\`/\`defaultOpen?\`, \`type: 'center'|'bottom'|'right'|'left'\`
+- **Modal** — \`isOpen?\`/\`onClose?\`/\`defaultOpen?\`, \`side: 'center'|'bottom'|'right'|'left'\`（\`ModalSide\`）
 - **Dialog**（compound: \`Root\` / \`Header\` / \`Content\`）
-- **Drawer** — \`title\`, \`isOpen\`, \`onClose\`, \`side: 'left'|'right'\`
+- **Drawer** — \`title\`, \`isOpen\`, \`onClose\`, \`side: 'left'|'right'\`（\`DrawerSide\`。Modal の \`side\` の部分集合）
 - **Popover**（compound: \`Root\` / \`Trigger\` / \`Content\`、\`placement\`, \`type\`）
 - **Tooltip**（compound: \`Root\` / \`Trigger\` / \`Content\`、\`placement\`）
-- **DropdownMenu**（compound: \`Root\` / \`Trigger\` / \`IconTrigger\` / \`Content\` / \`Item\`）
+- **DropdownMenu**（compound: \`Root\`(\`placement\`) / \`Trigger\`(\`label\`) / \`IconTrigger\`(\`icon\`, \`label\`) / \`Content\` / \`Item\`(\`label\`)）
 - **ListBox**（compound: \`Root\` / \`Trigger\` / \`Content\`、\`options\` / \`value\` / \`onSelect\`）
 
 ### Icons

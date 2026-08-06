@@ -297,6 +297,8 @@ Props:
 
 `renderInput` は `{ id, 'aria-describedby', 'aria-labelledby', disabled, invalid, required }` を受け取る。
 
+ラッパー要素は `labelAs` で変わる。`'label'`（既定）は `<div>` + `<label htmlFor>`、`'legend'` は `<fieldset>` + `<legend>`。単一フィールドを名前の無いグループにしないため、`<fieldset>` は `legend` のときだけ使う。`Radio` / `CheckboxGroup` のようなグループ入力を包むときは `labelAs="legend"` を指定する。
+
 ### TextField
 
 ```tsx
@@ -435,10 +437,18 @@ Props:
 
 グループの選択状態は `value` / `onChange`（`string[]`）で持つ。単体の `Checkbox` が真偽値を `checked` で持つのとは別物なので、混同しないこと。
 
+`fieldset[role="group"]` を描くため `aria-labelledby` が必須。必須入力であることは、参照先のラベル要素（`FormControl` の必須表示など）に含めて伝える。`role="group"` は `aria-required` を許可していないので、グループ側には出さない。
+
 ```tsx
 import { CheckboxGroup } from '@k8o/arte-odyssey';
 
-<CheckboxGroup name="interests" value={values} onChange={setValues}>
+<p id="interests-label">興味のある分野</p>
+<CheckboxGroup
+  aria-labelledby="interests-label"
+  name="interests"
+  value={values}
+  onChange={setValues}
+>
   <CheckboxGroup.Item itemValue="music" label="音楽" />
   <CheckboxGroup.Item itemValue="movie" label="映画" />
 </CheckboxGroup>;

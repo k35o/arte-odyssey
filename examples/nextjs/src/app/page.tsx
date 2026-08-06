@@ -1,4 +1,4 @@
-import { catalog } from '@k8o/arte-odyssey/json-render';
+import { type ArteSpec, catalog } from '@k8o/arte-odyssey/json-render';
 
 import { GenUiClient } from './gen-ui-client';
 
@@ -54,7 +54,7 @@ const spec = {
       children: [],
     },
   },
-};
+} satisfies ArteSpec;
 
 export default function Home() {
   const systemPrompt = catalog.prompt();

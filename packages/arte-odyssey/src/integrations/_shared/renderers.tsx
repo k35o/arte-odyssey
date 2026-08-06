@@ -260,8 +260,8 @@ export function renderButton(props: ButtonProps): ReactNode {
 export function renderBadge(props: BadgeProps): ReactNode {
   return (
     <Badge
+      label={props.label}
       size={u(props.size)}
-      text={props.text}
       tone={u(props.tone)}
       variant={u(props.variant)}
     />
@@ -448,6 +448,7 @@ export function renderTextarea(
 ): ReactNode {
   return (
     <Textarea
+      autoResize={u(props.autoResize)}
       disabled={u(props.disabled)}
       invalid={u(props.invalid)}
       name={props.name}
@@ -456,6 +457,7 @@ export function renderTextarea(
       }}
       placeholder={u(props.placeholder)}
       readOnly={u(props.readOnly)}
+      rows={u(props.rows)}
       value={value}
     />
   );
@@ -591,21 +593,32 @@ export function renderRadioCard(
   return <RadioCardView onChange={onChange} props={props} value={value} />;
 }
 
+const CheckboxCardView: FC<{
+  props: CheckboxCardProps;
+  value: string[];
+  onChange: (next: string[]) => void;
+}> = ({ props, value, onChange }) => (
+  <LabeledField label={props.label}>
+    {(labelId) => (
+      <CheckboxCard
+        aria-labelledby={labelId}
+        disabled={u(props.disabled)}
+        invalid={u(props.invalid)}
+        name={props.name}
+        onChange={onChange}
+        options={props.options}
+        value={value}
+      />
+    )}
+  </LabeledField>
+);
+
 export function renderCheckboxCard(
   props: CheckboxCardProps,
   value: string[],
   onChange: (next: string[]) => void,
 ): ReactNode {
-  return (
-    <CheckboxCard
-      disabled={u(props.disabled)}
-      invalid={u(props.invalid)}
-      name={props.name}
-      onChange={onChange}
-      options={props.options}
-      value={value}
-    />
-  );
+  return <CheckboxCardView onChange={onChange} props={props} value={value} />;
 }
 
 export function renderPagination(
@@ -771,10 +784,10 @@ export function renderForm(props: FormProps, children: ReactNode): ReactNode {
 const OverlayWidget: FC<{
   triggerLabel: string;
   title: string;
-  placement: ModalProps['placement'];
+  side: ModalProps['side'];
   buttonProps?: Pick<ComponentProps<typeof Button>, 'size' | 'variant'>;
   children: ReactNode;
-}> = ({ triggerLabel, title, placement, buttonProps, children }) => {
+}> = ({ triggerLabel, title, side, buttonProps, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -791,7 +804,7 @@ const OverlayWidget: FC<{
         onClose={() => {
           setIsOpen(false);
         }}
-        placement={placement}
+        side={side}
       >
         <Dialog.Root>
           <Dialog.Header
@@ -813,7 +826,7 @@ export const ModalWidget: FC<{ props: ModalProps; children: ReactNode }> = ({
 }) => (
   <OverlayWidget
     buttonProps={{ size: 'md', variant: 'solid' }}
-    placement={u(props.placement)}
+    side={u(props.side)}
     title={props.title}
     triggerLabel={props.triggerLabel}
   >
@@ -826,7 +839,7 @@ export const DialogWidget: FC<{ props: DialogProps; children: ReactNode }> = ({
   children,
 }) => (
   <OverlayWidget
-    placement="center"
+    side="center"
     title={props.title}
     triggerLabel={props.triggerLabel}
   >
@@ -909,7 +922,7 @@ export function renderTooltip(props: TooltipProps): ReactNode {
 export function renderDropdownMenu(props: DropdownMenuProps): ReactNode {
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger text={props.triggerLabel} />
+      <DropdownMenu.Trigger label={props.triggerLabel} />
       <DropdownMenu.Content>
         {props.items.map((item) => (
           <DropdownMenu.Item
@@ -973,15 +986,24 @@ export function renderCheckboxGroup(
   onChange: (next: string[]) => void,
 ): ReactNode {
   return (
-    <CheckboxGroup.Root name={props.name} onChange={onChange} value={value}>
-      {props.options.map((option) => (
-        <CheckboxGroup.Item
-          itemValue={option.value}
-          key={option.value}
-          label={option.label}
-        />
-      ))}
-    </CheckboxGroup.Root>
+    <LabeledField label={props.label}>
+      {(labelId) => (
+        <CheckboxGroup.Root
+          aria-labelledby={labelId}
+          name={props.name}
+          onChange={onChange}
+          value={value}
+        >
+          {props.options.map((option) => (
+            <CheckboxGroup.Item
+              itemValue={option.value}
+              key={option.value}
+              label={option.label}
+            />
+          ))}
+        </CheckboxGroup.Root>
+      )}
+    </LabeledField>
   );
 }
 

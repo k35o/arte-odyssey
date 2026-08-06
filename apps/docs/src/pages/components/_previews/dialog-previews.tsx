@@ -28,7 +28,7 @@ export function DialogWithModalPreview() {
         onClose={() => {
           setIsOpen(false);
         }}
-        placement="center"
+        side="center"
       >
         <Dialog.Root>
           <Dialog.Header
@@ -62,7 +62,7 @@ export function AlertDialogPreview() {
         onClose={() => {
           setIsOpen(false);
         }}
-        placement="center"
+        side="center"
       >
         <Dialog.Root role="alertdialog">
           <Dialog.Header

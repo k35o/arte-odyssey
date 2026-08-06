@@ -22,4 +22,15 @@ describe('json-render catalog と openui library のコンポーネント整合�
       onlyInOpenui: [],
     });
   });
+
+  // 2 つのコンポーネントに同じ zod インスタンスを渡すと、lang-core が
+  // スキーマの実体をキーに登録する都合で後勝ちになり、先に登録した方が
+  // $defs から無言で消える（型エラーにならないのでこれで固定する）
+  it('library の全コンポーネントが JSON Schema の $defs に出る', () => {
+    // $defs は型上 optional。?? はテスト内の条件分岐として lint に弾かれるので
+    // スプレッドで畳む（undefined を spread すると空オブジェクトになる）
+    const defs = { ...library.toJSONSchema().$defs };
+
+    expect(diff(openuiNames, Object.keys(defs))).toEqual([]);
+  });
 });

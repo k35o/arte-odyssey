@@ -220,6 +220,17 @@ Props:
 
 - `children`: string（Markdown 文字列、必須）
 - `isStreaming`: boolean
+- 上記以外の streamdown の props（`translations` / `controls` / `linkSafety` / `plugins` / `components` / `urlTransform` / `dir` など）はそのまま透過する。`className` と `mode` はライブラリが握る（`mode` は `isStreaming` から決まる）
+
+文言は i18n 辞書から引くので、既定では「コードをコピー」「表をダウンロード」などが日本語で出る。個別に変えたいときは `translations` を渡す（prop > 辞書 > streamdown 既定）。
+
+`linkSafety` はライブラリ側で**無効を既定にしている**。streamdown の既定（有効）ではリンクが `<a>` ではなく `<button>` で描画され、⌘クリック・中クリック・リンクアドレスのコピー・支援技術の link ロールが失われるため。確認ダイアログを挟みたい場合は明示的に有効化する:
+
+```tsx
+<Response linkSafety={{ enabled: true }}>{markdown}</Response>
+```
+
+なお `javascript:` のような危険なスキームは `linkSafety` とは無関係に rehype-harden が無効化するので、既定のままでも生きたリンクにはならない。
 
 ## Suggestion
 

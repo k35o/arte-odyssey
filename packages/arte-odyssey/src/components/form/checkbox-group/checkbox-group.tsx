@@ -29,13 +29,19 @@ export const useCheckboxGroupContext = () => use(CheckboxGroupContext);
 
 type RootBaseProps = PropsWithChildren<
   {
+    'aria-labelledby': string;
     invalid?: boolean;
-    required?: boolean;
     name: string;
     ref?: Ref<HTMLFieldSetElement>;
   } & Omit<
     FieldsetHTMLAttributes<HTMLFieldSetElement>,
-    'className' | 'style' | 'onChange' | 'defaultValue' | 'name'
+    | 'className'
+    | 'style'
+    | 'onChange'
+    | 'defaultValue'
+    | 'name'
+    | 'aria-labelledby'
+    | 'role'
   >
 >;
 
@@ -54,11 +60,11 @@ type RootUncontrolledProps = {
 type RootProps = RootBaseProps & (RootControlledProps | RootUncontrolledProps);
 
 const Root: FC<RootProps> = ({
+  'aria-labelledby': labelledbyId,
   children,
   defaultValue,
   disabled = false,
   invalid = false,
-  required = false,
   name,
   onChange,
   ref,
@@ -96,7 +102,7 @@ const Root: FC<RootProps> = ({
     <fieldset
       {...rest}
       aria-invalid={invalid}
-      aria-required={required}
+      aria-labelledby={labelledbyId}
       className={cn('flex flex-col gap-2', disabled && 'cursor-not-allowed')}
       ref={ref}
     >

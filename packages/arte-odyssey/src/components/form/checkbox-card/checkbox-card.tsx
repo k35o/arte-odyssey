@@ -16,12 +16,19 @@ export type CheckboxCardOption = Readonly<{
 }>;
 
 type BaseProps = {
+  'aria-labelledby': string;
   invalid?: boolean;
   options: readonly CheckboxCardOption[];
   ref?: Ref<HTMLFieldSetElement>;
 } & Omit<
   FieldsetHTMLAttributes<HTMLFieldSetElement>,
-  'className' | 'style' | 'children' | 'onChange' | 'defaultValue'
+  | 'className'
+  | 'style'
+  | 'children'
+  | 'onChange'
+  | 'defaultValue'
+  | 'aria-labelledby'
+  | 'role'
 >;
 
 type ControlledProps = {
@@ -39,6 +46,7 @@ type UncontrolledProps = {
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const CheckboxCard: FC<Props> = ({
+  'aria-labelledby': labelledbyId,
   name,
   disabled = false,
   invalid = false,
@@ -66,12 +74,14 @@ export const CheckboxCard: FC<Props> = ({
   return (
     <fieldset
       {...rest}
+      aria-labelledby={labelledbyId}
       className={cn(
         'm-0 min-w-0 border-0 p-0 inline-full',
         'grid gap-3',
         disabled && 'opacity-70',
       )}
       ref={ref}
+      role="group"
     >
       {options.map((option) => {
         const checked = selectedValues.includes(option.value);

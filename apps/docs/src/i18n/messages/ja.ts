@@ -282,7 +282,7 @@ export const ja = {
   'components.icons.description': 'ArteOdysseyが提供するアイコン一覧',
   'components.icons.sizesTitle': 'サイズ',
   'components.common.basicUsageTitle': '基本的な使い方',
-  'components.modal.placementTitle': '配置',
+  'components.modal.sideTitle': '配置',
   'components.toast.useToastTitle': 'useToastフック',
   'components.popover.placementTitle': '配置',
   'components.tooltip.placementTitle': '配置',

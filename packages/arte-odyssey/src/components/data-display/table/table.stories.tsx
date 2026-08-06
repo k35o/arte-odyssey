@@ -28,21 +28,21 @@ export const Default: Story = {
         <Table.Row interactive>
           <Table.Cell>Avatar</Table.Cell>
           <Table.Cell>
-            <Badge text="Stable" tone="success" />
+            <Badge label="Stable" tone="success" />
           </Table.Cell>
           <Table.Cell align="right">100%</Table.Cell>
         </Table.Row>
         <Table.Row interactive>
           <Table.Cell>Badge</Table.Cell>
           <Table.Cell>
-            <Badge text="Stable" tone="success" />
+            <Badge label="Stable" tone="success" />
           </Table.Cell>
           <Table.Cell align="right">100%</Table.Cell>
         </Table.Row>
         <Table.Row interactive>
           <Table.Cell>Table</Table.Cell>
           <Table.Cell>
-            <Badge text="Planned" tone="info" variant="outline" />
+            <Badge label="Planned" tone="info" variant="outline" />
           </Table.Cell>
           <Table.Cell align="right">0%</Table.Cell>
         </Table.Row>
