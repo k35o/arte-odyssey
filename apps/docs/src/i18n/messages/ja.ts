@@ -45,6 +45,28 @@ export const ja = {
   'footer.tagline': '触れるものは柔らかく、読むものは端正に。',
   'footer.typesetting': '組版 — Noto Sans JP / M PLUS 2',
   'nav.openMenu': 'メニューを開く',
+  'nav.ai': 'AI',
+  'nav.aiAgents': 'AI エージェント',
+  'aiAgents.introduction':
+    'ArteOdyssey は、AI コーディングエージェントが読むための面を用意しています。設計指針・コンポーネントのリファレンス・トークン・props を、いずれも実装から生成した形で配っています。',
+  'aiAgents.setupTitle': 'エージェントに読ませる',
+  'aiAgents.setupDescription':
+    'ドキュメントは npm パッケージに同梱されているので、参照先はインストール済みのバージョンに固定されます。プロジェクトの CLAUDE.md / AGENTS.md に次を貼るだけで設定は終わりです。',
+  'aiAgents.surfacesTitle': '公開している面',
+  'aiAgents.surfacesDescription':
+    'いずれもパッケージ内（node_modules）と、このサイトの両方から取得できます。',
+  'aiAgents.surfaceGuide': '設計ガイド。まずここから読む',
+  'aiAgents.surfaceReference': 'コンポーネント・hooks・helpers のリファレンス',
+  'aiAgents.surfaceIndex': 'LLM 向けのドキュメント索引',
+  'aiAgents.surfaceTokens': 'デザイントークンの仕様（CSS から生成）',
+  'aiAgents.surfaceProps': '全コンポーネントの props（型から生成）',
+  'aiAgents.surfaceMcp': '公開 Storybook の MCP エンドポイント',
+  'aiAgents.mcpTitle': 'MCP で Storybook を引く',
+  'aiAgents.mcpDescription':
+    '記憶で props を書かせず、実際のストーリーと描画結果を引かせるための口です。MCP クライアントの設定に追加します。',
+  'aiAgents.generatedTitle': '生成されているもの',
+  'aiAgents.generatedDescription':
+    'props はコンポーネントの型から、トークンは CSS から抽出しています。CI が実装との差分を検出するため、ドキュメントだけが古くなることはありません。',
   'generativeUi.introduction':
     'ArteOdyssey は、LLM が ArteOdyssey コンポーネントだけで UI を生成できる公式アダプタ（json-render / OpenUI）を同梱しています。プロンプトはサーバーで生成し、出力を検証してからクライアントで描画します。',
   'generativeUi.promptTitle': 'プロンプトを生成（サーバー）',
