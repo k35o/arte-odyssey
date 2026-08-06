@@ -23,7 +23,11 @@ yarn add @k8o/arte-odyssey
 
 ## AI Agent Documentation
 
-ArteOdyssey includes design system documentation in the published npm package. When installed, AI coding assistants can reference `node_modules/@k8o/arte-odyssey/docs/GUIDE.md` for design principles, component APIs, and usage patterns.
+The design guide ships inside the published npm package, so an agent reads the
+version you actually installed. Paste the snippet from
+[AI Agent Documentation](packages/arte-odyssey/README.md#ai-agent-documentation)
+into your project's `CLAUDE.md` / `AGENTS.md` — that section also lists the
+`llms.txt`, generated token spec, and Storybook MCP endpoints.
 
 ## Development
 

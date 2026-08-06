@@ -1,4 +1,4 @@
-# CLAUDE.md
+# Agent guide — arte-odyssey
 
 ArteOdyssey is a monorepo for `@k8o/arte-odyssey` (React UI library) and its docs site. Vite+ (`vp`) is the unified toolchain — dev, build, test, lint/format (Oxlint/Oxfmt) — with Tailwind CSS 4 driven by semantic design tokens.
 

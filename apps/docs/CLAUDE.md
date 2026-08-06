@@ -1,4 +1,4 @@
-# CLAUDE.md — apps/docs
+# Agent guide — apps/docs
 
 Documentation site for `@k8o/arte-odyssey`, built with Vite and `@funstack/router`.
 
