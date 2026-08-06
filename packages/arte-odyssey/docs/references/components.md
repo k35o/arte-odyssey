@@ -36,12 +36,17 @@ import { Button } from '@k8o/arte-odyssey';
 
 Props:
 
-- `color`: `'primary'` | `'secondary'` | `'base'`（デフォルト: `'primary'`）
-- `variant`: `'solid'` | `'outline'` | `'skeleton'`（デフォルト: `'solid'`）
-- `size`: `'sm'` | `'md'` | `'lg'`
-- `type`: `'button'` | `'submit'`（デフォルト: `'button'`）
-- `onAction`: `() => void | Promise<void>`（非同期処理を `useTransition` で包み、保留中は自動でスピナー表示。素のイベントが要るときは `onClick`）
-- そのほか `<button>` の HTML 属性（`disabled`, `name`, `aria-*` 等）をそのまま受け取る。`<button>` に無い属性（`href` 等）は渡せないので、リンクにするときは `renderItem` を使う
+- `children`: `ReactNode`
+- `color`: `'primary'` | `'secondary'` | `'base'`（既定: `'primary'`）
+- `endIcon`: `ReactNode`
+- `fullWidth`: `boolean`（既定: `false`）
+- `isActive`: `boolean`（既定: `false`）
+- `onAction`: `() => void | Promise<void>`
+- `renderItem`: `(props: { className: string; children: ReactNode }) => ReactNode`
+- `size`: `'sm'` | `'md'` | `'lg'`（既定: `'md'`）
+- `startIcon`: `ReactNode`
+- `type`: `'button'` | `'submit'`（既定: `'button'`）
+- `variant`: `'solid'` | `'outline'` | `'skeleton'`（既定: `'solid'`）
 
 リンクとしてレンダーする場合は `renderItem` prop を使う。Next.js の `<Link>` などにも応用できる。
 
@@ -73,12 +78,14 @@ import { IconButton } from '@k8o/arte-odyssey';
 
 Props:
 
-- `color`: `'transparent'` | `'base'` | `'primary'` | `'secondary'`（デフォルト: `'transparent'`）
-- `size`: `'sm'` | `'md'` | `'lg'`
-- `label`: string（必須、aria-label として使用。hover / focus で Tooltip に出る）
-- `tooltipPlacement`: Placement（デフォルト: `'top'`）, `tooltipDisabled`: boolean
-- `onAction`: `() => void | Promise<void>`（Button と同じ）
-- そのほか `<button>` の HTML 属性。Button と同様、`<button>` に無い属性（`href` 等）は `renderItem` 経由で渡す
+- `label`: `string`（必須）
+- `children`: `ReactNode`
+- `color`: `'transparent'` | `'base'` | `'primary'` | `'secondary'`（既定: `'transparent'`）
+- `onAction`: `() => void | Promise<void>`
+- `renderItem`: `(props: { className: string; children: ReactNode; 'aria-label': string; triggerProps: IconButtonTriggerProps; }) => ReactNode`
+- `size`: `'sm'` | `'md'` | `'lg'`（既定: `'md'`）
+- `tooltipDisabled`: `boolean`（既定: `false`）
+- `tooltipPlacement`: `Placement`（既定: `'top'`）
 
 リンクとしてレンダーする場合は `renderItem` prop を使う。`triggerProps` を `<a>` にスプレッドすると hover/focus 時に `label` が Tooltip として表示される。
 
@@ -120,9 +127,10 @@ import { Anchor } from '@k8o/arte-odyssey';
 
 Props:
 
-- `href`: string（必須）
-- `openInNewTab`: boolean
-- `renderAnchor`: カスタムリンクレンダラー（Next.js の Link 等）
+- `children`: `ReactNode`（必須）
+- `href`: `T`（必須）
+- `openInNewTab`: `boolean`（既定: `false`）
+- `renderAnchor`: `(props: RenderAnchorProps<T>) => ReactNode`（既定: `defaultRenderAnchor`）
 
 ## レイアウト・ナビゲーション
 
@@ -140,6 +148,25 @@ import { Accordion } from '@k8o/arte-odyssey';
   </Accordion.Item>
 </Accordion.Root>;
 ```
+
+Props (Accordion.Button):
+
+- `children`: `ReactNode`
+
+Props (Accordion.Item):
+
+- `children`: `ReactNode`
+- `defaultOpen`: `boolean`（既定: `false`）
+- `isOpen`: `boolean`
+- `onChange`: `(isOpen: boolean) => void`
+
+Props (Accordion.Panel):
+
+- `children`: `ReactNode`
+
+Props (Accordion.Root):
+
+- `children`: `ReactNode`
 
 ### Breadcrumb
 
@@ -167,13 +194,19 @@ import { Breadcrumb } from '@k8o/arte-odyssey';
 
 Props (Breadcrumb.List):
 
-- `size`: `'sm'` | `'md'` | `'lg'`
+- `children`: `ReactNode`
+- `size`: `'sm'` | `'md'` | `'lg'`（既定: `'md'`）
 
 Props (Breadcrumb.Link):
 
-- `href`: string
-- `current`: boolean
-- `component`: カスタムリンクコンポーネント
+- `href`: `T`（必須）
+- `children`: `ReactNode`
+- `component`: `FC<{ href: T; className: string }>`
+- `current`: `boolean`（既定: `false`）
+
+Props (Breadcrumb.Item):
+
+- `children`: `ReactNode`
 
 ### Pagination
 
@@ -187,11 +220,13 @@ import { Pagination } from '@k8o/arte-odyssey';
 
 Props:
 
-- `totalPages`: number（必須）
-- `currentPage`: number（必須）
+- `currentPage`: `number`（必須）
 - `onChange`: `(page: number) => void`（必須）
-- `disabled`: boolean
-- `prevLabel`, `nextLabel`, `aria-label`: string（未指定なら文言辞書の既定値）
+- `totalPages`: `number`（必須）
+- `aria-label`: `string`
+- `disabled`: `boolean`（既定: `false`）
+- `nextLabel`: `string`
+- `prevLabel`: `string`
 
 ### Tabs
 
@@ -213,7 +248,25 @@ import { Tabs } from '@k8o/arte-odyssey';
 Props (Tabs.Root):
 
 - `ids`: `[string, ...string[]]`（必須）
-- `defaultSelectedId`: string | null
+- `children`: `ReactNode`
+- `defaultSelectedId`: `string` | `null`（既定: `null`）
+- `onChange`: `(id: string) => void`
+- `selectedId`: `string`
+
+Props (Tabs.List):
+
+- `label`: `string`（必須）
+- `children`: `ReactNode`
+
+Props (Tabs.Panel):
+
+- `id`: `string`（必須）
+- `children`: `ReactNode`
+
+Props (Tabs.Tab):
+
+- `id`: `string`（必須）
+- `children`: `ReactNode`
 
 ### Card
 
@@ -235,9 +288,10 @@ import { Card } from '@k8o/arte-odyssey';
 
 Props:
 
-- `width`: `'full'` | `'fit'`
-- `appearance`: `'shadow'` | `'bordered'`
-- `interactive`: boolean
+- `appearance`: `'shadow'` | `'bordered'`（既定: `'shadow'`）
+- `children`: `ReactNode`
+- `interactive`: `boolean`（既定: `false`）
+- `width`: `'full'` | `'fit'`（既定: `'full'`）
 
 ### Separator
 
@@ -252,6 +306,11 @@ import { Separator } from '@k8o/arte-odyssey';
 <Separator orientation="vertical" />
 ```
 
+Props:
+
+- `color`: `'base'` | `'mute'` | `'subtle'`（既定: `'base'`）
+- `orientation`: `'horizontal'` | `'vertical'`（既定: `'horizontal'`）
+
 ### ScrollLinked
 
 スクロール進捗をプログレスバーで表示。
@@ -263,11 +322,91 @@ import { ScrollLinked } from '@k8o/arte-odyssey';
 <ScrollLinked container={containerRef} />
 ```
 
+Props:
+
+- `container`: `RefObject<HTMLElement | null>`
+
+### Stack
+
+縦横一方向に並べるレイアウト。`gap` はスペーシングトークンから選ぶ。
+
+```tsx
+import { Stack } from '@k8o/arte-odyssey';
+
+<Stack gap="lg">
+  <Card>1</Card>
+  <Card>2</Card>
+</Stack>
+
+<Stack direction="row" justify="between" align="center">
+  <Heading type="h2">タイトル</Heading>
+  <Button>操作</Button>
+</Stack>
+```
+
+Props:
+
+- `align`: `'start'` | `'center'` | `'end'` | `'stretch'`
+- `children`: `ReactNode`
+- `direction`: `'row'` | `'column'`（既定: `'column'`）
+- `gap`: `GapSize`（既定: `'md'`）
+- `justify`: `'start'` | `'center'` | `'end'` | `'between'`
+- `padding`: `PaddingSize`
+
+### Grid
+
+グリッドレイアウト。`cols` に `'auto-fill'` / `'auto-fit'` を渡すと `minItemSize` を下限に折り返す。
+
+```tsx
+import { Grid } from '@k8o/arte-odyssey';
+
+<Grid cols={3} gap="md">
+  <Card>1</Card>
+  <Card>2</Card>
+  <Card>3</Card>
+</Grid>
+
+<Grid cols="auto-fill" minItemSize={64}>
+  {items.map((item) => (
+    <Card key={item.id}>{item.name}</Card>
+  ))}
+</Grid>
+```
+
+Props:
+
+- `children`: `ReactNode`
+- `cols`: `1` | `2` | `3` | `4` | `5` | `6` | `'auto-fill'` | `'auto-fit'`（既定: `'auto-fill'`）
+- `gap`: `GapSize`（既定: `'md'`）
+- `minItemSize`: `24` | `32` | `40` | `48` | `64` | `80`（既定: `48`）
+
 ## フォーム
 
 フォームコンポーネントは `FormControl` の `renderInput` パターンと組み合わせて使用する。各フォームコンポーネントは controlled / uncontrolled の両方に対応。
 
 `ref` は実要素（`input` / `textarea` / `select` / `fieldset`）に届く。内部で ref を使う `Textarea` / `FileField` も内部 ref と合成されるため、`react-hook-form` の `register()` などをそのまま渡せる。`Radio`（複数の input を描くグループ）と `FormControl`（ラッパー）は `ref` を受け取らない。
+
+### Form
+
+`<form>` のラッパー。`action` には Server Action（`(formData) => …`）も URL 文字列も渡せる。
+
+```tsx
+import { Button, Form, FormControl, TextField } from '@k8o/arte-odyssey';
+
+<Form action={submitAction}>
+  <FormControl
+    label="メール"
+    required
+    renderInput={(props) => <TextField {...props} name="email" />}
+  />
+  <Button type="submit">送信</Button>
+</Form>;
+```
+
+Props:
+
+- `children`: `ReactNode`（必須）
+- `action`: `((formData: FormData) => void` | `Promise<void>) | string`
 
 ### FormControl
 
@@ -289,11 +428,14 @@ import { FormControl, TextField } from '@k8o/arte-odyssey';
 
 Props:
 
-- `label`: string（必須）
-- `labelAs`: `'label'` | `'legend'`
-- `helpText`: string
-- `errorText`: string
-- `disabled`, `invalid`, `required`: boolean
+- `label`: `string`（必須）
+- `renderInput`: `(props: { id: string; 'aria-describedby': string | undefined; 'aria-labelledby': string; disabled: boolean; invalid: boolean; required: boolean; }) => ReactElement`（必須）
+- `disabled`: `boolean`（既定: `false`）
+- `errorText`: `string`
+- `helpText`: `string`
+- `invalid`: `boolean`（既定: `false`）
+- `labelAs`: `'label'` | `'legend'`（既定: `'label'`）
+- `required`: `boolean`（既定: `false`）
 
 `renderInput` は `{ id, 'aria-describedby', 'aria-labelledby', disabled, invalid, required }` を受け取る。
 
@@ -318,9 +460,10 @@ import { TextField } from '@k8o/arte-odyssey';
 
 Props:
 
-- `invalid`: boolean
+- `children`: `ReactNode`
+- `invalid`: `boolean`（既定: `false`）
 - `ref`: `Ref<HTMLInputElement>`
-- そのほか `<input>` の HTML 属性（`type`, `id`, `name`, `placeholder`, `autoComplete` 等）をそのまま受け取る。パスワードは `type="password"` ではなく `PasswordInput` を使う（表示/非表示トグルが `type` を占有するため `PasswordInput` は `type` を受け取らない）
+- `type`: `TextInputType`（既定: `'text'`）
 
 ### Textarea
 
@@ -336,6 +479,14 @@ import { Textarea } from '@k8o/arte-odyssey';
   required={false}
 />;
 ```
+
+Props:
+
+- `autoResize`: `boolean`（既定: `false`）
+- `children`: `ReactNode`
+- `fullHeight`: `boolean`（既定: `false`）
+- `invalid`: `boolean`（既定: `false`）
+- `ref`: `Ref<HTMLTextAreaElement>`
 
 ### NumberField
 
@@ -353,6 +504,18 @@ import { NumberField } from '@k8o/arte-odyssey';
   required={false}
 />;
 ```
+
+Props:
+
+- `defaultValue`: `never`
+- `invalid`: `boolean`（既定: `false`）
+- `max`: `number`（既定: `9_007_199_254_740_991`）
+- `min`: `number`（既定: `-9_007_199_254_740_991`）
+- `onChange`: `(value: number) => void`
+- `precision`: `number`（既定: `0`）
+- `ref`: `Ref<HTMLInputElement>`
+- `step`: `number`（既定: `1`）
+- `value`: `number`
 
 ### PasswordInput
 
@@ -373,6 +536,14 @@ import { PasswordInput } from '@k8o/arte-odyssey';
 />;
 ```
 
+Props:
+
+- `children`: `ReactNode`
+- `hideLabel`: `string`
+- `invalid`: `boolean`（既定: `false`）
+- `ref`: `Ref<HTMLInputElement>`
+- `showLabel`: `string`
+
 ### Select
 
 ```tsx
@@ -392,6 +563,13 @@ import { Select } from '@k8o/arte-odyssey';
 />;
 ```
 
+Props:
+
+- `options`: `readonly Option[]`（必須）
+- `children`: `ReactNode`
+- `invalid`: `boolean`（既定: `false`）
+- `ref`: `Ref<HTMLSelectElement>`
+
 ### Autocomplete
 
 複数選択のオートコンプリート。`value` / `onChange` は `string[]`。
@@ -410,6 +588,16 @@ import { Autocomplete } from '@k8o/arte-odyssey';
 />;
 ```
 
+Props:
+
+- `id`: `string`（必須）
+- `options`: `readonly Option[]`（必須）
+- `defaultValue`: `never`
+- `invalid`: `boolean`（既定: `false`）
+- `onChange`: `(value: string[]) => void`
+- `ref`: `Ref<HTMLInputElement>`
+- `value`: `string[]`
+
 ### Checkbox
 
 ラベルは `label` prop で渡す（children ではない）。`onChange` は `(checked, event)`。
@@ -426,9 +614,11 @@ import { Checkbox } from '@k8o/arte-odyssey';
 
 Props:
 
-- `label`: string（必須）
-- `itemValue`: string（`CheckboxGroup` 内では必須）
-- Controlled: `checked: boolean` + `onChange: (checked, event) => void` / Uncontrolled: `defaultChecked`
+- `label`: `string`（必須）
+- `checked`: `boolean`
+- `defaultChecked`: `never`
+- `itemValue`: `string`
+- `onChange`: `(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void`
 - `ref`: `Ref<HTMLInputElement>`
 
 ### CheckboxGroup
@@ -454,6 +644,37 @@ import { CheckboxGroup } from '@k8o/arte-odyssey';
 </CheckboxGroup>;
 ```
 
+Props:
+
+- `aria-labelledby`: `string`（必須）
+- `name`: `string`（必須）
+- `children`: `ReactNode`
+- `defaultValue`: `never`
+- `invalid`: `boolean`
+- `onChange`: `(value: string[]) => void`
+- `ref`: `Ref<HTMLFieldSetElement>`
+- `value`: `string[]`
+
+Props (CheckboxGroup.Item):
+
+- `label`: `string`（必須）
+- `checked`: `boolean`
+- `defaultChecked`: `never`
+- `itemValue`: `string`
+- `onChange`: `(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void`
+- `ref`: `Ref<HTMLInputElement>`
+
+Props (CheckboxGroup.Root):
+
+- `aria-labelledby`: `string`（必須）
+- `name`: `string`（必須）
+- `children`: `ReactNode`
+- `defaultValue`: `never`
+- `invalid`: `boolean`（既定: `false`）
+- `onChange`: `(value: string[]) => void`
+- `ref`: `Ref<HTMLFieldSetElement>`
+- `value`: `string[]`
+
 ### CheckboxCard
 
 カードスタイルのチェックボックス。
@@ -478,6 +699,16 @@ import { CheckboxCard } from '@k8o/arte-odyssey';
 />;
 ```
 
+Props:
+
+- `aria-labelledby`: `string`（必須）
+- `options`: `readonly CheckboxCardOption[]`（必須）
+- `defaultValue`: `never`
+- `invalid`: `boolean`（既定: `false`）
+- `onChange`: `(value: string[]) => void`
+- `ref`: `Ref<HTMLFieldSetElement>`
+- `value`: `string[]`
+
 ### Radio
 
 ```tsx
@@ -494,6 +725,15 @@ import { Radio } from '@k8o/arte-odyssey';
   value={value}
 />;
 ```
+
+Props:
+
+- `aria-labelledby`: `string`（必須）
+- `options`: `readonly Option[]`（必須）
+- `disabled`: `boolean`（既定: `false`）
+- `name`: `string`
+- `onChange`: `(value: string, event: ChangeEvent<HTMLInputElement>) => void`
+- `value`: `string`
 
 ### RadioCard
 
@@ -520,6 +760,16 @@ import { RadioCard } from '@k8o/arte-odyssey';
 />;
 ```
 
+Props:
+
+- `aria-labelledby`: `string`（必須）
+- `options`: `readonly RadioCardOption[]`（必須）
+- `defaultValue`: `never`
+- `invalid`: `boolean`（既定: `false`）
+- `onChange`: `(value: string) => void`
+- `ref`: `Ref<HTMLFieldSetElement>`
+- `value`: `string`
+
 ### Slider
 
 レンジスライダー。
@@ -538,6 +788,17 @@ import { Slider } from '@k8o/arte-odyssey';
   required={false}
 />;
 ```
+
+Props:
+
+- `defaultValue`: `never`
+- `invalid`: `boolean`（既定: `false`）
+- `max`: `number`（既定: `100`）
+- `min`: `number`（既定: `0`）
+- `onChange`: `(value: number) => void`
+- `ref`: `Ref<HTMLInputElement>`
+- `step`: `number`（既定: `1`）
+- `value`: `number`
 
 ### Switch
 
@@ -558,9 +819,11 @@ import { Switch } from '@k8o/arte-odyssey';
 
 Props:
 
-- `label`: string（必須）
-- Controlled: `checked: boolean` + `onChange: (checked, event) => void` / Uncontrolled: `defaultChecked`
-- `disabled`, `invalid`, `required`: boolean
+- `label`: `string`（必須）
+- `checked`: `boolean`
+- `defaultChecked`: `never`
+- `invalid`: `boolean`（既定: `false`）
+- `onChange`: `(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void`
 - `ref`: `Ref<HTMLInputElement>`
 
 ### FileField
@@ -584,12 +847,24 @@ import { FileField } from '@k8o/arte-odyssey';
 
 Props (Root):
 
-- `accept`: string
-- `multiple`: boolean
-- `maxFiles`: number
-- `disabled`, `invalid`, `required`: boolean
+- `children`: `ReactNode`
+- `defaultValue`: `File[]`
+- `invalid`: `boolean`（既定: `false`）
+- `maxFiles`: `number`
+- `onChange`: `(files: FileList | null, event?: ChangeEvent<HTMLInputElement>) => void`
+- `ref`: `Ref<HTMLInputElement>`
+- `webkitDirectory`: `boolean`（既定: `false`）
 
 ## データ表示
+
+Props (FileField.ItemList):
+
+- `clearable`: `boolean`
+- `showWebkitRelativePath`: `boolean`
+
+Props (FileField.Trigger):
+
+- `renderItem`: `(props: { onClick: () => void; disabled: boolean; invalid: boolean; }) => ReactElement`（必須）
 
 ### Heading
 
@@ -606,7 +881,8 @@ import { Heading } from '@k8o/arte-odyssey';
 Props:
 
 - `type`: `'h1'` | `'h2'` | `'h3'` | `'h4'` | `'h5'` | `'h6'`（必須）
-- `lineClamp`: number
+- `children`: `ReactNode`
+- `lineClamp`: `1` | `2` | `3` | `4` | `5` | `6`
 
 ### Avatar
 
@@ -622,13 +898,14 @@ import { Avatar } from '@k8o/arte-odyssey';
 
 Props:
 
-- `src`: string
-- `alt`: string
-- `name`: string
-- `fallback`: string
-- `icon`: ReactNode
-- `color`: `'base'` | `'primary'` | `'secondary'`（デフォルト: `'base'`）
-- `size`: `'sm'` | `'md'` | `'lg'`
+- `alt`: `string`
+- `children`: `ReactNode`
+- `color`: `'base'` | `'primary'` | `'secondary'`（既定: `'base'`）
+- `fallback`: `string`
+- `icon`: `ReactNode`
+- `name`: `string`
+- `size`: `'sm'` | `'md'` | `'lg'`（既定: `'md'`）
+- `src`: `string`
 
 ### Badge
 
@@ -637,18 +914,18 @@ Props:
 ```tsx
 import { Badge } from '@k8o/arte-odyssey';
 
-<Badge text="新着" tone="info" variant="solid" />
-<Badge text="完了" tone="success" variant="outline" />
-<Badge text="フィルター" interactive />
+<Badge label="新着" tone="info" variant="solid" />
+<Badge label="完了" tone="success" variant="outline" />
+<Badge label="フィルター" interactive />
 ```
 
 Props:
 
-- `text`: string（必須）
-- `size`: `'sm'` | `'md'` | `'lg'`
-- `tone`: `'neutral'` | `'info'` | `'success'` | `'warning'` | `'error'`
-- `variant`: `'solid'` | `'outline'`
-- `interactive`: boolean（true でボタンとして描画）
+- `label`: `string`（必須）
+- `interactive`: `boolean`（既定: `false`）
+- `size`: `'sm'` | `'md'` | `'lg'`（既定: `'md'`）
+- `tone`: `'neutral'` | `'info'` | `'success'` | `'warning'` | `'error'`（既定: `'neutral'`）
+- `variant`: `'solid'` | `'outline'`（既定: `'solid'`）
 
 ### Code
 
@@ -662,7 +939,7 @@ import { Code } from '@k8o/arte-odyssey';
 
 Props:
 
-- `children`: string
+- `children`: `string`（必須）
 
 ### Table
 
@@ -689,6 +966,44 @@ import { Table } from '@k8o/arte-odyssey';
 
 ## フィードバック
 
+Props (Table.Body):
+
+- `children`: `ReactNode`
+
+Props (Table.Caption):
+
+- `children`: `ReactNode`
+
+Props (Table.Cell):
+
+- `align`: `CellAlign`（既定: `'left'`）
+- `children`: `ReactNode`
+- `colSpan`: `number`
+- `tone`: `'default'` | `'muted'`（既定: `'default'`）
+
+Props (Table.EmptyState):
+
+- `children`: `ReactNode`（必須）
+- `colSpan`: `number`（必須）
+
+Props (Table.Head):
+
+- `children`: `ReactNode`
+
+Props (Table.HeaderCell):
+
+- `align`: `CellAlign`（既定: `'left'`）
+- `children`: `ReactNode`
+
+Props (Table.Root):
+
+- `children`: `ReactNode`
+
+Props (Table.Row):
+
+- `children`: `ReactNode`
+- `interactive`: `boolean`（既定: `false`）
+
 ### Alert
 
 ```tsx
@@ -700,11 +1015,11 @@ import { Alert } from '@k8o/arte-odyssey';
 
 Props:
 
-- `tone`: `'info'` | `'success'` | `'warning'` | `'error'`（必須）
-- `message`: `string | string[]`
-- `action`: `{ label: string; renderItem: (props: { children: ReactNode }) => ReactNode }`
-- `onClose`: `() => void`（指定すると閉じるボタンを表示）
-- `closeLabel`: string
+- `message`: `string` | `string[]`（必須）
+- `tone`: `Status`（必須）
+- `action`: `AlertAction`
+- `closeLabel`: `string`
+- `onClose`: `() => void`
 
 ### Toast
 
@@ -719,9 +1034,29 @@ onOpen('error', 'エラーが発生しました');
 
 `ToastProvider` は `ArteOdysseyProvider` に含まれるため、別途ラップ不要。
 
+`useToast()` の戻り値:
+
 - `onOpen`: `(tone: Status, message: string, options?: { duration?: number; action?: ToastAction }) => void`
 - `onClose`: `(id: string) => void`
 - `onCloseAll`: `() => void`
+
+### ToastProvider
+
+出す位置や Portal 先を変えたいときだけ、`ArteOdysseyProvider` の内側で明示的にラップする。
+
+```tsx
+import { ToastProvider } from '@k8o/arte-odyssey';
+
+<ToastProvider position="absolute" portalRef={containerRef}>
+  {children}
+</ToastProvider>;
+```
+
+Props:
+
+- `children`: `ReactNode`
+- `portalRef`: `RefObject<HTMLElement | null>`（既定: `null`）
+- `position`: `'fixed'` | `'absolute'`（既定: `'fixed'`）
 
 ### Progress
 
@@ -734,10 +1069,10 @@ import { Progress } from '@k8o/arte-odyssey';
 
 Props:
 
-- `progress`: number
-- `maxProgress`: number
-- `minProgress`: number
-- `label`: string
+- `maxProgress`: `number`（必須）
+- `progress`: `number`（必須）
+- `label`: `string`
+- `minProgress`: `number`（既定: `0`）
 
 ### Spinner
 
@@ -751,8 +1086,8 @@ import { Spinner } from '@k8o/arte-odyssey';
 
 Props:
 
-- `size`: `'sm'` | `'md'` | `'lg'`
-- `label`: string（省略時は文言辞書の `loading`。既定は「読み込み中」）
+- `label`: `string`
+- `size`: `'sm'` | `'md'` | `'lg'`（既定: `'md'`）
 
 ### Skeleton
 
@@ -768,9 +1103,9 @@ import { Skeleton } from '@k8o/arte-odyssey';
 
 Props:
 
-- `shape`: `'rect'` | `'circle'`
-- `size`: `'sm'` | `'md'` | `'lg'`
-- `animate`: boolean
+- `animate`: `boolean`（既定: `true`）
+- `shape`: `'rect'` | `'circle'`（既定: `'rect'`）
+- `size`: `'sm'` | `'md'` | `'lg'`（既定: `'md'`）
 
 ## オーバーレイ
 
@@ -781,19 +1116,22 @@ Props:
 ```tsx
 import { Modal } from '@k8o/arte-odyssey';
 
-<Modal isOpen={open} onClose={onClose} placement="center">
+<Modal isOpen={open} onClose={onClose} side="center">
   コンテンツ
 </Modal>;
 ```
 
 Props:
 
-- `placement`: `'center'` | `'bottom'` | `'right'` | `'left'`（デフォルト: `'center'`）
-- `isOpen`: boolean
-- `defaultOpen`: boolean
-- `onClose`: () => void
-- `aria-label` / `aria-labelledby` / `aria-describedby`: string
+- `aria-describedby`: `string`
+- `aria-label`: `string`
+- `aria-labelledby`: `string`
+- `children`: `ReactNode`
+- `defaultOpen`: `boolean`
+- `isOpen`: `boolean`
+- `onClose`: `() => void`
 - `ref`: `RefObject<HTMLDialogElement | null>`
+- `side`: `ModalSide`（既定: `'center'`）
 
 名前の解決順は `aria-label` / `aria-labelledby` > 中の `Dialog.Root` が登録した見出し。どちらも無ければ無名の dialog になるため、`Dialog` を入れずに直接コンテンツを置くときは `aria-label` を渡す。
 
@@ -818,6 +1156,23 @@ import { Modal, Dialog } from '@k8o/arte-odyssey';
 </Modal>;
 ```
 
+Props (Dialog.Content):
+
+- `children`: `ReactNode`
+
+Props (Dialog.Header):
+
+- `onClose`: `() => void`（必須）
+- `title`: `string`（必須）
+
+Props (Dialog.Root):
+
+- `children`: `ReactNode`
+- `id`: `string`
+- `ref`: `Ref<HTMLElement>`
+- `role`: `string`
+- `tabIndex`: `number`
+
 ### Drawer
 
 サイドパネル。内部で Modal を使用。
@@ -832,10 +1187,12 @@ import { Drawer } from '@k8o/arte-odyssey';
 
 Props:
 
-- `title`: ReactNode
-- `isOpen`: boolean
-- `onClose`: () => void
-- `side`: `'left'` | `'right'`（デフォルト: `'right'`）
+- `title`: `ReactNode`（必須）
+- `children`: `ReactNode`
+- `defaultOpen`: `boolean`
+- `isOpen`: `boolean`
+- `onClose`: `() => void`
+- `side`: `DrawerSide`（既定: `'right'`）
 
 ### Popover
 
@@ -854,12 +1211,26 @@ import { Popover } from '@k8o/arte-odyssey';
 
 Props (Root):
 
-- `placement`: Placement（デフォルト: `'bottom-start'`）
-- `type`: `'dialog'` | `'menu'` | `'listbox'`（デフォルト: `'menu'`）
-- `flipDisabled`, `closeOnClickAway`, `trapFocus`: boolean
-- 開閉状態: Controlled は `isOpen` + `onChange: (isOpen: boolean) => void`、Uncontrolled は `defaultOpen`
+- `children`: `ReactNode`
+- `closeOnClickAway`: `boolean`（既定: `true`）
+- `defaultOpen`: `boolean`（既定: `false`）
+- `flipDisabled`: `boolean`（既定: `false`）
+- `isOpen`: `boolean`
+- `onChange`: `(isOpen: boolean) => void`
+- `placement`: `Placement`（既定: `'bottom-start'`）
+- `trapFocus`: `boolean`（既定: `true`）
+- `type`: `'dialog'` | `'menu'` | `'listbox'`（既定: `'menu'`）
 
 Escape は入れ子のうち**最も内側の 1 枚だけ**を閉じる。
+
+Props (Popover.Content):
+
+- `renderItem`: `(props: PopoverContentProps) => ReactElement`（必須）
+- `animation`: `'scale'` | `'fade'`（既定: `'scale'`）
+
+Props (Popover.Trigger):
+
+- `renderItem`: `(props: PopoverTriggerProps) => ReactElement`（必須）
 
 ### Tooltip
 
@@ -876,8 +1247,19 @@ import { Tooltip } from '@k8o/arte-odyssey';
 
 Props (Root):
 
-- `placement`: Placement（デフォルト: `'bottom'`）
-- 開閉状態: `isOpen` / `defaultOpen` / `onChange`（Popover と同じ）
+- `children`: `ReactNode`
+- `defaultOpen`: `boolean`
+- `isOpen`: `boolean`
+- `onChange`: `(isOpen: boolean) => void`
+- `placement`: `Placement`（既定: `'bottom'`）
+
+Props (Tooltip.Content):
+
+- `children`: `ReactNode`
+
+Props (Tooltip.Trigger):
+
+- `renderItem`: `(props: TooltipTriggerProps) => ReactElement`（必須）
 
 ### DropdownMenu
 
@@ -887,7 +1269,7 @@ Props (Root):
 import { DropdownMenu } from '@k8o/arte-odyssey';
 
 <DropdownMenu.Root>
-  <DropdownMenu.Trigger text="メニュー" />
+  <DropdownMenu.Trigger label="メニュー" />
   <DropdownMenu.Content>
     <DropdownMenu.Item label="アイテム1" onClick={handleClick} />
     <DropdownMenu.Item label="アイテム2" onClick={handleClick} />
@@ -897,13 +1279,37 @@ import { DropdownMenu } from '@k8o/arte-odyssey';
 
 Props (Root):
 
-- `placement`: Placement（デフォルト: `'bottom-start'`）
-- 開閉状態: `isOpen` / `defaultOpen` / `onChange`（Popover と同じ）
+- `children`: `ReactNode`
+- `defaultOpen`: `boolean`
+- `isOpen`: `boolean`
+- `onChange`: `(isOpen: boolean) => void`
+- `placement`: `Placement`（既定: `'bottom-start'`）
 
 Trigger バリアント:
 
 - `DropdownMenu.Trigger`: テキストベース（`text`, `size`, `variant`）
 - `DropdownMenu.IconTrigger`: アイコンベース（`icon`, `label`）
+
+Props (DropdownMenu.Content):
+
+- `children`: `ReactNode`
+
+Props (DropdownMenu.IconTrigger):
+
+- `icon`: `ReactNode`（必須）
+- `label`: `string`（必須）
+
+Props (DropdownMenu.Item):
+
+- `label`: `string`（必須）
+- `onClick`: `MouseEventHandler`（必須）
+- `index`: `number`（既定: `0`）
+
+Props (DropdownMenu.Trigger):
+
+- `label`: `string`（必須）
+- `size`: `ComponentProps<typeof Button>['size']`（既定: `'md'`）
+- `variant`: `ComponentProps<typeof Button>['variant']`（既定: `'solid'`）
 
 ### ListBox
 
@@ -927,10 +1333,12 @@ import { ListBox } from '@k8o/arte-odyssey';
 
 Props (Root):
 
-- `options`: `readonly Option[]`（`{ value: string; label: string }`）（必須）
-- `value`: `string | undefined`（必須）
-- `onChange`: `(value: string) => void`（必須）
-- `placement`: Placement（デフォルト: `'bottom'`）
+- `options`: `readonly Option[]`（必須）
+- `children`: `ReactNode`
+- `defaultValue`: `Option['value']`
+- `onChange`: `(value: Option['value']) => void`
+- `placement`: `Placement`（既定: `'bottom'`）
+- `value`: `Option['value']`
 
 Trigger バリアント:
 
@@ -941,9 +1349,20 @@ Trigger バリアント:
 
 Props (Content):
 
-- `helpContent`: ReactElement（listbox の外側に置かれる補足表示）
+- `helpContent`: `ReactElement`
 
 ## プロバイダー
+
+Props (ListBox.IconTrigger):
+
+- `icon`: `ReactElement`（必須）
+- `label`: `string`
+- `size`: `ComponentProps<typeof Button>['size']`（既定: `'md'`）
+
+Props (ListBox.Trigger):
+
+- `label`: `string`
+- `size`: `ComponentProps<typeof Button>['size']`（既定: `'md'`）
 
 ### ArteOdysseyProvider
 
@@ -959,7 +1378,8 @@ import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
 
 Props:
 
-- `messages`: `Partial<Messages>`（省略時は日本語辞書）
+- `children`: `ReactNode`
+- `messages`: `Partial<Messages>`
 
 ### PortalRootProvider
 
@@ -1001,6 +1421,11 @@ import { en } from '@k8o/arte-odyssey/i18n';
   <App />
 </ArteOdysseyProvider>
 ```
+
+Props:
+
+- `children`: `ReactNode`
+- `value`: `RefObject<HTMLElement | null>`
 
 ### 優先順位
 
