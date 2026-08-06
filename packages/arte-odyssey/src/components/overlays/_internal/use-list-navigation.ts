@@ -36,6 +36,8 @@ const isVerticalWritingMode = (el: HTMLElement): boolean => {
  *
  * roving-tabindex: アクティブな項目だけ tabIndex=0、他は -1。アクティブ変更時に
  * その項目へフォーカスを移す。開いたら先頭（選択済みがあればそれ）をアクティブにする。
+ * hover で開くサブメニューのようにフォーカスを奪ってはいけない場合は
+ * autoActivateOnOpen=false にし、キーボード開時だけ呼び出し側が setActiveIndex する。
  */
 export const useListNavigation = ({
   open,
@@ -43,12 +45,14 @@ export const useListNavigation = ({
   setActiveIndex,
   selectedIndex = null,
   loop = true,
+  autoActivateOnOpen = true,
 }: {
   open: boolean;
   activeIndex: number | null;
   setActiveIndex: Dispatch<SetStateAction<number | null>>;
   selectedIndex?: number | null;
   loop?: boolean;
+  autoActivateOnOpen?: boolean;
 }): ListNavigation => {
   const itemElementsRef = useRef<Array<HTMLElement | null>>([]);
 
@@ -58,12 +62,15 @@ export const useListNavigation = ({
       setActiveIndex(null);
       return;
     }
+    if (!autoActivateOnOpen) {
+      return;
+    }
     setActiveIndex(
       (prev) =>
         prev ??
         (selectedIndex !== null && selectedIndex >= 0 ? selectedIndex : 0),
     );
-  }, [open, selectedIndex, setActiveIndex]);
+  }, [open, selectedIndex, setActiveIndex, autoActivateOnOpen]);
 
   // アクティブ項目へフォーカスを移す。
   useEffect(() => {

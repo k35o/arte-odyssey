@@ -2,11 +2,14 @@
 
 import { type MouseEventHandler, useMemo } from 'react';
 
-import { createSafeContext } from '../../../helpers/create-safe-context';
-import type { ListNavigation } from '../_internal/use-list-navigation';
-import { useOpenContext } from '../popover/hooks';
+import { createSafeContext } from '../../../helpers';
+import type { ListNavigation } from '../_internal';
 
-type MenuContext = ListNavigation;
+type MenuContext = ListNavigation & {
+  // サブメニューの項目から選択したときも、ネスト元をたどってメニュー全体を
+  // 閉じられるよう、直近の popover ではなくルートの close を配る。
+  closeRoot: () => void;
+};
 
 export const [MenuContextProvider, useMenuContext] =
   createSafeContext<MenuContext>(
@@ -32,16 +35,15 @@ export const useMenuItem = ({
   index: number;
 }) => {
   const menu = useMenuContext();
-  const { onClose } = useOpenContext();
   return useMemo(
     () => ({
       role: 'menuitem' as const,
       ...menu.getItemProps(index),
       onClick: (e: Parameters<MouseEventHandler>[0]) => {
         onClick(e);
-        onClose();
+        menu.closeRoot();
       },
     }),
-    [index, menu, onClick, onClose],
+    [index, menu, onClick],
   );
 };
