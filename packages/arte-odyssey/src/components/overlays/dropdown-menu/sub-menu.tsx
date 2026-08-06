@@ -94,11 +94,21 @@ const SubMenuInner: FC<
 
   // trapFocus を使わない（hover 開時にフォーカスを奪わせないため）ので、
   // 閉じたときにフォーカスがサブメニュー内で行き場を失っていたらトリガーへ戻す。
+  // 復帰はキーボードで開いた（＝フォーカスを送り込んだ）場合に限る。閉じる際は
+  // display:none でフォーカスが body へ落ちた後にこの effect が走るため
+  // activeElement では判別できず、Safari はクリックでボタンにフォーカスを
+  // 当てないので body を「喪失」とみなすと hover だけの操作でも奪ってしまう。
+  const openedByKeyboardRef = useRef(false);
   const wasOpenRef = useRef(false);
   useEffect(() => {
     const wasOpen = wasOpenRef.current;
     wasOpenRef.current = popover.isOpen;
     if (!wasOpen || popover.isOpen) {
+      return;
+    }
+    const byKeyboard = openedByKeyboardRef.current;
+    openedByKeyboardRef.current = false;
+    if (!byKeyboard) {
       return;
     }
     const active = document.activeElement;
@@ -112,6 +122,7 @@ const SubMenuInner: FC<
   }, [popover.isOpen]);
 
   const openByKeyboard = () => {
+    openedByKeyboardRef.current = true;
     popover.onOpen();
     setActiveIndex(0);
   };
