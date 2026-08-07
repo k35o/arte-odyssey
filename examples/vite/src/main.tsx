@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 
 import App from './app';
 
-import '@k8o/arte-odyssey/styles.css';
+import '@k8o/arte-odyssey/tailwind.css';
 
 const rootElement = document.querySelector('#root');
 if (!rootElement) {
