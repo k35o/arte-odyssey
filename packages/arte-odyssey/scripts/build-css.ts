@@ -49,8 +49,8 @@ const css = readFileSync(entry, 'utf8').replace(
 );
 if (!css.includes("@import 'tailwindcss' source(none);")) {
   throw new Error(
-    "build-css: @import 'tailwindcss' not found in src/styles/index.css — " +
-      'source(none) の差し替えに失敗（クラス集合が CWD の自動検出に依存してしまう）',
+    "build-css: @import 'tailwindcss' not found in " +
+      `${entry} — source(none) の差し替えに失敗（クラス集合が CWD の自動検出に依存してしまう）`,
   );
 }
 const result = await postcss([tailwindcss()]).process(css, { from: entry });
