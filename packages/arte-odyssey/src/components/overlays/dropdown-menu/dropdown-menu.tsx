@@ -1,14 +1,10 @@
 'use client';
 
 import {
-  Children,
-  cloneElement,
   type ComponentProps,
   type FC,
-  isValidElement,
   type MouseEventHandler,
   type PropsWithChildren,
-  type ReactElement,
   type ReactNode,
   useState,
 } from 'react';
@@ -17,11 +13,11 @@ import type { Placement } from '../../../types/variables';
 import { Button } from '../../buttons/button';
 import { IconButton } from '../../buttons/icon-button';
 import { ChevronIcon } from '../../icons';
-import { useListNavigation } from '../_internal/use-list-navigation';
-import { Popover } from '../popover';
-import { useOpenContext } from '../popover/hooks';
-import { cn } from './../../../helpers/cn';
+import { useListNavigation } from '../_internal';
+import { Popover, useOpenContext } from '../popover';
 import { MenuContextProvider, useMenuContent, useMenuItem } from './hooks';
+import { cloneWithIndex, itemClass, panelClass } from './shared';
+import { SubMenu } from './sub-menu';
 
 const Root: FC<
   PropsWithChildren<{
@@ -49,7 +45,7 @@ const Root: FC<
 );
 
 const MenuProvider: FC<PropsWithChildren> = ({ children }) => {
-  const { isOpen } = useOpenContext();
+  const { isOpen, onClose } = useOpenContext();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const nav = useListNavigation({
@@ -59,7 +55,11 @@ const MenuProvider: FC<PropsWithChildren> = ({ children }) => {
     loop: true,
   });
 
-  return <MenuContextProvider value={nav}>{children}</MenuContextProvider>;
+  return (
+    <MenuContextProvider value={{ ...nav, closeRoot: onClose }}>
+      {children}
+    </MenuContextProvider>
+  );
 };
 
 const Content: FC<PropsWithChildren> = ({ children }) => {
@@ -68,18 +68,8 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Popover.Content
       renderItem={(props) => (
-        <div
-          {...props}
-          {...contentProps}
-          className="bg-bg-raised border-border-subtle vertical:min-w-0 vertical:min-h-40 flex min-w-40 flex-col rounded-lg border py-2 shadow-md"
-        >
-          {Children.toArray(children).map((child, index) =>
-            isValidElement(child)
-              ? cloneElement(child as ReactElement<{ index?: number }>, {
-                  index,
-                })
-              : child,
-          )}
+        <div {...props} {...contentProps} className={panelClass}>
+          {cloneWithIndex(children)}
         </div>
       )}
     />
@@ -94,15 +84,7 @@ const Item: FC<{
   const props = useMenuItem({ onClick, index });
 
   return (
-    <button
-      className={cn(
-        'w-full px-2 py-1 text-left transition-colors',
-        'hover:bg-bg-subtle',
-        'focus-visible:bg-bg-subtle focus-visible:outline-hidden',
-      )}
-      type="button"
-      {...props}
-    >
+    <button className={itemClass} type="button" {...props}>
       {label}
     </button>
   );
@@ -146,6 +128,7 @@ export const DropdownMenu = {
   Root,
   Content,
   Item,
+  SubMenu,
   Trigger,
   IconTrigger,
 } as const;
