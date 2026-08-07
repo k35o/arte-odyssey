@@ -399,10 +399,12 @@ font-family: 'Noto Sans JP', 'M PLUS 2', sans-serif;
 
     `## コンポーネント
 
-\`@k8o/arte-odyssey\` から名前付きエクスポート。スタイルシートとプロバイダーが必要:
+\`@k8o/arte-odyssey\` から名前付きエクスポート。スタイルシートとプロバイダーが必要。
+このガイドのトークンを自分のマークアップで使うには Tailwind ソース版の \`tailwind.css\` を
+import する（Tailwind を持たないプロジェクトはビルド済みの \`styles.css\`）:
 
 \`\`\`tsx
-import '@k8o/arte-odyssey/styles.css';
+import '@k8o/arte-odyssey/tailwind.css';
 import { ArteOdysseyProvider, Button, Card } from '@k8o/arte-odyssey';
 
 <ArteOdysseyProvider>
@@ -496,7 +498,10 @@ npm install @k8o/arte-odyssey
 \`\`\`
 
 \`\`\`tsx
-import '@k8o/arte-odyssey/styles.css';
+// Tailwind CSS 4 のプロジェクト（トークンを自分のマークアップでも使える）
+import '@k8o/arte-odyssey/tailwind.css';
+// Tailwind を持たないプロジェクトはビルド済み CSS を使う
+// import '@k8o/arte-odyssey/styles.css';
 import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
 \`\`\`
 

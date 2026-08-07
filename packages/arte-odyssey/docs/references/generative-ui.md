@@ -109,4 +109,4 @@ OpenUI では `Stack` / `Grid` の直下に `Stack` / `Grid` / `Card` を置け�
 | `@k8o/arte-odyssey/openui`               | `'use client'` | `library`（描画）                                                             |
 | `@k8o/arte-odyssey/openui/prompt`        | サーバー安全   | `prompt()`（プロンプト生成）                                                  |
 
-> いずれも `@k8o/arte-odyssey/styles.css` の読み込みと `ArteOdysseyProvider` でのラップが前提。
+> いずれも `@k8o/arte-odyssey/styles.css`（Tailwind CSS 4 のプロジェクトは代わりに `@k8o/arte-odyssey/tailwind.css`）の読み込みと `ArteOdysseyProvider` でのラップが前提。

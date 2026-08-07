@@ -42,7 +42,7 @@ The application will be available at `http://localhost:3000`.
 examples/nextjs/
 ├── src/
 │   └── app/
-│       ├── globals.css        # Imports @k8o/arte-odyssey/styles.css
+│       ├── globals.css        # Imports @k8o/arte-odyssey/tailwind.css
 │       ├── layout.tsx         # Root layout component
 │       ├── page.tsx           # Server Component: generates the prompt with catalog.prompt()
 │       └── gen-ui-client.tsx  # Client Component: renders the spec with <JsonRenderUI />
@@ -116,8 +116,12 @@ Tailwind CSS 4 is configured with PostCSS. ArteOdyssey's tokens are loaded in
 `src/app/globals.css` with a single import (no `@tailwind` directives needed):
 
 ```css
-@import '@k8o/arte-odyssey/styles.css';
+@import '@k8o/arte-odyssey/tailwind.css';
 ```
+
+This is the Tailwind source entry, so the design tokens stay usable in this
+app's own markup. Projects without Tailwind import the prebuilt
+`@k8o/arte-odyssey/styles.css` instead — see `examples/css-modules`.
 
 ### Client vs Server Components
 

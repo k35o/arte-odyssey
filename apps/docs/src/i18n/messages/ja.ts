@@ -91,7 +91,9 @@ export const ja = {
   'getStarted.setupDescription':
     'インストール後、以下の2つの設定を行ってください。',
   'getStarted.setupCssDescription':
-    'CSSファイルをアプリケーションのエントリーポイントでインポートしてください。',
+    'ビルド済みCSSをアプリケーションのエントリーポイントでインポートしてください。Tailwind CSSのセットアップは不要です。',
+  'getStarted.setupCssTailwindDescription':
+    'Tailwind CSS 4を使うプロジェクトは、代わりにソース版をインポートすると、デザイントークンを自分のマークアップのTailwindクラスとしても使えます。',
   'getStarted.setupProviderDescription':
     'ArteOdysseyProviderでアプリケーションをラップしてください。',
   'getStarted.usageTitle': '使い方',

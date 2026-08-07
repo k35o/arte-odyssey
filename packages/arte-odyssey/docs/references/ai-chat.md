@@ -38,7 +38,7 @@ pnpm add streamdown
 pnpm add ai
 ```
 
-`Response` を使う場合は streamdown のスタイルシートの読み込みと、Tailwind の `@source` 設定も必要：
+`Response` を使う場合は streamdown のスタイルシートの読み込みと、Tailwind の `@source` 設定も必要。streamdown のスタイルはビルド済み `styles.css` には含まれないため、`Response` だけは Tailwind CSS 4 のビルド（`@k8o/arte-odyssey/tailwind.css` エントリ）が前提になる：
 
 ```tsx
 import 'streamdown/styles.css';

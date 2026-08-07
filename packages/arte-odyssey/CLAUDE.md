@@ -137,7 +137,7 @@ Standard pattern: `focus-visible:border-transparent focus-visible:outline-hidden
 ## Build Pipeline
 
 1. `vp pack` — tsdown bundles `src/index.ts` → ESM with `.d.mts` type declarations
-2. `build:css` — copies `src/styles/index.css` → `dist/styles/index.css`
+2. `build:css` (`scripts/build-css.ts`) — copies `src/styles/*.css` → `dist/styles/`（`index.css` は `tailwind.css` に改名）し、dist 側のエントリを Tailwind でコンパイルして `dist/styles/index.css`（ビルド済み CSS）を生成する
 
 ## Export Structure
 
@@ -154,5 +154,6 @@ The authoritative list is the `exports` map in `package.json`.
 @k8o/arte-odyssey/openui              OpenUI component library
 @k8o/arte-odyssey/openui/prompt
 @k8o/arte-odyssey/tokens              design tokens as JS values
-@k8o/arte-odyssey/styles.css          the stylesheet
+@k8o/arte-odyssey/styles.css          ビルド済み CSS（Tailwind 不要。CSS Modules・素の CSS 向け）
+@k8o/arte-odyssey/tailwind.css        Tailwind ソース版（Tailwind 4 プロジェクト向け。@theme トークンが使える）
 ```

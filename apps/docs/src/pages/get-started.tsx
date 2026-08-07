@@ -49,6 +49,13 @@ export function GetStarted() {
             <T k="getStarted.setupCssDescription" />
           </p>
           <CodeBlock code="import '@k8o/arte-odyssey/styles.css';" lang="tsx" />
+          <p className="text-fg-mute">
+            <T k="getStarted.setupCssTailwindDescription" />
+          </p>
+          <CodeBlock
+            code="import '@k8o/arte-odyssey/tailwind.css';"
+            lang="tsx"
+          />
         </div>
 
         <div className="flex flex-col gap-2">
@@ -107,7 +114,9 @@ function MyComponent() {
         <ul className="text-fg-mute flex flex-col gap-2 pl-6">
           <li className="list-disc">React &gt;= 19.0.0</li>
           <li className="list-disc">React DOM &gt;= 19.0.0</li>
-          <li className="list-disc">Tailwind CSS &gt;= 4.0.0</li>
+          <li className="list-disc">
+            Tailwind CSS &gt;= 4.0.0 (optional: tailwind.css)
+          </li>
           <li className="list-disc">TypeScript &gt;= 6.0.0</li>
         </ul>
       </section>

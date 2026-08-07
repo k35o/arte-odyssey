@@ -49,6 +49,7 @@ export const MESSAGE_KEYS = [
   'getStarted.setupTitle',
   'getStarted.setupDescription',
   'getStarted.setupCssDescription',
+  'getStarted.setupCssTailwindDescription',
   'getStarted.setupProviderDescription',
   'getStarted.usageTitle',
   'getStarted.usageDescription',

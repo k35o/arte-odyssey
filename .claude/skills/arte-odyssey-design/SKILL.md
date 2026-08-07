@@ -64,7 +64,12 @@ npm install @k8o/arte-odyssey
 ```
 
 ```tsx
-import '@k8o/arte-odyssey/styles.css';
+// Tailwind CSS 4 のプロジェクト。デザイントークン（bg-bg-base 等）を
+// 自分のマークアップの Tailwind クラスとして使うにはこちらが必要
+import '@k8o/arte-odyssey/tailwind.css';
+// Tailwind を持たないプロジェクト（CSS Modules・素の CSS）はビルド済み CSS を
+// 使う。トークンは CSS カスタムプロパティ（var(--fg-mute) 等）で参照する
+// import '@k8o/arte-odyssey/styles.css';
 import { ArteOdysseyProvider, Button } from '@k8o/arte-odyssey';
 ```
 

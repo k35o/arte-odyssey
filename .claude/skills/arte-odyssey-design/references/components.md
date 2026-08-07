@@ -3,7 +3,8 @@
 ## インポート方法
 
 ```tsx
-// スタイルシート（必須）
+// スタイルシート（必須）。Tailwind CSS 4 のプロジェクトは
+// 代わりに '@k8o/arte-odyssey/tailwind.css' を import する
 import '@k8o/arte-odyssey/styles.css';
 
 // プロバイダー（アプリルートで1回）

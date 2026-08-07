@@ -91,7 +91,9 @@ export const en = {
   'getStarted.setupDescription':
     'After installation, complete the following two configuration steps.',
   'getStarted.setupCssDescription':
-    'Import the CSS file at your application entry point.',
+    'Import the prebuilt CSS at your application entry point. No Tailwind CSS setup is required.',
+  'getStarted.setupCssTailwindDescription':
+    'Projects using Tailwind CSS 4 can import the source entry instead, which also makes the design tokens available as Tailwind classes in your own markup.',
   'getStarted.setupProviderDescription':
     'Wrap your application with ArteOdysseyProvider.',
   'getStarted.usageTitle': 'Usage',

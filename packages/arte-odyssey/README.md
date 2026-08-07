@@ -20,31 +20,42 @@ yarn add @k8o/arte-odyssey
 Make sure you have the following peer dependencies installed:
 
 ```bash
-npm install react react-dom typescript tailwindcss
+npm install react react-dom typescript
 ```
 
 Required versions:
 
 - React ≥19.0.0
 - TypeScript ≥6.0.0
-- Tailwind CSS ≥4.0.0
+- Tailwind CSS ≥4.0.0 — **optional**, only if you import the `tailwind.css` entry (see below)
 
 ## Quick Start
 
-1. Import the CSS and set up the provider:
+1. Import the CSS and set up the provider.
+
+**No Tailwind in your project?** Import the prebuilt stylesheet — this single
+line is all you need. It works with CSS Modules or plain CSS: every library
+rule sits in `@layer`, so your own (unlayered) CSS takes precedence, and the
+design tokens are available as CSS custom properties (`var(--fg-mute)`, …).
 
 ```css
-/* In your main CSS file — this single line is all you need. */
-/* styles.css already includes Tailwind CSS itself (`@import 'tailwindcss'`). */
 @import '@k8o/arte-odyssey/styles.css';
 ```
 
-If you want to add your own utility classes on top, append your sources after the import:
+**Using Tailwind CSS 4?** Import the source entry instead. It includes
+`@import 'tailwindcss'`, and it keeps the design tokens usable as Tailwind
+classes (`bg-bg-base`, …) in your own markup. Append your sources after the
+import to add your own utility classes:
 
 ```css
-@import '@k8o/arte-odyssey/styles.css';
+@import '@k8o/arte-odyssey/tailwind.css';
 @source './src';
 ```
+
+Note that either entry applies a document-wide base: Tailwind preflight plus
+the library base layer (margins/list styles/heading sizes reset, `b`/`strong`
+weight and `i`/`em` style unset, `body` typography defaults). Adding it to an
+existing app restyles more than the library components.
 
 ```tsx
 // In your app entry point
@@ -286,7 +297,8 @@ Optional features live behind dedicated subpath exports:
 | `@k8o/arte-odyssey/json-render/registry` | json-render registry (`'use client'`)                           |
 | `@k8o/arte-odyssey/openui`               | OpenUI library (`'use client'`)                                 |
 | `@k8o/arte-odyssey/openui/prompt`        | OpenUI prompt generation (server-safe)                          |
-| `@k8o/arte-odyssey/styles.css`           | Stylesheet (includes Tailwind CSS)                              |
+| `@k8o/arte-odyssey/styles.css`           | Prebuilt stylesheet (no Tailwind required)                      |
+| `@k8o/arte-odyssey/tailwind.css`         | Tailwind source entry (requires Tailwind CSS 4)                 |
 
 ## AI Chat Components
 
@@ -346,7 +358,7 @@ function Chat() {
 }
 ```
 
-To render assistant Markdown, wrap it in `Response` (children must be a string). Besides installing `streamdown`, import its stylesheet once and register its classes with Tailwind:
+To render assistant Markdown, wrap it in `Response` (children must be a string). Besides installing `streamdown`, import its stylesheet once and register its classes with Tailwind. Note that `Response` is the one component that requires a Tailwind CSS 4 build (the `tailwind.css` entry plus the `@source` line below) — streamdown's styling lives in its own class names, which the prebuilt `styles.css` does not include:
 
 ```tsx
 import { Response } from '@k8o/arte-odyssey/ai/response';
@@ -484,7 +496,7 @@ To generate the prompt inside the client bundle instead, `library.prompt()` stil
 
 > **Notes**
 >
-> - Make sure `@k8o/arte-odyssey/styles.css` is loaded and the app is wrapped in `ArteOdysseyProvider`.
+> - Make sure `@k8o/arte-odyssey/styles.css` (or `tailwind.css` in Tailwind CSS 4 projects) is loaded and the app is wrapped in `ArteOdysseyProvider`.
 > - `@k8o/arte-odyssey/openui/prompt` needs the optional peer `@openuidev/lang-core` (React-free).
 > - `Tabs` panels are text content (`tabs: [{ label, content }]`); rich-component panels are a future enhancement.
 > - In OpenUI, `Card` can contain a `Stack` or `Grid`, but `Stack`/`Grid` cannot directly nest a `Stack`/`Grid`/`Card` (no self-referential schemas) — put nested layout inside a `Card`. json-render nests freely (slots-based).
