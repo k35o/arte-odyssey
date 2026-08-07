@@ -2,10 +2,10 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { inheritsOf, propsOf } from '../../data/component-props';
 import {
   FileFieldAcceptTypesPreview,
   FileFieldBasicPreview,
@@ -13,23 +13,6 @@ import {
   FileFieldInvalidPreview,
   FileFieldMultiplePreview,
 } from './_previews/file-field-previews';
-
-const fileFieldProps: PropItem[] = [
-  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'required', types: ['boolean'], defaultValue: 'false' },
-  { name: 'accept', types: ['string'], defaultValue: null },
-  { name: 'multiple', types: ['boolean'], defaultValue: 'false' },
-  { name: 'maxFiles', types: ['number'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: [
-      '(files: FileList | null, event?: ChangeEvent<HTMLInputElement>) => void',
-    ],
-    defaultValue: null,
-  },
-  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
-];
 
 export function FileFieldPage() {
   return (
@@ -169,10 +152,15 @@ export function FileFieldPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
+        <Heading type="h3">FileField.Root</Heading>
         <PropsTable
-          inherits="InputHTMLAttributes<HTMLInputElement>"
-          items={fileFieldProps}
+          inherits={inheritsOf('FileField.Root')}
+          items={propsOf('FileField.Root')}
         />
+        <Heading type="h3">FileField.Trigger</Heading>
+        <PropsTable items={propsOf('FileField.Trigger')} />
+        <Heading type="h3">FileField.ItemList</Heading>
+        <PropsTable items={propsOf('FileField.ItemList')} />
       </section>
     </div>
   );

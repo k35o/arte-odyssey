@@ -28,16 +28,16 @@ const SITE_URL = 'https://arte-odyssey.k8o.me';
  * `/design.md` because that single generated file carries their site version.
  */
 const LINK_MAP: Record<string, string> = {
-  'GUIDE.md': `${SITE_URL}/design.md`,
-  'references/components.md': `${SITE_URL}/ja/components`,
-  'references/ai-chat.md': `${SITE_URL}/ja/ai-chat`,
-  'references/generative-ui.md': `${SITE_URL}/ja/generative-ui`,
-  'references/typography.md': `${SITE_URL}/design.md`,
-  'references/color.md': `${SITE_URL}/design.md`,
-  'references/spatial-design.md': `${SITE_URL}/design.md`,
-  'references/interaction-design.md': `${SITE_URL}/design.md`,
-  'references/hooks.md': `${SITE_URL}/ja/hooks`,
-  'references/helpers.md': `${SITE_URL}/ja/helpers`,
+  'GUIDE.md': `${SITE_URL}/docs/GUIDE.md`,
+  'references/components.md': `${SITE_URL}/docs/references/components.md`,
+  'references/ai-chat.md': `${SITE_URL}/docs/references/ai-chat.md`,
+  'references/generative-ui.md': `${SITE_URL}/docs/references/generative-ui.md`,
+  'references/typography.md': `${SITE_URL}/docs/references/typography.md`,
+  'references/color.md': `${SITE_URL}/docs/references/color.md`,
+  'references/spatial-design.md': `${SITE_URL}/docs/references/spatial-design.md`,
+  'references/interaction-design.md': `${SITE_URL}/docs/references/interaction-design.md`,
+  'references/hooks.md': `${SITE_URL}/docs/references/hooks.md`,
+  'references/helpers.md': `${SITE_URL}/docs/references/helpers.md`,
 };
 
 /** npm-specific orientation paragraph, replaced by a site-specific one. */

@@ -2,45 +2,15 @@ import { Anchor, Checkbox, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { inheritsOf, propsOf } from '../../data/component-props';
 import {
   CheckboxControlledPreview,
   CheckboxGroupControlledPreview,
   CheckboxGroupDisabledPreview,
 } from './_previews/checkbox-previews';
-
-const checkboxProps: PropItem[] = [
-  { name: 'label', types: ['string'], defaultValue: null },
-  { name: 'itemValue', types: ['string'], defaultValue: null },
-  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'checked', types: ['boolean'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void'],
-    defaultValue: null,
-  },
-  { name: 'defaultChecked', types: ['boolean'], defaultValue: null },
-  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
-];
-
-const checkboxGroupProps: PropItem[] = [
-  { name: 'name', types: ['string'], defaultValue: null },
-  { name: 'aria-labelledby', types: ['string'], defaultValue: null },
-  { name: 'aria-describedby', types: ['string'], defaultValue: null },
-  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'value', types: ['string[]'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['(value: string[]) => void'],
-    defaultValue: null,
-  },
-  { name: 'defaultValue', types: ['string[]'], defaultValue: null },
-  { name: 'ref', types: ['Ref<HTMLFieldSetElement>'], defaultValue: null },
-];
 
 export function CheckboxPage() {
   return (
@@ -166,8 +136,8 @@ export function CheckboxPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="InputHTMLAttributes<HTMLInputElement>"
-          items={checkboxProps}
+          inherits={inheritsOf('Checkbox')}
+          items={propsOf('Checkbox')}
         />
       </section>
       <Separator color="mute" />
@@ -175,8 +145,8 @@ export function CheckboxPage() {
       <section className="flex flex-col gap-4">
         <Heading type="h2">CheckboxGroup Props</Heading>
         <PropsTable
-          inherits="InputHTMLAttributes<HTMLInputElement>"
-          items={checkboxGroupProps}
+          inherits={inheritsOf('CheckboxGroup')}
+          items={propsOf('CheckboxGroup')}
         />
       </section>
     </div>

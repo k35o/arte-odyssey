@@ -122,3 +122,9 @@ jobs:
       # Fix with: pnpm --filter @k8o/arte-odyssey generate:tokens
       - name: Check design tokens are in sync with CSS
         run: pnpm --filter @k8o/arte-odyssey check:tokens
+
+      # Re-extract component props from the types and fail if the committed
+      # props.generated.json is stale (a prop added, renamed, or retyped).
+      # Fix with: pnpm --filter @k8o/arte-odyssey generate:props
+      - name: Check component props are in sync with types
+        run: pnpm --filter @k8o/arte-odyssey check:props

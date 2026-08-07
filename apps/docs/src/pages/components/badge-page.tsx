@@ -2,26 +2,10 @@ import { Anchor, Badge, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const badgeProps: PropItem[] = [
-  { name: 'label', types: ['string'], defaultValue: null },
-  { name: 'interactive', types: ['boolean'], defaultValue: 'false' },
-  { name: 'size', types: ["'sm'", "'md'"], defaultValue: "'md'" },
-  {
-    name: 'tone',
-    types: ["'neutral'", "'info'", "'success'", "'warning'", "'error'"],
-    defaultValue: "'neutral'",
-  },
-  {
-    name: 'variant',
-    types: ["'solid'", "'outline'"],
-    defaultValue: "'solid'",
-  },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function BadgePage() {
   return (
@@ -150,7 +134,7 @@ export function BadgePage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable inherits="HTMLAttributes<HTMLElement>" items={badgeProps} />
+        <PropsTable inherits={inheritsOf('Badge')} items={propsOf('Badge')} />
       </section>
     </div>
   );

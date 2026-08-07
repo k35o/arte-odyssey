@@ -2,17 +2,10 @@ import { Anchor, Heading, Progress, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const progressProps: PropItem[] = [
-  { name: 'progress', types: ['number'], defaultValue: null },
-  { name: 'maxProgress', types: ['number'], defaultValue: null },
-  { name: 'minProgress', types: ['number'], defaultValue: '0' },
-  { name: 'label', types: ['string'], defaultValue: null },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function ProgressPage() {
   return (
@@ -103,8 +96,8 @@ export function ProgressPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="HTMLAttributes<HTMLDivElement>"
-          items={progressProps}
+          inherits={inheritsOf('Progress')}
+          items={propsOf('Progress')}
         />
       </section>
     </div>

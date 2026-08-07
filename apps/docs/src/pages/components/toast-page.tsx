@@ -6,29 +6,17 @@ import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { inheritsOf, propsOf } from '../../data/component-props';
 import {
   ToastBasicPreview,
   ToastCloseAllPreview,
 } from './_previews/toast-previews';
 
-const toastProviderProps: PropItem[] = [
-  {
-    name: 'portalRef',
-    types: ['RefObject<HTMLElement | null>'],
-    defaultValue: null,
-  },
-  {
-    name: 'position',
-    types: ["'fixed'", "'absolute'"],
-    defaultValue: "'fixed'",
-  },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
+// useToast の戻り値はコンポーネントではないので生成の対象外。
 const useToastReturnProps: PropItem[] = [
   {
     name: 'onOpen',
-    types: ['(status: Status, message: string) => void'],
+    types: ['(tone: Status, message: string, options?: ToastOptions) => void'],
     defaultValue: null,
   },
   {
@@ -165,7 +153,10 @@ onCloseAll();`}
           <T k="components.common.propsTitle" />
         </Heading>
         <Heading type="h3">ToastProvider</Heading>
-        <PropsTable items={toastProviderProps} />
+        <PropsTable
+          inherits={inheritsOf('ToastProvider')}
+          items={propsOf('ToastProvider')}
+        />
         <Heading type="h3">useToast</Heading>
         <PropsTable items={useToastReturnProps} />
       </section>

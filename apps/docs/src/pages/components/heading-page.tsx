@@ -2,21 +2,10 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const headingProps: PropItem[] = [
-  {
-    name: 'type',
-    types: ["'h1'", "'h2'", "'h3'", "'h4'", "'h5'", "'h6'"],
-    defaultValue: null,
-  },
-  { name: 'id', types: ['string'], defaultValue: null },
-  { name: 'lineClamp', types: ['number'], defaultValue: null },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function HeadingPage() {
   return (
@@ -107,8 +96,8 @@ export function HeadingPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="HTMLAttributes<HTMLHeadingElement>"
-          items={headingProps}
+          inherits={inheritsOf('Heading')}
+          items={propsOf('Heading')}
         />
       </section>
     </div>

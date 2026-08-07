@@ -2,19 +2,11 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 import { ScrollLinkedBasicPreview } from './_previews/scroll-linked-previews';
-
-const scrollLinkedProps: PropItem[] = [
-  {
-    name: 'container',
-    types: ['RefObject<HTMLElement | null>'],
-    defaultValue: null,
-  },
-];
 
 export function ScrollLinkedPage() {
   return (
@@ -91,7 +83,7 @@ export function ScrollLinkedPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={scrollLinkedProps} />
+        <PropsTable items={propsOf('ScrollLinked')} />
       </section>
     </div>
   );

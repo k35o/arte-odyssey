@@ -2,40 +2,14 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 import {
   PaginationDisabledPreview,
   PaginationPreview,
 } from './_previews/pagination-previews';
-
-const paginationProps: PropItem[] = [
-  { name: 'totalPages', types: ['number'], defaultValue: null },
-  { name: 'currentPage', types: ['number'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['(page: number) => void'],
-    defaultValue: null,
-  },
-  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  {
-    name: 'prevLabel',
-    types: ['string'],
-    defaultValue: 'messages.paginationPrevious',
-  },
-  {
-    name: 'nextLabel',
-    types: ['string'],
-    defaultValue: 'messages.paginationNext',
-  },
-  {
-    name: 'aria-label',
-    types: ['string'],
-    defaultValue: 'messages.paginationLabel',
-  },
-];
 
 export function PaginationPage() {
   return (
@@ -107,7 +81,7 @@ export function PaginationPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={paginationProps} messagesNote />
+        <PropsTable items={propsOf('Pagination')} messagesNote />
       </section>
     </div>
   );

@@ -2,24 +2,11 @@ import { Anchor, Heading, Radio, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { inheritsOf, propsOf } from '../../data/component-props';
 import { RadioControlledPreview } from './_previews/radio-previews';
-
-const radioProps: PropItem[] = [
-  { name: 'aria-labelledby', types: ['string'], defaultValue: null },
-  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'options', types: ['readonly Option[]'], defaultValue: null },
-  { name: 'value', types: ['string'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['(value: string, event: ChangeEvent<HTMLInputElement>) => void'],
-    defaultValue: null,
-  },
-  { name: 'defaultValue', types: ['string'], defaultValue: null },
-];
 
 const options = [
   { label: 'React', value: 'react' },
@@ -149,10 +136,7 @@ const options = [
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits="HTMLAttributes<HTMLDivElement>"
-          items={radioProps}
-        />
+        <PropsTable inherits={inheritsOf('Radio')} items={propsOf('Radio')} />
       </section>
     </div>
   );

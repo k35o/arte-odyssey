@@ -2,27 +2,14 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 import {
   FormActionStatePreview,
   FormBasicPreview,
 } from './_previews/form-previews';
-
-const formProps: PropItem[] = [
-  {
-    name: 'action',
-    types: ['(formData: FormData) => void | Promise<void>', 'string'],
-    defaultValue: '-',
-  },
-  {
-    name: 'children',
-    types: ['ReactNode'],
-    defaultValue: null,
-  },
-];
 
 export function FormPage() {
   return (
@@ -109,7 +96,7 @@ return (
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={formProps} />
+        <PropsTable items={propsOf('Form')} />
       </section>
     </div>
   );

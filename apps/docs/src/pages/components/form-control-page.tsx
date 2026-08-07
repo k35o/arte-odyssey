@@ -2,10 +2,10 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 import {
   FormControlBasicPreview,
   FormControlDisabledPreview,
@@ -13,21 +13,6 @@ import {
   FormControlHelpTextPreview,
   FormControlRequiredPreview,
 } from './_previews/form-control-previews';
-
-const formControlProps: PropItem[] = [
-  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'required', types: ['boolean'], defaultValue: 'false' },
-  { name: 'label', types: ['string'], defaultValue: null },
-  {
-    name: 'labelAs',
-    types: ["'label'", "'legend'"],
-    defaultValue: "'label'",
-  },
-  { name: 'helpText', types: ['string'], defaultValue: null },
-  { name: 'errorText', types: ['string'], defaultValue: null },
-  { name: 'renderInput', types: ['function'], defaultValue: null },
-];
 
 export function FormControlPage() {
   return (
@@ -163,7 +148,7 @@ export function FormControlPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={formControlProps} />
+        <PropsTable items={propsOf('FormControl')} />
       </section>
     </div>
   );
