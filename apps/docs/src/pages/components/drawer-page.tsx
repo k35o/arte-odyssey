@@ -2,23 +2,14 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 import {
   DrawerBasicPreview,
   DrawerCustomContentPreview,
 } from './_previews/drawer-previews';
-
-const drawerProps: PropItem[] = [
-  { name: 'title', types: ['ReactNode'], defaultValue: null },
-  { name: 'side', types: ['DrawerSide'], defaultValue: "'right'" },
-  { name: 'isOpen', types: ['boolean'], defaultValue: null },
-  { name: 'defaultOpen', types: ['boolean'], defaultValue: null },
-  { name: 'onClose', types: ['() => void'], defaultValue: null },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
 
 export function DrawerPage() {
   return (
@@ -128,7 +119,7 @@ export function DrawerPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={drawerProps} />
+        <PropsTable items={propsOf('Drawer')} />
       </section>
     </div>
   );

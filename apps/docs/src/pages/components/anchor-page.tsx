@@ -2,21 +2,10 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const anchorProps: PropItem[] = [
-  { name: 'href', types: ['string'], defaultValue: null },
-  { name: 'openInNewTab', types: ['boolean'], defaultValue: 'false' },
-  {
-    name: 'renderAnchor',
-    types: ['(props) => ReactNode'],
-    defaultValue: null,
-  },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function AnchorPage() {
   return (
@@ -112,10 +101,7 @@ import Link from 'next/link';
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits="AnchorHTMLAttributes<HTMLAnchorElement>"
-          items={anchorProps}
-        />
+        <PropsTable inherits={inheritsOf('Anchor')} items={propsOf('Anchor')} />
       </section>
     </div>
   );

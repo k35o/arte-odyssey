@@ -2,18 +2,10 @@ import { Anchor, Avatar, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const avatarProps: PropItem[] = [
-  { name: 'src', types: ['string'], defaultValue: null },
-  { name: 'alt', types: ['string'], defaultValue: null },
-  { name: 'name', types: ['string'], defaultValue: null },
-  { name: 'fallback', types: ['string'], defaultValue: null },
-  { name: 'size', types: ["'sm'", "'md'", "'lg'"], defaultValue: "'md'" },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function AvatarPage() {
   return (
@@ -93,10 +85,7 @@ export function AvatarPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits="HTMLAttributes<HTMLSpanElement>"
-          items={avatarProps}
-        />
+        <PropsTable inherits={inheritsOf('Avatar')} items={propsOf('Avatar')} />
       </section>
     </div>
   );

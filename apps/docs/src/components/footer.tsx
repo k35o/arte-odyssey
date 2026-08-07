@@ -14,6 +14,7 @@ const DOC_LINKS: Array<{ path: string; labelKey: MessageKey }> = [
   { path: '/helpers', labelKey: 'nav.helpers' },
   { path: '/generative-ui', labelKey: 'nav.generativeUi' },
   { path: '/ai-chat', labelKey: 'nav.aiChat' },
+  { path: '/ai-agents', labelKey: 'nav.aiAgents' },
 ];
 
 const RESOURCE_LINKS = [

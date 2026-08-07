@@ -2,28 +2,10 @@ import { Anchor, Card, Grid, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const gridProps: PropItem[] = [
-  {
-    name: 'cols',
-    types: ['1 | 2 | 3 | 4 | 5 | 6', "'auto-fill'", "'auto-fit'"],
-    defaultValue: "'auto-fill'",
-  },
-  {
-    name: 'minItemSize',
-    types: ['24 | 32 | 40 | 48 | 64 | 80'],
-    defaultValue: '48',
-  },
-  {
-    name: 'gap',
-    types: ["'none'", "'sm'", "'md'", "'lg'", "'xl'"],
-    defaultValue: "'md'",
-  },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 function Cell({ children }: { children: string }) {
   return (
@@ -120,10 +102,7 @@ export function GridPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits="HTMLAttributes<HTMLDivElement>"
-          items={gridProps}
-        />
+        <PropsTable inherits={inheritsOf('Grid')} items={propsOf('Grid')} />
       </section>
     </div>
   );

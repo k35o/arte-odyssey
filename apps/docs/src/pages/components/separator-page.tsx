@@ -2,23 +2,10 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const separatorProps: PropItem[] = [
-  {
-    name: 'orientation',
-    types: ["'horizontal'", "'vertical'"],
-    defaultValue: "'horizontal'",
-  },
-  {
-    name: 'color',
-    types: ["'base'", "'mute'", "'subtle'"],
-    defaultValue: "'base'",
-  },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function SeparatorPage() {
   return (
@@ -111,8 +98,8 @@ export function SeparatorPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="HTMLAttributes<HTMLSpanElement>"
-          items={separatorProps}
+          inherits={inheritsOf('Separator')}
+          items={propsOf('Separator')}
         />
       </section>
     </div>

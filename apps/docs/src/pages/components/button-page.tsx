@@ -9,50 +9,11 @@ import {
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { inheritsOf, propsOf } from '../../data/component-props';
 import { ButtonAsLinkPreview } from './_previews/button-previews';
-
-const buttonProps: PropItem[] = [
-  {
-    name: 'variant',
-    types: ["'solid'", "'outline'", "'skeleton'"],
-    defaultValue: "'solid'",
-  },
-  {
-    name: 'color',
-    types: ["'primary'", "'secondary'", "'base'"],
-    defaultValue: "'primary'",
-  },
-  {
-    name: 'size',
-    types: ["'sm'", "'md'", "'lg'"],
-    defaultValue: "'md'",
-  },
-  {
-    name: 'type',
-    types: ["'button'", "'submit'"],
-    defaultValue: "'button'",
-  },
-  { name: 'fullWidth', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isActive', types: ['boolean'], defaultValue: 'false' },
-  { name: 'startIcon', types: ['ReactNode'], defaultValue: null },
-  { name: 'endIcon', types: ['ReactNode'], defaultValue: null },
-  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  {
-    name: 'onAction',
-    types: ['() => void | Promise<void>'],
-    defaultValue: null,
-  },
-  {
-    name: 'renderItem',
-    types: ['(props: { className, children }) => ReactNode'],
-    defaultValue: null,
-  },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
 
 export function ButtonPage() {
   return (
@@ -211,10 +172,7 @@ export function ButtonPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits="ButtonHTMLAttributes<HTMLButtonElement>"
-          items={buttonProps}
-        />
+        <PropsTable inherits={inheritsOf('Button')} items={propsOf('Button')} />
       </section>
     </div>
   );

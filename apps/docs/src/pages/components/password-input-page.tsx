@@ -2,44 +2,11 @@ import { Anchor, Heading, PasswordInput, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { inheritsOf, propsOf } from '../../data/component-props';
 import { PasswordInputControlledPreview } from './_previews/password-input-previews';
-
-const passwordInputProps: PropItem[] = [
-  { name: 'aria-describedby', types: ['string'], defaultValue: null },
-  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'required', types: ['boolean'], defaultValue: 'false' },
-  { name: 'placeholder', types: ['string'], defaultValue: null },
-  {
-    name: 'autoComplete',
-    types: ['string'],
-    defaultValue: '"current-password"',
-  },
-  {
-    name: 'showLabel',
-    types: ['string'],
-    defaultValue: 'messages.passwordShow',
-  },
-  {
-    name: 'hideLabel',
-    types: ['string'],
-    defaultValue: 'messages.passwordHide',
-  },
-  { name: 'value', types: ['string'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['ChangeEventHandler<HTMLInputElement>'],
-    defaultValue: null,
-  },
-  { name: 'defaultValue', types: ['string'], defaultValue: null },
-  { name: 'id', types: ['string'], defaultValue: null },
-  { name: 'name', types: ['string'], defaultValue: null },
-  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
-];
 
 export function PasswordInputPage() {
   return (
@@ -140,8 +107,8 @@ export function PasswordInputPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="InputHTMLAttributes<HTMLInputElement>"
-          items={passwordInputProps}
+          inherits={inheritsOf('PasswordInput')}
+          items={propsOf('PasswordInput')}
           messagesNote
         />
       </section>

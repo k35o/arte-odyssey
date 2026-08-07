@@ -2,26 +2,10 @@ import { Anchor, Heading, Separator, TextField } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const textFieldProps: PropItem[] = [
-  { name: 'invalid', types: ['boolean'], defaultValue: null },
-  { name: 'disabled', types: ['boolean'], defaultValue: null },
-  { name: 'required', types: ['boolean'], defaultValue: null },
-  { name: 'placeholder', types: ['string'], defaultValue: null },
-  { name: 'type', types: ['HTMLInputTypeAttribute'], defaultValue: "'text'" },
-  { name: 'value', types: ['string'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['ChangeEventHandler'],
-    defaultValue: null,
-  },
-  { name: 'defaultValue', types: ['string'], defaultValue: null },
-  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function TextFieldPage() {
   return (
@@ -150,8 +134,8 @@ export function TextFieldPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="InputHTMLAttributes<HTMLInputElement>"
-          items={textFieldProps}
+          inherits={inheritsOf('TextField')}
+          items={propsOf('TextField')}
         />
       </section>
     </div>

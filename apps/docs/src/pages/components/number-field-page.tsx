@@ -2,29 +2,10 @@ import { Anchor, Heading, NumberField, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const numberFieldProps: PropItem[] = [
-  { name: 'invalid', types: ['boolean'], defaultValue: null },
-  { name: 'disabled', types: ['boolean'], defaultValue: null },
-  { name: 'required', types: ['boolean'], defaultValue: null },
-  { name: 'step', types: ['number'], defaultValue: '1' },
-  { name: 'precision', types: ['number'], defaultValue: '0' },
-  { name: 'max', types: ['number'], defaultValue: null },
-  { name: 'min', types: ['number'], defaultValue: null },
-  { name: 'placeholder', types: ['string'], defaultValue: null },
-  { name: 'value', types: ['number'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['(value: number) => void'],
-    defaultValue: null,
-  },
-  { name: 'defaultValue', types: ['number'], defaultValue: null },
-  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function NumberFieldPage() {
   return (
@@ -157,8 +138,8 @@ export function NumberFieldPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="InputHTMLAttributes<HTMLInputElement>"
-          items={numberFieldProps}
+          inherits={inheritsOf('NumberField')}
+          items={propsOf('NumberField')}
         />
       </section>
     </div>

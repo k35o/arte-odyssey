@@ -2,29 +2,11 @@ import { Anchor, Heading, Separator, Switch } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { inheritsOf, propsOf } from '../../data/component-props';
 import { SwitchControlledPreview } from './_previews/switch-previews';
-
-const switchProps: PropItem[] = [
-  { name: 'aria-describedby', types: ['string'], defaultValue: null },
-  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'required', types: ['boolean'], defaultValue: 'false' },
-  { name: 'label', types: ['string'], defaultValue: null },
-  { name: 'checked', types: ['boolean'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void'],
-    defaultValue: null,
-  },
-  { name: 'defaultChecked', types: ['boolean'], defaultValue: null },
-  { name: 'id', types: ['string'], defaultValue: null },
-  { name: 'name', types: ['string'], defaultValue: null },
-  { name: 'ref', types: ['Ref<HTMLInputElement>'], defaultValue: null },
-];
 
 export function SwitchPage() {
   return (
@@ -151,10 +133,7 @@ export function SwitchPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits="InputHTMLAttributes<HTMLInputElement>"
-          items={switchProps}
-        />
+        <PropsTable inherits={inheritsOf('Switch')} items={propsOf('Switch')} />
       </section>
     </div>
   );

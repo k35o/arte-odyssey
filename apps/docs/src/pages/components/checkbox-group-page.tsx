@@ -8,26 +8,11 @@ import {
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { inheritsOf, propsOf } from '../../data/component-props';
 import { CheckboxGroupControlledPreview } from './_previews/checkbox-group-previews';
-
-const checkboxGroupProps: PropItem[] = [
-  { name: 'aria-labelledby', types: ['string'], defaultValue: null },
-  { name: 'name', types: ['string'], defaultValue: null },
-  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'value', types: ['string[]'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['(value: string[]) => void'],
-    defaultValue: null,
-  },
-  { name: 'defaultValue', types: ['string[]'], defaultValue: null },
-  { name: 'ref', types: ['Ref<HTMLFieldSetElement>'], defaultValue: null },
-];
 
 export function CheckboxGroupPage() {
   return (
@@ -164,8 +149,8 @@ export function CheckboxGroupPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="FieldsetHTMLAttributes<HTMLFieldSetElement>"
-          items={checkboxGroupProps}
+          inherits={inheritsOf('CheckboxGroup')}
+          items={propsOf('CheckboxGroup')}
         />
       </section>
     </div>

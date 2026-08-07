@@ -2,60 +2,16 @@ import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 import {
   DropdownMenuBasicPreview,
   DropdownMenuIconTriggerPreview,
   DropdownMenuPlacementPreview,
   DropdownMenuSizesPreview,
 } from './_previews/dropdown-menu-previews';
-
-const dropdownMenuRootProps: PropItem[] = [
-  {
-    name: 'placement',
-    types: ['Placement'],
-    defaultValue: "'bottom-start'",
-  },
-  { name: 'isOpen', types: ['boolean'], defaultValue: null },
-  { name: 'defaultOpen', types: ['boolean'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['(isOpen: boolean) => void'],
-    defaultValue: null,
-  },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
-const dropdownMenuTriggerProps: PropItem[] = [
-  { name: 'label', types: ['string'], defaultValue: null },
-  {
-    name: 'size',
-    types: ["'sm'", "'md'", "'lg'"],
-    defaultValue: "'md'",
-  },
-  {
-    name: 'variant',
-    types: ["'solid'", "'outline'", "'skeleton'"],
-    defaultValue: "'solid'",
-  },
-];
-
-const dropdownMenuIconTriggerProps: PropItem[] = [
-  { name: 'icon', types: ['ReactNode'], defaultValue: null },
-  { name: 'label', types: ['string'], defaultValue: null },
-];
-
-const dropdownMenuContentProps: PropItem[] = [
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
-const dropdownMenuItemProps: PropItem[] = [
-  { name: 'label', types: ['string'], defaultValue: null },
-  { name: 'onClick', types: ['MouseEventHandler'], defaultValue: null },
-];
 
 export function DropdownMenuPage() {
   return (
@@ -202,15 +158,15 @@ export function DropdownMenuPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <Heading type="h3">DropdownMenu.Root</Heading>
-        <PropsTable items={dropdownMenuRootProps} />
+        <PropsTable items={propsOf('DropdownMenu.Root')} />
         <Heading type="h3">DropdownMenu.Trigger</Heading>
-        <PropsTable items={dropdownMenuTriggerProps} />
+        <PropsTable items={propsOf('DropdownMenu.Trigger')} />
         <Heading type="h3">DropdownMenu.IconTrigger</Heading>
-        <PropsTable items={dropdownMenuIconTriggerProps} />
+        <PropsTable items={propsOf('DropdownMenu.IconTrigger')} />
         <Heading type="h3">DropdownMenu.Content</Heading>
-        <PropsTable items={dropdownMenuContentProps} />
+        <PropsTable items={propsOf('DropdownMenu.Content')} />
         <Heading type="h3">DropdownMenu.Item</Heading>
-        <PropsTable items={dropdownMenuItemProps} />
+        <PropsTable items={propsOf('DropdownMenu.Item')} />
       </section>
     </div>
   );

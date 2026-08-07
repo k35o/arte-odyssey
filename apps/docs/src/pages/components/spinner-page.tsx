@@ -2,15 +2,10 @@ import { Anchor, Heading, Separator, Spinner } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const spinnerProps: PropItem[] = [
-  { name: 'label', types: ['string'], defaultValue: 'messages.loading' },
-  { name: 'size', types: ["'sm'", "'md'", "'lg'"], defaultValue: "'md'" },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function SpinnerPage() {
   return (
@@ -74,8 +69,8 @@ export function SpinnerPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="OutputHTMLAttributes<HTMLOutputElement>"
-          items={spinnerProps}
+          inherits={inheritsOf('Spinner')}
+          items={propsOf('Spinner')}
           messagesNote
         />
       </section>

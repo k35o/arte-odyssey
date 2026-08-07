@@ -17,6 +17,9 @@ type AnchorCSSProperties = CSSProperties & {
   positionAnchor?: string;
   positionArea?: string;
   positionTryFallbacks?: string;
+  // position-anchor は継承されないため、content 内の疑似要素（Tooltip のブリッジなど)
+  // が同じ anchor を参照できるよう、名前を CSS 変数としても配る。
+  '--ao-anchor'?: string;
 };
 
 // floating-ui の物理 Placement を position-area へ写像する。
@@ -84,6 +87,7 @@ export const getContentAnchorStyle = (
     padding: 0,
     ...sideGap(side),
     positionAnchor: anchorName,
+    '--ao-anchor': anchorName,
     positionArea: POSITION_AREA[placement],
     ...(flipDisabled
       ? {}

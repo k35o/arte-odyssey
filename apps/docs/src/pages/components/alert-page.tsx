@@ -2,44 +2,16 @@ import { Alert, Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { inheritsOf, propsOf } from '../../data/component-props';
 import {
   AlertActionButtonPreview,
   AlertActionLinkPreview,
   AlertDismissiblePreview,
   AlertWithActionPreview,
 } from './_previews/alert-previews';
-
-const alertProps: PropItem[] = [
-  {
-    name: 'tone',
-    types: ["'success'", "'info'", "'warning'", "'error'"],
-    defaultValue: null,
-  },
-  {
-    name: 'message',
-    types: ['string', 'string[]'],
-    defaultValue: null,
-  },
-  {
-    name: 'action',
-    types: ['{ label: string; renderItem: ({ children }) => ReactNode }'],
-    defaultValue: null,
-  },
-  {
-    name: 'onClose',
-    types: ['() => void'],
-    defaultValue: null,
-  },
-  {
-    name: 'closeLabel',
-    types: ['string'],
-    defaultValue: 'messages.close',
-  },
-];
 
 export function AlertPage() {
   return (
@@ -208,8 +180,8 @@ export function AlertPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="HTMLAttributes<HTMLDivElement>"
-          items={alertProps}
+          inherits={inheritsOf('Alert')}
+          items={propsOf('Alert')}
           messagesNote
         />
       </section>

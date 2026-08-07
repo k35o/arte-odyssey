@@ -126,7 +126,45 @@ import { en, ja, type Messages } from '@k8o/arte-odyssey/i18n';
 
 ## AI Agent Documentation
 
-ArteOdyssey includes design system documentation in `docs/` directory. When installed via npm, AI coding assistants can reference `node_modules/@k8o/arte-odyssey/docs/GUIDE.md` for design principles, component APIs, and usage patterns.
+The design guide ships **inside the package**, so an agent always reads the exact
+version you installed — there is no snapshot to copy or re-sync on upgrade.
+
+Point your agent at it once by pasting this into your project's `CLAUDE.md` /
+`AGENTS.md`:
+
+```markdown
+Use `@k8o/arte-odyssey` for UI. Before writing or changing UI, read
+`node_modules/@k8o/arte-odyssey/docs/GUIDE.md`, then follow only the
+`docs/references/*.md` links it lists that the task actually needs.
+Colors, spacing, radii and font weights go through semantic tokens —
+never raw values such as `bg-teal-500` or `font-semibold`.
+Look up component props in `docs/references/components.md` instead of
+recalling them; a component that is not listed there does not exist.
+```
+
+What each surface gives an agent:
+
+| Surface                    | Where                                                    |
+| -------------------------- | -------------------------------------------------------- |
+| Design guide (entry point) | `node_modules/@k8o/arte-odyssey/docs/GUIDE.md`           |
+| Reference docs             | `node_modules/@k8o/arte-odyssey/docs/references/*.md`    |
+| Docs index for LLMs        | `docs/llms.txt` · https://arte-odyssey.k8o.me/llms.txt   |
+| Token spec (generated)     | https://arte-odyssey.k8o.me/design.md                    |
+| MCP server (Storybook)     | https://main--687a213c85e2e4589d8db1bb.chromatic.com/mcp |
+
+The MCP server exposes the published Storybook, so an agent can query real
+stories and rendered props rather than relying on trained knowledge:
+
+```json
+{
+  "mcpServers": {
+    "arte-odyssey": {
+      "type": "http",
+      "url": "https://main--687a213c85e2e4589d8db1bb.chromatic.com/mcp"
+    }
+  }
+}
+```
 
 ## Component Categories
 

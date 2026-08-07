@@ -9,16 +9,25 @@ import { LanguageSwitcher } from './language-switcher';
 import { LocaleAnchor } from './locale-anchor';
 import { ThemeSwitcher } from './theme-switcher';
 
-const NAV_ITEMS: Array<{ path: string; labelKey: MessageKey }> = [
+type NavItem = { path: string; labelKey: MessageKey };
+
+const CORE_ITEMS: NavItem[] = [
   { path: '/get-started', labelKey: 'nav.getStarted' },
   { path: '/theming', labelKey: 'nav.theming' },
   { path: '/i18n', labelKey: 'nav.i18n' },
   { path: '/components', labelKey: 'nav.components' },
   { path: '/hooks', labelKey: 'nav.hooks' },
   { path: '/helpers', labelKey: 'nav.helpers' },
+];
+
+/** Grouped behind one trigger: nine top-level links do not fit the header. */
+const AI_ITEMS: NavItem[] = [
   { path: '/generative-ui', labelKey: 'nav.generativeUi' },
   { path: '/ai-chat', labelKey: 'nav.aiChat' },
+  { path: '/ai-agents', labelKey: 'nav.aiAgents' },
 ];
+
+const NAV_ITEMS: NavItem[] = [...CORE_ITEMS, ...AI_ITEMS];
 
 export function Navigation() {
   const { t, locale } = useTranslation();
@@ -41,7 +50,7 @@ export function Navigation() {
           />
         </LocaleAnchor>
         <ul className="hidden items-center gap-1 md:flex">
-          {NAV_ITEMS.map((item) => {
+          {CORE_ITEMS.map((item) => {
             const href = localizeHref(item.path, locale);
             const isActive = location.pathname === href;
             return (
@@ -50,8 +59,8 @@ export function Navigation() {
                   aria-current={isActive ? 'page' : undefined}
                   className={
                     isActive
-                      ? 'text-fg-base decoration-primary-border rounded-md px-3 py-1.5 text-sm font-medium underline decoration-2 underline-offset-8'
-                      : 'text-fg-mute hover:bg-bg-mute hover:text-fg-base rounded-md px-3 py-1.5 text-sm transition-colors duration-150 ease-out'
+                      ? 'text-fg-base decoration-primary-border rounded-md px-3 py-1.5 text-sm font-medium whitespace-nowrap underline decoration-2 underline-offset-8'
+                      : 'text-fg-mute hover:bg-bg-mute hover:text-fg-base rounded-md px-3 py-1.5 text-sm whitespace-nowrap transition-colors duration-150 ease-out'
                   }
                   href={href}
                 >
@@ -60,6 +69,22 @@ export function Navigation() {
               </li>
             );
           })}
+          <li>
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger label={t('nav.ai')} variant="skeleton" />
+              <DropdownMenu.Content>
+                {AI_ITEMS.map((item) => (
+                  <DropdownMenu.Item
+                    key={item.path}
+                    label={t(item.labelKey)}
+                    onClick={() => {
+                      navigation.navigate(localizeHref(item.path, locale));
+                    }}
+                  />
+                ))}
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+          </li>
         </ul>
         <div className="ml-auto flex shrink-0 items-center gap-2">
           <ThemeSwitcher />

@@ -2,31 +2,10 @@ import { Anchor, Heading, Select, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const selectProps: PropItem[] = [
-  { name: 'id', types: ['string'], defaultValue: null },
-  {
-    name: 'aria-describedby',
-    types: ['string | undefined'],
-    defaultValue: null,
-  },
-  { name: 'invalid', types: ['boolean'], defaultValue: null },
-  { name: 'disabled', types: ['boolean'], defaultValue: null },
-  { name: 'required', types: ['boolean'], defaultValue: null },
-  { name: 'options', types: ['Option[]'], defaultValue: null },
-  { name: 'value', types: ['string'], defaultValue: null },
-  {
-    name: 'onChange',
-    types: ['ChangeEventHandler'],
-    defaultValue: null,
-  },
-  { name: 'defaultValue', types: ['string'], defaultValue: null },
-  { name: 'ref', types: ['Ref<HTMLSelectElement>'], defaultValue: null },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 const options = [
   { label: 'Apple', value: 'apple' },
@@ -204,10 +183,7 @@ export function SelectPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits="SelectHTMLAttributes<HTMLSelectElement>"
-          items={selectProps}
-        />
+        <PropsTable inherits={inheritsOf('Select')} items={propsOf('Select')} />
       </section>
     </div>
   );

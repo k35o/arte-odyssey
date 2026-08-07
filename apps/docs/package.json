@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "pnpm generate:design && pnpm generate:llms && vite",
-    "build": "pnpm generate:design && pnpm generate:llms && vite build",
+    "dev": "pnpm generate:design && pnpm generate:docs && pnpm generate:llms && vite",
+    "build": "pnpm generate:design && pnpm generate:docs && pnpm generate:llms && vite build",
     "generate:design": "node scripts/generate-design-md.ts",
+    "generate:docs": "node scripts/copy-reference-docs.ts",
     "generate:llms": "node scripts/generate-llms-txt.ts",
     "typecheck": "tsc -b",
     "check": "vp check",

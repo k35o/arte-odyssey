@@ -2,14 +2,10 @@ import { Anchor, Code, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const codeProps: PropItem[] = [
-  { name: 'children', types: ['string'], defaultValue: null },
-];
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function CodePage() {
   return (
@@ -76,7 +72,7 @@ export function CodePage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable inherits="HTMLAttributes<HTMLElement>" items={codeProps} />
+        <PropsTable inherits={inheritsOf('Code')} items={propsOf('Code')} />
       </section>
     </div>
   );

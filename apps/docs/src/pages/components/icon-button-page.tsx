@@ -8,45 +8,11 @@ import {
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { inheritsOf, propsOf } from '../../data/component-props';
 import { IconButtonAsLinkPreview } from './_previews/icon-button-previews';
-
-const iconButtonProps: PropItem[] = [
-  {
-    name: 'size',
-    types: ["'sm'", "'md'", "'lg'"],
-    defaultValue: "'md'",
-  },
-  {
-    name: 'color',
-    types: ["'transparent'", "'base'", "'primary'", "'secondary'"],
-    defaultValue: "'transparent'",
-  },
-  { name: 'label', types: ['string'], defaultValue: null },
-  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
-  {
-    name: 'tooltipPlacement',
-    types: ['Placement'],
-    defaultValue: "'top'",
-  },
-  { name: 'tooltipDisabled', types: ['boolean'], defaultValue: 'false' },
-  {
-    name: 'onAction',
-    types: ['() => void | Promise<void>'],
-    defaultValue: null,
-  },
-  {
-    name: 'renderItem',
-    types: [
-      '(props: { className, children, "aria-label", triggerProps }) => ReactNode',
-    ],
-    defaultValue: null,
-  },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
 
 export function IconButtonPage() {
   return (
@@ -208,8 +174,8 @@ export function IconButtonPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
-          inherits="ButtonHTMLAttributes<HTMLButtonElement>"
-          items={iconButtonProps}
+          inherits={inheritsOf('IconButton')}
+          items={propsOf('IconButton')}
         />
       </section>
     </div>

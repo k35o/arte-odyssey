@@ -45,6 +45,29 @@ export const en = {
   'footer.tagline': 'Soft where you touch, precise where you read.',
   'footer.typesetting': 'Typeset in Noto Sans JP & M PLUS 2',
   'nav.openMenu': 'Open menu',
+  'nav.ai': 'AI',
+  'nav.aiAgents': 'AI Agents',
+  'aiAgents.introduction':
+    'ArteOdyssey ships surfaces meant for AI coding agents: the design guide, the component reference, the tokens and the props — each generated from the implementation.',
+  'aiAgents.setupTitle': 'Point your agent at the docs',
+  'aiAgents.setupDescription':
+    'The docs ship inside the npm package, so an agent always reads the version you installed. Paste this into your project’s CLAUDE.md / AGENTS.md and the setup is done.',
+  'aiAgents.surfacesTitle': 'Published surfaces',
+  'aiAgents.surfacesDescription':
+    'Each is available both inside the package (node_modules) and from this site.',
+  'aiAgents.surfaceGuide': 'The design guide — the entry point',
+  'aiAgents.surfaceReference': 'Reference for components, hooks and helpers',
+  'aiAgents.surfaceIndex': 'Documentation index for LLMs',
+  'aiAgents.surfaceTokens': 'Design token spec (generated from CSS)',
+  'aiAgents.surfaceProps':
+    'Props of every component (generated from the types)',
+  'aiAgents.surfaceMcp': 'MCP endpoint of the published Storybook',
+  'aiAgents.mcpTitle': 'Query Storybook over MCP',
+  'aiAgents.mcpDescription':
+    'So an agent looks up real stories and rendered props instead of recalling them. Add it to your MCP client config.',
+  'aiAgents.generatedTitle': 'What is generated',
+  'aiAgents.generatedDescription':
+    'Props come from the component types and tokens from the CSS. CI fails when either drifts from the implementation, so the docs cannot quietly rot.',
   'generativeUi.introduction':
     'ArteOdyssey ships official adapters so an LLM can generate UIs constrained to these components, via json-render or OpenUI. Generate the prompt on the server, validate the output, and render it on the client.',
   'generativeUi.promptTitle': 'Generate the prompt (server)',

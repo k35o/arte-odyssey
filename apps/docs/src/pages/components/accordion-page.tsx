@@ -2,27 +2,10 @@ import { Accordion, Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
-import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-
-const accordionRootProps: PropItem[] = [
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
-const accordionItemProps: PropItem[] = [
-  { name: 'defaultOpen', types: ['boolean'], defaultValue: 'false' },
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
-const accordionButtonProps: PropItem[] = [
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
-
-const accordionPanelProps: PropItem[] = [
-  { name: 'children', types: ['ReactNode'], defaultValue: null },
-];
+import { propsOf } from '../../data/component-props';
 
 export function AccordionPage() {
   return (
@@ -235,13 +218,13 @@ export function AccordionPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <Heading type="h3">Accordion.Root</Heading>
-        <PropsTable items={accordionRootProps} />
+        <PropsTable items={propsOf('Accordion.Root')} />
         <Heading type="h3">Accordion.Item</Heading>
-        <PropsTable items={accordionItemProps} />
+        <PropsTable items={propsOf('Accordion.Item')} />
         <Heading type="h3">Accordion.Button</Heading>
-        <PropsTable items={accordionButtonProps} />
+        <PropsTable items={propsOf('Accordion.Button')} />
         <Heading type="h3">Accordion.Panel</Heading>
-        <PropsTable items={accordionPanelProps} />
+        <PropsTable items={propsOf('Accordion.Panel')} />
       </section>
     </div>
   );
