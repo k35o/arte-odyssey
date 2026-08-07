@@ -61,15 +61,34 @@ const isOwnProp = (symbol: ts.Symbol): boolean => {
   return file.startsWith(SRC_DIR) && !file.includes('node_modules');
 };
 
-/** Splits a union at the top level only, so `Foo<A | B>` stays intact. */
+/**
+ * Splits a union at the top level only, so `Foo<A | B>` stays intact.
+ *
+ * Two things make this more than bracket counting. The `>` of `=>` closes
+ * nothing, so counting it would drop below the real nesting and split inside
+ * `((…) => A | B) | C`. And a bare top-level arrow swallows the rest of the
+ * string as its return type — `() => A | B` is one function type, not a union,
+ * because TypeScript requires parentheses to put a function type in a union.
+ */
 const splitUnion = (text: string): string[] => {
   const parts: string[] = [];
   let depth = 0;
+  let afterTopLevelArrow = false;
   let current = '';
-  for (const char of text) {
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
     if (char === '<' || char === '(' || char === '{' || char === '[') depth++;
-    if (char === '>' || char === ')' || char === '}' || char === ']') depth--;
-    if (char === '|' && depth === 0) {
+    const isArrowHead = char === '>' && text[i - 1] === '=';
+    if (isArrowHead && depth === 0) afterTopLevelArrow = true;
+    if (
+      (char === '>' && !isArrowHead) ||
+      char === ')' ||
+      char === '}' ||
+      char === ']'
+    ) {
+      depth--;
+    }
+    if (char === '|' && depth === 0 && !afterTopLevelArrow) {
       parts.push(current.trim());
       current = '';
       continue;

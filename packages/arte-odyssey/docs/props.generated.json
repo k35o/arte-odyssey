@@ -1352,7 +1352,7 @@
         },
         {
           "name": "action",
-          "types": ["((formData: FormData) => void", "Promise<void>) | string"],
+          "types": ["((formData: FormData) => void | Promise<void>)", "string"],
           "defaultValue": null,
           "required": false
         }

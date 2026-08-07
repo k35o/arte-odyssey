@@ -406,7 +406,7 @@ import { Button, Form, FormControl, TextField } from '@k8o/arte-odyssey';
 Props:
 
 - `children`: `ReactNode`（必須）
-- `action`: `((formData: FormData) => void` | `Promise<void>) | string`
+- `action`: `((formData: FormData) => void | Promise<void>)` | `string`
 
 ### FormControl
 
@@ -855,8 +855,6 @@ Props (Root):
 - `ref`: `Ref<HTMLInputElement>`
 - `webkitDirectory`: `boolean`（既定: `false`）
 
-## データ表示
-
 Props (FileField.ItemList):
 
 - `clearable`: `boolean`
@@ -865,6 +863,8 @@ Props (FileField.ItemList):
 Props (FileField.Trigger):
 
 - `renderItem`: `(props: { onClick: () => void; disabled: boolean; invalid: boolean; }) => ReactElement`（必須）
+
+## データ表示
 
 ### Heading
 
@@ -1287,7 +1287,7 @@ Props (Root):
 
 Trigger バリアント:
 
-- `DropdownMenu.Trigger`: テキストベース（`text`, `size`, `variant`）
+- `DropdownMenu.Trigger`: テキストベース（`label`, `size`, `variant`）
 - `DropdownMenu.IconTrigger`: アイコンベース（`icon`, `label`）
 
 Props (DropdownMenu.Content):
