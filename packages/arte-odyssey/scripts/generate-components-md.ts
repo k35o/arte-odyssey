@@ -55,19 +55,35 @@ const lines = source.split('\n');
 const out: string[] = [];
 
 let heading: string | null = null;
+/** A `##` has started since the current `###`, so the block below belongs elsewhere. */
+let headingLeftBehind = false;
 const rewritten = new Set<string>();
 const unknown: string[] = [];
+const misplaced: string[] = [];
 
 for (let i = 0; i < lines.length; i++) {
   const line = lines[i] ?? '';
 
+  // A `##` ends the component section, so anything after it belongs to the
+  // next one. Only the contents of a block are generated, never its position,
+  // so a marker parked past the boundary would otherwise be filled in silently
+  // and read as if it documented a component from the following section.
+  if (line.startsWith('## ')) headingLeftBehind = heading !== null;
+
   const headingMatch = /^### (\S+)/u.exec(line);
-  if (headingMatch) heading = headingMatch[1] ?? null;
+  if (headingMatch) {
+    heading = headingMatch[1] ?? null;
+    headingLeftBehind = false;
+  }
 
   const propsMatch = /^Props(?: \(([\w.]+)\))?:\s*$/u.exec(line);
   if (!propsMatch) {
     out.push(line);
     continue;
+  }
+
+  if (headingLeftBehind) {
+    misplaced.push(`${line.trim()} (${i + 1} 行目、### ${heading} の節の外)`);
   }
 
   // `Props (Root):` inside `### Tabs` means `Tabs.Root`.
@@ -107,6 +123,15 @@ for (let i = 0; i < lines.length; i++) {
 }
 
 const output = out.join('\n');
+
+// Fails in both modes: the block would be filled in correctly but read under
+// the wrong component, which no amount of regenerating fixes.
+if (misplaced.length > 0) {
+  console.error(
+    `Props ブロックが所属する節の外にあります:\n  ${misplaced.join('\n  ')}`,
+  );
+  process.exit(1);
+}
 
 if (process.argv.includes('--check')) {
   if (output !== source) {

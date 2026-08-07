@@ -964,8 +964,6 @@ import { Table } from '@k8o/arte-odyssey';
 </Table.Root>;
 ```
 
-## フィードバック
-
 Props (Table.Body):
 
 - `children`: `ReactNode`
@@ -1003,6 +1001,8 @@ Props (Table.Row):
 
 - `children`: `ReactNode`
 - `interactive`: `boolean`（既定: `false`）
+
+## フィードバック
 
 ### Alert
 
@@ -1351,8 +1351,6 @@ Props (Content):
 
 - `helpContent`: `ReactElement`
 
-## プロバイダー
-
 Props (ListBox.IconTrigger):
 
 - `icon`: `ReactElement`（必須）
@@ -1363,6 +1361,8 @@ Props (ListBox.Trigger):
 
 - `label`: `string`
 - `size`: `ComponentProps<typeof Button>['size']`（既定: `'md'`）
+
+## プロバイダー
 
 ### ArteOdysseyProvider
 
@@ -1390,6 +1390,11 @@ import { PortalRootProvider, usePortalRoot } from '@k8o/arte-odyssey';
 
 <PortalRootProvider value={containerRef}>{children}</PortalRootProvider>;
 ```
+
+Props:
+
+- `children`: `ReactNode`
+- `value`: `RefObject<HTMLElement | null>`
 
 ## i18n（文言辞書）
 
@@ -1421,11 +1426,6 @@ import { en } from '@k8o/arte-odyssey/i18n';
   <App />
 </ArteOdysseyProvider>
 ```
-
-Props:
-
-- `children`: `ReactNode`
-- `value`: `RefObject<HTMLElement | null>`
 
 ### 優先順位
 
