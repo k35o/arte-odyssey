@@ -109,7 +109,10 @@ The project uses the Vite+ (`vite-plus`) toolchain and `@vitejs/plugin-react`.
 ### Tailwind CSS
 
 Tailwind CSS 4 is configured via the `@tailwindcss/vite` plugin. ArteOdyssey's tokens
-are loaded by importing `@k8o/arte-odyssey/styles.css`.
+are loaded by importing `@k8o/arte-odyssey/tailwind.css` — the Tailwind source entry,
+so the design tokens stay usable in this app's own markup. (Projects without
+Tailwind import the prebuilt `@k8o/arte-odyssey/styles.css` instead — see
+`examples/css-modules`.)
 
 ### TypeScript
 

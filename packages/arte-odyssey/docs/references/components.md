@@ -3,7 +3,8 @@
 ## インポート方法
 
 ```tsx
-// スタイルシート（必須）
+// スタイルシート（必須）。Tailwind CSS 4 のプロジェクトは
+// 代わりに '@k8o/arte-odyssey/tailwind.css' を import する
 import '@k8o/arte-odyssey/styles.css';
 
 // プロバイダー（アプリルートで1回）
@@ -1248,9 +1249,11 @@ import { Tooltip } from '@k8o/arte-odyssey';
 Props (Root):
 
 - `children`: `ReactNode`
+- `closeDelay`: `number`（既定: `150`）
 - `defaultOpen`: `boolean`
 - `isOpen`: `boolean`
 - `onChange`: `(isOpen: boolean) => void`
+- `openDelay`: `number`（既定: `0`）
 - `placement`: `Placement`（既定: `'bottom'`）
 
 Props (Tooltip.Content):

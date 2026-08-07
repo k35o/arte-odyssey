@@ -74,233 +74,242 @@
 );
 
 /*
+ * 以下の .ao-* ルールは @layer components に置く。レイヤー外に置くと、
+ * 「ライブラリのルールはすべて @layer 内にあり、レイヤー外の利用側 CSS が
+ * 常に優先される」という styles.css の公開契約（GUIDE.md / changeset /
+ * examples/css-modules）が破れる。utilities レイヤーより弱くなるが、
+ * .ao-* が設定するプロパティは同じ要素の utilities と重複しない。
+ */
+@layer components {
+  /*
  * Popover（top-layer）の開く時のアニメーション。
  * :popover-open になった瞬間に keyframe を再生する。安静時の値は上書きしない
  * （natural=opacity:1）ため固着しない。閉じる時は display:none で即時。
  * scale は transform ではなく `scale` プロパティを使い、CSS Anchor Positioning
  * （inset で配置）と干渉させない。
  */
-.ao-anim-scale:popover-open {
-  animation: ao-pop-in 0.18s ease;
-}
-.ao-anim-fade:popover-open {
-  animation: ao-fade-in 0.15s ease;
-}
+  .ao-anim-scale:popover-open {
+    animation: ao-pop-in 0.18s ease;
+  }
+  .ao-anim-fade:popover-open {
+    animation: ao-fade-in 0.15s ease;
+  }
 
-@keyframes ao-pop-in {
-  from {
-    scale: 0.92;
+  @keyframes ao-pop-in {
+    from {
+      scale: 0.92;
+    }
+    to {
+      scale: 1;
+    }
   }
-  to {
-    scale: 1;
-  }
-}
 
-@keyframes ao-fade-in {
-  from {
-    opacity: 0;
+  @keyframes ao-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
-  to {
-    opacity: 1;
-  }
-}
 
-/*
+  /*
  * Toast の出入り。出現は下からのスライドイン、退出は data-closing で
  * 高さ(0fr)・間隔(padding)・不透明度を同時に畳み、後続トーストの詰めも
  * 1 つの transition で表現する（JS 側は EXIT_MS 経過後に DOM から除去）。
  */
-.ao-toast-item {
-  display: grid;
-  grid-template-rows: 1fr;
-  padding-block-start: 1rem;
-  transition:
-    grid-template-rows 0.2s ease,
-    opacity 0.2s ease,
-    padding-block-start 0.2s ease;
-}
-.ao-toast-item > * {
-  min-block-size: 0;
-}
-.ao-toast-item[data-closing] {
-  grid-template-rows: 0fr;
-  opacity: 0;
-  padding-block-start: 0;
-}
-/* 安静時は影(shadow-lg)を切り抜かないよう、畳む間だけ overflow を隠す */
-.ao-toast-item[data-closing] > * {
-  overflow: hidden;
-}
-.ao-toast-enter {
-  animation: ao-toast-in 0.2s ease;
-}
-
-@keyframes ao-toast-in {
-  from {
-    opacity: 0;
-    translate: 0 1.5rem;
+  .ao-toast-item {
+    display: grid;
+    grid-template-rows: 1fr;
+    padding-block-start: 1rem;
+    transition:
+      grid-template-rows 0.2s ease,
+      opacity 0.2s ease,
+      padding-block-start 0.2s ease;
   }
-}
+  .ao-toast-item > * {
+    min-block-size: 0;
+  }
+  .ao-toast-item[data-closing] {
+    grid-template-rows: 0fr;
+    opacity: 0;
+    padding-block-start: 0;
+  }
+  /* 安静時は影(shadow-lg)を切り抜かないよう、畳む間だけ overflow を隠す */
+  .ao-toast-item[data-closing] > * {
+    overflow: hidden;
+  }
+  .ao-toast-enter {
+    animation: ao-toast-in 0.2s ease;
+  }
 
-/*
+  @keyframes ao-toast-in {
+    from {
+      opacity: 0;
+      translate: 0 1.5rem;
+    }
+  }
+
+  /*
  * Modal（<dialog>）の出入り。入場は @starting-style からの transition、
  * 退場は transition-behavior: allow-discrete による display の遅延で表現する。
  * overlay を transition に含めることで、退場中も top layer に留まる
  * （overlay 未対応ブラウザでは退場が即時になる、という段階的劣化）。
  * scale / translate は transform ではなく個別プロパティを使う（Popover 同様）。
  */
-/* allow-discrete は per-transition で指定する。ショートハンド後の別行
+  /* allow-discrete は per-transition で指定する。ショートハンド後の別行
    transition-behavior は lightningcss の宣言並べ替えでリセットされ、
    本番ビルドだけ退場アニメーションが消える */
-.ao-modal {
-  opacity: 0;
-  transition:
-    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    scale 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    translate 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    display 0.2s allow-discrete,
-    overlay 0.2s allow-discrete;
-}
-.ao-modal[open] {
-  opacity: 1;
-}
-.ao-modal[open]::backdrop {
-  opacity: 1;
-}
-.ao-modal::backdrop {
-  opacity: 0;
-  transition:
-    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    display 0.2s allow-discrete,
-    overlay 0.2s allow-discrete;
-}
-/* overlay 未対応ブラウザ(Safari / Firefox)では close で top layer から即座に
+  .ao-modal {
+    opacity: 0;
+    transition:
+      opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+      scale 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+      translate 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+      display 0.2s allow-discrete,
+      overlay 0.2s allow-discrete;
+  }
+  .ao-modal[open] {
+    opacity: 1;
+  }
+  .ao-modal[open]::backdrop {
+    opacity: 1;
+  }
+  .ao-modal::backdrop {
+    opacity: 0;
+    transition:
+      opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+      display 0.2s allow-discrete,
+      overlay 0.2s allow-discrete;
+  }
+  /* overlay 未対応ブラウザ(Safari / Firefox)では close で top layer から即座に
    外れるため、display の遅延だけが残ると位置がジャンプしたゴーストが
    0.2s クリック可能なまま残る。退場を本当に即時にする(入場は影響なし) */
-@supports not (overlay: auto) {
-  .ao-modal:not([open]),
-  .ao-modal:not([open])::backdrop {
-    transition: none;
+  @supports not (overlay: auto) {
+    .ao-modal:not([open]),
+    .ao-modal:not([open])::backdrop {
+      transition: none;
+    }
   }
-}
-@starting-style {
-  .ao-modal[open],
-  .ao-modal[open]::backdrop {
-    opacity: 0;
+  @starting-style {
+    .ao-modal[open],
+    .ao-modal[open]::backdrop {
+      opacity: 0;
+    }
   }
-}
 
-.ao-modal-center {
-  scale: 0.9;
-}
-.ao-modal-center[open] {
-  scale: 1;
-}
-.ao-modal-bottom {
-  translate: 0 100%;
-}
-.ao-modal-right {
-  translate: 100% 0;
-}
-.ao-modal-left {
-  translate: -100% 0;
-}
-.ao-modal-bottom[open],
-.ao-modal-right[open],
-.ao-modal-left[open] {
-  translate: 0 0;
-}
-.ao-modal-right,
-.ao-modal-left {
-  transition-duration: 0.3s;
-}
-@starting-style {
-  .ao-modal-center[open] {
+  .ao-modal-center {
     scale: 0.9;
   }
-  .ao-modal-bottom[open] {
+  .ao-modal-center[open] {
+    scale: 1;
+  }
+  .ao-modal-bottom {
     translate: 0 100%;
   }
-  .ao-modal-right[open] {
+  .ao-modal-right {
     translate: 100% 0;
   }
-  .ao-modal-left[open] {
+  .ao-modal-left {
     translate: -100% 0;
   }
-}
+  .ao-modal-bottom[open],
+  .ao-modal-right[open],
+  .ao-modal-left[open] {
+    translate: 0 0;
+  }
+  .ao-modal-right,
+  .ao-modal-left {
+    transition-duration: 0.3s;
+  }
+  @starting-style {
+    .ao-modal-center[open] {
+      scale: 0.9;
+    }
+    .ao-modal-bottom[open] {
+      translate: 0 100%;
+    }
+    .ao-modal-right[open] {
+      translate: 100% 0;
+    }
+    .ao-modal-left[open] {
+      translate: -100% 0;
+    }
+  }
 
-/*
+  /*
  * Tabs の選択インジケータ。選択中のタブを anchor にした単一要素を
  * inset の transition でスライドさせる（旧 motion layoutId の置き換え）。
  * position-area は transition できないため inset + anchor() を使う。
  * self-* キーワードは論理プロパティと合わせて縦書きでも正しい辺に解決される。
  */
-.ao-tab-indicator {
-  position: absolute;
-  inset-inline-start: anchor(self-start);
-  inset-inline-end: anchor(self-end);
-  inset-block-start: calc(anchor(self-end) - 0.125rem);
-  block-size: 0.25rem;
-  /* 純装飾。タブ下端やスライド通過中のクリックを横取りしない */
-  pointer-events: none;
-}
-@media (prefers-reduced-motion: no-preference) {
   .ao-tab-indicator {
-    transition: inset 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    inset-inline-start: anchor(self-start);
+    inset-inline-end: anchor(self-end);
+    inset-block-start: calc(anchor(self-end) - 0.125rem);
+    block-size: 0.25rem;
+    /* 純装飾。タブ下端やスライド通過中のクリックを横取りしない */
+    pointer-events: none;
   }
-}
-/* anchor positioning 未対応ブラウザでは anchor() が無効になり迷子のバーが
+  @media (prefers-reduced-motion: no-preference) {
+    .ao-tab-indicator {
+      transition: inset 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+  /* anchor positioning 未対応ブラウザでは anchor() が無効になり迷子のバーが
    残るため隠し、選択タブ側の静的な下線で選択表示を維持する（スライドなし）。
    box-shadow だと utilities レイヤーの focus-visible リングを潰すため
    擬似要素 + 論理プロパティで描く（.ao-tab は Tabs.Tab だけに付く） */
-@supports not (anchor-name: --a) {
-  .ao-tab-indicator {
-    display: none;
+  @supports not (anchor-name: --a) {
+    .ao-tab-indicator {
+      display: none;
+    }
+    .ao-tab[aria-selected='true']::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      inset-block-end: -0.125rem;
+      block-size: 0.25rem;
+      background: var(--primary-border);
+    }
   }
-  .ao-tab[aria-selected='true']::after {
-    content: '';
-    position: absolute;
-    inset-inline: 0;
-    inset-block-end: -0.125rem;
-    block-size: 0.25rem;
-    background: var(--primary-border);
-  }
-}
 
-/*
+  /*
  * スクロール進捗バー。ルートスクローラーの進捗を scale x に写像する。
  * @supports 外（Firefox）と container 指定時はコンポーネント側の
  * scroll リスナーが inline の scale を更新する。ユーザーのスクロールに
  * 1:1 で追従する機能的表示のため prefers-reduced-motion では無効化しない。
  */
-@supports (animation-timeline: scroll()) {
-  .ao-scroll-progress {
-    animation: ao-scroll-grow auto linear;
-    animation-timeline: scroll(root);
-  }
-  @keyframes ao-scroll-grow {
-    from {
-      scale: 0 1;
+  @supports (animation-timeline: scroll()) {
+    .ao-scroll-progress {
+      animation: ao-scroll-grow auto linear;
+      animation-timeline: scroll(root);
     }
-    to {
-      scale: 1 1;
+    @keyframes ao-scroll-grow {
+      from {
+        scale: 0 1;
+      }
+      to {
+        scale: 1 1;
+      }
     }
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .ao-anim-scale:popover-open,
-  .ao-anim-fade:popover-open {
-    animation: none;
-  }
-  .ao-toast-enter {
-    animation: none;
-  }
-  .ao-toast-item {
-    transition: none;
-  }
-  .ao-modal,
-  .ao-modal::backdrop {
-    transition: none;
+  @media (prefers-reduced-motion: reduce) {
+    .ao-anim-scale:popover-open,
+    .ao-anim-fade:popover-open {
+      animation: none;
+    }
+    .ao-toast-enter {
+      animation: none;
+    }
+    .ao-toast-item {
+      transition: none;
+    }
+    .ao-modal,
+    .ao-modal::backdrop {
+      transition: none;
+    }
   }
 }

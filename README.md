@@ -67,6 +67,7 @@ packages/
 examples/
   vite/                  # Vite example application
   nextjs/                # Next.js example application
+  css-modules/           # Prebuilt-CSS example (no Tailwind)
 ```
 
 ### Available Scripts

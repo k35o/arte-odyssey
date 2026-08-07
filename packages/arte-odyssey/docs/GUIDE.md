@@ -27,13 +27,20 @@ function App() {
 import { Button, Card } from '@k8o/arte-odyssey';
 ```
 
-### Tailwind CSS の設定
+### スタイルシートの選び方
 
-`@k8o/arte-odyssey` は Tailwind CSS 4 以上が必要（peer dependency）。`styles.css` が内部で `@import 'tailwindcss'` を含むため、プロジェクトの CSS は次の1行でよい：
+CSS のエントリは2つある。プロジェクトの CSS 環境で選ぶ：
+
+- **`styles.css`（既定）** — ビルド済み CSS。Tailwind を持たないプロジェクト（CSS Modules・素の CSS）はこちら。import 1行で完結し、Tailwind のセットアップは不要。ライブラリのルールはすべて `@layer` 内にあるため、レイヤー外にある利用側の CSS がカスケードで優先される（唯一の例外は preflight の `[hidden] { display: none !important }`）。デザイントークンは `:root` / `.dark` の CSS カスタムプロパティとしてそのまま参照できる（`var(--fg-mute)` など）。
+- **`tailwind.css`** — Tailwind ソース版。Tailwind CSS 4 を使うプロジェクトはこちらを import すると、デザイントークン（`bg-bg-base` など）を自分のマークアップの Tailwind クラスとしても使える。内部で `@import 'tailwindcss'` を含むため、プロジェクトの CSS は次の1行でよい：
 
 ```css
-@import '@k8o/arte-odyssey/styles.css';
+@import '@k8o/arte-odyssey/tailwind.css';
 ```
+
+どちらのエントリも文書全体にベーススタイルを適用する点に注意。Tailwind の preflight（見出し・リスト・余白のリセット等）に加え、ライブラリの base レイヤーが `b` / `strong` の太字や `i` / `em` の斜体を解除し、`body` のタイポグラフィ既定（`font-size` / `overflow-wrap: anywhere` / `scrollbar-gutter: stable` など）を設定する。既存アプリに後付けする場合はコンポーネント以外の見た目にも影響する。
+
+例外がもう1つ: `@k8o/arte-odyssey/ai/response`（`Response`）だけは streamdown のクラスを利用側の Tailwind ビルドで生成する必要があるため、ビルド済み `styles.css` では表示が完成しない。`Response` を使うなら `tailwind.css` + `@source` 設定（[ai-chat](references/ai-chat.md)）が前提。
 
 ### 文言の言語（i18n）
 

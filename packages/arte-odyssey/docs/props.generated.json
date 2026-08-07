@@ -1164,6 +1164,30 @@
       "inherits": null
     },
     {
+      "name": "DropdownMenu.SubMenu",
+      "props": [
+        {
+          "name": "label",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": true
+        },
+        {
+          "name": "children",
+          "types": ["ReactNode"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "index",
+          "types": ["number"],
+          "defaultValue": "0",
+          "required": false
+        }
+      ],
+      "inherits": null
+    },
+    {
       "name": "DropdownMenu.Trigger",
       "props": [
         {
@@ -3111,6 +3135,12 @@
           "required": false
         },
         {
+          "name": "closeDelay",
+          "types": ["number"],
+          "defaultValue": "150",
+          "required": false
+        },
+        {
           "name": "defaultOpen",
           "types": ["boolean"],
           "defaultValue": null,
@@ -3126,6 +3156,12 @@
           "name": "onChange",
           "types": ["(isOpen: boolean) => void"],
           "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "openDelay",
+          "types": ["number"],
+          "defaultValue": "0",
           "required": false
         },
         {

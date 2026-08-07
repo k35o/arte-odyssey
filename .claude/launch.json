@@ -9,6 +9,13 @@
       "autoPort": true
     },
     {
+      "name": "css-modules-example",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "example-css-modules", "dev"],
+      "port": 5173,
+      "autoPort": true
+    },
+    {
       "name": "docs-prod",
       "runtimeExecutable": "node",
       "runtimeArgs": ["apps/docs/scripts/serve-static.mjs"],

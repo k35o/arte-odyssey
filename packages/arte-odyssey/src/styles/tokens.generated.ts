@@ -271,6 +271,7 @@ export const tokens = {
       distant: '1200px',
     },
     radius: {
+      xs: '0.125rem',
       sm: '0.375rem',
       md: '0.5rem',
       lg: '0.75rem',

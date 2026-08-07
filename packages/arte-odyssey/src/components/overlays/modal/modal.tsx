@@ -106,7 +106,7 @@ export const Modal: FC<
       className={cn(
         'ao-modal bg-bg-raised text-fg-base z-modal shadow-md backdrop:bg-back-drop',
         side === 'center' &&
-          'ao-modal-center m-auto max-h-lg w-5/6 max-w-2xl rounded-lg vertical:h-5/6 vertical:max-h-2xl vertical:w-auto vertical:max-w-lg',
+          'ao-modal-center m-auto max-h-128 w-5/6 max-w-2xl rounded-lg vertical:h-5/6 vertical:max-h-168 vertical:w-auto vertical:max-w-lg',
         side === 'bottom' &&
           'ao-modal-bottom mt-auto w-screen max-w-screen rounded-t-lg',
         side === 'right' &&
