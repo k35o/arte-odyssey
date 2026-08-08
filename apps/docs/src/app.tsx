@@ -3,8 +3,10 @@ import type { RouteDefinition } from '@funstack/router/server';
 import { route } from '@funstack/router/server';
 
 import { LocaleLayout } from './layouts/locale-layout';
-import { AiAgents } from './pages/ai-agents';
-import { AiChat } from './pages/ai-chat';
+import { Ai } from './pages/ai';
+import { AiAgents } from './pages/ai/agents';
+import { AiChat } from './pages/ai/chat';
+import { GenerativeUi } from './pages/ai/generative-ui';
 import { Components } from './pages/components';
 import { AccordionPage } from './pages/components/accordion-page';
 import { AlertPage } from './pages/components/alert-page';
@@ -52,7 +54,6 @@ import { TextFieldPage } from './pages/components/text-field-page';
 import { TextareaPage } from './pages/components/textarea-page';
 import { ToastPage } from './pages/components/toast-page';
 import { TooltipPage } from './pages/components/tooltip-page';
-import { GenerativeUi } from './pages/generative-ui';
 import { GetStarted } from './pages/get-started';
 import { Helpers } from './pages/helpers';
 import { ChainPage } from './pages/helpers/chain-page';
@@ -108,15 +109,19 @@ const routes: RouteDefinition[] = [
         component: <GetStarted />,
       }),
       route({
-        path: '/generative-ui',
-        component: <GenerativeUi />,
+        path: '/ai',
+        component: <Ai />,
       }),
       route({
-        path: '/ai-chat',
+        path: '/ai/chat',
         component: <AiChat />,
       }),
       route({
-        path: '/ai-agents',
+        path: '/ai/generative-ui',
+        component: <GenerativeUi />,
+      }),
+      route({
+        path: '/ai/agents',
         component: <AiAgents />,
       }),
       route({

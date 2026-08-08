@@ -1,10 +1,10 @@
 import { Anchor, Code, Heading, Separator } from '@k8o/arte-odyssey';
 import type { FC } from 'react';
 
-import { CodeBlock } from '../components/code-block';
-import { T } from '../components/t';
-import { STORYBOOK_URL } from '../constants';
-import type { MessageKey } from '../i18n';
+import { CodeBlock } from '../../components/code-block';
+import { T } from '../../components/t';
+import { STORYBOOK_URL } from '../../constants';
+import type { MessageKey } from '../../i18n';
 
 const MCP_URL = `${STORYBOOK_URL}/mcp`;
 

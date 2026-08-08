@@ -44,6 +44,14 @@ export const en = {
   'nav.openMenu': 'Open menu',
   'nav.ai': 'AI',
   'nav.aiAgents': 'AI Agents',
+  'ai.description':
+    'ArteOdyssey ships three surfaces for AI products: UI parts for composing chat screens, adapters that let LLMs generate UI constrained to ArteOdyssey components, and documentation surfaces for AI coding agents.',
+  'ai.chatSummary':
+    'Presentational parts — Conversation, Message and PromptInput — for composing chat screens.',
+  'ai.generativeUiSummary':
+    'json-render / OpenUI adapters that let LLMs generate UI using only ArteOdyssey components.',
+  'ai.agentsSummary':
+    'Documentation surfaces that feed the design guide, references and props to AI coding agents.',
   'aiAgents.introduction':
     'ArteOdyssey ships surfaces meant for AI coding agents: the design guide, the component reference, the tokens and the props — each generated from the implementation.',
   'aiAgents.setupTitle': 'Point your agent at the docs',
@@ -81,6 +89,12 @@ export const en = {
     'Write specs with `satisfies ArteSpec` so component names and props are checked at compile time.',
   'aiChat.introduction':
     'Presentational building blocks for AI chat UIs. They hold no fetching or message state — you pass data in and compose them with `messages.map()`, so they connect to the AI SDK or your own backend. Import from `@k8o/arte-odyssey/ai`.',
+  'aiChat.demoTitle': 'Demo',
+  'aiChat.demoDescription':
+    'A working chat screen. Pick a suggestion or type a message and send it — bubbles stack up in the conversation, and reasoning and tool calls fold into collapsible blocks.',
+  'aiChat.suggestionTitle': 'Suggestions',
+  'aiChat.suggestionDescription':
+    '`Suggestion` lays out canned prompts as chips and passes the selected value straight to your send handler.',
   'aiChat.overviewTitle': 'Compose a conversation',
   'aiChat.overviewDescription':
     '`Conversation` provides the scroll region with stick-to-bottom and a scroll-to-latest button; `Message` renders the bubble per role; `PromptInput` is the composer. You own the message list.',

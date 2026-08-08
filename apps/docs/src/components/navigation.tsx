@@ -11,23 +11,15 @@ import { ThemeSwitcher } from './theme-switcher';
 
 type NavItem = { path: string; labelKey: MessageKey };
 
-const CORE_ITEMS: NavItem[] = [
+const NAV_ITEMS: NavItem[] = [
   { path: '/get-started', labelKey: 'nav.getStarted' },
   { path: '/theming', labelKey: 'nav.theming' },
   { path: '/i18n', labelKey: 'nav.i18n' },
   { path: '/components', labelKey: 'nav.components' },
   { path: '/hooks', labelKey: 'nav.hooks' },
   { path: '/helpers', labelKey: 'nav.helpers' },
+  { path: '/ai', labelKey: 'nav.ai' },
 ];
-
-/** Grouped behind one trigger: nine top-level links do not fit the header. */
-const AI_ITEMS: NavItem[] = [
-  { path: '/generative-ui', labelKey: 'nav.generativeUi' },
-  { path: '/ai-chat', labelKey: 'nav.aiChat' },
-  { path: '/ai-agents', labelKey: 'nav.aiAgents' },
-];
-
-const NAV_ITEMS: NavItem[] = [...CORE_ITEMS, ...AI_ITEMS];
 
 export function Navigation() {
   const { t, locale } = useTranslation();
@@ -50,7 +42,7 @@ export function Navigation() {
           />
         </LocaleAnchor>
         <ul className="hidden items-center gap-1 md:flex">
-          {CORE_ITEMS.map((item) => {
+          {NAV_ITEMS.map((item) => {
             const href = localizeHref(item.path, locale);
             const isActive = location.pathname === href;
             return (
@@ -69,22 +61,6 @@ export function Navigation() {
               </li>
             );
           })}
-          <li>
-            <DropdownMenu.Root>
-              <DropdownMenu.Trigger label={t('nav.ai')} variant="skeleton" />
-              <DropdownMenu.Content>
-                {AI_ITEMS.map((item) => (
-                  <DropdownMenu.Item
-                    key={item.path}
-                    label={t(item.labelKey)}
-                    onClick={() => {
-                      navigation.navigate(localizeHref(item.path, locale));
-                    }}
-                  />
-                ))}
-              </DropdownMenu.Content>
-            </DropdownMenu.Root>
-          </li>
         </ul>
         <div className="ml-auto flex shrink-0 items-center gap-2">
           <ThemeSwitcher />

@@ -44,6 +44,14 @@ export const ja = {
   'nav.openMenu': 'メニューを開く',
   'nav.ai': 'AI',
   'nav.aiAgents': 'AI エージェント',
+  'ai.description':
+    'ArteOdyssey は AI プロダクトのための面を揃えています。チャット画面を組み立てる UI 部品、LLM に ArteOdyssey の UI を生成させるアダプタ、そして AI コーディングエージェントに読ませるドキュメントの3つです。',
+  'ai.chatSummary':
+    'Conversation・Message・PromptInput でチャット画面を組み立てる presentational な部品集。',
+  'ai.generativeUiSummary':
+    'LLM が ArteOdyssey コンポーネントだけで UI を生成するための json-render / OpenUI アダプタ。',
+  'ai.agentsSummary':
+    '設計指針・リファレンス・props を AI コーディングエージェントに読ませるためのドキュメント面。',
   'aiAgents.introduction':
     'ArteOdyssey は、AI コーディングエージェントが読むための面を用意しています。設計指針・コンポーネントのリファレンス・トークン・props を、いずれも実装から生成した形で配っています。',
   'aiAgents.setupTitle': 'エージェントに読ませる',
@@ -83,6 +91,12 @@ export const ja = {
     'OpenUI は DSL 文字列を `library` で描画します。プロンプトは専用の `openui/prompt` エントリでサーバー生成できます。',
   'aiChat.introduction':
     'AI チャット UI のための presentational な部品です。通信やメッセージの状態は持たず、データを渡して `messages.map()` で組み立てるだけ。AI SDK でも自前のバックエンドでも接続できます。`@k8o/arte-odyssey/ai` から import します。',
+  'aiChat.demoTitle': 'デモ',
+  'aiChat.demoDescription':
+    '実際のチャット画面です。サジェスチョンを選ぶか、メッセージを入力して送信すると、吹き出しが会話に積まれていきます。思考過程やツール呼び出しは折りたたみで確認できます。',
+  'aiChat.suggestionTitle': 'サジェスチョン',
+  'aiChat.suggestionDescription':
+    '`Suggestion` は定型の質問をチップで並べ、選択された値をそのまま送信ハンドラに渡します。',
   'aiChat.overviewTitle': '会話を組み立てる',
   'aiChat.overviewDescription':
     '`Conversation` は stick-to-bottom と「最新へ」ボタン付きのスクロール領域、`Message` は role ごとの吹き出し、`PromptInput` は入力欄です。メッセージ配列は利用側が持ちます。',

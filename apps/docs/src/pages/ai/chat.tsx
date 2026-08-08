@@ -1,7 +1,9 @@
 import { Heading, Separator } from '@k8o/arte-odyssey';
 
-import { CodeBlock } from '../components/code-block';
-import { T } from '../components/t';
+import { CodeBlock } from '../../components/code-block';
+import { ComponentPreview } from '../../components/component-preview';
+import { T } from '../../components/t';
+import { ChatDemo } from './_previews/chat-demo';
 
 export function AiChat() {
   return (
@@ -14,6 +16,57 @@ export function AiChat() {
           <T k="aiChat.introduction" />
         </p>
       </div>
+      <Separator color="mute" />
+
+      <section className="flex flex-col gap-4">
+        <Heading type="h2">
+          <T k="aiChat.demoTitle" />
+        </Heading>
+        <p className="text-fg-mute">
+          <T k="aiChat.demoDescription" />
+        </p>
+        <ComponentPreview
+          code={`'use client';
+import { Avatar, AssistantIcon } from '@k8o/arte-odyssey';
+import {
+  Conversation,
+  Message,
+  PromptInput,
+  Suggestion,
+} from '@k8o/arte-odyssey/ai';
+
+export function Chat({ messages, send }: Props) {
+  return (
+    <div className="flex h-full flex-col gap-3">
+      <Conversation.Root>
+        <Conversation.Messages>
+          {messages.map((m) => (
+            <Message.Root from={m.role} key={m.id}>
+              {m.role === 'assistant' && (
+                <Avatar color="primary" icon={<AssistantIcon />} name="AI" size="sm" />
+              )}
+              <Message.Content>{m.text}</Message.Content>
+            </Message.Root>
+          ))}
+        </Conversation.Messages>
+        <Conversation.ScrollButton />
+      </Conversation.Root>
+
+      <Suggestion.List>
+        <Suggestion.Item onSelect={send} value="IME 対応について教えて" />
+      </Suggestion.List>
+
+      <PromptInput.Root onSubmit={send}>
+        <PromptInput.Textarea placeholder="メッセージを入力…" />
+        <PromptInput.Submit />
+      </PromptInput.Root>
+    </div>
+  );
+}`}
+        >
+          <ChatDemo />
+        </ComponentPreview>
+      </section>
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
@@ -79,6 +132,27 @@ export function Chat() {
   <PromptInput.Textarea placeholder="メッセージを入力" />
   <PromptInput.Submit /> {/* send when ready, stop while streaming */}
 </PromptInput.Root>`}
+          lang="tsx"
+        />
+      </section>
+
+      <Separator color="mute" />
+
+      <section className="flex flex-col gap-4">
+        <Heading type="h2">
+          <T k="aiChat.suggestionTitle" />
+        </Heading>
+        <p className="text-fg-mute">
+          <T k="aiChat.suggestionDescription" />
+        </p>
+        <CodeBlock
+          code={`import { Suggestion } from '@k8o/arte-odyssey/ai';
+
+<Suggestion.List>
+  {suggestions.map((s) => (
+    <Suggestion.Item key={s} onSelect={send} value={s} />
+  ))}
+</Suggestion.List>`}
           lang="tsx"
         />
       </section>
