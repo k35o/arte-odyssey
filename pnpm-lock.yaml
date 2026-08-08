@@ -329,8 +329,8 @@ importers:
         specifier: 3.0.2
         version: 3.0.2(storybook@10.4.1(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@testing-library/dom@10.4.1)(@types/react@19.2.15)(prettier@2.8.8)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(vite-plus@0.1.24(@arethetypeswrong/core@0.18.5)(@opentelemetry/api@1.9.0)(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.0.16(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))))
       storybook-addon-vrt:
-        specifier: 0.1.0
-        version: 0.1.0(vite@8.0.16(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))(vitest@4.1.7)
+        specifier: 0.3.0
+        version: 0.3.0(vite@8.0.16(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))(vitest@4.1.7)
       streamdown:
         specifier: 2.5.0
         version: 2.5.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(supports-color@10.2.2)
@@ -3973,8 +3973,8 @@ packages:
     peerDependencies:
       storybook: ^10.0.0
 
-  storybook-addon-vrt@0.1.0:
-    resolution: {integrity: sha512-JQjhstfTVoMwVHABMbD7zq4DHH1H/h1Yb5Lll8UCJBbLlXVYbfHQlRxoFYjMRtNS5uyMKNY0OiwI9S6f1GEmUw==}
+  storybook-addon-vrt@0.3.0:
+    resolution: {integrity: sha512-7gb2snCAEKLfdKljs00eHiS48s5aT7YejaDYk/lWtL48uh+SnruJxsqrHd0Hq6S3BrdF2mJE6OJobSOM/owZwQ==}
     engines: {node: '>=22.12.0'}
     hasBin: true
     peerDependencies:
@@ -7980,7 +7980,7 @@ snapshots:
       '@sinonjs/fake-timers': 15.3.2
       storybook: 10.4.1(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@testing-library/dom@10.4.1)(@types/react@19.2.15)(prettier@2.8.8)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(vite-plus@0.1.24(@arethetypeswrong/core@0.18.5)(@opentelemetry/api@1.9.0)(@types/node@24.12.4)(@vitest/coverage-v8@4.1.7)(@vitest/ui@4.1.7)(esbuild@0.27.7)(jiti@2.7.0)(publint@0.3.22)(typescript@6.0.3)(vite@8.0.16(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0)))
 
-  storybook-addon-vrt@0.1.0(vite@8.0.16(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))(vitest@4.1.7):
+  storybook-addon-vrt@0.3.0(vite@8.0.16(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0))(vitest@4.1.7):
     dependencies:
       cac: 7.0.0
       pixelmatch: 7.2.0
