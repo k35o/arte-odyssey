@@ -13,6 +13,7 @@ import {
 } from '@k8o/arte-odyssey';
 import type { ReactNode } from 'react';
 
+import { T } from '../components/t';
 import { localizeHref, useTranslation } from '../i18n';
 import type { MessageKey } from '../i18n/types';
 
@@ -161,7 +162,7 @@ export function Home() {
                   {t(feature.title)}
                 </p>
                 <p className="text-fg-mute text-sm leading-relaxed">
-                  {t(feature.description)}
+                  <T k={feature.description} />
                 </p>
               </div>
             </li>

@@ -38,7 +38,7 @@ export const ja = {
     '触れるものは柔らかく、読むものは端正に。余白と形の柔らかさで魅せるUIを提供します。',
   'home.featureVerticalWriting': '縦書き対応',
   'home.featureVerticalWritingDescription':
-    '`writing-v` と `vertical:` variant で、縦書きの紙面でも読みやすいレイアウトを実現。日本語ドキュメントを縦書きで体験できます。',
+    '`writing-v` ユーティリティで writing-mode を切り替えると、コンポーネントは縦書きの紙面でも崩れずに追従します。日本語ドキュメントを縦書きで体験できます。',
   'common.language': '言語',
   'footer.docs': 'ドキュメント',
   'footer.resources': 'リソース',

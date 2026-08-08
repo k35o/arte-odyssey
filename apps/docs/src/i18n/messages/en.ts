@@ -38,7 +38,7 @@ export const en = {
     'Soft where you touch, sharp where you read. UI that speaks through whitespace and gentle forms.',
   'home.featureVerticalWriting': 'Vertical Writing Support',
   'home.featureVerticalWritingDescription':
-    'The `writing-v` utility and `vertical:` variant deliver readable layouts on vertical paper. Preview the Japanese docs in vertical mode.',
+    'Switch writing-mode with the `writing-v` utility and every component follows along on a vertical page. Preview the Japanese docs in vertical mode.',
   'common.language': 'Language',
   'footer.docs': 'Documentation',
   'footer.resources': 'Resources',
