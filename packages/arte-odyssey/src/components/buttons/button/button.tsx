@@ -70,7 +70,7 @@ export const Button: FC<Props> = ({
   const hasEndIcon = endIcon !== undefined;
 
   const baseClassName = cn(
-    'rounded-md border-2 text-center font-bold transition-colors',
+    'rounded-full border-2 text-center font-bold transition-colors',
     {
       'border-transparent bg-primary-bg text-primary-fg hover:bg-primary-bg-emphasize/80 active:bg-primary-bg-emphasize':
         variant === 'solid' && color === 'primary',
