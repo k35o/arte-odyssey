@@ -1,5 +1,25 @@
 # docs
 
+## 0.0.10
+
+### Patch Changes
+
+- `/ai-agents` ページを追加しました。
+
+  貼り付け用のスニペット、公開している面（GUIDE.md / references / llms.txt /
+  design.md / props.json）、Storybook の MCP エンドポイントを一箇所にまとめて
+  います。あわせてヘッダーのナビが 9 項目で折り返していたため、AI 関連の 3 つを
+  「AI」のドロップダウンにまとめました。
+
+- 同梱ドキュメントの markdown ツインを配信するようにしました。
+
+  `packages/arte-odyssey/docs/**/*.md` をビルド時に `public/docs/` へ複製し、
+  `llms.txt` のリンク先を HTML ページから `.md` に統一しています。エージェントが
+  HTML を剥がさずにリファレンスを読めます。
+
+- Updated dependencies:
+  - @k8o/arte-odyssey@12.0.0
+
 ## 0.0.9
 
 ### Patch Changes
