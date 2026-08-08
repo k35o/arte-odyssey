@@ -75,11 +75,11 @@ export const tokens = {
         dark: 'oklch(0.18 0.001 235)',
       },
       'bg-subtle': {
-        light: 'oklch(0.945 0.0015 235)',
+        light: 'oklch(0.955 0.0015 235)',
         dark: 'oklch(0.25 0.0015 235)',
       },
       'bg-mute': {
-        light: 'oklch(0.9 0.003 235)',
+        light: 'oklch(0.925 0.003 235)',
         dark: 'oklch(0.42 0.003 235)',
       },
       'bg-emphasize': {
@@ -111,11 +111,11 @@ export const tokens = {
         dark: 'oklch(0.52 0.006 235)',
       },
       'border-subtle': {
-        light: 'oklch(0.945 0.0015 235)',
+        light: 'oklch(0.955 0.0015 235)',
         dark: 'oklch(0.42 0.003 235)',
       },
       'border-mute': {
-        light: 'oklch(0.9 0.003 235)',
+        light: 'oklch(0.925 0.003 235)',
         dark: 'oklch(0.52 0.006 235)',
       },
       'border-emphasize': 'oklch(0.66 0.006 235)',
@@ -152,7 +152,7 @@ export const tokens = {
         dark: 'oklch(0.18 0.055 180)',
       },
       'primary-bg-mute': {
-        light: 'oklch(0.945 0.058 180)',
+        light: 'oklch(0.955 0.042 180)',
         dark: 'oklch(0.37 0.078 180)',
       },
       'primary-bg-emphasize': {
@@ -173,7 +173,7 @@ export const tokens = {
         dark: 'oklch(0.18 0.058 210)',
       },
       'secondary-bg-mute': {
-        light: 'oklch(0.945 0.055 210)',
+        light: 'oklch(0.955 0.04 210)',
         dark: 'oklch(0.37 0.082 210)',
       },
       'secondary-bg-emphasize': {
@@ -350,8 +350,8 @@ export const tokens = {
   vars: {
     white: 'oklch(1 0 0)',
     'gray-50': 'oklch(0.975 0.001 235)',
-    'gray-100': 'oklch(0.945 0.0015 235)',
-    'gray-200': 'oklch(0.9 0.003 235)',
+    'gray-100': 'oklch(0.955 0.0015 235)',
+    'gray-200': 'oklch(0.925 0.003 235)',
     'gray-300': 'oklch(0.84 0.004 235)',
     'gray-400': 'oklch(0.75 0.005 235)',
     'gray-500': 'oklch(0.66 0.006 235)',
@@ -394,7 +394,7 @@ export const tokens = {
     'purple-900': 'oklch(0.37 0.175 305)',
     'purple-950': 'oklch(0.18 0.125 305)',
     'cyan-50': 'oklch(0.975 0.022 210)',
-    'cyan-100': 'oklch(0.945 0.055 210)',
+    'cyan-100': 'oklch(0.955 0.04 210)',
     'cyan-200': 'oklch(0.9 0.098 210)',
     'cyan-300': 'oklch(0.84 0.155 210)',
     'cyan-400': 'oklch(0.75 0.18 210)',
@@ -416,7 +416,7 @@ export const tokens = {
     'blue-900': 'oklch(0.37 0.165 260)',
     'blue-950': 'oklch(0.18 0.118 260)',
     'teal-50': 'oklch(0.975 0.02 180)',
-    'teal-100': 'oklch(0.945 0.058 180)',
+    'teal-100': 'oklch(0.955 0.042 180)',
     'teal-200': 'oklch(0.9 0.11 180)',
     'teal-300': 'oklch(0.84 0.16 180)',
     'teal-400': 'oklch(0.75 0.175 180)',
@@ -504,11 +504,11 @@ export const tokens = {
       dark: 'oklch(0.18 0.001 235)',
     },
     'bg-subtle': {
-      light: 'oklch(0.945 0.0015 235)',
+      light: 'oklch(0.955 0.0015 235)',
       dark: 'oklch(0.25 0.0015 235)',
     },
     'bg-mute': {
-      light: 'oklch(0.9 0.003 235)',
+      light: 'oklch(0.925 0.003 235)',
       dark: 'oklch(0.42 0.003 235)',
     },
     'bg-emphasize': {
@@ -540,11 +540,11 @@ export const tokens = {
       dark: 'oklch(0.52 0.006 235)',
     },
     'border-subtle': {
-      light: 'oklch(0.945 0.0015 235)',
+      light: 'oklch(0.955 0.0015 235)',
       dark: 'oklch(0.42 0.003 235)',
     },
     'border-mute': {
-      light: 'oklch(0.9 0.003 235)',
+      light: 'oklch(0.925 0.003 235)',
       dark: 'oklch(0.52 0.006 235)',
     },
     'border-emphasize': 'oklch(0.66 0.006 235)',
@@ -581,7 +581,7 @@ export const tokens = {
       dark: 'oklch(0.18 0.055 180)',
     },
     'primary-bg-mute': {
-      light: 'oklch(0.945 0.058 180)',
+      light: 'oklch(0.955 0.042 180)',
       dark: 'oklch(0.37 0.078 180)',
     },
     'primary-bg-emphasize': {
@@ -602,7 +602,7 @@ export const tokens = {
       dark: 'oklch(0.18 0.058 210)',
     },
     'secondary-bg-mute': {
-      light: 'oklch(0.945 0.055 210)',
+      light: 'oklch(0.955 0.04 210)',
       dark: 'oklch(0.37 0.082 210)',
     },
     'secondary-bg-emphasize': {
