@@ -91,27 +91,21 @@ jobs:
           fi
           pnpm exec wrangler pages project create arte-odyssey-vrt --production-branch=main 2>/dev/null || true
           pnpm exec wrangler pages deploy packages/arte-odyssey/.vrt --project-name=arte-odyssey-vrt --branch="pr-$PR_NUMBER" --commit-dirty=true
-          echo "url=https://pr-$PR_NUMBER.arte-odyssey-vrt.pages.dev/report.html" >> "$GITHUB_OUTPUT"
+          # svrt comment は base URL に report.html と画像パスを自分で連結する
+          echo "url=https://pr-$PR_NUMBER.arte-odyssey-vrt.pages.dev" >> "$GITHUB_OUTPUT"
 
+      # sticky コメントの upsert は svrt comment 本体がやる（marker 検索 → PATCH/POST、
+      # 差分ゼロかつ既存コメント無しなら投稿しない）。Pages 未公開時は縮退サマリになる。
       - name: Comment summary on PR
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && steps.baseline.outputs.found == 'true'
+        working-directory: packages/arte-odyssey
         env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          GITHUB_TOKEN: ${{ github.token }}
           REPORT_URL: ${{ steps.pages.outputs.url }}
         run: |
-          node .github/scripts/vrt-comment.mjs "arte-odyssey=packages/arte-odyssey/.vrt/report.json=$REPORT_URL" > comment.md
-          marker='<!-- vrt-report -->'
-          comment_id=$(gh api "repos/$REPO/issues/$PR_NUMBER/comments" --paginate --jq ".[] | select(.body | startswith(\"$marker\")) | .id" | head -n1)
-          # sticky comment: 既存があれば編集（PATCH）し、無ければ新規投稿する。
-          # push のたびに新規コメントが増えるのを防ぐ（通知は飛ばなくなる）
-          if [ -n "$comment_id" ]; then
-            gh api --method PATCH "repos/$REPO/issues/comments/$comment_id" -F body=@comment.md > /dev/null
-          else
-            gh api "repos/$REPO/issues/$PR_NUMBER/comments" -F body=@comment.md > /dev/null
-          fi
+          args=()
+          if [ -n "$REPORT_URL" ]; then args+=(--report-url "$REPORT_URL"); fi
+          pnpm exec svrt comment "${args[@]}"
 
       # 差分があっても CI は落とさず、warning 注釈で可視化するだけにする。
       # 意図した変更かの判断は人間が PR コメント（sticky）と report を見て行う。
