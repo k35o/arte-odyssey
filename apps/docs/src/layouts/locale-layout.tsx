@@ -11,6 +11,7 @@ import { Footer } from '../components/footer';
 import { LocaleAnchor } from '../components/locale-anchor';
 import { Navigation } from '../components/navigation';
 import { SideNavigation } from '../components/side-navigation';
+import { aiCategories } from '../data/ai-nav';
 import { componentCategories } from '../data/components-nav';
 import { helperCategories } from '../data/helpers-nav';
 import { hookCategories } from '../data/hooks-nav';
@@ -27,7 +28,7 @@ import { WritingModeProvider } from '../theme/writing-mode-context';
 
 type SideNavConfig = {
   categories: NavCategory[];
-  titleKey: 'nav.components' | 'nav.hooks' | 'nav.helpers';
+  titleKey: 'nav.components' | 'nav.hooks' | 'nav.helpers' | 'nav.ai';
   catalogPath: string;
 };
 
@@ -59,6 +60,15 @@ function useSideNavConfig(): SideNavConfig | null {
       categories: helperCategories,
       titleKey: 'nav.helpers',
       catalogPath: '/helpers',
+    };
+  }
+
+  // /ja/ai/chat → match, /ja/ai → no match
+  if (/^\/[^/]+\/ai\/.+/u.test(pathname)) {
+    return {
+      categories: aiCategories,
+      titleKey: 'nav.ai',
+      catalogPath: '/ai',
     };
   }
 

@@ -1,7 +1,7 @@
 import { Heading, Separator } from '@k8o/arte-odyssey';
 
-import { CodeBlock } from '../components/code-block';
-import { T } from '../components/t';
+import { CodeBlock } from '../../components/code-block';
+import { T } from '../../components/t';
 
 export function GenerativeUi() {
   return (

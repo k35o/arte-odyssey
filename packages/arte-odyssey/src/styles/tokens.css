@@ -8,10 +8,11 @@
 :root {
   --white: oklch(1 0 0);
 
-  /* Gray — H: 235 (sky blue tint), minimal chroma for branded neutral */
+  /* Gray — H: 235 (sky blue tint), minimal chroma for branded neutral.
+     100/200 はライトモードの地・ホバーに使うため、視認できる最小限の濃さに留める */
   --gray-50: oklch(0.975 0.001 235);
-  --gray-100: oklch(0.945 0.0015 235);
-  --gray-200: oklch(0.9 0.003 235);
+  --gray-100: oklch(0.955 0.0015 235);
+  --gray-200: oklch(0.925 0.003 235);
   --gray-300: oklch(0.84 0.004 235);
   --gray-400: oklch(0.75 0.005 235);
   --gray-500: oklch(0.66 0.006 235);
@@ -60,9 +61,9 @@
   --purple-900: oklch(0.37 0.175 305);
   --purple-950: oklch(0.18 0.125 305);
 
-  /* Cyan — H: 210 (Secondary) */
+  /* Cyan — H: 210 (Secondary). 100 はライトのホバー地なので彩度を抑える */
   --cyan-50: oklch(0.975 0.022 210);
-  --cyan-100: oklch(0.945 0.055 210);
+  --cyan-100: oklch(0.955 0.04 210);
   --cyan-200: oklch(0.9 0.098 210);
   --cyan-300: oklch(0.84 0.155 210);
   --cyan-400: oklch(0.75 0.18 210);
@@ -86,9 +87,9 @@
   --blue-900: oklch(0.37 0.165 260);
   --blue-950: oklch(0.18 0.118 260);
 
-  /* Teal — H: 180 (Primary) */
+  /* Teal — H: 180 (Primary). 100 はライトのホバー地なので彩度を抑える */
   --teal-50: oklch(0.975 0.02 180);
-  --teal-100: oklch(0.945 0.058 180);
+  --teal-100: oklch(0.955 0.042 180);
   --teal-200: oklch(0.9 0.11 180);
   --teal-300: oklch(0.84 0.16 180);
   --teal-400: oklch(0.75 0.175 180);

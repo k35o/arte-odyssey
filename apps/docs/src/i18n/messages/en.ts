@@ -21,12 +21,9 @@ export const en = {
   'home.featureReact': 'React 19',
   'home.featureReactDescription':
     'Built with the latest React 19. Supports modern patterns like Server Components and actions.',
-  'home.featureTailwind': 'Tailwind CSS 4',
-  'home.featureTailwindDescription':
-    'Integrated with Tailwind CSS 4 utility-first approach. Light and dark modes switch seamlessly via semantic tokens.',
-  'home.featureDarkMode': 'Dark Mode',
-  'home.featureDarkModeDescription':
-    'Seamless light and dark mode switching. Semantic tokens adapt automatically.',
+  'home.featureTokens': 'Design Tokens',
+  'home.featureTokensDescription':
+    'One prebuilt CSS import and it just works — no Tailwind CSS setup required. Semantic tokens keep colors and spacing consistent, and light and dark modes switch seamlessly.',
   'home.featureTypeScript': 'TypeScript',
   'home.featureTypeScriptDescription':
     'Full type definitions included. Develop safely with editor autocompletion and compile-time type checking.',
@@ -38,7 +35,7 @@ export const en = {
     'Soft where you touch, sharp where you read. UI that speaks through whitespace and gentle forms.',
   'home.featureVerticalWriting': 'Vertical Writing Support',
   'home.featureVerticalWritingDescription':
-    'The `writing-v` utility and `vertical:` variant deliver readable layouts on vertical paper. Preview the Japanese docs in vertical mode.',
+    'Switch writing-mode with the `writing-v` utility and every component follows along on a vertical page. Preview the Japanese docs in vertical mode.',
   'common.language': 'Language',
   'footer.docs': 'Documentation',
   'footer.resources': 'Resources',
@@ -47,6 +44,14 @@ export const en = {
   'nav.openMenu': 'Open menu',
   'nav.ai': 'AI',
   'nav.aiAgents': 'AI Agents',
+  'ai.description':
+    'ArteOdyssey ships three surfaces for AI products: UI parts for composing chat screens, adapters that let LLMs generate UI constrained to ArteOdyssey components, and documentation surfaces for AI coding agents.',
+  'ai.chatSummary':
+    'Presentational parts — Conversation, Message and PromptInput — for composing chat screens.',
+  'ai.generativeUiSummary':
+    'json-render / OpenUI adapters that let LLMs generate UI using only ArteOdyssey components.',
+  'ai.agentsSummary':
+    'Documentation surfaces that feed the design guide, references and props to AI coding agents.',
   'aiAgents.introduction':
     'ArteOdyssey ships surfaces meant for AI coding agents: the design guide, the component reference, the tokens and the props — each generated from the implementation.',
   'aiAgents.setupTitle': 'Point your agent at the docs',
@@ -84,6 +89,12 @@ export const en = {
     'Write specs with `satisfies ArteSpec` so component names and props are checked at compile time.',
   'aiChat.introduction':
     'Presentational building blocks for AI chat UIs. They hold no fetching or message state — you pass data in and compose them with `messages.map()`, so they connect to the AI SDK or your own backend. Import from `@k8o/arte-odyssey/ai`.',
+  'aiChat.demoTitle': 'Demo',
+  'aiChat.demoDescription':
+    'A working chat screen. Pick a suggestion or type a message and send it — bubbles stack up in the conversation, and reasoning and tool calls fold into collapsible blocks.',
+  'aiChat.suggestionTitle': 'Suggestions',
+  'aiChat.suggestionDescription':
+    '`Suggestion` lays out canned prompts as chips and passes the selected value straight to your send handler.',
   'aiChat.overviewTitle': 'Compose a conversation',
   'aiChat.overviewDescription':
     '`Conversation` provides the scroll region with stick-to-bottom and a scroll-to-latest button; `Message` renders the bubble per role; `PromptInput` is the composer. You own the message list.',
@@ -106,7 +117,7 @@ export const en = {
   'generativeUi.openuiDescription':
     'OpenUI renders a DSL string with the `library`. Generate the prompt on the server with the dedicated `openui/prompt` entry.',
   'getStarted.introduction':
-    'ArteOdyssey is a UI component library built with React 19 and Tailwind CSS 4. Interactive elements like forms and cards feel approachable with rounded shapes and generous spacing, while informational elements stay crisp and clear. Calm but never boring UI.',
+    'ArteOdyssey is a UI component library built with React 19. Interactive elements like forms and cards feel approachable with rounded shapes and generous spacing, while informational elements stay crisp and clear. Calm but never boring UI.',
   'getStarted.installationTitle': 'Installation',
   'getStarted.installationDescription':
     'Install with your preferred package manager.',

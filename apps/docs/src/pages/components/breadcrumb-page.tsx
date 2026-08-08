@@ -1,4 +1,4 @@
-import { Anchor, Breadcrumb, Heading, Separator } from '@k8o/arte-odyssey';
+import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
@@ -6,6 +6,11 @@ import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 import { propsOf } from '../../data/component-props';
+import {
+  BreadcrumbBasicPreview,
+  BreadcrumbCurrentPagePreview,
+  BreadcrumbSizesPreview,
+} from './_previews/breadcrumb-previews';
 
 export function BreadcrumbPage() {
   return (
@@ -53,27 +58,13 @@ export function BreadcrumbPage() {
   </Breadcrumb.Item>
   <Breadcrumb.Separator />
   <Breadcrumb.Item>
-    <Breadcrumb.Link current href="/components/breadcrumb">
+    <Breadcrumb.Link href="/components/breadcrumb">
       Breadcrumb
     </Breadcrumb.Link>
   </Breadcrumb.Item>
 </Breadcrumb.List>`}
           >
-            <Breadcrumb.List>
-              <Breadcrumb.Item>
-                <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Separator />
-              <Breadcrumb.Item>
-                <Breadcrumb.Link href="/components">Components</Breadcrumb.Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Separator />
-              <Breadcrumb.Item>
-                <Breadcrumb.Link current href="/components/breadcrumb">
-                  Breadcrumb
-                </Breadcrumb.Link>
-              </Breadcrumb.Item>
-            </Breadcrumb.List>
+            <BreadcrumbBasicPreview />
           </ComponentPreview>
         </div>
 
@@ -98,21 +89,7 @@ export function BreadcrumbPage() {
   </Breadcrumb.Item>
 </Breadcrumb.List>`}
           >
-            <Breadcrumb.List>
-              <Breadcrumb.Item>
-                <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Separator />
-              <Breadcrumb.Item>
-                <Breadcrumb.Link href="/components">Components</Breadcrumb.Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Separator />
-              <Breadcrumb.Item>
-                <Breadcrumb.Link current href="/components/breadcrumb">
-                  Breadcrumb
-                </Breadcrumb.Link>
-              </Breadcrumb.Item>
-            </Breadcrumb.List>
+            <BreadcrumbCurrentPagePreview />
           </ComponentPreview>
         </div>
 
@@ -151,41 +128,7 @@ export function BreadcrumbPage() {
   </Breadcrumb.Item>
 </Breadcrumb.List>`}
           >
-            <div className="flex w-full flex-col gap-4">
-              <Breadcrumb.List size="sm">
-                <Breadcrumb.Item>
-                  <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Separator />
-                <Breadcrumb.Item>
-                  <Breadcrumb.Link current href="/docs">
-                    Docs
-                  </Breadcrumb.Link>
-                </Breadcrumb.Item>
-              </Breadcrumb.List>
-              <Breadcrumb.List size="md">
-                <Breadcrumb.Item>
-                  <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Separator />
-                <Breadcrumb.Item>
-                  <Breadcrumb.Link current href="/docs">
-                    Docs
-                  </Breadcrumb.Link>
-                </Breadcrumb.Item>
-              </Breadcrumb.List>
-              <Breadcrumb.List size="lg">
-                <Breadcrumb.Item>
-                  <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Separator />
-                <Breadcrumb.Item>
-                  <Breadcrumb.Link current href="/docs">
-                    Docs
-                  </Breadcrumb.Link>
-                </Breadcrumb.Item>
-              </Breadcrumb.List>
-            </div>
+            <BreadcrumbSizesPreview />
           </ComponentPreview>
         </div>
       </section>
