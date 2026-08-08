@@ -1,5 +1,12 @@
 # example-nextjs
 
+## 0.1.13
+
+### Patch Changes
+
+- Updated dependencies:
+  - @k8o/arte-odyssey@12.0.0
+
 ## 0.1.12
 
 ### Patch Changes
