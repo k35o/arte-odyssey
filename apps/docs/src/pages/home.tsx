@@ -30,8 +30,8 @@ const FEATURES: Feature[] = [
     icon: <AtomIcon />,
   },
   {
-    title: 'home.featureTailwind',
-    description: 'home.featureTailwindDescription',
+    title: 'home.featureTokens',
+    description: 'home.featureTokensDescription',
     icon: <PaletteIcon />,
   },
   {

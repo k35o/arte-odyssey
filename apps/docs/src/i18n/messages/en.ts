@@ -21,12 +21,9 @@ export const en = {
   'home.featureReact': 'React 19',
   'home.featureReactDescription':
     'Built with the latest React 19. Supports modern patterns like Server Components and actions.',
-  'home.featureTailwind': 'Tailwind CSS 4',
-  'home.featureTailwindDescription':
-    'Integrated with Tailwind CSS 4 utility-first approach. Light and dark modes switch seamlessly via semantic tokens.',
-  'home.featureDarkMode': 'Dark Mode',
-  'home.featureDarkModeDescription':
-    'Seamless light and dark mode switching. Semantic tokens adapt automatically.',
+  'home.featureTokens': 'Design Tokens',
+  'home.featureTokensDescription':
+    'One prebuilt CSS import and it just works — no Tailwind CSS setup required. Semantic tokens keep colors and spacing consistent, and light and dark modes switch seamlessly.',
   'home.featureTypeScript': 'TypeScript',
   'home.featureTypeScriptDescription':
     'Full type definitions included. Develop safely with editor autocompletion and compile-time type checking.',
@@ -106,7 +103,7 @@ export const en = {
   'generativeUi.openuiDescription':
     'OpenUI renders a DSL string with the `library`. Generate the prompt on the server with the dedicated `openui/prompt` entry.',
   'getStarted.introduction':
-    'ArteOdyssey is a UI component library built with React 19 and Tailwind CSS 4. Interactive elements like forms and cards feel approachable with rounded shapes and generous spacing, while informational elements stay crisp and clear. Calm but never boring UI.',
+    'ArteOdyssey is a UI component library built with React 19. Interactive elements like forms and cards feel approachable with rounded shapes and generous spacing, while informational elements stay crisp and clear. Calm but never boring UI.',
   'getStarted.installationTitle': 'Installation',
   'getStarted.installationDescription':
     'Install with your preferred package manager.',

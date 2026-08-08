@@ -21,12 +21,9 @@ export const ja = {
   'home.featureReact': 'React 19',
   'home.featureReactDescription':
     '最新のReact 19で構築。Server Componentsやアクションなど、モダンなパターンに対応しています。',
-  'home.featureTailwind': 'Tailwind CSS 4',
-  'home.featureTailwindDescription':
-    'Tailwind CSS 4 のユーティリティファーストアプローチに統合。ライトモードとダークモードもセマンティックトークンでシームレスに切り替えられます。',
-  'home.featureDarkMode': 'ダークモード',
-  'home.featureDarkModeDescription':
-    'ライトモードとダークモードをシームレスに切り替え。セマンティックトークンが自動で適応します。',
+  'home.featureTokens': 'デザイントークン',
+  'home.featureTokensDescription':
+    'ビルド済みCSSのインポート1行で動き、Tailwind CSSのセットアップは不要。色や余白はセマンティックトークンで統一され、ライトモードとダークモードもシームレスに切り替わります。',
   'home.featureTypeScript': 'TypeScript',
   'home.featureTypeScriptDescription':
     '完全な型定義を提供。エディタの補完とコンパイル時の型チェックで安全に開発できます。',
@@ -105,7 +102,7 @@ export const ja = {
   'aiChat.jsonRenderDescription':
     'Message.Content は任意の children を取れるので、json-render の registry を使って LLM が生成した UI spec を吹き出しの中に描画できます。会話の中へそのまま Generative UI を届けられます。',
   'getStarted.introduction':
-    'ArteOdysseyは、React 19とTailwind CSS 4で構築されたUIコンポーネントライブラリです。フォームやカードなどユーザーが操作する要素は丸みと余白で親しみやすく、情報を伝える要素はシャープさを保って明確に。穏やかだけど退屈じゃないUIを実現します。',
+    'ArteOdysseyは、React 19で構築されたUIコンポーネントライブラリです。フォームやカードなどユーザーが操作する要素は丸みと余白で親しみやすく、情報を伝える要素はシャープさを保って明確に。穏やかだけど退屈じゃないUIを実現します。',
   'getStarted.installationTitle': 'インストール',
   'getStarted.installationDescription':
     'お好みのパッケージマネージャーでインストールしてください。',

@@ -4,11 +4,11 @@ A modern, TypeScript-first React UI component library built with performance and
 
 ## Features
 
-- **Modern Stack**: Built with React 19, TypeScript 6+, and Tailwind CSS 4+
+- **Modern Stack**: Built with React 19 and TypeScript 6+
 - **Accessible**: WCAG compliant components with full keyboard navigation
 - **Performant**: Optimized bundle size with tree-shakeable components
 - **Developer Friendly**: Comprehensive TypeScript support and Storybook documentation
-- **Customizable**: Built on Tailwind CSS with semantic design tokens for easy theming
+- **Customizable**: Semantic design tokens for easy theming — works from prebuilt CSS alone, with an optional Tailwind CSS 4 entry
 - **Generative UI Ready**: Official [json-render](https://json-render.dev) and [OpenUI](https://www.openui.com) adapters let an LLM generate on-brand UIs from these components — `validateGeneratedSpec()` validates/repairs LLM output and `<JsonRenderUI spec={spec} />` renders it in one line. See [Generative UI integrations](packages/arte-odyssey/README.md#generative-ui-integrations).
 
 ## Installation
