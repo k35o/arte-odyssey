@@ -349,7 +349,7 @@ export function Theming() {
                   {space.step}
                 </code>
                 <div
-                  className="bg-primary-bg h-4 rounded"
+                  className="bg-primary-bg h-4 rounded-sm"
                   style={{ width: space.px }}
                 />
                 <span className="text-fg-subtle text-xs">
