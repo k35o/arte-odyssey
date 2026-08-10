@@ -9,6 +9,19 @@ import { defineConfig } from 'vite-plus';
 const cssEntry = (path: string) =>
   fileURLToPath(new URL(path, import.meta.url));
 
+// oxlint-tailwindcss 1.6.0 は `--value(integer)` の関数型 @utility
+// (grid-cols-auto-fit-* 等) をクラス一覧に列挙できず、no-unknown-classes が
+// 実際にはコンパイルされるクラスを誤検知する。1.7.1 で修正済みのため
+// (sergioazoc/oxlint-tailwindcss#104)、更新を取り込んだらこの除外を消す。
+const noUnknownClassesOptions = {
+  ignorePrefixes: [
+    'grid-cols-auto-fill-',
+    'grid-cols-auto-fit-',
+    'grid-rows-auto-fill-',
+    'grid-rows-auto-fit-',
+  ],
+};
+
 export default defineConfig({
   fmt: {
     ...fmt,
@@ -57,6 +70,7 @@ export default defineConfig({
       // ErrorBoundary の fallbackRender などレンダープロップを許容する
       // (コンポーネント定義ではなく描画関数。実コンポーネントの入れ子定義は引き続き検出)。
       'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
+      'tailwindcss/no-unknown-classes': ['warn', noUnknownClassesOptions],
     },
     settings: {
       react: { version: '19.2.5' },
@@ -81,6 +95,25 @@ export default defineConfig({
       },
     },
     overrides: [
+      {
+        // 上の settings.tailwindcss.entryPoint のグロブは oxlint の実行 CWD
+        // からの相対パスにマッチするため、`vp run -r check` (CWD=各パッケージ)
+        // では docs のファイルが `src/...` となりマッピングに一致せず、
+        // fallback の arte-odyssey index.css で検証されて docs 固有の
+        // ユーティリティ (font-palt / break-phrase / bg-preview-bg) が誤検知
+        // される。ルールオプションの entryPoint は settings より優先されるので
+        // ここで明示する (vp の overrides グロブはルート相対で解決される)。
+        files: ['apps/docs/**'],
+        rules: {
+          'tailwindcss/no-unknown-classes': [
+            'warn',
+            {
+              entryPoint: cssEntry('./apps/docs/src/styles/globals.css'),
+              ...noUnknownClassesOptions,
+            },
+          ],
+        },
+      },
       {
         files: ['**/*.test.ts', '**/*.test.tsx'],
         plugins: [...(test.plugins ?? [])],
