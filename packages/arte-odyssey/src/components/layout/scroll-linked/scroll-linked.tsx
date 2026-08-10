@@ -85,7 +85,10 @@ export const ScrollLinked: FC<{
     <div
       aria-hidden="true"
       className={cn(
-        'bg-primary-bg fixed top-0 h-2 origin-left scale-[0_1] inset-x-0',
+        // inset-x-0（inset-inline）に短縮すると Linux ヘッドレス Chromium の
+        // フルページキャプチャでバーが描画されない（VRT で検出）。物理プロパティを維持する
+        // eslint-disable-next-line tailwindcss/enforce-shorthand
+        'bg-primary-bg fixed top-0 right-0 left-0 h-2 origin-left scale-[0_1]',
         // CSS アニメーションが有効な間は inline の scale より優先される
         container === undefined && 'ao-scroll-progress',
       )}
