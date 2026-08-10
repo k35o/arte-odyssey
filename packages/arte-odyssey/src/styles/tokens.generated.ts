@@ -813,7 +813,7 @@ export const tokens = {
 
 export const meta = {
   source: 'src/styles/index.css',
-  tailwindVersion: '4.3.0',
+  tailwindVersion: '4.3.3',
   unresolved: [
     '--font-noto-sans-jp',
     '--font-m-plus-2',
