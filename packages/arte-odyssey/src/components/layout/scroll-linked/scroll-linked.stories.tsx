@@ -25,6 +25,25 @@ export const Scroll: Story = {
       </div>
     ),
   ],
+  // キャプチャが撮影時のルートスクロール位置に依存して非決定的にならないよう、
+  // ページ末尾まで進めてバーが伸び切った状態に固定する
+  play: async ({ canvasElement }) => {
+    const bar = canvasElement.querySelector<HTMLElement>(
+      'div[aria-hidden="true"]',
+    );
+    if (!bar) {
+      throw new Error('progress bar not found');
+    }
+    const root = document.scrollingElement;
+    if (!root) {
+      throw new Error('scrolling element not found');
+    }
+    root.scrollTop = root.scrollHeight;
+    await waitFor(() => {
+      // eslint-disable-next-line unicorn/prefer-number-coercion -- scale は "0.5 1" の2成分値になり得るので先頭(X)成分だけを読む
+      expect(Number.parseFloat(getComputedStyle(bar).scale)).toBeCloseTo(1, 2);
+    });
+  },
 };
 
 export const WithContainer: Story = {
