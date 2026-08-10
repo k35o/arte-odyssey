@@ -17,7 +17,7 @@ describe('json-render catalog と openui library のコンポーネント整合�
     const onlyInCatalog = diff(catalogNames, openuiNames);
     const onlyInOpenui = diff(openuiNames, catalogNames);
 
-    expect({ onlyInCatalog, onlyInOpenui }).toEqual({
+    expect({ onlyInCatalog, onlyInOpenui }).toStrictEqual({
       onlyInCatalog: [],
       onlyInOpenui: [],
     });
@@ -31,6 +31,6 @@ describe('json-render catalog と openui library のコンポーネント整合�
     // スプレッドで畳む（undefined を spread すると空オブジェクトになる）
     const defs = { ...library.toJSONSchema().$defs };
 
-    expect(diff(openuiNames, Object.keys(defs))).toEqual([]);
+    expect(diff(openuiNames, Object.keys(defs))).toStrictEqual([]);
   });
 });

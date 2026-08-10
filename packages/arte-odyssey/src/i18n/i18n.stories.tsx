@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { FC } from 'react';
 import { createRoot } from 'react-dom/client';
 import { expect, waitFor, within } from 'storybook/test';
 

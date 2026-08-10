@@ -1,12 +1,7 @@
 'use client';
 
-import {
-  createContext,
-  type FC,
-  type PropsWithChildren,
-  use,
-  useMemo,
-} from 'react';
+import { createContext, use, useMemo } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
 import { ja } from './ja';
 import type { Messages } from './messages';

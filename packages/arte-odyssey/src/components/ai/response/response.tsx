@@ -1,11 +1,12 @@
 'use client';
 
-import { type FC, useMemo } from 'react';
-import {
-  type LinkSafetyConfig,
-  Streamdown,
-  type StreamdownProps,
-  type StreamdownTranslations,
+import { useMemo } from 'react';
+import type { FC } from 'react';
+import { Streamdown } from 'streamdown';
+import type {
+  LinkSafetyConfig,
+  StreamdownProps,
+  StreamdownTranslations,
 } from 'streamdown';
 
 import { useMessages } from '../../../i18n/context';

@@ -1,6 +1,7 @@
 'use client';
 
-import { type FC, Fragment, type HTMLAttributes } from 'react';
+import { Fragment } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
 import { useMessages } from '../../../i18n/context';
 import { findAllColors } from './find-all-colors';

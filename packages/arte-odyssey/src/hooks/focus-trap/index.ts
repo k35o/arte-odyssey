@@ -1,6 +1,7 @@
 'use client';
 
-import { type RefObject, useEffect } from 'react';
+import { useEffect } from 'react';
+import type { RefObject } from 'react';
 
 // 初期フォーカス対象となるフォーカス可能要素。
 // roving tabindex の項目（tabindex="-1"）は除外する。

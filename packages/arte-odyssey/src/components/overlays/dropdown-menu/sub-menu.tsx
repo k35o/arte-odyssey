@@ -1,13 +1,7 @@
 'use client';
 
-import {
-  type FC,
-  type KeyboardEvent,
-  type PropsWithChildren,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type { FC, KeyboardEvent, PropsWithChildren } from 'react';
 
 import { cn, mergeRefs } from '../../../helpers';
 import { ChevronIcon } from '../../icons';

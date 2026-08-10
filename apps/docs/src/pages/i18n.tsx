@@ -1,5 +1,6 @@
 import { Code, Heading, Separator } from '@k8o/arte-odyssey';
-import { en, ja, type Messages } from '@k8o/arte-odyssey/i18n';
+import { en, ja } from '@k8o/arte-odyssey/i18n';
+import type { Messages } from '@k8o/arte-odyssey/i18n';
 
 import { CodeBlock } from '../components/code-block';
 import { T } from '../components/t';

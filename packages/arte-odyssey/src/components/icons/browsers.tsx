@@ -1,7 +1,8 @@
 import { useId } from 'react';
 import type { FC } from 'react';
 
-import { BaseIcon, type BaseIconProps, type IconRenderProps } from './base';
+import { BaseIcon } from './base';
+import type { BaseIconProps, IconRenderProps } from './base';
 
 // 公式ブラウザロゴ。色・形は改変せず、複数同時描画でのグラデーション id 衝突を避けるため
 // useId() でコンポーネントインスタンスごとに id を一意化している。

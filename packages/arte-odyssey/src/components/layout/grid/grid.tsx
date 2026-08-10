@@ -1,6 +1,7 @@
 import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
 
-import { GAP_CLASS, type GapSize } from '../_shared/gap';
+import { GAP_CLASS } from '../_shared/gap';
+import type { GapSize } from '../_shared/gap';
 import { cn } from './../../../helpers/cn';
 
 export type GridProps = PropsWithChildren<

@@ -1,6 +1,7 @@
 'use client';
 
-import { type FC, type ReactElement, useId } from 'react';
+import { useId } from 'react';
+import type { FC, ReactElement } from 'react';
 
 import { useMessages } from '../../../i18n/context';
 

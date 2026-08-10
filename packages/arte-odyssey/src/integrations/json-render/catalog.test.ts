@@ -112,6 +112,6 @@ describe('カタログの props スキーマ', () => {
       .filter(([, def]) => !(def.props instanceof z.ZodObject))
       .map(([name]) => name);
 
-    expect(notObject).toEqual([]);
+    expect(notObject).toStrictEqual([]);
   });
 });

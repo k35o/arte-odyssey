@@ -1,4 +1,5 @@
-import { type FC, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import type { FC } from 'react';
 import { render } from 'vitest-browser-react';
 import { userEvent } from 'vitest/browser';
 

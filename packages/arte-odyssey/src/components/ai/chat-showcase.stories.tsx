@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { type FC, type ReactNode, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { Avatar } from '../data-display/avatar';
 import { AssistantIcon } from '../icons';

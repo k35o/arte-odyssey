@@ -1,6 +1,7 @@
 'use client';
 
-import { type RefObject, useCallback, useSyncExternalStore } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
+import type { RefObject } from 'react';
 
 export type WritingMode = 'horizontal' | 'vertical';
 

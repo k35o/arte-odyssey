@@ -4,7 +4,8 @@ import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Button } from '../../buttons/button';
 import { Anchor } from '../../navigation/anchor';
 import type { Status } from './../../../types/variables';
-import { type ToastOptions, useToast } from './context';
+import { useToast } from './context';
+import type { ToastOptions } from './context';
 import { ToastProvider } from './provider';
 
 const ToastTrigger = ({

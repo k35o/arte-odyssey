@@ -1,6 +1,7 @@
 'use client';
 
-import { type FC, type ReactNode, useId } from 'react';
+import { useId } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { cn } from '../../../helpers/cn';
 import { useControllableState } from '../../../hooks/controllable-state';

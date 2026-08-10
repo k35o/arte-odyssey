@@ -64,9 +64,7 @@ name or prop is a compile error) and rendered with the pre-wired client componen
 import type { ArteSpec } from '@k8o/arte-odyssey/json-render';
 import { JsonRenderUI } from '@k8o/arte-odyssey/json-render/registry';
 
-const spec = {
-  /* ... */
-} satisfies ArteSpec;
+const spec = {/* ... */} satisfies ArteSpec;
 
 export function JsonRenderDemo() {
   return <JsonRenderUI spec={spec} />;

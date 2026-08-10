@@ -1,12 +1,7 @@
 'use client';
 
-import {
-  type FC,
-  type PropsWithChildren,
-  type ReactNode,
-  useId,
-  useRef,
-} from 'react';
+import { useId, useRef } from 'react';
+import type { FC, PropsWithChildren, ReactNode } from 'react';
 
 import { cn } from '../../../helpers/cn';
 import { useMessages } from '../../../i18n/context';

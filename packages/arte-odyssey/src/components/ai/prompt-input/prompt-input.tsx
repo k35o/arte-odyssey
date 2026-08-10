@@ -1,13 +1,11 @@
 'use client';
 
-import {
-  type FC,
-  type KeyboardEvent,
-  type ReactNode,
-  type TextareaHTMLAttributes,
-  useEffect,
-  useMemo,
-  useRef,
+import { useEffect, useMemo, useRef } from 'react';
+import type {
+  FC,
+  KeyboardEvent,
+  ReactNode,
+  TextareaHTMLAttributes,
 } from 'react';
 
 import { cn } from '../../../helpers/cn';

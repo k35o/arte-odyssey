@@ -1,6 +1,7 @@
 'use client';
 
-import { type RefObject, useEffect } from 'react';
+import { useEffect } from 'react';
+import type { RefObject } from 'react';
 
 type UseIntersectionObserverOptions = {
   threshold?: number | number[];

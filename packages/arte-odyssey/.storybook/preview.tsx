@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react-vite';
-import { type FC, memo, useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
+import type { FC } from 'react';
 
 import { ArteOdysseyProvider } from '../src/components/providers';
 

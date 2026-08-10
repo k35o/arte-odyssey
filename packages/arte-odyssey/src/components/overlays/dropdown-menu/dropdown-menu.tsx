@@ -1,12 +1,12 @@
 'use client';
 
-import {
-  type ComponentProps,
-  type FC,
-  type MouseEventHandler,
-  type PropsWithChildren,
-  type ReactNode,
-  useState,
+import { useState } from 'react';
+import type {
+  ComponentProps,
+  FC,
+  MouseEventHandler,
+  PropsWithChildren,
+  ReactNode,
 } from 'react';
 
 import type { Placement } from '../../../types/variables';

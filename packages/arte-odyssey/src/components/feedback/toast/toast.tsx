@@ -1,6 +1,7 @@
 'use client';
 
-import { type FC, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import type { FC } from 'react';
 
 import { Alert } from '../alert';
 import type { Status } from './../../../types/variables';

@@ -3,7 +3,8 @@
 import type { RouterProps } from '@funstack/router';
 import { Router as FunStackRouter } from '@funstack/router';
 import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
+import type { FC } from 'react';
 
 /**
  * Navigation API は同一ドキュメント遷移後にスクロールをトップへ戻す挙動を仕様で

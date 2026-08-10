@@ -1,5 +1,3 @@
-/* eslint-disable import/max-dependencies -- 全アイコンを一覧するカタログ story のため依存数上限を超える */
-
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { FC } from 'react';
 import { expect } from 'storybook/test';

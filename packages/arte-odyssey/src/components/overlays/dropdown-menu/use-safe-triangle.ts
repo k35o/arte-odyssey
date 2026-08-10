@@ -1,12 +1,7 @@
 'use client';
 
-import {
-  type PointerEvent,
-  type RefObject,
-  useCallback,
-  useEffect,
-  useRef,
-} from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import type { PointerEvent, RefObject } from 'react';
 
 /**
  * ポインタ位置とサブメニューの手前側 2 角を結ぶ「safe triangle」を

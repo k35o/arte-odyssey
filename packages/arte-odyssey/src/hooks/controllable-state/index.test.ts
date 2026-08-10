@@ -99,7 +99,7 @@ describe('useControllableState', () => {
         result.current[1](['a', 'b']);
       });
 
-      expect(result.current[0]).toEqual(['a', 'b']);
+      expect(result.current[0]).toStrictEqual(['a', 'b']);
     });
   });
 });

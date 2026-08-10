@@ -1,19 +1,20 @@
 'use client';
 
-import {
-  type FC,
-  type FocusEvent,
-  type FocusEventHandler,
-  type MouseEventHandler,
-  type PropsWithChildren,
-  type ReactElement,
-  type RefCallback,
-  useMemo,
+import { useMemo } from 'react';
+import type {
+  FC,
+  FocusEvent,
+  FocusEventHandler,
+  MouseEventHandler,
+  PropsWithChildren,
+  ReactElement,
+  RefCallback,
 } from 'react';
 
 import { cn, createSafeContext } from '../../../helpers';
 import type { Placement } from '../../../types/variables';
-import { type HoverIntent, useCanHover, useHoverIntent } from '../_internal';
+import { useCanHover, useHoverIntent } from '../_internal';
+import type { HoverIntent } from '../_internal';
 import { Popover } from '../popover';
 import { usePopoverContext } from '../popover/hooks';
 import { bridgeClass } from './bridge';
@@ -124,6 +125,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
     <Popover.Content
       animation="fade"
       renderItem={({ id, ref }) => (
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- WCAG 1.4.13 のため tooltip 自身へのホバー/フォーカス中は表示を維持する
         <div
           className={cn(
             'bg-bg-inverse text-fg-inverse relative rounded-lg px-4 py-2 shadow-md',

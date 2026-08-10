@@ -1,12 +1,7 @@
 'use client';
 
-import {
-  createContext,
-  type FC,
-  type PropsWithChildren,
-  use,
-  useCallback,
-} from 'react';
+import { createContext, use, useCallback } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
 import { createSafeContext } from '../../../helpers/create-safe-context';
 import { useControllableState } from '../../../hooks/controllable-state';

@@ -1,12 +1,7 @@
 'use client';
 
-import {
-  createContext,
-  type FC,
-  type PropsWithChildren,
-  type RefObject,
-  use,
-} from 'react';
+import { createContext, use } from 'react';
+import type { FC, PropsWithChildren, RefObject } from 'react';
 
 const PortalRootContext = createContext<
   RefObject<HTMLElement | null> | undefined

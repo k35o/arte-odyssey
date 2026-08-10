@@ -1,6 +1,5 @@
 'use client';
 
-/* oxlint-disable import/max-dependencies -- メインレイアウトとして必要な依存 */
 import { Outlet, useLocation } from '@funstack/router';
 import { Drawer, Heading, IconButton, ListIcon } from '@k8o/arte-odyssey';
 import { useEffect, useRef, useState } from 'react';

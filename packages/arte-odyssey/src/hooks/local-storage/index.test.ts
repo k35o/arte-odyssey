@@ -73,7 +73,7 @@ describe('useLocalStorage', () => {
     });
 
     expect(localStorage.getItem(key)).toBeNull();
-    expect(result.current[0]).toEqual({ lang: ['ja', 'en'] });
+    expect(result.current[0]).toStrictEqual({ lang: ['ja', 'en'] });
   });
 
   it('storageイベントの発火に応じて状stateが更新される', async () => {

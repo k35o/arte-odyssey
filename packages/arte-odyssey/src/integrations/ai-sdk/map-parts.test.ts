@@ -21,7 +21,7 @@ describe('mapMessageParts', () => {
       ],
     } as unknown as UIMessage;
 
-    expect(mapMessageParts(message)).toEqual([
+    expect(mapMessageParts(message)).toStrictEqual([
       { kind: 'reasoning', text: 'まず器から作る' },
       { kind: 'text', text: 'こんにちは' },
       {
@@ -52,7 +52,7 @@ describe('mapMessageParts', () => {
       ],
     } as unknown as UIMessage;
 
-    expect(mapMessageParts(message)).toEqual([
+    expect(mapMessageParts(message)).toStrictEqual([
       {
         kind: 'tool',
         name: 'run',
@@ -75,6 +75,6 @@ describe('mapMessageParts', () => {
       ],
     } as unknown as UIMessage;
 
-    expect(mapMessageParts(message)).toEqual([]);
+    expect(mapMessageParts(message)).toStrictEqual([]);
   });
 });

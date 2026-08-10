@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
-import { BaseIcon, type BaseIconProps, type IconRenderProps } from './base';
+import { BaseIcon } from './base';
+import type { BaseIconProps, IconRenderProps } from './base';
 
 export const Logo: FC<Partial<IconRenderProps>> = ({ className, ...rest }) => (
   <svg

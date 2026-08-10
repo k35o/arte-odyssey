@@ -77,6 +77,7 @@ export const WithContainer: Story = {
     // コンテナのスクロールに追従する
     scroller.scrollTop = (scroller.scrollHeight - scroller.clientHeight) / 2;
     await waitFor(() => {
+      // eslint-disable-next-line unicorn/prefer-number-coercion -- scale は "0.5 1" の2成分値なので先頭(X)成分だけを読む
       expect(Number.parseFloat(bar.style.scale)).toBeCloseTo(0.5, 1);
     });
     // スクロールせずコンテンツの高さが変わっても ResizeObserver 経由で
@@ -87,6 +88,7 @@ export const WithContainer: Story = {
     }
     content.style.height = '400vh';
     await waitFor(() => {
+      // eslint-disable-next-line unicorn/prefer-number-coercion -- scale は "0.5 1" の2成分値なので先頭(X)成分だけを読む
       expect(Number.parseFloat(bar.style.scale)).toBeLessThan(0.35);
     });
   },
