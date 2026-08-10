@@ -1,10 +1,5 @@
-import {
-  Children,
-  cloneElement,
-  isValidElement,
-  type ReactElement,
-  type ReactNode,
-} from 'react';
+import { Children, cloneElement, isValidElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 import { cn } from '../../../helpers/cn';
 

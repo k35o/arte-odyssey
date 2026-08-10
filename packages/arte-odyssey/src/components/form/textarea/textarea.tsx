@@ -1,13 +1,7 @@
 'use client';
 
-import {
-  type FC,
-  type Ref,
-  type TextareaHTMLAttributes,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import type { FC, Ref, TextareaHTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { FOCUS_RING } from '../../_internal/focus-ring';

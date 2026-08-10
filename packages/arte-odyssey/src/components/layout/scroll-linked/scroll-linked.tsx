@@ -1,6 +1,7 @@
 'use client';
 
-import { type FC, type RefObject, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import type { FC, RefObject } from 'react';
 
 import { cn } from './../../../helpers/cn';
 
@@ -84,7 +85,7 @@ export const ScrollLinked: FC<{
     <div
       aria-hidden="true"
       className={cn(
-        'bg-primary-bg fixed top-0 right-0 left-0 h-2 origin-left scale-[0_1]',
+        'bg-primary-bg fixed top-0 h-2 origin-left scale-[0_1] inset-x-0',
         // CSS アニメーションが有効な間は inline の scale より優先される
         container === undefined && 'ao-scroll-progress',
       )}

@@ -1,6 +1,7 @@
 'use client';
 
-import { type FC, type InputHTMLAttributes, type Ref, useState } from 'react';
+import { useState } from 'react';
+import type { FC, InputHTMLAttributes, Ref } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { useMessages } from '../../../i18n/context';

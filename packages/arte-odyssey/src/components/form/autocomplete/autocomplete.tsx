@@ -1,16 +1,14 @@
 'use client';
 
-import {
-  type CSSProperties,
-  type FC,
-  type FocusEventHandler,
-  type InputHTMLAttributes,
-  type KeyboardEventHandler,
-  type MouseEventHandler,
-  type Ref,
-  useCallback,
-  useRef,
-  useState,
+import { useCallback, useRef, useState } from 'react';
+import type {
+  CSSProperties,
+  FC,
+  FocusEventHandler,
+  InputHTMLAttributes,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  Ref,
 } from 'react';
 import { useFormStatus } from 'react-dom';
 

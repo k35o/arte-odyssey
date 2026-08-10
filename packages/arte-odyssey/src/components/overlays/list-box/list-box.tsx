@@ -1,12 +1,11 @@
 'use client';
 
-import {
-  type ComponentProps,
-  type FC,
-  type PropsWithChildren,
-  type ReactElement,
-  useId,
-  useState,
+import { useId, useState } from 'react';
+import type {
+  ComponentProps,
+  FC,
+  PropsWithChildren,
+  ReactElement,
 } from 'react';
 
 import { useControllableState } from '../../../hooks/controllable-state';

@@ -1,24 +1,14 @@
 'use client';
 
-import {
-  type FC,
-  type PropsWithChildren,
-  type RefObject,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { FC, PropsWithChildren, RefObject } from 'react';
 import { createPortal } from 'react-dom';
 
 import { cn } from './../../../helpers/cn';
 import { useMessages } from './../../../i18n/context';
 import type { Status } from './../../../types/variables';
-import {
-  type ToastOptions,
-  ToastStoreContext,
-  type ToastType,
-} from './context';
+import { ToastStoreContext } from './context';
+import type { ToastOptions, ToastType } from './context';
 import { Toast } from './toast';
 
 const MAX_TOAST_COUNT = 5;
@@ -224,6 +214,7 @@ export const ToastProvider: FC<
       {children}
       {container
         ? createPortal(
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- WCAG 2.2.1 のためホバー/フォーカス中は自動クローズのタイマーを止める
             <section
               // 空の間は名前を付けず region ランドマークにしない（複数 Provider の
               // 共存時に同名ランドマークが重複して axe の landmark-unique に反するため）

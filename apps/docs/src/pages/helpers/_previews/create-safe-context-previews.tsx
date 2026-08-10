@@ -1,7 +1,8 @@
 'use client';
 
 import { createSafeContext } from '@k8o/arte-odyssey';
-import { type FC, type PropsWithChildren, useState } from 'react';
+import { useState } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
 type CounterValue = {
   count: number;

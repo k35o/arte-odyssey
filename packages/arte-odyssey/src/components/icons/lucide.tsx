@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 
 import type { Direction, Status } from './../../types/variables';
-import { BaseIcon, type BaseIconProps } from './base';
+import { BaseIcon } from './base';
+import type { BaseIconProps } from './base';
 import {
   Accessibility,
   AlignRight,

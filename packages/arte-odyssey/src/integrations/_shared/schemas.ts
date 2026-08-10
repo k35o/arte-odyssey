@@ -1,4 +1,3 @@
-/* eslint-disable import/max-dependencies -- 各コンポーネントの本体型を import するため数が多い */
 import type { ComponentProps } from 'react';
 import { z } from 'zod';
 

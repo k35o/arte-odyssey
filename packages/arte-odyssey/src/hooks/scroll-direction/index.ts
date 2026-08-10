@@ -1,11 +1,7 @@
 'use client';
 
-import {
-  type RefObject,
-  useCallback,
-  useRef,
-  useSyncExternalStore,
-} from 'react';
+import { useCallback, useRef, useSyncExternalStore } from 'react';
+import type { RefObject } from 'react';
 
 type ScrollDirection = {
   x: 'left' | 'right';

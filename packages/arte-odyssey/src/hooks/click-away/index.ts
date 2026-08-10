@@ -1,6 +1,7 @@
 'use client';
 
-import { type RefObject, useEffect } from 'react';
+import { useEffect } from 'react';
+import type { RefObject } from 'react';
 
 export const useClickAway = <T extends Element = HTMLElement>(
   ref: RefObject<T | null>,

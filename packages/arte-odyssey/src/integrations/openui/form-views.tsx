@@ -1,9 +1,7 @@
 'use client';
 
-import {
-  type ComponentRenderProps,
-  useStateField,
-} from '@openuidev/react-lang';
+import { useStateField } from '@openuidev/react-lang';
+import type { ComponentRenderProps } from '@openuidev/react-lang';
 import type { FC } from 'react';
 
 import * as ui from '../_shared/renderers';

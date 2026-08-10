@@ -13,8 +13,8 @@ describe('useStep', () => {
     );
 
     expect(result.current.count).toBe(initialCount);
-    expect(result.current.isDisabledBack).toBeTruthy();
-    expect(result.current.isDisabledNext).toBeFalsy();
+    expect(result.current.isDisabledBack).toBe(true);
+    expect(result.current.isDisabledNext).toBe(false);
   });
   it('nextでinitialCountから1進む', async () => {
     const initialCount = 1;
@@ -28,8 +28,8 @@ describe('useStep', () => {
     });
 
     expect(result.current.count).toBe(initialCount + 1);
-    expect(result.current.isDisabledBack).toBeFalsy();
-    expect(result.current.isDisabledNext).toBeFalsy();
+    expect(result.current.isDisabledBack).toBe(false);
+    expect(result.current.isDisabledNext).toBe(false);
   });
   it('initialCountからはbackできない', async () => {
     const initialCount = 1;
@@ -43,8 +43,8 @@ describe('useStep', () => {
     });
 
     expect(result.current.count).toBe(initialCount);
-    expect(result.current.isDisabledBack).toBeTruthy();
-    expect(result.current.isDisabledNext).toBeFalsy();
+    expect(result.current.isDisabledBack).toBe(true);
+    expect(result.current.isDisabledNext).toBe(false);
   });
   it('maxCountまで進む', async () => {
     const initialCount = 1;
@@ -59,8 +59,8 @@ describe('useStep', () => {
     });
 
     expect(result.current.count).toBe(maxCount);
-    expect(result.current.isDisabledBack).toBeFalsy();
-    expect(result.current.isDisabledNext).toBeTruthy();
+    expect(result.current.isDisabledBack).toBe(false);
+    expect(result.current.isDisabledNext).toBe(true);
   });
   it('maxCount以上は進めない', async () => {
     const initialCount = 1;
@@ -76,8 +76,8 @@ describe('useStep', () => {
     });
 
     expect(result.current.count).toBe(maxCount);
-    expect(result.current.isDisabledBack).toBeFalsy();
-    expect(result.current.isDisabledNext).toBeTruthy();
+    expect(result.current.isDisabledBack).toBe(false);
+    expect(result.current.isDisabledNext).toBe(true);
   });
   it('nextとbackを組み合わせて利用できる', async () => {
     const initialCount = 1;
@@ -92,8 +92,8 @@ describe('useStep', () => {
     });
 
     expect(result.current.count).toBe(initialCount);
-    expect(result.current.isDisabledBack).toBeTruthy();
-    expect(result.current.isDisabledNext).toBeFalsy();
+    expect(result.current.isDisabledBack).toBe(true);
+    expect(result.current.isDisabledNext).toBe(false);
   });
   it('左右キーで操作できる', async () => {
     const initialCount = 1;

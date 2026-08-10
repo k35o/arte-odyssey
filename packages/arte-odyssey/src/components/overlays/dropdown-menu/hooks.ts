@@ -1,6 +1,7 @@
 'use client';
 
-import { type MouseEventHandler, useMemo } from 'react';
+import { useMemo } from 'react';
+import type { MouseEventHandler } from 'react';
 
 import { createSafeContext } from '../../../helpers';
 import type { ListNavigation } from '../_internal';

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { type ComponentProps, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import type { ComponentProps } from 'react';
 import { expect, fn } from 'storybook/test';
 
 import { Button } from '../../buttons/button';

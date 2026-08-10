@@ -1,13 +1,8 @@
 'use client';
 
 import { useLocalStorage } from '@k8o/arte-odyssey';
-import {
-  createContext,
-  type ReactNode,
-  use,
-  useCallback,
-  useMemo,
-} from 'react';
+import { createContext, use, useCallback, useMemo } from 'react';
+import type { ReactNode } from 'react';
 
 type WritingMode = 'horizontal' | 'vertical';
 

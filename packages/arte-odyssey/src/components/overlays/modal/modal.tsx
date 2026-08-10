@@ -1,15 +1,7 @@
 'use client';
 
-import {
-  type FC,
-  type PropsWithChildren,
-  type RefObject,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { FC, PropsWithChildren, RefObject } from 'react';
 
 import type { ModalSide } from '../../../types/variables';
 import { ToastProvider } from '../../feedback/toast';

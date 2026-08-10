@@ -6,7 +6,8 @@ import { useFormStatus } from 'react-dom';
 
 import type { Placement } from '../../../types/variables';
 import { FOCUS_RING } from '../../_internal/focus-ring';
-import { Tooltip, type TooltipTriggerProps } from '../../overlays/tooltip';
+import { Tooltip } from '../../overlays/tooltip';
+import type { TooltipTriggerProps } from '../../overlays/tooltip';
 import { chain } from './../../../helpers/chain';
 import { cn } from './../../../helpers/cn';
 import { mergeRefs } from './../../../helpers/merge-refs';

@@ -1,25 +1,20 @@
 'use client';
 
-import {
-  type CSSProperties,
-  type FC,
-  type KeyboardEvent,
-  type PropsWithChildren,
-  type RefObject,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
+import { useEffect, useId, useMemo, useRef } from 'react';
+import type {
+  CSSProperties,
+  FC,
+  KeyboardEvent,
+  PropsWithChildren,
+  RefObject,
 } from 'react';
 
 import { FOCUS_RING } from '../../_internal/focus-ring';
 import { cn } from './../../../helpers/cn';
 import { createSafeContext } from './../../../helpers/create-safe-context';
 import { useControllableState } from './../../../hooks/controllable-state';
-import {
-  useWritingMode,
-  type WritingMode,
-} from './../../../hooks/writing-mode';
+import { useWritingMode } from './../../../hooks/writing-mode';
+import type { WritingMode } from './../../../hooks/writing-mode';
 
 type TabsContext = {
   rootId: string;

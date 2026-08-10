@@ -1,6 +1,7 @@
 'use client';
 
-import { type FC, type HTMLAttributes, type ReactNode, useMemo } from 'react';
+import { useMemo } from 'react';
+import type { FC, HTMLAttributes, ReactNode } from 'react';
 
 import { cn } from '../../../helpers/cn';
 import { createSafeContext } from '../../../helpers/create-safe-context';

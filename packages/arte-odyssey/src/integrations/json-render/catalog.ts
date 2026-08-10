@@ -3,9 +3,8 @@ import {
   defineCatalog,
   isNonEmptySpec,
   validateSpec,
-  type Spec,
-  type UIElement,
 } from '@json-render/core';
+import type { Spec, UIElement } from '@json-render/core';
 import { schema } from '@json-render/react/schema';
 // 型ではなく値として使う（instanceof で ZodObject を判定するため）。
 // 同じサブパスの _shared/schemas.ts が既に zod を実行時依存にしている
@@ -299,9 +298,11 @@ const buildRepairPrompt = (issues: GeneratedSpecIssue[]): string =>
  * 既定値のまま描画されて壊れたことにすら気づけない。キー集合を取り出して
  * 自前で照合する。
  */
-const knownPropKeys = (propsSchema: z.ZodType): readonly string[] | undefined =>
+const knownPropKeys = (
+  propsSchema: z.ZodType,
+): readonly string[] | undefined =>
   propsSchema instanceof z.ZodObject
-    ? Object.keys(propsSchema.shape as Record<string, unknown>)
+    ? Object.keys(propsSchema.shape)
     : undefined;
 
 /** spec 側は LLM 出力なので、型に反して props が欠けていることがある。 */

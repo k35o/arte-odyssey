@@ -9,7 +9,8 @@ import {
   Suggestion,
   ToolInvocation,
 } from '@k8o/arte-odyssey/ai';
-import { type FC, type ReactNode, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import type { FC, ReactNode } from 'react';
 
 const AssistantRow: FC<{ children: ReactNode }> = ({ children }) => (
   <Message.Root from="assistant">

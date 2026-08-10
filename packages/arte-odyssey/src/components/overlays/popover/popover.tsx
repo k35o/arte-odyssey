@@ -1,15 +1,7 @@
 'use client';
 
-import {
-  type FC,
-  type FocusEvent,
-  type PropsWithChildren,
-  type ReactElement,
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-} from 'react';
+import { useCallback, useEffect, useId, useRef } from 'react';
+import type { FC, FocusEvent, PropsWithChildren, ReactElement } from 'react';
 
 import { cn } from '../../../helpers';
 import { useControllableState, useWritingMode } from '../../../hooks';
@@ -18,13 +10,12 @@ import type { Placement } from '../../../types/variables';
 import { getContentAnchorStyle, toAnchorName } from './anchor-positioning';
 import { pushEscapeLayer } from './escape-stack';
 import {
-  type PopoverContentProps,
   PopoverProvider,
-  type PopoverTriggerProps,
   usePopoverContent,
   usePopoverContext,
   usePopoverTrigger,
 } from './hooks';
+import type { PopoverContentProps, PopoverTriggerProps } from './hooks';
 
 export {
   useOpenContext,

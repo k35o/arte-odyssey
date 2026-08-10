@@ -1,4 +1,5 @@
-import { type Context, createContext, use } from 'react';
+import { createContext, use } from 'react';
+import type { Context } from 'react';
 
 type CreateSafeContextReturn<T> = readonly [Context<T | null>, () => T];
 

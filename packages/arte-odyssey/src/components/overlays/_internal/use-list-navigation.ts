@@ -1,12 +1,7 @@
 'use client';
 
-import {
-  type Dispatch,
-  type KeyboardEvent,
-  type SetStateAction,
-  useEffect,
-  useRef,
-} from 'react';
+import { useEffect, useRef } from 'react';
+import type { Dispatch, KeyboardEvent, SetStateAction } from 'react';
 
 export type ListItemProps = {
   ref: (node: HTMLElement | null) => void;

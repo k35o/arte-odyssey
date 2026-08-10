@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
-import { BaseIcon, type BaseIconProps, type IconRenderProps } from './base';
+import { BaseIcon } from './base';
+import type { BaseIconProps, IconRenderProps } from './base';
 
 const Qiita: FC<IconRenderProps> = ({ className, ...rest }) => (
   <svg

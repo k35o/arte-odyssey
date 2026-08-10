@@ -1,4 +1,5 @@
-import { type ArteSpec, catalog } from '@k8o/arte-odyssey/json-render';
+import { catalog } from '@k8o/arte-odyssey/json-render';
+import type { ArteSpec } from '@k8o/arte-odyssey/json-render';
 
 import { GenUiClient } from './gen-ui-client';
 

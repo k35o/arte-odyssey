@@ -73,7 +73,7 @@ describe('useSessionStorage', () => {
     });
 
     expect(sessionStorage.getItem(key)).toBeNull();
-    expect(result.current[0]).toEqual({ lang: ['ja', 'en'] });
+    expect(result.current[0]).toStrictEqual({ lang: ['ja', 'en'] });
   });
 
   it('storageイベントの発火に応じてstateが更新される', async () => {

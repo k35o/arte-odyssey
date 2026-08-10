@@ -3,13 +3,13 @@
 import { useLocalStorage } from '@k8o/arte-odyssey';
 import {
   createContext,
-  type ReactNode,
   use,
   useCallback,
   useEffect,
   useMemo,
   useSyncExternalStore,
 } from 'react';
+import type { ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
 

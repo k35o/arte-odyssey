@@ -1,6 +1,7 @@
 'use client';
 
-import { type FC, type PropsWithChildren, useId } from 'react';
+import { useId } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
 import { AccordionItemProvider } from './context';
 

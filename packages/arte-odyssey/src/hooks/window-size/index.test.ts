@@ -12,7 +12,7 @@ describe('useWindowSize', () => {
 
     const { result, act } = await renderHook(() => useWindowSize());
 
-    expect(result.current).toEqual(initWindowSize);
+    expect(result.current).toStrictEqual(initWindowSize);
 
     window.innerWidth = resizedWindowSize.width;
     window.innerHeight = resizedWindowSize.height;
@@ -21,6 +21,6 @@ describe('useWindowSize', () => {
       window.dispatchEvent(new Event('resize'));
     });
 
-    expect(result.current).toEqual(resizedWindowSize);
+    expect(result.current).toStrictEqual(resizedWindowSize);
   });
 });

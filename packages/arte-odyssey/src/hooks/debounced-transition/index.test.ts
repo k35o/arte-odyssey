@@ -1,6 +1,7 @@
 import { renderHook } from 'vitest-browser-react';
 
-import { type DebouncedAction, useDebouncedTransition } from './index';
+import { useDebouncedTransition } from './index';
+import type { DebouncedAction } from './index';
 
 const aborting = (signal: AbortSignal) =>
   new Promise<void>((_resolve, reject) => {

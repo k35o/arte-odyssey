@@ -17,7 +17,7 @@ describe('useScrollDirection', () => {
   it('初期状態ではx: right, y: upを返す', async () => {
     const { result } = await renderHook(() => useScrollDirection());
 
-    expect(result.current).toEqual({ x: 'right', y: 'up' });
+    expect(result.current).toStrictEqual({ x: 'right', y: 'up' });
   });
 
   describe('Vertical scroll', () => {
@@ -114,7 +114,7 @@ describe('useScrollDirection', () => {
         window.dispatchEvent(new Event('scroll'));
       });
 
-      expect(result.current).toEqual({ x: 'right', y: 'down' });
+      expect(result.current).toStrictEqual({ x: 'right', y: 'down' });
     });
   });
 

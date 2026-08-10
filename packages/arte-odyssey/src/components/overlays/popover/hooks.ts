@@ -1,13 +1,12 @@
 'use client';
 
-import {
-  type KeyboardEvent,
-  type KeyboardEventHandler,
-  type MouseEventHandler,
-  type RefCallback,
-  type RefObject,
-  useMemo,
-  useRef,
+import { useMemo, useRef } from 'react';
+import type {
+  KeyboardEvent,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  RefCallback,
+  RefObject,
 } from 'react';
 
 import type { Placement } from '../../../types/variables';

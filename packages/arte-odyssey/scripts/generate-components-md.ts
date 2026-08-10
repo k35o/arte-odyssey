@@ -112,8 +112,7 @@ for (let i = 0; i < lines.length; i++) {
     j++;
   }
 
-  out.push(line, '');
-  out.push(...renderProps(component));
+  out.push(line, '', ...renderProps(component));
   // Close the block only when the text resuming after it does not already
   // start with a blank line, so the output survives the formatter unchanged.
   if ((lines[j] ?? '').trim() !== '') out.push('');

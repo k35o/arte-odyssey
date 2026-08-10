@@ -1,8 +1,5 @@
-import {
-  createLibrary,
-  defineComponent,
-  type Library,
-} from '@openuidev/lang-core';
+import { createLibrary, defineComponent } from '@openuidev/lang-core';
+import type { Library } from '@openuidev/lang-core';
 import { z } from 'zod';
 
 import * as s from './schemas';

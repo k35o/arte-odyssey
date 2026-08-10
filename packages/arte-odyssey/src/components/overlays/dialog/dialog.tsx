@@ -1,13 +1,7 @@
 'use client';
 
-import {
-  type FC,
-  type PropsWithChildren,
-  type Ref,
-  useEffect,
-  useId,
-  useMemo,
-} from 'react';
+import { useEffect, useId, useMemo } from 'react';
+import type { FC, PropsWithChildren, Ref } from 'react';
 
 import { useMessages } from '../../../i18n/context';
 import { IconButton } from '../../buttons/icon-button';

@@ -3,8 +3,8 @@ import {
   isReasoningUIPart,
   isTextUIPart,
   isToolOrDynamicToolUIPart,
-  type UIMessage,
 } from 'ai';
+import type { UIMessage } from 'ai';
 
 import type { ToolState } from '../../components/ai/types';
 

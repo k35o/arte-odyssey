@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { type FC, type HTMLProps, useState } from 'react';
+import { useState } from 'react';
+import type { FC, HTMLProps } from 'react';
 import { expect, fn, waitFor } from 'storybook/test';
 
 import { Button } from '../../buttons/button';

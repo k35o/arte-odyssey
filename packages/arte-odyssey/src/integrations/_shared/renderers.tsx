@@ -1,14 +1,7 @@
-/* eslint-disable import/max-dependencies -- Generative UI 統合の描画集約モジュールのため、多数のコンポーネントを束ねる */
 'use client';
 
-import {
-  type ComponentProps,
-  Fragment,
-  type FC,
-  type ReactNode,
-  useId,
-  useState,
-} from 'react';
+import { Fragment, useId, useState } from 'react';
+import type { ComponentProps, FC, ReactNode } from 'react';
 
 import { Button } from '../../components/buttons/button';
 import { IconButton } from '../../components/buttons/icon-button';

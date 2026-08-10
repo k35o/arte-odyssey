@@ -1,7 +1,9 @@
 import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
 
-import { GAP_CLASS, type GapSize } from '../_shared/gap';
-import { PADDING_CLASS, type PaddingSize } from '../_shared/padding';
+import { GAP_CLASS } from '../_shared/gap';
+import type { GapSize } from '../_shared/gap';
+import { PADDING_CLASS } from '../_shared/padding';
+import type { PaddingSize } from '../_shared/padding';
 import { cn } from './../../../helpers/cn';
 
 export type StackProps = PropsWithChildren<
