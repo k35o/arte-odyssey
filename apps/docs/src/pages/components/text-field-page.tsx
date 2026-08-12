@@ -11,7 +11,7 @@ export function TextFieldPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">TextField</Heading>
+        <Heading level="h1">TextField</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.textField.description" />
         </p>
@@ -27,7 +27,7 @@ export function TextFieldPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -39,7 +39,7 @@ export function TextFieldPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -54,7 +54,7 @@ export function TextFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.textField.placeholderTitle" />
           </Heading>
           <ComponentPreview
@@ -75,7 +75,7 @@ export function TextFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">Type</Heading>
+          <Heading level="h3">Type</Heading>
           <ComponentPreview
             code={`<TextField placeholder="you@example.com" type="email" />
 <TextField placeholder="090-0000-0000" type="tel" />`}
@@ -86,7 +86,7 @@ export function TextFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.textField.disabledTitle" />
           </Heading>
           <ComponentPreview
@@ -107,7 +107,7 @@ export function TextFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.textField.invalidTitle" />
           </Heading>
           <ComponentPreview
@@ -130,7 +130,7 @@ export function TextFieldPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable

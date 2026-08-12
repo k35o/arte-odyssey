@@ -26,7 +26,7 @@ export const jsonRenderSpec = {
     },
     tip: {
       type: 'Tooltip',
-      props: { label: 'ヒント', text: 'ホバーで説明が出ます' },
+      props: { triggerLabel: 'ヒント', content: 'ホバーで説明が出ます' },
       children: [],
     },
     dropdown: {
@@ -73,7 +73,7 @@ export const jsonRenderSpec = {
     },
     showcase: {
       type: 'Card',
-      props: { appearance: 'bordered' },
+      props: { variant: 'outline' },
       children: ['showcaseInner'],
     },
     showcaseInner: {
@@ -112,7 +112,7 @@ export const jsonRenderSpec = {
     docLink: {
       type: 'Anchor',
       props: {
-        text: 'ドキュメント',
+        label: 'ドキュメント',
         href: 'https://example.com',
         openInNewTab: true,
       },
@@ -120,7 +120,7 @@ export const jsonRenderSpec = {
     },
     prog: {
       type: 'Progress',
-      props: { progress: 70, maxProgress: 100, label: '完了度' },
+      props: { value: 70, max: 100, label: '完了度' },
       children: [],
     },
     table: {
@@ -179,7 +179,7 @@ export const jsonRenderSpec = {
     },
     card: {
       type: 'Card',
-      props: { appearance: 'bordered' },
+      props: { variant: 'outline' },
       children: ['cardInner'],
     },
     cardInner: {
@@ -216,7 +216,7 @@ export const jsonRenderSpec = {
     },
     heading: {
       type: 'Heading',
-      props: { text: 'プロフィール設定', level: 'h3' },
+      props: { label: 'プロフィール設定', level: 'h3' },
       children: [],
     },
     alert: {

@@ -17,7 +17,7 @@ export function SelectPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Select</Heading>
+        <Heading level="h1">Select</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.select.description" />
         </p>
@@ -33,7 +33,7 @@ export function SelectPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -45,7 +45,7 @@ export function SelectPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -76,7 +76,7 @@ export function SelectPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.select.requiredTitle" />
           </Heading>
           <ComponentPreview
@@ -101,7 +101,7 @@ export function SelectPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.select.defaultValueTitle" />
           </Heading>
           <ComponentPreview
@@ -128,7 +128,7 @@ export function SelectPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.select.disabledTitle" />
           </Heading>
           <ComponentPreview
@@ -153,7 +153,7 @@ export function SelectPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.select.invalidTitle" />
           </Heading>
           <ComponentPreview
@@ -180,7 +180,7 @@ export function SelectPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable inherits={inheritsOf('Select')} items={propsOf('Select')} />

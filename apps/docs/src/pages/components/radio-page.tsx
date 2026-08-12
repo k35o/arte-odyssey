@@ -18,7 +18,7 @@ export function RadioPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Radio</Heading>
+        <Heading level="h1">Radio</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.radio.description" />
         </p>
@@ -34,7 +34,7 @@ export function RadioPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -46,7 +46,7 @@ export function RadioPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -81,7 +81,7 @@ const options = [
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.radio.defaultValueTitle" />
           </Heading>
           <ComponentPreview
@@ -101,7 +101,7 @@ const options = [
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.radio.disabledTitle" />
           </Heading>
           <ComponentPreview
@@ -133,7 +133,7 @@ const options = [
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable inherits={inheritsOf('Radio')} items={propsOf('Radio')} />

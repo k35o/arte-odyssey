@@ -18,7 +18,7 @@ export function FormControlPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">FormControl</Heading>
+        <Heading level="h1">FormControl</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.formControl.description" />
         </p>
@@ -34,7 +34,7 @@ export function FormControlPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -46,7 +46,7 @@ export function FormControlPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -65,7 +65,7 @@ export function FormControlPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.formControl.helpTextTitle" />
           </Heading>
           <ComponentPreview
@@ -85,7 +85,7 @@ export function FormControlPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.formControl.errorTextTitle" />
           </Heading>
           <ComponentPreview
@@ -103,7 +103,7 @@ export function FormControlPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.formControl.requiredTitle" />
           </Heading>
           <ComponentPreview
@@ -123,7 +123,7 @@ export function FormControlPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.formControl.disabledTitle" />
           </Heading>
           <ComponentPreview
@@ -145,7 +145,7 @@ export function FormControlPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable items={propsOf('FormControl')} />

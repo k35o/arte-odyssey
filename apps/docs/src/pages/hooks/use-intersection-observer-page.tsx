@@ -50,7 +50,7 @@ export function UseIntersectionObserverPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">useIntersectionObserver</Heading>
+        <Heading level="h1">useIntersectionObserver</Heading>
         <p className="text-fg-mute text-lg">
           <T k="hooks.useIntersectionObserver.description" />
         </p>
@@ -58,7 +58,7 @@ export function UseIntersectionObserverPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -69,11 +69,11 @@ export function UseIntersectionObserverPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-8">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.usageTitle" />
         </Heading>
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="hooks.common.basicUsageTitle" />
           </Heading>
           <CodeBlock
@@ -88,7 +88,7 @@ return <div ref={ref}>Observed element</div>;`}
           />
         </div>
         <div className="flex flex-col gap-4">
-          <Heading type="h3">once</Heading>
+          <Heading level="h3">once</Heading>
           <CodeBlock
             code={`const ref = useRef<HTMLDivElement>(null);
 
@@ -107,7 +107,7 @@ return <div ref={ref}>Lazy loaded content</div>;`}
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.parametersTitle" />
         </Heading>
         <PropsTable items={parameters} />
@@ -115,7 +115,7 @@ return <div ref={ref}>Lazy loaded content</div>;`}
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.returnValueTitle" />
         </Heading>
         <PropsTable items={returnValue} />

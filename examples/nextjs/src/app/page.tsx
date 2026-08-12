@@ -13,7 +13,7 @@ const spec = {
     },
     heading: {
       type: 'Heading',
-      props: { text: 'RSC から描画', level: 'h3' },
+      props: { label: 'RSC から描画', level: 'h3' },
       children: [],
     },
     alert: {

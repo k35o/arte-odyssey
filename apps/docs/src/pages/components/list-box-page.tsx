@@ -16,7 +16,7 @@ export function ListBoxPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">ListBox</Heading>
+        <Heading level="h1">ListBox</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.listBox.description" />
         </p>
@@ -32,7 +32,7 @@ export function ListBoxPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -44,7 +44,7 @@ export function ListBoxPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -72,7 +72,7 @@ const [selected, setSelected] = useState<string>();
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.listBox.sizesTitle" />
           </Heading>
           <ComponentPreview
@@ -96,7 +96,7 @@ const [selected, setSelected] = useState<string>();
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.listBox.iconTriggerTitle" />
           </Heading>
           <ComponentPreview
@@ -114,16 +114,16 @@ const [selected, setSelected] = useState<string>();
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <Heading type="h3">ListBox.Root</Heading>
+        <Heading level="h3">ListBox.Root</Heading>
         <PropsTable items={propsOf('ListBox.Root')} />
-        <Heading type="h3">ListBox.Trigger</Heading>
+        <Heading level="h3">ListBox.Trigger</Heading>
         <PropsTable items={propsOf('ListBox.Trigger')} />
-        <Heading type="h3">ListBox.IconTrigger</Heading>
+        <Heading level="h3">ListBox.IconTrigger</Heading>
         <PropsTable items={propsOf('ListBox.IconTrigger')} />
-        <Heading type="h3">ListBox.Content</Heading>
+        <Heading level="h3">ListBox.Content</Heading>
         <PropsTable items={propsOf('ListBox.Content')} />
       </section>
     </div>

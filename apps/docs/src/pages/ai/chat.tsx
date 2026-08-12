@@ -9,7 +9,7 @@ export function AiChat() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">
+        <Heading level="h1">
           <T k="nav.aiChat" />
         </Heading>
         <p className="text-fg-mute text-lg">
@@ -19,7 +19,7 @@ export function AiChat() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiChat.demoTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -70,7 +70,7 @@ export function Chat({ messages, send }: Props) {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiChat.overviewTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -119,7 +119,7 @@ export function Chat() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiChat.inputTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -139,7 +139,7 @@ export function Chat() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiChat.suggestionTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -160,7 +160,7 @@ export function Chat() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiChat.responseTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -181,7 +181,7 @@ import 'streamdown/styles.css';
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiChat.toolTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -205,7 +205,7 @@ import 'streamdown/styles.css';
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiChat.aiSdkTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -230,7 +230,7 @@ import { Response } from '@k8o/arte-odyssey/ai/response';
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiChat.jsonRenderTitle" />
         </Heading>
         <p className="text-fg-mute">

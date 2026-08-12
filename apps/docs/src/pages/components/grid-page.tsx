@@ -9,7 +9,7 @@ import { inheritsOf, propsOf } from '../../data/component-props';
 
 function Cell({ children }: { children: string }) {
   return (
-    <Card appearance="bordered">
+    <Card variant="outline">
       <div className="px-3 py-2 text-center text-sm">{children}</div>
     </Card>
   );
@@ -19,7 +19,7 @@ export function GridPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Grid</Heading>
+        <Heading level="h1">Grid</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.grid.description" />
         </p>
@@ -35,7 +35,7 @@ export function GridPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock code="import { Grid } from '@k8o/arte-odyssey';" lang="ts" />
@@ -44,7 +44,7 @@ export function GridPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -61,7 +61,7 @@ export function GridPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.grid.colsTitle" />
           </Heading>
           <ComponentPreview
@@ -81,7 +81,7 @@ export function GridPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.grid.autoFillTitle" />
           </Heading>
           <p className="text-fg-mute text-sm">
@@ -99,7 +99,7 @@ export function GridPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable inherits={inheritsOf('Grid')} items={propsOf('Grid')} />

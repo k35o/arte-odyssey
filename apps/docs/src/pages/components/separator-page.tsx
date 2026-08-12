@@ -11,7 +11,7 @@ export function SeparatorPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Separator</Heading>
+        <Heading level="h1">Separator</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.separator.description" />
         </p>
@@ -27,7 +27,7 @@ export function SeparatorPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -39,7 +39,7 @@ export function SeparatorPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview code='<Separator color="mute" />'>
@@ -50,7 +50,7 @@ export function SeparatorPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.separator.orientationsTitle" />
           </Heading>
           <ComponentPreview
@@ -69,7 +69,7 @@ export function SeparatorPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.separator.colorsTitle" />
           </Heading>
           <ComponentPreview
@@ -94,7 +94,7 @@ export function SeparatorPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable

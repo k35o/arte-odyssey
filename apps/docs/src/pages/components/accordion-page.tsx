@@ -11,7 +11,7 @@ export function AccordionPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Accordion</Heading>
+        <Heading level="h1">Accordion</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.accordion.description" />
         </p>
@@ -27,7 +27,7 @@ export function AccordionPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -39,7 +39,7 @@ export function AccordionPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -102,7 +102,7 @@ export function AccordionPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.accordion.defaultOpenTitle" />
           </Heading>
           <ComponentPreview
@@ -149,7 +149,7 @@ export function AccordionPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.accordion.multipleDefaultOpenTitle" />
           </Heading>
           <ComponentPreview
@@ -214,16 +214,16 @@ export function AccordionPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <Heading type="h3">Accordion.Root</Heading>
+        <Heading level="h3">Accordion.Root</Heading>
         <PropsTable items={propsOf('Accordion.Root')} />
-        <Heading type="h3">Accordion.Item</Heading>
+        <Heading level="h3">Accordion.Item</Heading>
         <PropsTable items={propsOf('Accordion.Item')} />
-        <Heading type="h3">Accordion.Button</Heading>
+        <Heading level="h3">Accordion.Button</Heading>
         <PropsTable items={propsOf('Accordion.Button')} />
-        <Heading type="h3">Accordion.Panel</Heading>
+        <Heading level="h3">Accordion.Panel</Heading>
         <PropsTable items={propsOf('Accordion.Panel')} />
       </section>
     </div>

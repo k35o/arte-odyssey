@@ -10,7 +10,7 @@ function App() {
     <div className={styles.page}>
       <main className={styles.content}>
         <header className={styles.header}>
-          <Heading type="h1">arte-odyssey × CSS Modules</Heading>
+          <Heading level="h1">arte-odyssey × CSS Modules</Heading>
           <Switch
             label="ダークモード"
             onChange={(checked) => {
@@ -25,9 +25,9 @@ function App() {
           を1回読み込むだけで、コンポーネントはそのまま動きます。
         </p>
 
-        <Card appearance="bordered">
+        <Card variant="outline">
           <div className={styles.cardBody}>
-            <Heading type="h2">コンポーネントはそのまま使える</Heading>
+            <Heading level="h2">コンポーネントはそのまま使える</Heading>
             <p className={styles.note}>
               Button も Switch
               もライブラリに同梱されたクラスだけで描画されます。
@@ -51,9 +51,9 @@ function App() {
           </div>
         </Card>
 
-        <Card appearance="bordered">
+        <Card variant="outline">
           <div className={styles.cardBody}>
-            <Heading type="h2">自分の UI は CSS Modules で書く</Heading>
+            <Heading level="h2">自分の UI は CSS Modules で書く</Heading>
             <p className={styles.note}>
               このページのレイアウトと文字色はすべて app.module.css
               にあります。デザイントークンはただの CSS

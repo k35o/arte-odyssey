@@ -11,7 +11,7 @@ export function TablePage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Table</Heading>
+        <Heading level="h1">Table</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.table.description" />
         </p>
@@ -27,7 +27,7 @@ export function TablePage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -39,7 +39,7 @@ export function TablePage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -89,7 +89,7 @@ export function TablePage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.table.emptyStateTitle" />
           </Heading>
           <ComponentPreview
@@ -128,14 +128,14 @@ export function TablePage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <Heading type="h3">Table.Root</Heading>
+        <Heading level="h3">Table.Root</Heading>
         <PropsTable items={propsOf('Table.Root')} />
-        <Heading type="h3">Table.Row</Heading>
+        <Heading level="h3">Table.Row</Heading>
         <PropsTable items={propsOf('Table.Row')} />
-        <Heading type="h3">Table.Cell / Table.HeaderCell</Heading>
+        <Heading level="h3">Table.Cell / Table.HeaderCell</Heading>
         <PropsTable items={propsOf('Table.Cell')} />
       </section>
     </div>

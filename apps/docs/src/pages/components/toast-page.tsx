@@ -15,17 +15,17 @@ import {
 // useToast の戻り値はコンポーネントではないので生成の対象外。
 const useToastReturnProps: PropItem[] = [
   {
-    name: 'onOpen',
+    name: 'open',
     types: ['(tone: Status, message: string, options?: ToastOptions) => void'],
     defaultValue: null,
   },
   {
-    name: 'onClose',
+    name: 'close',
     types: ['(id: string) => void'],
     defaultValue: null,
   },
   {
-    name: 'onCloseAll',
+    name: 'closeAll',
     types: ['() => void'],
     defaultValue: null,
   },
@@ -35,7 +35,7 @@ export function ToastPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Toast</Heading>
+        <Heading level="h1">Toast</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.toast.description" />
         </p>
@@ -51,7 +51,7 @@ export function ToastPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -63,13 +63,13 @@ export function ToastPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
@@ -78,20 +78,20 @@ export function ToastPage() {
 </ToastProvider>
 
 function ToastDemo() {
-  const { onOpen } = useToast();
+  const { open } = useToast();
 
   return (
     <div className="flex flex-wrap gap-2">
-      <Button onClick={() => onOpen('success', 'Operation completed')}>
+      <Button onClick={() => open('success', 'Operation completed')}>
         Success
       </Button>
-      <Button onClick={() => onOpen('info', 'Here is some information')}>
+      <Button onClick={() => open('info', 'Here is some information')}>
         Info
       </Button>
-      <Button onClick={() => onOpen('warning', 'Please check your input')}>
+      <Button onClick={() => open('warning', 'Please check your input')}>
         Warning
       </Button>
-      <Button onClick={() => onOpen('error', 'Something went wrong')}>
+      <Button onClick={() => open('error', 'Something went wrong')}>
         Error
       </Button>
     </div>
@@ -103,41 +103,41 @@ function ToastDemo() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.toast.useToastTitle" />
           </Heading>
           <CodeBlock
-            code={`const { onOpen, onClose, onCloseAll } = useToast();
+            code={`const { open, close, closeAll } = useToast();
 
 // Show a toast
-onOpen('success', 'Saved successfully');
+open('success', 'Saved successfully');
 
 // Close a specific toast by ID
-onClose(toastId);
+close(toastId);
 
 // Close all toasts
-onCloseAll();`}
+closeAll();`}
             lang="tsx"
           />
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.toast.closeAllTitle" />
           </Heading>
           <ComponentPreview
             code={`function CloseAllDemo() {
-  const { onOpen, onCloseAll } = useToast();
+  const { open, closeAll } = useToast();
 
   return (
     <div className="flex flex-wrap gap-2">
-      <Button onClick={() => onOpen('info', 'Notification 1')}>
+      <Button onClick={() => open('info', 'Notification 1')}>
         Add Toast
       </Button>
-      <Button onClick={() => onOpen('success', 'Notification 2')}>
+      <Button onClick={() => open('success', 'Notification 2')}>
         Add Another
       </Button>
-      <Button onClick={onCloseAll}>Close All</Button>
+      <Button onClick={closeAll}>Close All</Button>
     </div>
   );
 }`}
@@ -149,15 +149,15 @@ onCloseAll();`}
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <Heading type="h3">ToastProvider</Heading>
+        <Heading level="h3">ToastProvider</Heading>
         <PropsTable
           inherits={inheritsOf('ToastProvider')}
           items={propsOf('ToastProvider')}
         />
-        <Heading type="h3">useToast</Heading>
+        <Heading level="h3">useToast</Heading>
         <PropsTable items={useToastReturnProps} />
       </section>
     </div>

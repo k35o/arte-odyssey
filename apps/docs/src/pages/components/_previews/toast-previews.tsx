@@ -3,14 +3,14 @@
 import { Button, ToastProvider, useToast } from '@k8o/arte-odyssey';
 
 function ToastDemo() {
-  const { onOpen } = useToast();
+  const { open } = useToast();
 
   return (
     <div className="flex flex-wrap gap-2">
       <Button
         color="primary"
         onClick={() => {
-          onOpen('success', 'Operation completed successfully');
+          open('success', 'Operation completed successfully');
         }}
       >
         Success
@@ -18,7 +18,7 @@ function ToastDemo() {
       <Button
         color="base"
         onClick={() => {
-          onOpen('info', 'Here is some information');
+          open('info', 'Here is some information');
         }}
       >
         Info
@@ -26,7 +26,7 @@ function ToastDemo() {
       <Button
         color="base"
         onClick={() => {
-          onOpen('warning', 'Please check your input');
+          open('warning', 'Please check your input');
         }}
       >
         Warning
@@ -34,7 +34,7 @@ function ToastDemo() {
       <Button
         color="base"
         onClick={() => {
-          onOpen('error', 'Something went wrong');
+          open('error', 'Something went wrong');
         }}
       >
         Error
@@ -44,14 +44,14 @@ function ToastDemo() {
 }
 
 function CloseAllDemo() {
-  const { onOpen, onCloseAll } = useToast();
+  const { open, closeAll } = useToast();
 
   return (
     <div className="flex flex-wrap gap-2">
       <Button
         color="base"
         onClick={() => {
-          onOpen('info', 'Notification 1');
+          open('info', 'Notification 1');
         }}
       >
         Add Toast
@@ -59,12 +59,12 @@ function CloseAllDemo() {
       <Button
         color="base"
         onClick={() => {
-          onOpen('success', 'Notification 2');
+          open('success', 'Notification 2');
         }}
       >
         Add Another
       </Button>
-      <Button color="primary" onClick={onCloseAll}>
+      <Button color="primary" onClick={closeAll}>
         Close All
       </Button>
     </div>

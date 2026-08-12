@@ -22,12 +22,14 @@ const MESSAGE_USAGE = {
   autocompleteClear: 'Autocomplete',
   autocompleteEmpty: 'Autocomplete',
   fileFieldRemove: 'FileField',
+  fileFieldTrigger: 'FileField（生成 UI）',
   numberFieldIncrement: 'NumberField',
   numberFieldDecrement: 'NumberField',
   passwordShow: 'PasswordInput',
   passwordHide: 'PasswordInput',
   listBoxPlaceholder: 'ListBox',
   breadcrumb: 'Breadcrumb',
+  tabList: 'Tabs（生成 UI）',
   paginationLabel: 'Pagination',
   paginationPrevious: 'Pagination',
   paginationNext: 'Pagination',
@@ -41,6 +43,7 @@ const MESSAGE_USAGE = {
   toolInput: 'ToolInvocation',
   toolOutput: 'ToolInvocation',
   toolError: 'ToolInvocation',
+  toolDenied: 'ToolInvocation',
   responseCopied: 'Response',
   responseCopyCode: 'Response',
   responseCopyLink: 'Response',
@@ -85,7 +88,7 @@ export function I18n() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">
+        <Heading level="h1">
           <T k="nav.i18n" />
         </Heading>
         <p className="text-fg-mute text-lg">
@@ -95,7 +98,7 @@ export function I18n() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="i18n.defaultTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -114,7 +117,7 @@ function App({ children }) {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="i18n.englishTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -138,7 +141,7 @@ function App({ children }) {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="i18n.overrideTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -161,7 +164,7 @@ function App({ children }) {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="i18n.priorityTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -188,7 +191,7 @@ function App({ children }) {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="i18n.customTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -214,7 +217,7 @@ const fr: Messages = {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="i18n.keysTitle" />
         </Heading>
         <p className="text-fg-mute">

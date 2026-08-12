@@ -76,7 +76,7 @@ export function Navigation() {
                   <DropdownMenu.Item
                     key={item.path}
                     label={t(item.labelKey)}
-                    onClick={() => {
+                    onAction={() => {
                       navigation.navigate(localizeHref(item.path, locale));
                     }}
                   />

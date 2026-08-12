@@ -14,7 +14,7 @@ export function Components() {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-16 md:px-8">
       <header className="flex flex-col gap-4">
-        <Heading type="h1">{t('nav.components')}</Heading>
+        <Heading level="h1">{t('nav.components')}</Heading>
         <p className="text-fg-mute max-w-2xl text-lg leading-relaxed">
           <T k="components.description" />
         </p>

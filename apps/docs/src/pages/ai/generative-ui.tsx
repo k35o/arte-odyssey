@@ -7,7 +7,7 @@ export function GenerativeUi() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">
+        <Heading level="h1">
           <T k="nav.generativeUi" />
         </Heading>
         <p className="text-fg-mute text-lg">
@@ -17,7 +17,7 @@ export function GenerativeUi() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="generativeUi.promptTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -35,7 +35,7 @@ const systemPrompt = catalog.prompt({ customRules: [...arteOdysseyRules] });`}
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="generativeUi.renderTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -55,7 +55,7 @@ export function GenUi({ spec }: { spec: unknown }) {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="generativeUi.validateTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -76,7 +76,7 @@ const retried = await llm(result.repairPrompt); // fix and retry`}
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="generativeUi.typedTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -99,7 +99,7 @@ const spec = {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="generativeUi.openuiTitle" />
         </Heading>
         <p className="text-fg-mute">

@@ -11,7 +11,7 @@ export function CardPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Card</Heading>
+        <Heading level="h1">Card</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.card.description" />
         </p>
@@ -27,7 +27,7 @@ export function CardPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock code="import { Card } from '@k8o/arte-odyssey';" lang="ts" />
@@ -36,7 +36,7 @@ export function CardPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -51,7 +51,7 @@ export function CardPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.card.widthTitle" />
           </Heading>
           <ComponentPreview
@@ -74,7 +74,7 @@ export function CardPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">Interactive</Heading>
+          <Heading level="h3">Interactive</Heading>
           <p className="text-fg-mute">
             <T k="components.card.interactiveDescription" />
           </p>
@@ -94,19 +94,19 @@ export function CardPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">Appearance</Heading>
+          <Heading level="h3">Appearance</Heading>
           <ComponentPreview
-            code={`<Card appearance="shadow">
+            code={`<Card variant="shadow">
   <div className="p-6">Shadow</div>
 </Card>
-<Card appearance="bordered">
+<Card variant="outline">
   <div className="p-6">Bordered</div>
 </Card>`}
           >
-            <Card appearance="shadow">
+            <Card variant="shadow">
               <div className="p-6">Shadow</div>
             </Card>
-            <Card appearance="bordered">
+            <Card variant="outline">
               <div className="p-6">Bordered</div>
             </Card>
           </ComponentPreview>
@@ -115,7 +115,7 @@ export function CardPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable inherits={inheritsOf('Card')} items={propsOf('Card')} />

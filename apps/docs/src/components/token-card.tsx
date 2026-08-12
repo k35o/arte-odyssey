@@ -25,7 +25,7 @@ export function TokenCard({
   const descKey = descriptionKey(token.name);
 
   return (
-    <Card appearance="shadow">
+    <Card variant="shadow">
       <div className="flex items-start gap-3 p-4">
         <div
           className="mt-0.5 size-6 shrink-0 rounded-md"

@@ -15,7 +15,7 @@ export function TabsPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Tabs</Heading>
+        <Heading level="h1">Tabs</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.tabs.description" />
         </p>
@@ -31,7 +31,7 @@ export function TabsPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock code="import { Tabs } from '@k8o/arte-odyssey';" lang="ts" />
@@ -40,7 +40,7 @@ export function TabsPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -66,7 +66,7 @@ export function TabsPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.tabs.defaultSelectedTitle" />
           </Heading>
           <ComponentPreview
@@ -97,16 +97,16 @@ export function TabsPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <Heading type="h3">Tabs.Root</Heading>
+        <Heading level="h3">Tabs.Root</Heading>
         <PropsTable items={propsOf('Tabs.Root')} />
-        <Heading type="h3">Tabs.List</Heading>
+        <Heading level="h3">Tabs.List</Heading>
         <PropsTable items={propsOf('Tabs.List')} />
-        <Heading type="h3">Tabs.Tab</Heading>
+        <Heading level="h3">Tabs.Tab</Heading>
         <PropsTable items={propsOf('Tabs.Tab')} />
-        <Heading type="h3">Tabs.Panel</Heading>
+        <Heading level="h3">Tabs.Panel</Heading>
         <PropsTable items={propsOf('Tabs.Panel')} />
       </section>
     </div>

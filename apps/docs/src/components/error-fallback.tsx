@@ -28,7 +28,7 @@ export const ErrorFallback: FC<ErrorFallbackProps> = ({
         <AlertIcon size="lg" status="error" />
       </div>
       <div className="flex flex-col items-center gap-2">
-        <Heading type="h2">{t('error.title')}</Heading>
+        <Heading level="h2">{t('error.title')}</Heading>
         <p className="text-fg-mute text-sm">{t('error.description')}</p>
       </div>
       <Button onClick={resetErrorBoundary} variant="outline">

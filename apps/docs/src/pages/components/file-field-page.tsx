@@ -18,7 +18,7 @@ export function FileFieldPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">FileField</Heading>
+        <Heading level="h1">FileField</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.fileField.description" />
         </p>
@@ -34,7 +34,7 @@ export function FileFieldPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -46,7 +46,7 @@ export function FileFieldPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -66,7 +66,7 @@ export function FileFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.fileField.acceptTypesTitle" />
           </Heading>
           <ComponentPreview
@@ -87,7 +87,7 @@ export function FileFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.fileField.multipleFilesTitle" />
           </Heading>
           <ComponentPreview
@@ -107,7 +107,7 @@ export function FileFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.fileField.disabledTitle" />
           </Heading>
           <ComponentPreview
@@ -127,7 +127,7 @@ export function FileFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.fileField.invalidTitle" />
           </Heading>
           <ComponentPreview
@@ -149,17 +149,17 @@ export function FileFieldPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <Heading type="h3">FileField.Root</Heading>
+        <Heading level="h3">FileField.Root</Heading>
         <PropsTable
           inherits={inheritsOf('FileField.Root')}
           items={propsOf('FileField.Root')}
         />
-        <Heading type="h3">FileField.Trigger</Heading>
+        <Heading level="h3">FileField.Trigger</Heading>
         <PropsTable items={propsOf('FileField.Trigger')} />
-        <Heading type="h3">FileField.ItemList</Heading>
+        <Heading level="h3">FileField.ItemList</Heading>
         <PropsTable items={propsOf('FileField.ItemList')} />
       </section>
     </div>

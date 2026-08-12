@@ -33,7 +33,7 @@ export function RadioCardPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">RadioCard</Heading>
+        <Heading level="h1">RadioCard</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.radioCard.description" />
         </p>
@@ -49,7 +49,7 @@ export function RadioCardPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -61,7 +61,7 @@ export function RadioCardPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -91,7 +91,7 @@ const [value, setValue] = useState('pro');
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.radioCard.defaultValueTitle" />
           </Heading>
           <ComponentPreview
@@ -129,7 +129,7 @@ const [value, setValue] = useState('pro');
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.radioCard.formTitle" />
           </Heading>
           <p className="text-fg-mute text-sm">
@@ -163,7 +163,7 @@ const [value, setValue] = useState('pro');
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
