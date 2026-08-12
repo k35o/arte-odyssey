@@ -1,24 +1,38 @@
-import type { FC, HTMLAttributes } from 'react';
+import type { ButtonHTMLAttributes, FC, HTMLAttributes } from 'react';
 
 import { cn } from '../../../helpers/cn';
 import { FOCUS_RING_NO_BORDER } from '../../_internal/focus-ring';
 
-type Props = {
-  label: string;
-  size?: 'sm' | 'md' | 'lg';
-  interactive?: boolean;
-  tone?: 'neutral' | 'info' | 'success' | 'warning' | 'error';
-  variant?: 'solid' | 'outline';
-} & Omit<HTMLAttributes<HTMLElement>, 'children' | 'className' | 'style'>;
+type Size = 'sm' | 'md' | 'lg';
+type Tone = 'neutral' | 'info' | 'success' | 'warning' | 'error';
+type Variant = 'solid' | 'outline';
 
-export const Badge: FC<Props> = ({
-  interactive = false,
-  label,
-  size = 'md',
-  tone = 'neutral',
-  variant = 'solid',
-  ...rest
-}) => {
+type BaseProps = {
+  label: string;
+  size?: Size;
+  tone?: Tone;
+  variant?: Variant;
+};
+
+type InteractiveProps = {
+  interactive: true;
+} & Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'children' | 'className' | 'style' | 'type'
+>;
+
+type StaticProps = {
+  interactive?: false;
+} & Omit<HTMLAttributes<HTMLSpanElement>, 'children' | 'className' | 'style'>;
+
+type Props = BaseProps & (InteractiveProps | StaticProps);
+
+const badgeClassName = (
+  size: Size,
+  tone: Tone,
+  variant: Variant,
+  interactive: boolean,
+): string => {
   const interactiveClassName = cn(
     interactive && `cursor-pointer ${FOCUS_RING_NO_BORDER}`,
     interactive &&
@@ -63,7 +77,7 @@ export const Badge: FC<Props> = ({
       'hover:bg-bg-error active:bg-bg-error/80',
   );
 
-  const badgeClassName = cn(
+  return cn(
     'inline-flex items-center rounded-full border font-medium transition-colors',
     size === 'sm' && 'px-2 py-0.5 text-xs',
     size === 'md' && 'px-2.5 py-1 text-xs',
@@ -100,17 +114,42 @@ export const Badge: FC<Props> = ({
       'border-border-error bg-bg-base text-fg-error',
     interactiveClassName,
   );
+};
 
-  if (interactive) {
+export const Badge: FC<Props> = (props) => {
+  if (props.interactive === true) {
+    const {
+      interactive,
+      label,
+      size = 'md',
+      tone = 'neutral',
+      variant = 'solid',
+      ...rest
+    } = props;
     return (
-      <button {...rest} className={badgeClassName} type="button">
+      <button
+        {...rest}
+        className={badgeClassName(size, tone, variant, interactive)}
+        type="button"
+      >
         {label}
       </button>
     );
   }
 
+  const {
+    interactive = false,
+    label,
+    size = 'md',
+    tone = 'neutral',
+    variant = 'solid',
+    ...rest
+  } = props;
   return (
-    <span {...rest} className={badgeClassName}>
+    <span
+      {...rest}
+      className={badgeClassName(size, tone, variant, interactive)}
+    >
       {label}
     </span>
   );

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import type { FC, HTMLProps } from 'react';
+import type { ComponentProps, FC } from 'react';
 import { expect, fn, waitFor } from 'storybook/test';
 
 import { Button } from '../../buttons/button';
@@ -30,10 +30,10 @@ export const Default: Story = {
   },
 };
 
-const StoryDialog: FC<HTMLProps<HTMLElement>> = (props) => {
+const StoryDialog: FC<ComponentProps<typeof Dialog.Root>> = (props) => {
   const { onClose } = useOpenContext();
   return (
-    <Dialog.Root {...props} ref={props.ref}>
+    <Dialog.Root {...props}>
       <Dialog.Header onClose={onClose} title="ダイアログ" />
       <Dialog.Content>こんにちはこんにちはこんにちはこんにちは</Dialog.Content>
     </Dialog.Root>
@@ -42,7 +42,7 @@ const StoryDialog: FC<HTMLProps<HTMLElement>> = (props) => {
 
 export const PopoverDialog: Story = {
   render: () => (
-    <Popover.Root type="dialog">
+    <Popover.Root role="dialog">
       <Popover.Trigger
         renderItem={(props) => (
           <Button {...props} size="md" type="button">
@@ -50,7 +50,11 @@ export const PopoverDialog: Story = {
           </Button>
         )}
       />
-      <Popover.Content renderItem={(props) => <StoryDialog {...props} />} />
+      <Popover.Content
+        // Popover.Content の role 集合（dialog | menu | listbox）は Dialog.Root の
+        // 集合（dialog | alertdialog）より広いため、この構成では dialog に固定する
+        renderItem={(props) => <StoryDialog {...props} role="dialog" />}
+      />
     </Popover.Root>
   ),
   // Popover 配下（Modal の外）では Dialog.Root 自身が dialog ロールと名前を持つ

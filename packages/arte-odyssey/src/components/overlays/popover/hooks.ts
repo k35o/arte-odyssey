@@ -15,7 +15,7 @@ import { useClickAway } from './../../../hooks/click-away';
 
 type PopoverContext = {
   rootId: string;
-  type: 'dialog' | 'menu' | 'listbox';
+  role: 'dialog' | 'menu' | 'listbox';
   closeOnClickAway: boolean;
   trapFocus: boolean;
   isOpen: boolean;
@@ -80,7 +80,7 @@ export const usePopoverContent = () => {
 
   const itemProps = useMemo<PopoverContentProps>(() => {
     const id = `${popover.rootId}_list`;
-    switch (popover.type) {
+    switch (popover.role) {
       case 'dialog':
         return { id, ref, role: 'dialog' };
       case 'menu':
@@ -93,11 +93,11 @@ export const usePopoverContent = () => {
       case 'listbox':
         return { id, ref, role: 'listbox' };
       default: {
-        const exhaustive: never = popover.type;
+        const exhaustive: never = popover.role;
         return exhaustive;
       }
     }
-  }, [popover.rootId, popover.type, ref]);
+  }, [popover.rootId, popover.role, ref]);
 
   return useMemo(
     () => ({
@@ -137,7 +137,7 @@ export const usePopoverTrigger = (): PopoverTriggerProps => {
   const popover = usePopoverContext();
   return useMemo(() => {
     const listId = popover.isOpen ? `${popover.rootId}_list` : undefined;
-    switch (popover.type) {
+    switch (popover.role) {
       case 'dialog':
         return {
           onClick: popover.toggleOpen,
@@ -198,7 +198,7 @@ export const usePopoverTrigger = (): PopoverTriggerProps => {
           ref: popover.setTriggerRef,
         };
       default: {
-        const exhaustive: never = popover.type;
+        const exhaustive: never = popover.role;
         return exhaustive;
       }
     }

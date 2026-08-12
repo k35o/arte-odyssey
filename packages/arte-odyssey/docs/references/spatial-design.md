@@ -95,14 +95,14 @@ ArteOdyssey は「余白で語る」デザイン。詰め込まず、空間に�
 ```tsx
 // Good: 余白の差で関連度を示す
 <section className="mt-12">
-  <Heading type="h2">セクション</Heading>
+  <Heading level="h2">セクション</Heading>
   <p className="mt-2">直接関連する説明</p>
   <div className="mt-8">やや離れたコンテンツ</div>
 </section>
 
 // Bad: すべて同じ余白
 <section className="mt-4">
-  <Heading type="h2">セクション</Heading>
+  <Heading level="h2">セクション</Heading>
   <p className="mt-4">説明</p>
   <div className="mt-4">コンテンツ</div>
 </section>

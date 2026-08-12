@@ -39,7 +39,7 @@ export const Drawer: FC<
       <div className="vertical:flex-row flex h-full flex-col" id={rootId}>
         <div className="flex shrink-0 items-center justify-center p-4 pb-2">
           {typeof title === 'string' ? (
-            <Heading id={`${rootId}-title`} type="h3">
+            <Heading id={`${rootId}-title`} level="h3">
               {title}
             </Heading>
           ) : (

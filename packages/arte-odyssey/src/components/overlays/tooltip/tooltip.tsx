@@ -105,7 +105,7 @@ const Root: FC<
     onChange={onChange}
     placement={placement}
     trapFocus={false}
-    type="dialog"
+    role="dialog"
   >
     <IntentProvider closeDelay={closeDelay} openDelay={openDelay}>
       {children}

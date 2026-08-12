@@ -64,7 +64,7 @@ export const Interactive: Story = {
 
 export const Bordered: Story = {
   render: () => (
-    <Card appearance="bordered">
+    <Card variant="outline">
       <div className="p-4">
         <h3 className="text-lg font-bold">ボーダースタイル</h3>
         <p className="text-fg-mute mt-2">

@@ -1,6 +1,6 @@
 'use client';
 
-import type { ChangeEvent, FC, HTMLAttributes } from 'react';
+import type { ChangeEvent, FC, HTMLAttributes, Ref } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import type { Option } from '../../../types/variables';
@@ -13,6 +13,7 @@ type BaseProps = {
   name?: string;
   disabled?: boolean;
   options: readonly Option[];
+  ref?: Ref<HTMLDivElement>;
 } & Omit<
   HTMLAttributes<HTMLDivElement>,
   'role' | 'className' | 'style' | 'children' | 'aria-labelledby' | 'onChange'
@@ -40,6 +41,7 @@ export const Radio: FC<Props> = ({
   defaultValue,
   onChange,
   options,
+  ref,
   ...rest
 }) => {
   const [selectedValue, setSelectedValue] = useControllableState<
@@ -68,6 +70,7 @@ export const Radio: FC<Props> = ({
         'flex cursor-pointer flex-col gap-2',
         disabledResolved && 'cursor-not-allowed',
       )}
+      ref={ref}
       role="radiogroup"
     >
       {options.map((option) => (

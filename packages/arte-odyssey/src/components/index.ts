@@ -6,12 +6,17 @@ export { Badge } from './data-display/badge';
 export { Card } from './data-display/card';
 export { Code } from './data-display/code';
 export { Heading } from './data-display/heading';
-export { Table } from './data-display/table';
+export { type CellAlign, Table } from './data-display/table';
 export { Alert, type AlertAction } from './feedback/alert';
 export { Progress } from './feedback/progress';
 export { Skeleton } from './feedback/skeleton';
 export { Spinner } from './feedback/spinner';
-export { ToastProvider, useToast } from './feedback/toast';
+export {
+  type ToastAction,
+  type ToastOptions,
+  ToastProvider,
+  useToast,
+} from './feedback/toast';
 export { Autocomplete } from './form/autocomplete';
 export { Checkbox } from './form/checkbox';
 export { CheckboxCard, type CheckboxCardOption } from './form/checkbox-card';
@@ -29,6 +34,8 @@ export { Switch } from './form/switch';
 export { TextField } from './form/text-field';
 export { Textarea } from './form/textarea';
 export * from './icons';
+export type { GapSize } from './layout/_shared/gap';
+export type { PaddingSize } from './layout/_shared/padding';
 export { Grid, type GridProps } from './layout/grid';
 export { ScrollLinked } from './layout/scroll-linked';
 export { Separator } from './layout/separator';
@@ -46,8 +53,7 @@ export {
   Popover,
   type PopoverContentProps,
   type PopoverTriggerProps,
-  useOpenContext,
-} from './overlays/popover/popover';
+} from './overlays/popover';
 export { Tooltip, type TooltipTriggerProps } from './overlays/tooltip';
 export {
   ArteOdysseyProvider,

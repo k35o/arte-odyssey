@@ -38,12 +38,4 @@ export const [ToastStoreContext, useToastStore] = createSafeContext<ToastStore>(
   'useToast must be used within a ToastProvider',
 );
 
-export const useToast = () => {
-  const store = useToastStore();
-
-  return {
-    onOpen: store.open,
-    onClose: store.close,
-    onCloseAll: store.closeAll,
-  };
-};
+export const useToast = (): ToastStore => useToastStore();

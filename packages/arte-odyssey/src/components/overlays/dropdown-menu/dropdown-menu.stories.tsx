@@ -29,19 +29,19 @@ export const Default: Story = {
       <DropdownMenu.Content>
         <DropdownMenu.Item
           label="編集"
-          onClick={() => {
+          onAction={() => {
             console.warn('編集');
           }}
         />
         <DropdownMenu.Item
           label="複製"
-          onClick={() => {
+          onAction={() => {
             console.warn('複製');
           }}
         />
         <DropdownMenu.Item
           label="削除"
-          onClick={() => {
+          onAction={() => {
             console.warn('削除');
           }}
         />
@@ -67,19 +67,19 @@ export const TriggerByIcon: Story = {
       <DropdownMenu.Content>
         <DropdownMenu.Item
           label="ライト"
-          onClick={() => {
+          onAction={() => {
             console.warn('ライト');
           }}
         />
         <DropdownMenu.Item
           label="ダーク"
-          onClick={() => {
+          onAction={() => {
             console.warn('ダーク');
           }}
         />
         <DropdownMenu.Item
           label="システム"
-          onClick={() => {
+          onAction={() => {
             console.warn('システム');
           }}
         />
@@ -101,33 +101,33 @@ const menuWithSubMenu = (
     <DropdownMenu.Content>
       <DropdownMenu.Item
         label="編集"
-        onClick={() => {
+        onAction={() => {
           console.warn('編集');
         }}
       />
       <DropdownMenu.SubMenu label="共有">
         <DropdownMenu.Item
           label="リンクをコピー"
-          onClick={() => {
+          onAction={() => {
             console.warn('リンクをコピー');
           }}
         />
         <DropdownMenu.Item
           label="メールで送る"
-          onClick={() => {
+          onAction={() => {
             console.warn('メールで送る');
           }}
         />
         <DropdownMenu.Item
           label="SNS に投稿"
-          onClick={() => {
+          onAction={() => {
             console.warn('SNS に投稿');
           }}
         />
       </DropdownMenu.SubMenu>
       <DropdownMenu.Item
         label="削除"
-        onClick={() => {
+        onAction={() => {
           console.warn('削除');
         }}
       />

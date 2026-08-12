@@ -13,8 +13,8 @@ type Story = StoryObj<typeof Progress>;
 
 export const Primary: Story = {
   args: {
-    progress: 50,
-    maxProgress: 100,
+    value: 50,
+    max: 100,
   },
   play: async ({ canvas }) => {
     await expect(canvas.getByRole('progressbar')).toHaveAccessibleName('50%');
@@ -23,9 +23,9 @@ export const Primary: Story = {
 
 export const WithMinProgress: Story = {
   args: {
-    progress: 150,
-    minProgress: 100,
-    maxProgress: 200,
+    value: 150,
+    min: 100,
+    max: 200,
   },
   play: async ({ canvas }) => {
     await expect(canvas.getByRole('progressbar')).toHaveAccessibleName('50%');

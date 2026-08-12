@@ -341,30 +341,30 @@
         },
         {
           "name": "interactive",
-          "types": ["boolean"],
-          "defaultValue": "false",
+          "types": ["true"],
+          "defaultValue": null,
           "required": false
         },
         {
           "name": "size",
-          "types": ["'sm'", "'md'", "'lg'"],
-          "defaultValue": "'md'",
+          "types": ["Size"],
+          "defaultValue": null,
           "required": false
         },
         {
           "name": "tone",
-          "types": ["'neutral'", "'info'", "'success'", "'warning'", "'error'"],
-          "defaultValue": "'neutral'",
+          "types": ["Tone"],
+          "defaultValue": null,
           "required": false
         },
         {
           "name": "variant",
-          "types": ["'solid'", "'outline'"],
-          "defaultValue": "'solid'",
+          "types": ["Variant"],
+          "defaultValue": null,
           "required": false
         }
       ],
-      "inherits": "HTMLAttributes<HTMLElement>"
+      "inherits": null
     },
     {
       "name": "BadIcon",
@@ -430,15 +430,15 @@
           "required": false
         },
         {
-          "name": "component",
-          "types": ["FC<{ href: T; className: string }>"],
-          "defaultValue": null,
-          "required": false
-        },
-        {
           "name": "current",
           "types": ["boolean"],
           "defaultValue": "false",
+          "required": false
+        },
+        {
+          "name": "renderAnchor",
+          "types": ["(props: RenderBreadcrumbAnchorProps<T>) => ReactNode"],
+          "defaultValue": "defaultRenderBreadcrumbAnchor",
           "required": false
         }
       ],
@@ -545,12 +545,6 @@
       "name": "Card",
       "props": [
         {
-          "name": "appearance",
-          "types": ["'shadow'", "'bordered'"],
-          "defaultValue": "'shadow'",
-          "required": false
-        },
-        {
           "name": "children",
           "types": ["ReactNode"],
           "defaultValue": null,
@@ -560,6 +554,12 @@
           "name": "interactive",
           "types": ["boolean"],
           "defaultValue": "false",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "types": ["'shadow'", "'outline'"],
+          "defaultValue": "'shadow'",
           "required": false
         },
         {
@@ -640,60 +640,6 @@
           "name": "invalid",
           "types": ["boolean"],
           "defaultValue": "false",
-          "required": false
-        },
-        {
-          "name": "onChange",
-          "types": ["(value: string[]) => void"],
-          "defaultValue": null,
-          "required": false
-        },
-        {
-          "name": "ref",
-          "types": ["Ref<HTMLFieldSetElement>"],
-          "defaultValue": null,
-          "required": false
-        },
-        {
-          "name": "value",
-          "types": ["string[]"],
-          "defaultValue": null,
-          "required": false
-        }
-      ],
-      "inherits": null
-    },
-    {
-      "name": "CheckboxGroup",
-      "props": [
-        {
-          "name": "aria-labelledby",
-          "types": ["string"],
-          "defaultValue": null,
-          "required": true
-        },
-        {
-          "name": "name",
-          "types": ["string"],
-          "defaultValue": null,
-          "required": true
-        },
-        {
-          "name": "children",
-          "types": ["ReactNode"],
-          "defaultValue": null,
-          "required": false
-        },
-        {
-          "name": "defaultValue",
-          "types": ["never"],
-          "defaultValue": null,
-          "required": false
-        },
-        {
-          "name": "invalid",
-          "types": ["boolean"],
-          "defaultValue": null,
           "required": false
         },
         {
@@ -1006,7 +952,7 @@
         },
         {
           "name": "role",
-          "types": ["string"],
+          "types": ["'dialog'", "'alertdialog'"],
           "defaultValue": null,
           "required": false
         },
@@ -1113,16 +1059,10 @@
           "required": true
         },
         {
-          "name": "onClick",
-          "types": ["MouseEventHandler"],
+          "name": "onAction",
+          "types": ["() => void"],
           "defaultValue": null,
           "required": true
-        },
-        {
-          "name": "index",
-          "types": ["number"],
-          "defaultValue": "0",
-          "required": false
         }
       ],
       "inherits": null
@@ -1176,12 +1116,6 @@
           "name": "children",
           "types": ["ReactNode"],
           "defaultValue": null,
-          "required": false
-        },
-        {
-          "name": "index",
-          "types": ["number"],
-          "defaultValue": "0",
           "required": false
         }
       ],
@@ -1521,7 +1455,7 @@
       "name": "Heading",
       "props": [
         {
-          "name": "type",
+          "name": "level",
           "types": ["'h1'", "'h2'", "'h3'", "'h4'", "'h5'", "'h6'"],
           "defaultValue": null,
           "required": true
@@ -2213,15 +2147,15 @@
           "required": false
         },
         {
-          "name": "trapFocus",
-          "types": ["boolean"],
-          "defaultValue": "true",
+          "name": "role",
+          "types": ["'dialog'", "'menu'", "'listbox'"],
+          "defaultValue": "'menu'",
           "required": false
         },
         {
-          "name": "type",
-          "types": ["'dialog'", "'menu'", "'listbox'"],
-          "defaultValue": "'menu'",
+          "name": "trapFocus",
+          "types": ["boolean"],
+          "defaultValue": "true",
           "required": false
         }
       ],
@@ -2273,13 +2207,13 @@
       "name": "Progress",
       "props": [
         {
-          "name": "maxProgress",
+          "name": "max",
           "types": ["number"],
           "defaultValue": null,
           "required": true
         },
         {
-          "name": "progress",
+          "name": "value",
           "types": ["number"],
           "defaultValue": null,
           "required": true
@@ -2291,7 +2225,7 @@
           "required": false
         },
         {
-          "name": "minProgress",
+          "name": "min",
           "types": ["number"],
           "defaultValue": "0",
           "required": false
@@ -2355,6 +2289,12 @@
           "types": [
             "(value: string, event: ChangeEvent<HTMLInputElement>) => void"
           ],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "ref",
+          "types": ["Ref<HTMLDivElement>"],
           "defaultValue": null,
           "required": false
         },
@@ -2817,15 +2757,15 @@
           "required": false
         },
         {
-          "name": "colSpan",
-          "types": ["number"],
-          "defaultValue": null,
+          "name": "color",
+          "types": ["'base'", "'mute'"],
+          "defaultValue": "'base'",
           "required": false
         },
         {
-          "name": "tone",
-          "types": ["'default'", "'muted'"],
-          "defaultValue": "'default'",
+          "name": "colSpan",
+          "types": ["number"],
+          "defaultValue": null,
           "required": false
         }
       ],

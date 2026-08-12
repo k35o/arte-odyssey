@@ -8,7 +8,7 @@ type RowProps = PropsWithChildren<{
   interactive?: boolean;
 }>;
 
-type CellAlign = 'left' | 'center' | 'right';
+export type CellAlign = 'left' | 'center' | 'right';
 
 type HeaderCellProps = PropsWithChildren<{
   align?: CellAlign;
@@ -17,7 +17,7 @@ type HeaderCellProps = PropsWithChildren<{
 type CellProps = PropsWithChildren<{
   align?: CellAlign;
   colSpan?: number;
-  tone?: 'default' | 'muted';
+  color?: 'base' | 'mute';
 }>;
 
 type SectionProps = PropsWithChildren;
@@ -75,12 +75,12 @@ const Cell: FC<CellProps> = ({
   align = 'left',
   children,
   colSpan,
-  tone = 'default',
+  color = 'base',
 }) => (
   <td
     className={cn(
       'px-4 py-3 align-middle',
-      tone === 'muted' ? 'text-fg-mute' : 'text-fg-base',
+      color === 'mute' ? 'text-fg-mute' : 'text-fg-base',
       align === 'center' && 'text-center',
       align === 'right' && 'text-right',
     )}

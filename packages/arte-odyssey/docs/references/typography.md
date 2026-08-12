@@ -67,9 +67,9 @@ font-family: 'Noto Sans JP', 'M PLUS 2', sans-serif;
 ```tsx
 import { Heading } from '@k8o/arte-odyssey';
 
-<Heading type="h1">ページタイトル</Heading>
-<Heading type="h2">セクション見出し</Heading>
-<Heading type="h3">サブセクション</Heading>
+<Heading level="h1">ページタイトル</Heading>
+<Heading level="h2">セクション見出し</Heading>
+<Heading level="h3">サブセクション</Heading>
 ```
 
 ## 縦書きモード

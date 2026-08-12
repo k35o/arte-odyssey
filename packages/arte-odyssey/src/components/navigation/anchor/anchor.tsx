@@ -8,7 +8,7 @@ type RestProps = Omit<
 >;
 
 type RenderAnchorProps<T extends string> = {
-  type: 'internal' | 'external';
+  kind: 'internal' | 'external';
   href: NoInfer<T>;
   className: string;
   target?: string;
@@ -38,11 +38,11 @@ export const Anchor = <T extends string>({
   ...rest
 }: Props<T>) => {
   const isExternal = href.startsWith('http');
-  const type = !isExternal && !openInNewTab ? 'internal' : 'external';
+  const kind = !isExternal && !openInNewTab ? 'internal' : 'external';
   const baseClassName =
     'text-fg-info underline transition-colors hover:text-fg-info/80 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info focus-visible:rounded-sm';
   const props =
-    type === 'internal'
+    kind === 'internal'
       ? {
           className: baseClassName,
           children,
@@ -60,7 +60,7 @@ export const Anchor = <T extends string>({
         };
   return renderAnchor({
     ...rest,
-    type,
+    kind,
     href,
     ...props,
   });

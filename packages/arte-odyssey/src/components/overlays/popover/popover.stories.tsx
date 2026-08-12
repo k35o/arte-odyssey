@@ -234,7 +234,7 @@ export const DefaultOpen: Story = {
 };
 
 const layerPopover = (name: string) => (
-  <Popover.Root closeOnClickAway={false} trapFocus={false} type="dialog">
+  <Popover.Root closeOnClickAway={false} trapFocus={false} role="dialog">
     <Popover.Trigger
       renderItem={(props) => (
         <Button {...props} size="md" type="button">
