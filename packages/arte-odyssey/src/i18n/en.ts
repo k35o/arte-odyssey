@@ -20,6 +20,7 @@ export const en: Messages = {
   autocompleteEmpty: 'No results',
 
   fileFieldRemove: 'Remove file',
+  fileFieldTrigger: 'Select files',
 
   numberFieldIncrement: 'Increase',
   numberFieldDecrement: 'Decrease',
@@ -30,6 +31,7 @@ export const en: Messages = {
   listBoxPlaceholder: 'Select an option',
 
   breadcrumb: 'Breadcrumb',
+  tabList: 'Tabs',
 
   paginationLabel: 'Pagination',
   paginationPrevious: 'Previous',
@@ -45,6 +47,7 @@ export const en: Messages = {
   toolInput: 'Input',
   toolOutput: 'Output',
   toolError: 'The tool failed to run.',
+  toolDenied: 'The tool run was not approved.',
 
   responseCopied: 'Copied',
   responseCopyCode: 'Copy code',

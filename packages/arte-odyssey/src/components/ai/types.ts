@@ -3,5 +3,8 @@ export type ChatStatus = 'ready' | 'submitted' | 'streaming' | 'error';
 export type ToolState =
   | 'input-streaming'
   | 'input-available'
+  | 'approval-requested'
+  | 'approval-responded'
   | 'output-available'
-  | 'output-error';
+  | 'output-error'
+  | 'output-denied';

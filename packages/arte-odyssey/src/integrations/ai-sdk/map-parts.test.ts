@@ -32,6 +32,7 @@ describe('mapMessageParts', () => {
         input: { q: 'x' },
         output: 'result',
         errorText: undefined,
+        deniedReason: undefined,
       },
     ]);
   });
@@ -61,6 +62,36 @@ describe('mapMessageParts', () => {
         input: {},
         output: undefined,
         errorText: 'boom',
+        deniedReason: undefined,
+      },
+    ]);
+  });
+
+  it('maps the denied state with the approval reason', () => {
+    const message = {
+      id: 'm4',
+      role: 'assistant',
+      parts: [
+        {
+          type: 'tool-search',
+          toolCallId: 'c3',
+          state: 'output-denied',
+          input: { q: 'x' },
+          approval: { id: 'a1', approved: false, reason: '外部検索は無効' },
+        },
+      ],
+    } as unknown as UIMessage;
+
+    expect(mapMessageParts(message)).toStrictEqual([
+      {
+        kind: 'tool',
+        name: 'search',
+        toolCallId: 'c3',
+        state: 'output-denied',
+        input: { q: 'x' },
+        output: undefined,
+        errorText: undefined,
+        deniedReason: '外部検索は無効',
       },
     ]);
   });
