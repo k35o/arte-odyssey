@@ -31,15 +31,18 @@ const NAVIGATION_KEYS = new Set([
   'End',
 ]);
 
-export const SubMenu: FC<
-  PropsWithChildren<{
-    label: string;
-    index?: number;
-  }>
-> = ({ label, children, index = 0 }) => {
+export type SubMenuProps = PropsWithChildren<{
+  label: string;
+}>;
+
+export const SubMenu: FC<SubMenuProps & { index?: number }> = ({
+  label,
+  children,
+  index = 0,
+}) => {
   const { isOpen: isParentOpen } = useOpenContext();
   return (
-    <Popover.Root placement="right-start" trapFocus={false} type="menu">
+    <Popover.Root placement="right-start" trapFocus={false} role="menu">
       <SubMenuInner index={index} isParentOpen={isParentOpen} label={label}>
         {children}
       </SubMenuInner>

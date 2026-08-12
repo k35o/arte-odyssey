@@ -11,7 +11,7 @@ export function SkeletonPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Skeleton</Heading>
+        <Heading level="h1">Skeleton</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.skeleton.description" />
         </p>
@@ -27,7 +27,7 @@ export function SkeletonPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -39,7 +39,7 @@ export function SkeletonPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview code="<Skeleton />">
@@ -48,7 +48,7 @@ export function SkeletonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.skeleton.shapesTitle" />
           </Heading>
           <ComponentPreview
@@ -61,7 +61,7 @@ export function SkeletonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.skeleton.sizesTitle" />
           </Heading>
           <ComponentPreview
@@ -76,7 +76,7 @@ export function SkeletonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.skeleton.animationTitle" />
           </Heading>
           <ComponentPreview
@@ -91,7 +91,7 @@ export function SkeletonPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable

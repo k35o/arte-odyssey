@@ -1,13 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type {
-  ComponentProps,
-  FC,
-  MouseEventHandler,
-  PropsWithChildren,
-  ReactNode,
-} from 'react';
+import type { ComponentProps, FC, PropsWithChildren, ReactNode } from 'react';
 
 import type { Placement } from '../../../types/variables';
 import { Button } from '../../buttons/button';
@@ -18,6 +12,7 @@ import { Popover, useOpenContext } from '../popover';
 import { MenuContextProvider, useMenuContent, useMenuItem } from './hooks';
 import { cloneWithIndex, itemClass, panelClass } from './shared';
 import { SubMenu } from './sub-menu';
+import type { SubMenuProps } from './sub-menu';
 
 const Root: FC<
   PropsWithChildren<{
@@ -38,7 +33,7 @@ const Root: FC<
     isOpen={isOpen}
     onChange={onChange}
     placement={placement}
-    type="menu"
+    role="menu"
   >
     <MenuProvider>{children}</MenuProvider>
   </Popover.Root>
@@ -76,12 +71,17 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-const Item: FC<{
-  onClick: MouseEventHandler;
+type ItemProps = {
+  onAction: () => void;
   label: string;
-  index?: number;
-}> = ({ label, onClick, index = 0 }) => {
-  const props = useMenuItem({ onClick, index });
+};
+
+const Item: FC<ItemProps & { index?: number }> = ({
+  label,
+  onAction,
+  index = 0,
+}) => {
+  const props = useMenuItem({ onAction, index });
 
   return (
     <button className={itemClass} type="button" {...props}>
@@ -127,8 +127,9 @@ const IconTrigger: FC<{
 export const DropdownMenu = {
   Root,
   Content,
-  Item,
-  SubMenu,
+  // `index` は Content の cloneWithIndex が注入する内部 prop のため公開型から隠す
+  Item: Item as FC<ItemProps>,
+  SubMenu: SubMenu as FC<SubMenuProps>,
   Trigger,
   IconTrigger,
 } as const;

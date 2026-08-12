@@ -16,7 +16,7 @@ export function ModalPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Modal</Heading>
+        <Heading level="h1">Modal</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.modal.description" />
         </p>
@@ -32,7 +32,7 @@ export function ModalPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -44,13 +44,13 @@ export function ModalPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
@@ -80,7 +80,7 @@ export function ModalPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.modal.sideTitle" />
           </Heading>
           <ComponentPreview
@@ -114,7 +114,7 @@ export function ModalPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.modal.defaultOpenTitle" />
           </Heading>
           <ComponentPreview
@@ -137,7 +137,7 @@ export function ModalPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable items={propsOf('Modal')} />

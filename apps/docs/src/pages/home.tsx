@@ -148,7 +148,7 @@ export function Home() {
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-6 pb-24 md:px-8">
-        <Heading type="h2">{t('home.featuresTitle')}</Heading>
+        <Heading level="h2">{t('home.featuresTitle')}</Heading>
         <ol className="mt-8">
           {FEATURES.map((feature) => (
             <li

@@ -61,7 +61,7 @@ export function AiAgents() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">
+        <Heading level="h1">
           <T k="nav.aiAgents" />
         </Heading>
         <p className="text-fg-mute text-lg">
@@ -71,7 +71,7 @@ export function AiAgents() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiAgents.setupTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -91,7 +91,7 @@ recalling them; a component that is not listed there does not exist.`}
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiAgents.surfacesTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -116,7 +116,7 @@ recalling them; a component that is not listed there does not exist.`}
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiAgents.mcpTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -137,7 +137,7 @@ recalling them; a component that is not listed there does not exist.`}
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="aiAgents.generatedTitle" />
         </Heading>
         <p className="text-fg-mute">

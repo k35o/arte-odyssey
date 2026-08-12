@@ -11,7 +11,7 @@ export function AvatarPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Avatar</Heading>
+        <Heading level="h1">Avatar</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.avatar.description" />
         </p>
@@ -27,7 +27,7 @@ export function AvatarPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -39,7 +39,7 @@ export function AvatarPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview code='<Avatar name="Arte Odyssey" />'>
@@ -48,7 +48,7 @@ export function AvatarPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.avatar.withImageTitle" />
           </Heading>
           <ComponentPreview
@@ -65,7 +65,7 @@ export function AvatarPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.avatar.sizesTitle" />
           </Heading>
           <ComponentPreview
@@ -82,7 +82,7 @@ export function AvatarPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable inherits={inheritsOf('Avatar')} items={propsOf('Avatar')} />

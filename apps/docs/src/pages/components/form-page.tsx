@@ -15,7 +15,7 @@ export function FormPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Form</Heading>
+        <Heading level="h1">Form</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.form.description" />
         </p>
@@ -31,7 +31,7 @@ export function FormPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock code="import { Form } from '@k8o/arte-odyssey';" lang="ts" />
@@ -40,7 +40,7 @@ export function FormPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -62,7 +62,7 @@ export function FormPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.form.actionStateTitle" />
           </Heading>
           <ComponentPreview
@@ -93,7 +93,7 @@ return (
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable items={propsOf('Form')} />

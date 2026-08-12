@@ -16,7 +16,7 @@ export function BreadcrumbPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Breadcrumb</Heading>
+        <Heading level="h1">Breadcrumb</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.breadcrumb.description" />
         </p>
@@ -32,7 +32,7 @@ export function BreadcrumbPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -44,7 +44,7 @@ export function BreadcrumbPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -69,7 +69,7 @@ export function BreadcrumbPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.breadcrumb.currentPageTitle" />
           </Heading>
           <ComponentPreview
@@ -94,7 +94,7 @@ export function BreadcrumbPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.breadcrumb.sizesTitle" />
           </Heading>
           <ComponentPreview
@@ -135,16 +135,16 @@ export function BreadcrumbPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <Heading type="h3">Breadcrumb.List</Heading>
+        <Heading level="h3">Breadcrumb.List</Heading>
         <PropsTable items={propsOf('Breadcrumb.List')} />
-        <Heading type="h3">Breadcrumb.Item</Heading>
+        <Heading level="h3">Breadcrumb.Item</Heading>
         <PropsTable items={propsOf('Breadcrumb.Item')} />
-        <Heading type="h3">Breadcrumb.Separator</Heading>
+        <Heading level="h3">Breadcrumb.Separator</Heading>
         <PropsTable items={[]} />
-        <Heading type="h3">Breadcrumb.Link</Heading>
+        <Heading level="h3">Breadcrumb.Link</Heading>
         <PropsTable items={propsOf('Breadcrumb.Link')} />
       </section>
     </div>

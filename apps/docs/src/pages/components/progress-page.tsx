@@ -11,7 +11,7 @@ export function ProgressPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Progress</Heading>
+        <Heading level="h1">Progress</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.progress.description" />
         </p>
@@ -27,7 +27,7 @@ export function ProgressPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -39,52 +39,48 @@ export function ProgressPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
-          <ComponentPreview code="<Progress maxProgress={100} progress={60} />">
+          <ComponentPreview code="<Progress max={100} value={60} />">
             <div className="w-full">
-              <Progress maxProgress={100} progress={60} />
+              <Progress max={100} value={60} />
             </div>
           </ComponentPreview>
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.progress.differentValuesTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Progress maxProgress={100} progress={20} />
-<Progress maxProgress={100} progress={50} />
-<Progress maxProgress={100} progress={80} />
-<Progress maxProgress={100} progress={100} />`}
+            code={`<Progress max={100} value={20} />
+<Progress max={100} value={50} />
+<Progress max={100} value={80} />
+<Progress max={100} value={100} />`}
           >
             <div className="flex w-full flex-col gap-4">
-              <Progress maxProgress={100} progress={20} />
-              <Progress maxProgress={100} progress={50} />
-              <Progress maxProgress={100} progress={80} />
-              <Progress maxProgress={100} progress={100} />
+              <Progress max={100} value={20} />
+              <Progress max={100} value={50} />
+              <Progress max={100} value={80} />
+              <Progress max={100} value={100} />
             </div>
           </ComponentPreview>
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.progress.withLabelTitle" />
           </Heading>
           <ComponentPreview
             code={`<Progress
   label="Upload progress"
-  maxProgress={100}
-  progress={75}
+  max={100}
+  value={75}
 />`}
           >
             <div className="w-full">
-              <Progress
-                label="Upload progress"
-                maxProgress={100}
-                progress={75}
-              />
+              <Progress label="Upload progress" max={100} value={75} />
             </div>
           </ComponentPreview>
         </div>
@@ -92,7 +88,7 @@ export function ProgressPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable

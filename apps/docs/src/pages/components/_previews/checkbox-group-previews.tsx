@@ -11,7 +11,7 @@ export function CheckboxGroupControlledPreview() {
       <p className="text-fg-base mb-2 font-medium" id="cg-controlled-label">
         Frameworks
       </p>
-      <CheckboxGroup
+      <CheckboxGroup.Root
         aria-labelledby="cg-controlled-label"
         name="frameworks"
         onChange={setValue}
@@ -20,7 +20,7 @@ export function CheckboxGroupControlledPreview() {
         <Checkbox itemValue="react" label="React" />
         <Checkbox itemValue="vue" label="Vue" />
         <Checkbox itemValue="svelte" label="Svelte" />
-      </CheckboxGroup>
+      </CheckboxGroup.Root>
     </div>
   );
 }

@@ -28,6 +28,7 @@ export type Messages = {
   autocompleteEmpty: string;
 
   fileFieldRemove: string;
+  fileFieldTrigger: string;
 
   numberFieldIncrement: string;
   numberFieldDecrement: string;
@@ -40,6 +41,7 @@ export type Messages = {
 
   /** Breadcrumb の nav ランドマーク名 */
   breadcrumb: string;
+  tabList: string;
 
   /** Pagination の nav ランドマーク名 */
   paginationLabel: string;
@@ -58,6 +60,7 @@ export type Messages = {
   toolInput: string;
   toolOutput: string;
   toolError: string;
+  toolDenied: string;
 
   /**
    * Response が描画する Markdown のコントロール文言。

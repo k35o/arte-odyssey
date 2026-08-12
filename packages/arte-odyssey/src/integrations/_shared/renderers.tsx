@@ -104,6 +104,7 @@ import { ListBox } from '../../components/overlays/list-box';
 import { Modal } from '../../components/overlays/modal';
 import { Popover } from '../../components/overlays/popover';
 import { Tooltip } from '../../components/overlays/tooltip';
+import { useMessages } from '../../i18n/context';
 import type {
   AccordionProps,
   AlertProps,
@@ -263,8 +264,8 @@ export function renderBadge(props: BadgeProps): ReactNode {
 
 export function renderHeading(props: HeadingProps): ReactNode {
   return (
-    <Heading lineClamp={u(props.lineClamp)} type={u(props.level) ?? 'h2'}>
-      {props.text}
+    <Heading lineClamp={u(props.lineClamp)} level={u(props.level) ?? 'h2'}>
+      {props.label}
     </Heading>
   );
 }
@@ -295,7 +296,7 @@ const CARD_PADDING_CLASS = {
 export function renderCard(props: CardProps, children: ReactNode): ReactNode {
   return (
     <Card
-      appearance={u(props.appearance)}
+      variant={u(props.variant)}
       interactive={u(props.interactive)}
       width={u(props.width)}
     >
@@ -308,6 +309,7 @@ export function renderCard(props: CardProps, children: ReactNode): ReactNode {
 // 同一ページに複数描画されても衝突しないよう `useId()` で生成する必要がある。
 // （生成 UI では Tabs が複数並ぶケースは普通にあり得る）。
 export const TabsView: FC<{ props: TabsProps }> = ({ props }) => {
+  const messages = useMessages();
   const baseId = useId();
   const ids = props.tabs.map((_, index) => `${baseId}-tab-${index}`) as [
     string,
@@ -315,7 +317,7 @@ export const TabsView: FC<{ props: TabsProps }> = ({ props }) => {
   ];
   return (
     <Tabs.Root ids={ids}>
-      <Tabs.List label={u(props.label) ?? 'タブ'}>
+      <Tabs.List label={u(props.label) ?? messages.tabList}>
         {props.tabs.map((tab, index) => (
           <Tabs.Tab id={ids[index] ?? ''} key={ids[index]}>
             {tab.label}
@@ -659,7 +661,7 @@ export function renderIconButton(props: IconButtonProps): ReactNode {
 export function renderAnchor(props: AnchorProps): ReactNode {
   return (
     <Anchor href={props.href} openInNewTab={u(props.openInNewTab)}>
-      {props.text}
+      {props.label}
     </Anchor>
   );
 }
@@ -684,9 +686,9 @@ export function renderProgress(props: ProgressProps): ReactNode {
   return (
     <Progress
       label={u(props.label)}
-      maxProgress={props.maxProgress}
-      minProgress={u(props.minProgress)}
-      progress={props.progress}
+      max={props.max}
+      min={u(props.min)}
+      value={props.value}
     />
   );
 }
@@ -903,11 +905,11 @@ export function renderTooltip(props: TooltipProps): ReactNode {
       <Tooltip.Trigger
         renderItem={(triggerProps) => (
           <Button {...triggerProps} variant="outline">
-            {props.label}
+            {props.triggerLabel}
           </Button>
         )}
       />
-      <Tooltip.Content>{props.text}</Tooltip.Content>
+      <Tooltip.Content>{props.content}</Tooltip.Content>
     </Tooltip.Root>
   );
 }
@@ -921,7 +923,7 @@ export function renderDropdownMenu(props: DropdownMenuProps): ReactNode {
           <DropdownMenu.Item
             key={item.label}
             label={item.label}
-            onClick={() => {
+            onAction={() => {
               /* no-op: 生成 UI ではローカルメニューのみ */
             }}
           />
@@ -937,11 +939,11 @@ export function renderScrollLinked(_props: ScrollLinkedProps): ReactNode {
 
 // ToastProvider はラッパー側で巻く必要があるため、ローカルにも 1 段被せる。
 const ToastTriggerInner: FC<{ props: ToastProps }> = ({ props }) => {
-  const { onOpen } = useToast();
+  const { open } = useToast();
   return (
     <Button
       onClick={() => {
-        onOpen(props.tone, props.message);
+        open(props.tone, props.message);
       }}
       variant="outline"
     >
@@ -1029,18 +1031,21 @@ export function renderAutocomplete(
   return <AutocompleteView onChange={onChange} props={props} value={value} />;
 }
 
-export const FileFieldWidget: FC<{ props: FileFieldProps }> = ({ props }) => (
-  <FileField.Root maxFiles={u(props.maxFiles)} multiple={u(props.multiple)}>
-    <FileField.Trigger
-      renderItem={({ onClick, disabled }) => (
-        <Button disabled={disabled} onClick={onClick} variant="outline">
-          {u(props.triggerLabel) ?? 'ファイルを選択'}
-        </Button>
-      )}
-    />
-    <FileField.ItemList clearable={u(props.clearable)} />
-  </FileField.Root>
-);
+export const FileFieldWidget: FC<{ props: FileFieldProps }> = ({ props }) => {
+  const messages = useMessages();
+  return (
+    <FileField.Root maxFiles={u(props.maxFiles)} multiple={u(props.multiple)}>
+      <FileField.Trigger
+        renderItem={({ onClick, disabled }) => (
+          <Button disabled={disabled} onClick={onClick} variant="outline">
+            {u(props.triggerLabel) ?? messages.fileFieldTrigger}
+          </Button>
+        )}
+      />
+      <FileField.ItemList clearable={u(props.clearable)} />
+    </FileField.Root>
+  );
+};
 
 export const FormControlWidget: FC<{ props: FormControlProps }> = ({
   props,

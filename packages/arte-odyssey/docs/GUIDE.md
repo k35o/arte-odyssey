@@ -238,12 +238,12 @@ import { IconButton } from '@k8o/arte-odyssey';
 import { Card } from '@k8o/arte-odyssey';
 
 // 静的カード（シャドウで浮かせる）
-<Card appearance="shadow">
+<Card variant="shadow">
   <div className="p-8">カードのコンテンツ</div>
 </Card>
 
 // クリック可能なカード（interactive でホバー時にスケールアップ）
-<Card appearance="shadow" interactive>
+<Card variant="shadow" interactive>
   <div className="p-8">コンテンツ</div>
 </Card>
 ```

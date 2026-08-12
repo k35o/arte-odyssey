@@ -35,7 +35,7 @@ export function UseResizePage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">useResize</Heading>
+        <Heading level="h1">useResize</Heading>
         <p className="text-fg-mute text-lg">
           <T k="hooks.useResize.description" />
         </p>
@@ -43,7 +43,7 @@ export function UseResizePage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -54,11 +54,11 @@ export function UseResizePage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-8">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.usageTitle" />
         </Heading>
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="hooks.common.basicUsageTitle" />
           </Heading>
           <CodeBlock
@@ -83,14 +83,14 @@ return (
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.parametersTitle" />
         </Heading>
         <PropsTable items={parameters} />
       </section>
       <Separator color="mute" />
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.returnValueTitle" />
         </Heading>
         <PropsTable items={returnValue} />

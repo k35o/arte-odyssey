@@ -61,7 +61,7 @@ export const RadioCard: FC<Props> = ({
     string | undefined
   >({
     value,
-    defaultValue: defaultValue ?? options[0]?.value,
+    defaultValue,
   });
 
   const selectValue = (nextValue: string) => {

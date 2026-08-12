@@ -15,7 +15,7 @@ export function PopoverPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Popover</Heading>
+        <Heading level="h1">Popover</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.popover.description" />
         </p>
@@ -31,7 +31,7 @@ export function PopoverPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -43,7 +43,7 @@ export function PopoverPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -72,7 +72,7 @@ export function PopoverPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.popover.placementTitle" />
           </Heading>
           <ComponentPreview
@@ -143,14 +143,14 @@ export function PopoverPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <Heading type="h3">Popover.Root</Heading>
+        <Heading level="h3">Popover.Root</Heading>
         <PropsTable items={propsOf('Popover.Root')} />
-        <Heading type="h3">Popover.Trigger</Heading>
+        <Heading level="h3">Popover.Trigger</Heading>
         <PropsTable items={propsOf('Popover.Trigger')} />
-        <Heading type="h3">Popover.Content</Heading>
+        <Heading level="h3">Popover.Content</Heading>
         <PropsTable items={propsOf('Popover.Content')} />
       </section>
     </div>

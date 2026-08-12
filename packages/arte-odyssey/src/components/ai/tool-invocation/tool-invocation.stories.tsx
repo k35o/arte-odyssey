@@ -42,6 +42,33 @@ export const Failed: Story = {
   },
 };
 
+export const Denied: Story = {
+  args: {
+    state: 'output-denied',
+    input: { query: 'ArteOdyssey とは' },
+    defaultOpen: true,
+  },
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByText('ツールの実行は許可されませんでした。'),
+    ).toBeVisible();
+  },
+};
+
+export const DeniedWithReason: Story = {
+  args: {
+    state: 'output-denied',
+    input: { query: 'ArteOdyssey とは' },
+    deniedReason: '外部検索は無効になっています',
+    defaultOpen: true,
+  },
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByText('外部検索は無効になっています'),
+    ).toBeVisible();
+  },
+};
+
 export const Collapsed: Story = {
   args: {
     state: 'output-available',

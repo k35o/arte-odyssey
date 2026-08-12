@@ -5,13 +5,13 @@ import { expect } from 'storybook/test';
 import { CheckboxGroup } from '.';
 import { Checkbox } from '../checkbox';
 
-const meta: Meta<typeof CheckboxGroup> = {
+const meta: Meta<typeof CheckboxGroup.Root> = {
   title: 'components/form/checkbox-group',
-  component: CheckboxGroup,
+  component: CheckboxGroup.Root,
 };
 
 export default meta;
-type Story = StoryObj<typeof CheckboxGroup>;
+type Story = StoryObj<typeof CheckboxGroup.Root>;
 
 const DefaultRender = () => {
   const [value, setValue] = useState(['react']);
@@ -21,7 +21,7 @@ const DefaultRender = () => {
       <p className="text-fg-base mb-2 font-medium" id="frameworks-label">
         フレームワーク
       </p>
-      <CheckboxGroup
+      <CheckboxGroup.Root
         aria-labelledby="frameworks-label"
         name="frameworks"
         onChange={setValue}
@@ -30,7 +30,7 @@ const DefaultRender = () => {
         <Checkbox itemValue="react" label="React" />
         <Checkbox itemValue="vue" label="Vue" />
         <Checkbox itemValue="svelte" label="Svelte" />
-      </CheckboxGroup>
+      </CheckboxGroup.Root>
     </div>
   );
 };
@@ -65,14 +65,14 @@ export const Required: Story = {
         フレームワーク
         <span className="text-fg-error">必須</span>
       </p>
-      <CheckboxGroup
+      <CheckboxGroup.Root
         aria-labelledby="frameworks-required-label"
         defaultValue={[]}
         name="frameworks-required"
       >
         <CheckboxGroup.Item itemValue="react" label="React" />
         <CheckboxGroup.Item itemValue="vue" label="Vue" />
-      </CheckboxGroup>
+      </CheckboxGroup.Root>
     </div>
   ),
   play: async ({ canvas }) => {
@@ -93,7 +93,7 @@ export const Disabled: Story = {
       >
         フレームワーク
       </p>
-      <CheckboxGroup
+      <CheckboxGroup.Root
         aria-labelledby="frameworks-disabled-label"
         defaultValue={['vue']}
         disabled
@@ -102,7 +102,7 @@ export const Disabled: Story = {
         <Checkbox itemValue="react" label="React" />
         <Checkbox itemValue="vue" label="Vue" />
         <Checkbox itemValue="svelte" label="Svelte" />
-      </CheckboxGroup>
+      </CheckboxGroup.Root>
     </div>
   ),
 };
@@ -115,7 +115,7 @@ const RefRender = () => {
       <p className="text-fg-base font-medium" id="frameworks-ref-label">
         フレームワーク
       </p>
-      <CheckboxGroup
+      <CheckboxGroup.Root
         aria-labelledby="frameworks-ref-label"
         defaultValue={[]}
         name="frameworks-ref"
@@ -123,7 +123,7 @@ const RefRender = () => {
       >
         <CheckboxGroup.Item itemValue="react" label="React" />
         <CheckboxGroup.Item itemValue="vue" label="Vue" />
-      </CheckboxGroup>
+      </CheckboxGroup.Root>
       <button
         onClick={() => {
           ref.current?.querySelector('input')?.focus();

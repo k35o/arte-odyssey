@@ -16,7 +16,7 @@ export function CheckboxPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Checkbox</Heading>
+        <Heading level="h1">Checkbox</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.checkbox.description" />
         </p>
@@ -32,7 +32,7 @@ export function CheckboxPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -44,7 +44,7 @@ export function CheckboxPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview code='<Checkbox label="I agree to the terms" />'>
@@ -53,7 +53,7 @@ export function CheckboxPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.checkbox.defaultCheckedTitle" />
           </Heading>
           <ComponentPreview code='<Checkbox defaultChecked label="Checked by default" />'>
@@ -62,7 +62,7 @@ export function CheckboxPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.checkbox.controlledTitle" />
           </Heading>
           <ComponentPreview
@@ -79,7 +79,7 @@ export function CheckboxPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.checkbox.disabledTitle" />
           </Heading>
           <ComponentPreview
@@ -92,10 +92,10 @@ export function CheckboxPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">Group</Heading>
+          <Heading level="h3">Group</Heading>
           <ComponentPreview
             code={`<p id="checkbox-group-label">Frameworks</p>
-<CheckboxGroup
+<CheckboxGroup.Root
   aria-labelledby="checkbox-group-label"
   name="frameworks"
   onChange={setValue}
@@ -104,17 +104,17 @@ export function CheckboxPage() {
   <Checkbox itemValue="react" label="React" />
   <Checkbox itemValue="vue" label="Vue" />
   <Checkbox itemValue="svelte" label="Svelte" />
-</CheckboxGroup>`}
+</CheckboxGroup.Root>`}
           >
             <CheckboxGroupControlledPreview />
           </ComponentPreview>
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">Group Disabled</Heading>
+          <Heading level="h3">Group Disabled</Heading>
           <ComponentPreview
             code={`<p id="checkbox-group-disabled-label">Frameworks</p>
-<CheckboxGroup
+<CheckboxGroup.Root
   aria-labelledby="checkbox-group-disabled-label"
   defaultValue={['vue']}
   disabled
@@ -123,7 +123,7 @@ export function CheckboxPage() {
   <Checkbox itemValue="react" label="React" />
   <Checkbox itemValue="vue" label="Vue" />
   <Checkbox itemValue="svelte" label="Svelte" />
-</CheckboxGroup>`}
+</CheckboxGroup.Root>`}
           >
             <CheckboxGroupDisabledPreview />
           </ComponentPreview>
@@ -132,7 +132,7 @@ export function CheckboxPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable
@@ -143,7 +143,7 @@ export function CheckboxPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">CheckboxGroup Props</Heading>
+        <Heading level="h2">CheckboxGroup Props</Heading>
         <PropsTable
           inherits={inheritsOf('CheckboxGroup')}
           items={propsOf('CheckboxGroup')}

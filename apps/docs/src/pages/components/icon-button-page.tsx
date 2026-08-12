@@ -18,7 +18,7 @@ export function IconButtonPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">IconButton</Heading>
+        <Heading level="h1">IconButton</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.iconButton.description" />
         </p>
@@ -34,7 +34,7 @@ export function IconButtonPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -46,7 +46,7 @@ export function IconButtonPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -63,7 +63,7 @@ export function IconButtonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.iconButton.sizesTitle" />
           </Heading>
           <ComponentPreview
@@ -90,7 +90,7 @@ export function IconButtonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.iconButton.backgroundsTitle" />
           </Heading>
           <ComponentPreview
@@ -123,7 +123,7 @@ export function IconButtonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.iconButton.disabledTitle" />
           </Heading>
           <ComponentPreview
@@ -138,7 +138,7 @@ export function IconButtonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.iconButton.renderItemTitle" />
           </Heading>
           <ComponentPreview
@@ -170,7 +170,7 @@ export function IconButtonPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable

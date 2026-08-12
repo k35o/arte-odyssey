@@ -6,7 +6,7 @@ import { Renderer } from '@openuidev/react-lang';
  * Stack 自身の入れ子は非対応。引数は位置引数（props 定義順）なので、途中の
  * 省略したい引数は詰めずに null で埋める（詰めると以降が 1 つずつずれる）。
  */
-export const openUiResponse = `root = Card("full", "bordered", null, null, [main])
+export const openUiResponse = `root = Card("full", "outline", null, null, [main])
 main = Stack("column", "lg", null, null, null, [crumbs, heading, alert, save, cancel, help, badge, prog, table, accordion, sep, plan, size, vol, detail, nickname, bio, pw, qty, agree, notify, pager])
 crumbs = Breadcrumb(null, [{label: "Home", href: "/"}, {label: "Profile", current: true}])
 heading = Heading("プロフィール設定", "h3")

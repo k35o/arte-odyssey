@@ -19,11 +19,11 @@ const ToastTrigger = ({
   options?: ToastOptions;
   tone?: Status;
 }) => {
-  const { onOpen } = useToast();
+  const { open } = useToast();
   return (
     <Button
       onClick={() => {
-        onOpen(tone, message, options);
+        open(tone, message, options);
       }}
     >
       {label}
@@ -347,16 +347,16 @@ export const FocusMovesToNextToast: Story = {
 };
 
 const OverflowRender = () => {
-  const { onOpen } = useToast();
-  const open = (message: string) => {
-    onOpen('success', message, { duration: Number.POSITIVE_INFINITY });
+  const { open } = useToast();
+  const openToast = (message: string) => {
+    open('success', message, { duration: Number.POSITIVE_INFINITY });
   };
   return (
     <div className="flex gap-2">
       <Button
         onClick={() => {
           for (const index of [1, 2, 3, 4, 5]) {
-            open(`トースト${index}`);
+            openToast(`トースト${index}`);
           }
         }}
       >
@@ -366,7 +366,7 @@ const OverflowRender = () => {
         onClick={() => {
           // フォーカスをトースト内に置いたまま 6 件目を開くため遅延させる
           window.setTimeout(() => {
-            open('トースト6');
+            openToast('トースト6');
           }, 400);
         }}
       >

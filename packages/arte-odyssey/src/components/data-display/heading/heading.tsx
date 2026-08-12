@@ -3,7 +3,7 @@ import type { FC, HTMLAttributes } from 'react';
 import { cn } from './../../../helpers/cn';
 
 type Props = {
-  type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  level: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   lineClamp?: 1 | 2 | 3 | 4 | 5 | 6;
 } & Omit<HTMLAttributes<HTMLHeadingElement>, 'className' | 'style'>;
 
@@ -16,10 +16,10 @@ const LINE_CLAMP_CLASS = {
   6: 'line-clamp-6',
 } as const;
 
-export const Heading: FC<Props> = ({ children, type, lineClamp, ...rest }) => {
+export const Heading: FC<Props> = ({ children, level, lineClamp, ...rest }) => {
   const lineClampClass =
     lineClamp === undefined ? undefined : LINE_CLAMP_CLASS[lineClamp];
-  if (type === 'h1') {
+  if (level === 'h1') {
     return (
       <h1
         {...rest}
@@ -29,7 +29,7 @@ export const Heading: FC<Props> = ({ children, type, lineClamp, ...rest }) => {
       </h1>
     );
   }
-  if (type === 'h2') {
+  if (level === 'h2') {
     return (
       <h2
         {...rest}
@@ -39,7 +39,7 @@ export const Heading: FC<Props> = ({ children, type, lineClamp, ...rest }) => {
       </h2>
     );
   }
-  if (type === 'h3') {
+  if (level === 'h3') {
     return (
       <h3
         {...rest}
@@ -49,7 +49,7 @@ export const Heading: FC<Props> = ({ children, type, lineClamp, ...rest }) => {
       </h3>
     );
   }
-  if (type === 'h4') {
+  if (level === 'h4') {
     return (
       <h4
         {...rest}
@@ -59,7 +59,7 @@ export const Heading: FC<Props> = ({ children, type, lineClamp, ...rest }) => {
       </h4>
     );
   }
-  if (type === 'h5') {
+  if (level === 'h5') {
     return (
       <h5
         {...rest}

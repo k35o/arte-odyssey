@@ -11,7 +11,7 @@ export function NumberFieldPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">NumberField</Heading>
+        <Heading level="h1">NumberField</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.numberField.description" />
         </p>
@@ -27,7 +27,7 @@ export function NumberFieldPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -39,7 +39,7 @@ export function NumberFieldPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -54,7 +54,7 @@ export function NumberFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.numberField.stepPrecisionTitle" />
           </Heading>
           <ComponentPreview
@@ -77,7 +77,7 @@ export function NumberFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.numberField.minMaxTitle" />
           </Heading>
           <ComponentPreview
@@ -102,7 +102,7 @@ export function NumberFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.numberField.disabledTitle" />
           </Heading>
           <ComponentPreview
@@ -117,7 +117,7 @@ export function NumberFieldPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.numberField.invalidTitle" />
           </Heading>
           <ComponentPreview
@@ -134,7 +134,7 @@ export function NumberFieldPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable

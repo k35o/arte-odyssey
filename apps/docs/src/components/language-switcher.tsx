@@ -29,7 +29,7 @@ export function LanguageSwitcher() {
           <DropdownMenu.Item
             key={l}
             label={LOCALE_LABELS[l]}
-            onClick={() => {
+            onAction={() => {
               navigation.navigate(localizeHref(path, l));
             }}
           />

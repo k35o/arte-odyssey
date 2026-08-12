@@ -19,7 +19,7 @@ export function ButtonPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Button</Heading>
+        <Heading level="h1">Button</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.button.description" />
         </p>
@@ -35,7 +35,7 @@ export function ButtonPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -47,7 +47,7 @@ export function ButtonPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -62,7 +62,7 @@ export function ButtonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.button.variantsTitle" />
           </Heading>
           <ComponentPreview
@@ -77,7 +77,7 @@ export function ButtonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.button.colorsTitle" />
           </Heading>
           <ComponentPreview
@@ -92,7 +92,7 @@ export function ButtonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.button.sizesTitle" />
           </Heading>
           <ComponentPreview
@@ -107,7 +107,7 @@ export function ButtonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.button.iconsTitle" />
           </Heading>
           <ComponentPreview
@@ -128,7 +128,7 @@ export function ButtonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.button.fullWidthTitle" />
           </Heading>
           <ComponentPreview code="<Button fullWidth>Full Width Button</Button>">
@@ -139,7 +139,7 @@ export function ButtonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.button.disabledTitle" />
           </Heading>
           <ComponentPreview code="<Button disabled>Disabled</Button>">
@@ -148,7 +148,7 @@ export function ButtonPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.button.renderItemTitle" />
           </Heading>
           <ComponentPreview
@@ -169,7 +169,7 @@ export function ButtonPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable inherits={inheritsOf('Button')} items={propsOf('Button')} />

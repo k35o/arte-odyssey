@@ -11,7 +11,7 @@ export function CodePage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Code</Heading>
+        <Heading level="h1">Code</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.code.description" />
         </p>
@@ -27,7 +27,7 @@ export function CodePage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock code="import { Code } from '@k8o/arte-odyssey';" lang="ts" />
@@ -36,7 +36,7 @@ export function CodePage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -52,7 +52,7 @@ export function CodePage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.code.colorDetectionTitle" />
           </Heading>
           <ComponentPreview
@@ -69,7 +69,7 @@ export function CodePage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable inherits={inheritsOf('Code')} items={propsOf('Code')} />

@@ -20,6 +20,7 @@ export const ja: Messages = {
   autocompleteEmpty: '該当なし',
 
   fileFieldRemove: 'ファイルを削除',
+  fileFieldTrigger: 'ファイルを選択',
 
   numberFieldIncrement: '増やす',
   numberFieldDecrement: '減らす',
@@ -30,6 +31,7 @@ export const ja: Messages = {
   listBoxPlaceholder: '選択してください',
 
   breadcrumb: 'パンくずリスト',
+  tabList: 'タブ',
 
   paginationLabel: 'ページネーション',
   paginationPrevious: '前へ',
@@ -45,6 +47,7 @@ export const ja: Messages = {
   toolInput: '入力',
   toolOutput: '出力',
   toolError: 'ツールの実行でエラーが発生しました。',
+  toolDenied: 'ツールの実行は許可されませんでした。',
 
   responseCopied: 'コピーしました',
   responseCopyCode: 'コードをコピー',

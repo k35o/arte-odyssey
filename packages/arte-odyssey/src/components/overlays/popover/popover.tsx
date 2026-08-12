@@ -26,7 +26,7 @@ export {
 const Root: FC<
   PropsWithChildren<{
     placement?: Placement;
-    type?: 'dialog' | 'menu' | 'listbox';
+    role?: 'dialog' | 'menu' | 'listbox';
     flipDisabled?: boolean;
     closeOnClickAway?: boolean;
     trapFocus?: boolean;
@@ -36,7 +36,7 @@ const Root: FC<
   }>
 > = ({
   children,
-  type = 'menu',
+  role = 'menu',
   placement = 'bottom-start',
   flipDisabled = false,
   closeOnClickAway = true,
@@ -87,7 +87,7 @@ const Root: FC<
     <PopoverProvider
       value={{
         rootId: id,
-        type,
+        role,
         closeOnClickAway,
         trapFocus,
         isOpen,

@@ -17,7 +17,7 @@ export function DropdownMenuPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">DropdownMenu</Heading>
+        <Heading level="h1">DropdownMenu</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.dropdownMenu.description" />
         </p>
@@ -33,7 +33,7 @@ export function DropdownMenuPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -45,16 +45,16 @@ export function DropdownMenuPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
             code={`<DropdownMenu.Root>
   <DropdownMenu.Trigger label="Actions" />
   <DropdownMenu.Content>
-    <DropdownMenu.Item label="Edit" onClick={() => {}} />
-    <DropdownMenu.Item label="Duplicate" onClick={() => {}} />
-    <DropdownMenu.Item label="Delete" onClick={() => {}} />
+    <DropdownMenu.Item label="Edit" onAction={() => {}} />
+    <DropdownMenu.Item label="Duplicate" onAction={() => {}} />
+    <DropdownMenu.Item label="Delete" onAction={() => {}} />
   </DropdownMenu.Content>
 </DropdownMenu.Root>`}
           >
@@ -63,7 +63,7 @@ export function DropdownMenuPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.dropdownMenu.iconTriggerTitle" />
           </Heading>
           <ComponentPreview
@@ -75,9 +75,9 @@ export function DropdownMenuPage() {
     label="Theme"
   />
   <DropdownMenu.Content>
-    <DropdownMenu.Item label="Light" onClick={() => {}} />
-    <DropdownMenu.Item label="Dark" onClick={() => {}} />
-    <DropdownMenu.Item label="System" onClick={() => {}} />
+    <DropdownMenu.Item label="Light" onAction={() => {}} />
+    <DropdownMenu.Item label="Dark" onAction={() => {}} />
+    <DropdownMenu.Item label="System" onAction={() => {}} />
   </DropdownMenu.Content>
 </DropdownMenu.Root>`}
           >
@@ -86,31 +86,31 @@ export function DropdownMenuPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.dropdownMenu.sizesTitle" />
           </Heading>
           <ComponentPreview
             code={`<DropdownMenu.Root>
   <DropdownMenu.Trigger label="Small" size="sm" />
   <DropdownMenu.Content>
-    <DropdownMenu.Item label="Edit" onClick={() => {}} />
-    <DropdownMenu.Item label="Delete" onClick={() => {}} />
+    <DropdownMenu.Item label="Edit" onAction={() => {}} />
+    <DropdownMenu.Item label="Delete" onAction={() => {}} />
   </DropdownMenu.Content>
 </DropdownMenu.Root>
 
 <DropdownMenu.Root>
   <DropdownMenu.Trigger label="Medium" size="md" />
   <DropdownMenu.Content>
-    <DropdownMenu.Item label="Edit" onClick={() => {}} />
-    <DropdownMenu.Item label="Delete" onClick={() => {}} />
+    <DropdownMenu.Item label="Edit" onAction={() => {}} />
+    <DropdownMenu.Item label="Delete" onAction={() => {}} />
   </DropdownMenu.Content>
 </DropdownMenu.Root>
 
 <DropdownMenu.Root>
   <DropdownMenu.Trigger label="Large" size="lg" />
   <DropdownMenu.Content>
-    <DropdownMenu.Item label="Edit" onClick={() => {}} />
-    <DropdownMenu.Item label="Delete" onClick={() => {}} />
+    <DropdownMenu.Item label="Edit" onAction={() => {}} />
+    <DropdownMenu.Item label="Delete" onAction={() => {}} />
   </DropdownMenu.Content>
 </DropdownMenu.Root>`}
           >
@@ -119,31 +119,31 @@ export function DropdownMenuPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.dropdownMenu.placementTitle" />
           </Heading>
           <ComponentPreview
             code={`<DropdownMenu.Root placement="bottom-start">
   <DropdownMenu.Trigger label="Bottom Start" />
   <DropdownMenu.Content>
-    <DropdownMenu.Item label="Edit" onClick={() => {}} />
-    <DropdownMenu.Item label="Delete" onClick={() => {}} />
+    <DropdownMenu.Item label="Edit" onAction={() => {}} />
+    <DropdownMenu.Item label="Delete" onAction={() => {}} />
   </DropdownMenu.Content>
 </DropdownMenu.Root>
 
 <DropdownMenu.Root placement="bottom-end">
   <DropdownMenu.Trigger label="Bottom End" />
   <DropdownMenu.Content>
-    <DropdownMenu.Item label="Edit" onClick={() => {}} />
-    <DropdownMenu.Item label="Delete" onClick={() => {}} />
+    <DropdownMenu.Item label="Edit" onAction={() => {}} />
+    <DropdownMenu.Item label="Delete" onAction={() => {}} />
   </DropdownMenu.Content>
 </DropdownMenu.Root>
 
 <DropdownMenu.Root placement="top-start">
   <DropdownMenu.Trigger label="Top Start" />
   <DropdownMenu.Content>
-    <DropdownMenu.Item label="Edit" onClick={() => {}} />
-    <DropdownMenu.Item label="Delete" onClick={() => {}} />
+    <DropdownMenu.Item label="Edit" onAction={() => {}} />
+    <DropdownMenu.Item label="Delete" onAction={() => {}} />
   </DropdownMenu.Content>
 </DropdownMenu.Root>`}
           >
@@ -154,18 +154,18 @@ export function DropdownMenuPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <Heading type="h3">DropdownMenu.Root</Heading>
+        <Heading level="h3">DropdownMenu.Root</Heading>
         <PropsTable items={propsOf('DropdownMenu.Root')} />
-        <Heading type="h3">DropdownMenu.Trigger</Heading>
+        <Heading level="h3">DropdownMenu.Trigger</Heading>
         <PropsTable items={propsOf('DropdownMenu.Trigger')} />
-        <Heading type="h3">DropdownMenu.IconTrigger</Heading>
+        <Heading level="h3">DropdownMenu.IconTrigger</Heading>
         <PropsTable items={propsOf('DropdownMenu.IconTrigger')} />
-        <Heading type="h3">DropdownMenu.Content</Heading>
+        <Heading level="h3">DropdownMenu.Content</Heading>
         <PropsTable items={propsOf('DropdownMenu.Content')} />
-        <Heading type="h3">DropdownMenu.Item</Heading>
+        <Heading level="h3">DropdownMenu.Item</Heading>
         <PropsTable items={propsOf('DropdownMenu.Item')} />
       </section>
     </div>

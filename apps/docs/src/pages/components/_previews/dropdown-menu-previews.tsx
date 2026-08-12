@@ -7,9 +7,9 @@ export function DropdownMenuBasicPreview() {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger label="Actions" />
       <DropdownMenu.Content>
-        <DropdownMenu.Item label="Edit" onClick={() => undefined} />
-        <DropdownMenu.Item label="Duplicate" onClick={() => undefined} />
-        <DropdownMenu.Item label="Delete" onClick={() => undefined} />
+        <DropdownMenu.Item label="Edit" onAction={() => undefined} />
+        <DropdownMenu.Item label="Duplicate" onAction={() => undefined} />
+        <DropdownMenu.Item label="Delete" onAction={() => undefined} />
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );
@@ -23,9 +23,9 @@ export function DropdownMenuIconTriggerPreview() {
         label="Theme"
       />
       <DropdownMenu.Content>
-        <DropdownMenu.Item label="Light" onClick={() => undefined} />
-        <DropdownMenu.Item label="Dark" onClick={() => undefined} />
-        <DropdownMenu.Item label="System" onClick={() => undefined} />
+        <DropdownMenu.Item label="Light" onAction={() => undefined} />
+        <DropdownMenu.Item label="Dark" onAction={() => undefined} />
+        <DropdownMenu.Item label="System" onAction={() => undefined} />
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );
@@ -37,22 +37,22 @@ export function DropdownMenuSizesPreview() {
       <DropdownMenu.Root>
         <DropdownMenu.Trigger label="Small" size="sm" />
         <DropdownMenu.Content>
-          <DropdownMenu.Item label="Edit" onClick={() => undefined} />
-          <DropdownMenu.Item label="Delete" onClick={() => undefined} />
+          <DropdownMenu.Item label="Edit" onAction={() => undefined} />
+          <DropdownMenu.Item label="Delete" onAction={() => undefined} />
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger label="Medium" size="md" />
         <DropdownMenu.Content>
-          <DropdownMenu.Item label="Edit" onClick={() => undefined} />
-          <DropdownMenu.Item label="Delete" onClick={() => undefined} />
+          <DropdownMenu.Item label="Edit" onAction={() => undefined} />
+          <DropdownMenu.Item label="Delete" onAction={() => undefined} />
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger label="Large" size="lg" />
         <DropdownMenu.Content>
-          <DropdownMenu.Item label="Edit" onClick={() => undefined} />
-          <DropdownMenu.Item label="Delete" onClick={() => undefined} />
+          <DropdownMenu.Item label="Edit" onAction={() => undefined} />
+          <DropdownMenu.Item label="Delete" onAction={() => undefined} />
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </>
@@ -65,22 +65,22 @@ export function DropdownMenuPlacementPreview() {
       <DropdownMenu.Root placement="bottom-start">
         <DropdownMenu.Trigger label="Bottom Start" />
         <DropdownMenu.Content>
-          <DropdownMenu.Item label="Edit" onClick={() => undefined} />
-          <DropdownMenu.Item label="Delete" onClick={() => undefined} />
+          <DropdownMenu.Item label="Edit" onAction={() => undefined} />
+          <DropdownMenu.Item label="Delete" onAction={() => undefined} />
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <DropdownMenu.Root placement="bottom-end">
         <DropdownMenu.Trigger label="Bottom End" />
         <DropdownMenu.Content>
-          <DropdownMenu.Item label="Edit" onClick={() => undefined} />
-          <DropdownMenu.Item label="Delete" onClick={() => undefined} />
+          <DropdownMenu.Item label="Edit" onAction={() => undefined} />
+          <DropdownMenu.Item label="Delete" onAction={() => undefined} />
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <DropdownMenu.Root placement="top-start">
         <DropdownMenu.Trigger label="Top Start" />
         <DropdownMenu.Content>
-          <DropdownMenu.Item label="Edit" onClick={() => undefined} />
-          <DropdownMenu.Item label="Delete" onClick={() => undefined} />
+          <DropdownMenu.Item label="Edit" onAction={() => undefined} />
+          <DropdownMenu.Item label="Delete" onAction={() => undefined} />
         </DropdownMenu.Content>
       </DropdownMenu.Root>
     </>

@@ -34,7 +34,7 @@ export function Theming() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">
+        <Heading level="h1">
           <T k="nav.theming" />
         </Heading>
         <p className="text-fg-mute text-lg">
@@ -44,7 +44,7 @@ export function Theming() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="theming.colorPaletteTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -77,7 +77,7 @@ export function Theming() {
 
       <section className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="theming.semanticColorsTitle" />
           </Heading>
           <p className="text-fg-mute">
@@ -86,7 +86,7 @@ export function Theming() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="theming.foregroundTitle" />
           </Heading>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -97,7 +97,7 @@ export function Theming() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="theming.backgroundTitle" />
           </Heading>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -108,7 +108,7 @@ export function Theming() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="theming.borderTitle" />
           </Heading>
           <div className="grid gap-2 sm:grid-cols-2">
@@ -122,7 +122,7 @@ export function Theming() {
 
       <section className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="theming.brandColorsTitle" />
           </Heading>
           <p className="text-fg-mute">
@@ -131,7 +131,7 @@ export function Theming() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <Heading type="h3">Primary</Heading>
+          <Heading level="h3">Primary</Heading>
           <div className="grid gap-2 sm:grid-cols-2">
             {PRIMARY_TOKENS.map((token) => (
               <TokenCard
@@ -144,7 +144,7 @@ export function Theming() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <Heading type="h3">Secondary</Heading>
+          <Heading level="h3">Secondary</Heading>
           <div className="grid gap-2 sm:grid-cols-2">
             {SECONDARY_TOKENS.map((token) => (
               <TokenCard
@@ -157,7 +157,7 @@ export function Theming() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <Heading type="h3">Group</Heading>
+          <Heading level="h3">Group</Heading>
           <div className="grid gap-2 sm:grid-cols-2">
             {GROUP_TOKENS.map((token) => (
               <TokenCard key={token.name} token={token} />
@@ -169,7 +169,7 @@ export function Theming() {
 
       <section className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="theming.typographyTitle" />
           </Heading>
           <p className="text-fg-mute">
@@ -178,7 +178,7 @@ export function Theming() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="theming.textSizesTitle" />
           </Heading>
           <Card>
@@ -209,7 +209,7 @@ export function Theming() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="theming.fontWeightsTitle" />
           </Heading>
           <Card>
@@ -235,7 +235,7 @@ export function Theming() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="theming.letterSpacingTitle" />
           </Heading>
           <Card>
@@ -258,7 +258,7 @@ export function Theming() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="theming.lineHeightTitle" />
           </Heading>
           <Card>
@@ -287,7 +287,7 @@ export function Theming() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="theming.borderRadiusTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -311,7 +311,7 @@ export function Theming() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="theming.shadowTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -335,7 +335,7 @@ export function Theming() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="theming.spacingTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -363,7 +363,7 @@ export function Theming() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="theming.breakpointsTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -387,7 +387,7 @@ export function Theming() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="theming.zIndexTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -414,7 +414,7 @@ export function Theming() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="theming.darkModeTitle" />
         </Heading>
         <p className="text-fg-mute">

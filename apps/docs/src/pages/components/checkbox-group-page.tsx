@@ -18,7 +18,7 @@ export function CheckboxGroupPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">CheckboxGroup</Heading>
+        <Heading level="h1">CheckboxGroup</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.checkboxGroup.description" />
         </p>
@@ -34,7 +34,7 @@ export function CheckboxGroupPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -46,14 +46,14 @@ export function CheckboxGroupPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
             code={`const [value, setValue] = useState(['react']);
 
 <p id="frameworks-label">Frameworks</p>
-<CheckboxGroup
+<CheckboxGroup.Root
   aria-labelledby="frameworks-label"
   name="frameworks"
   onChange={setValue}
@@ -62,19 +62,19 @@ export function CheckboxGroupPage() {
   <Checkbox itemValue="react" label="React" />
   <Checkbox itemValue="vue" label="Vue" />
   <Checkbox itemValue="svelte" label="Svelte" />
-</CheckboxGroup>`}
+</CheckboxGroup.Root>`}
           >
             <CheckboxGroupControlledPreview />
           </ComponentPreview>
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.checkboxGroup.defaultValueTitle" />
           </Heading>
           <ComponentPreview
             code={`<p id="frameworks-default-label">Frameworks</p>
-<CheckboxGroup
+<CheckboxGroup.Root
   aria-labelledby="frameworks-default-label"
   defaultValue={['vue']}
   name="frameworks-default"
@@ -82,7 +82,7 @@ export function CheckboxGroupPage() {
   <Checkbox itemValue="react" label="React" />
   <Checkbox itemValue="vue" label="Vue" />
   <Checkbox itemValue="svelte" label="Svelte" />
-</CheckboxGroup>`}
+</CheckboxGroup.Root>`}
           >
             <div>
               <p
@@ -91,7 +91,7 @@ export function CheckboxGroupPage() {
               >
                 Frameworks
               </p>
-              <CheckboxGroup
+              <CheckboxGroup.Root
                 aria-labelledby="frameworks-default-label"
                 defaultValue={['vue']}
                 name="frameworks-default"
@@ -99,18 +99,18 @@ export function CheckboxGroupPage() {
                 <Checkbox itemValue="react" label="React" />
                 <Checkbox itemValue="vue" label="Vue" />
                 <Checkbox itemValue="svelte" label="Svelte" />
-              </CheckboxGroup>
+              </CheckboxGroup.Root>
             </div>
           </ComponentPreview>
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.checkboxGroup.disabledTitle" />
           </Heading>
           <ComponentPreview
             code={`<p id="frameworks-disabled-label">Frameworks</p>
-<CheckboxGroup
+<CheckboxGroup.Root
   aria-labelledby="frameworks-disabled-label"
   defaultValue={['vue']}
   disabled
@@ -119,7 +119,7 @@ export function CheckboxGroupPage() {
   <Checkbox itemValue="react" label="React" />
   <Checkbox itemValue="vue" label="Vue" />
   <Checkbox itemValue="svelte" label="Svelte" />
-</CheckboxGroup>`}
+</CheckboxGroup.Root>`}
           >
             <div>
               <p
@@ -128,7 +128,7 @@ export function CheckboxGroupPage() {
               >
                 Frameworks
               </p>
-              <CheckboxGroup
+              <CheckboxGroup.Root
                 aria-labelledby="frameworks-disabled-label"
                 defaultValue={['vue']}
                 disabled
@@ -137,7 +137,7 @@ export function CheckboxGroupPage() {
                 <Checkbox itemValue="react" label="React" />
                 <Checkbox itemValue="vue" label="Vue" />
                 <Checkbox itemValue="svelte" label="Svelte" />
-              </CheckboxGroup>
+              </CheckboxGroup.Root>
             </div>
           </ComponentPreview>
         </div>
@@ -145,7 +145,7 @@ export function CheckboxGroupPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable

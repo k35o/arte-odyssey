@@ -24,7 +24,7 @@ export function CheckboxGroupControlledPreview() {
       <p className="text-fg-base mb-2 font-medium" id="checkbox-group-label">
         Frameworks
       </p>
-      <CheckboxGroup
+      <CheckboxGroup.Root
         aria-labelledby="checkbox-group-label"
         name="frameworks"
         onChange={setValue}
@@ -33,7 +33,7 @@ export function CheckboxGroupControlledPreview() {
         <Checkbox itemValue="react" label="React" />
         <Checkbox itemValue="vue" label="Vue" />
         <Checkbox itemValue="svelte" label="Svelte" />
-      </CheckboxGroup>
+      </CheckboxGroup.Root>
     </div>
   );
 }
@@ -47,7 +47,7 @@ export function CheckboxGroupDisabledPreview() {
       >
         Frameworks
       </p>
-      <CheckboxGroup
+      <CheckboxGroup.Root
         aria-labelledby="checkbox-group-disabled-label"
         defaultValue={['vue']}
         disabled
@@ -56,7 +56,7 @@ export function CheckboxGroupDisabledPreview() {
         <Checkbox itemValue="react" label="React" />
         <Checkbox itemValue="vue" label="Vue" />
         <Checkbox itemValue="svelte" label="Svelte" />
-      </CheckboxGroup>
+      </CheckboxGroup.Root>
     </div>
   );
 }

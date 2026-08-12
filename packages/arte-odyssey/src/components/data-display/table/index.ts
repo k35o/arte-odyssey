@@ -1,1 +1,1 @@
-export { Table } from './table';
+export { type CellAlign, Table } from './table';

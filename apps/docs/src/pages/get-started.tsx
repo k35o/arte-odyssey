@@ -10,7 +10,7 @@ export function GetStarted() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">
+        <Heading level="h1">
           <T k="nav.getStarted" />
         </Heading>
         <p className="text-fg-mute text-lg">
@@ -20,7 +20,7 @@ export function GetStarted() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="getStarted.installationTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -36,7 +36,7 @@ export function GetStarted() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="getStarted.setupTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -44,7 +44,7 @@ export function GetStarted() {
         </p>
 
         <div className="flex flex-col gap-2">
-          <Heading type="h3">1. CSS</Heading>
+          <Heading level="h3">1. CSS</Heading>
           <p className="text-fg-mute">
             <T k="getStarted.setupCssDescription" />
           </p>
@@ -59,7 +59,7 @@ export function GetStarted() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Heading type="h3">2. Provider</Heading>
+          <Heading level="h3">2. Provider</Heading>
           <p className="text-fg-mute">
             <T k="getStarted.setupProviderDescription" />
           </p>
@@ -81,7 +81,7 @@ function App({ children }) {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="getStarted.usageTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -93,7 +93,7 @@ function App({ children }) {
 function MyComponent() {
   return (
     <div>
-      <Heading type="h1">Hello ArteOdyssey</Heading>
+      <Heading level="h1">Hello ArteOdyssey</Heading>
       <Button variant="solid">Click me</Button>
     </div>
   );
@@ -105,7 +105,7 @@ function MyComponent() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="getStarted.requirementsTitle" />
         </Heading>
         <p className="text-fg-mute">
@@ -124,7 +124,7 @@ function MyComponent() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="getStarted.nextStepsTitle" />
         </Heading>
         <ul className="flex flex-col gap-3 pl-6">

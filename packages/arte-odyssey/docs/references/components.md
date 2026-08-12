@@ -202,8 +202,8 @@ Props (Breadcrumb.Link):
 
 - `href`: `T`（必須）
 - `children`: `ReactNode`
-- `component`: `FC<{ href: T; className: string }>`
 - `current`: `boolean`（既定: `false`）
+- `renderAnchor`: `(props: RenderBreadcrumbAnchorProps<T>) => ReactNode`（既定: `defaultRenderBreadcrumbAnchor`）
 
 Props (Breadcrumb.Item):
 
@@ -277,21 +277,21 @@ Props (Tabs.Tab):
 import { Card } from '@k8o/arte-odyssey';
 
 // 静的カード
-<Card width="full" appearance="shadow">
+<Card width="full" variant="shadow">
   <div className="p-6">コンテンツ</div>
 </Card>
 
 // クリック可能なカード（hover:scale-[1.02], active:scale-[0.98]）
-<Card appearance="bordered" interactive>
+<Card variant="outline" interactive>
   <div className="p-6">コンテンツ</div>
 </Card>
 ```
 
 Props:
 
-- `appearance`: `'shadow'` | `'bordered'`（既定: `'shadow'`）
 - `children`: `ReactNode`
 - `interactive`: `boolean`（既定: `false`）
+- `variant`: `'shadow'` | `'outline'`（既定: `'shadow'`）
 - `width`: `'full'` | `'fit'`（既定: `'full'`）
 
 ### Separator
@@ -340,7 +340,7 @@ import { Stack } from '@k8o/arte-odyssey';
 </Stack>
 
 <Stack direction="row" justify="between" align="center">
-  <Heading type="h2">タイトル</Heading>
+  <Heading level="h2">タイトル</Heading>
   <Button>操作</Button>
 </Stack>
 ```
@@ -634,7 +634,7 @@ Props:
 import { CheckboxGroup } from '@k8o/arte-odyssey';
 
 <p id="interests-label">興味のある分野</p>
-<CheckboxGroup
+<CheckboxGroup.Root
   aria-labelledby="interests-label"
   name="interests"
   value={values}
@@ -642,7 +642,7 @@ import { CheckboxGroup } from '@k8o/arte-odyssey';
 >
   <CheckboxGroup.Item itemValue="music" label="音楽" />
   <CheckboxGroup.Item itemValue="movie" label="映画" />
-</CheckboxGroup>;
+</CheckboxGroup.Root>;
 ```
 
 Props:
@@ -734,6 +734,7 @@ Props:
 - `disabled`: `boolean`（既定: `false`）
 - `name`: `string`
 - `onChange`: `(value: string, event: ChangeEvent<HTMLInputElement>) => void`
+- `ref`: `Ref<HTMLDivElement>`
 - `value`: `string`
 
 ### RadioCard
@@ -874,14 +875,14 @@ Props (FileField.Trigger):
 ```tsx
 import { Heading } from '@k8o/arte-odyssey';
 
-<Heading type="h1">ページタイトル</Heading>
-<Heading type="h2">セクション見出し</Heading>
-<Heading type="h3">サブセクション</Heading>
+<Heading level="h1">ページタイトル</Heading>
+<Heading level="h2">セクション見出し</Heading>
+<Heading level="h3">サブセクション</Heading>
 ```
 
 Props:
 
-- `type`: `'h1'` | `'h2'` | `'h3'` | `'h4'` | `'h5'` | `'h6'`（必須）
+- `level`: `'h1'` | `'h2'` | `'h3'` | `'h4'` | `'h5'` | `'h6'`（必須）
 - `children`: `ReactNode`
 - `lineClamp`: `1` | `2` | `3` | `4` | `5` | `6`
 
@@ -923,10 +924,10 @@ import { Badge } from '@k8o/arte-odyssey';
 Props:
 
 - `label`: `string`（必須）
-- `interactive`: `boolean`（既定: `false`）
-- `size`: `'sm'` | `'md'` | `'lg'`（既定: `'md'`）
-- `tone`: `'neutral'` | `'info'` | `'success'` | `'warning'` | `'error'`（既定: `'neutral'`）
-- `variant`: `'solid'` | `'outline'`（既定: `'solid'`）
+- `interactive`: `true`
+- `size`: `Size`
+- `tone`: `Tone`
+- `variant`: `Variant`
 
 ### Code
 
@@ -977,8 +978,8 @@ Props (Table.Cell):
 
 - `align`: `CellAlign`（既定: `'left'`）
 - `children`: `ReactNode`
+- `color`: `'base'` | `'mute'`（既定: `'base'`）
 - `colSpan`: `number`
-- `tone`: `'default'` | `'muted'`（既定: `'default'`）
 
 Props (Table.EmptyState):
 
@@ -1027,19 +1028,19 @@ Props:
 ```tsx
 import { useToast } from '@k8o/arte-odyssey';
 
-const { onOpen, onClose, onCloseAll } = useToast();
+const { open, close, closeAll } = useToast();
 
-onOpen('success', '保存しました');
-onOpen('error', 'エラーが発生しました');
+open('success', '保存しました');
+open('error', 'エラーが発生しました');
 ```
 
 `ToastProvider` は `ArteOdysseyProvider` に含まれるため、別途ラップ不要。
 
 `useToast()` の戻り値:
 
-- `onOpen`: `(tone: Status, message: string, options?: { duration?: number; action?: ToastAction }) => void`
-- `onClose`: `(id: string) => void`
-- `onCloseAll`: `() => void`
+- `open`: `(tone: Status, message: string, options?: ToastOptions) => void`（`ToastOptions` は `{ duration?: number; action?: ToastAction }`）
+- `close`: `(id: string) => void`
+- `closeAll`: `() => void`
 
 ### ToastProvider
 
@@ -1064,16 +1065,16 @@ Props:
 ```tsx
 import { Progress } from '@k8o/arte-odyssey';
 
-<Progress progress={50} maxProgress={100} />
-<Progress progress={50} maxProgress={100} minProgress={0} label="進捗" />
+<Progress value={50} max={100} />
+<Progress value={50} max={100} min={0} label="進捗" />
 ```
 
 Props:
 
-- `maxProgress`: `number`（必須）
-- `progress`: `number`（必須）
+- `max`: `number`（必須）
+- `value`: `number`（必須）
 - `label`: `string`
-- `minProgress`: `number`（既定: `0`）
+- `min`: `number`（既定: `0`）
 
 ### Spinner
 
@@ -1171,7 +1172,7 @@ Props (Dialog.Root):
 - `children`: `ReactNode`
 - `id`: `string`
 - `ref`: `Ref<HTMLElement>`
-- `role`: `string`
+- `role`: `'dialog'` | `'alertdialog'`
 - `tabIndex`: `number`
 
 ### Drawer
@@ -1219,8 +1220,8 @@ Props (Root):
 - `isOpen`: `boolean`
 - `onChange`: `(isOpen: boolean) => void`
 - `placement`: `Placement`（既定: `'bottom-start'`）
+- `role`: `'dialog'` | `'menu'` | `'listbox'`（既定: `'menu'`）
 - `trapFocus`: `boolean`（既定: `true`）
-- `type`: `'dialog'` | `'menu'` | `'listbox'`（既定: `'menu'`）
 
 Escape は入れ子のうち**最も内側の 1 枚だけ**を閉じる。
 
@@ -1274,8 +1275,8 @@ import { DropdownMenu } from '@k8o/arte-odyssey';
 <DropdownMenu.Root>
   <DropdownMenu.Trigger label="メニュー" />
   <DropdownMenu.Content>
-    <DropdownMenu.Item label="アイテム1" onClick={handleClick} />
-    <DropdownMenu.Item label="アイテム2" onClick={handleClick} />
+    <DropdownMenu.Item label="アイテム1" onAction={handleClick} />
+    <DropdownMenu.Item label="アイテム2" onAction={handleClick} />
   </DropdownMenu.Content>
 </DropdownMenu.Root>;
 ```
@@ -1305,8 +1306,7 @@ Props (DropdownMenu.IconTrigger):
 Props (DropdownMenu.Item):
 
 - `label`: `string`（必須）
-- `onClick`: `MouseEventHandler`（必須）
-- `index`: `number`（既定: `0`）
+- `onAction`: `() => void`（必須）
 
 Props (DropdownMenu.Trigger):
 

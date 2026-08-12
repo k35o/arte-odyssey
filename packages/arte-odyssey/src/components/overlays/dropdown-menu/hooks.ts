@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import type { MouseEventHandler } from 'react';
 
 import { createSafeContext } from '../../../helpers';
 import type { ListNavigation } from '../_internal';
@@ -29,10 +28,10 @@ export const useMenuContent = () => {
 };
 
 export const useMenuItem = ({
-  onClick,
+  onAction,
   index,
 }: {
-  onClick: MouseEventHandler;
+  onAction: () => void;
   index: number;
 }) => {
   const menu = useMenuContext();
@@ -40,11 +39,11 @@ export const useMenuItem = ({
     () => ({
       role: 'menuitem' as const,
       ...menu.getItemProps(index),
-      onClick: (e: Parameters<MouseEventHandler>[0]) => {
-        onClick(e);
+      onClick: () => {
+        onAction();
         menu.closeRoot();
       },
     }),
-    [index, menu, onClick],
+    [index, menu, onAction],
   );
 };

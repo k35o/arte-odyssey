@@ -19,7 +19,7 @@ const Root: FC<
     ref?: Ref<HTMLElement> | undefined;
     id?: string | undefined;
     tabIndex?: number | undefined;
-    role?: string | undefined;
+    role?: 'dialog' | 'alertdialog' | undefined;
   }>
 > = ({ ref, id, children, tabIndex, role }) => {
   const fallbackId = useId();
@@ -73,7 +73,7 @@ const Header: FC<{
   const { rootId } = useDialogContext();
   return (
     <div className="flex items-center justify-center p-4 pb-2">
-      <Heading id={`${rootId}-title`} type="h3">
+      <Heading id={`${rootId}-title`} level="h3">
         {title}
       </Heading>
       <div className="absolute top-2 right-2">

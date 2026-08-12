@@ -4,14 +4,14 @@ import { cn } from './../../../helpers/cn';
 
 type CardProps = {
   width?: 'full' | 'fit';
-  appearance?: 'shadow' | 'bordered';
+  variant?: 'shadow' | 'outline';
   interactive?: boolean;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
 
 export const Card: FC<CardProps> = ({
   children,
   width = 'full',
-  appearance = 'shadow',
+  variant = 'shadow',
   interactive = false,
   ...rest
 }) => (
@@ -19,8 +19,8 @@ export const Card: FC<CardProps> = ({
     {...rest}
     className={cn(
       'rounded-xl',
-      appearance === 'shadow' && 'shadow-sm',
-      appearance === 'bordered' && 'border border-border-mute',
+      variant === 'shadow' && 'shadow-sm',
+      variant === 'outline' && 'border border-border-mute',
       width === 'full' && 'w-full',
       width === 'fit' && 'w-fit',
       interactive &&

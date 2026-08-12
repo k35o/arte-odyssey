@@ -155,7 +155,7 @@ function LayoutContent() {
         }}
         side="left"
         title={
-          <Heading type="h3">
+          <Heading level="h3">
             <LocaleAnchor path={sideNavConfig.catalogPath}>
               {t(sideNavConfig.titleKey)}
             </LocaleAnchor>

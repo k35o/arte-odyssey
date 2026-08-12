@@ -42,7 +42,7 @@ export function UseControllableStatePage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">useControllableState</Heading>
+        <Heading level="h1">useControllableState</Heading>
         <p className="text-fg-mute text-lg">
           <T k="hooks.useControllableState.description" />
         </p>
@@ -50,7 +50,7 @@ export function UseControllableStatePage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -61,11 +61,11 @@ export function UseControllableStatePage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-8">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.usageTitle" />
         </Heading>
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="hooks.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
@@ -86,7 +86,7 @@ return (
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.parametersTitle" />
         </Heading>
         <PropsTable items={parameters} />
@@ -94,7 +94,7 @@ return (
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="hooks.common.returnValueTitle" />
         </Heading>
         <PropsTable items={returnValue} />

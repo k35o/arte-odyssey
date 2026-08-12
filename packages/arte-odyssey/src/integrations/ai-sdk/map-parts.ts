@@ -1,9 +1,4 @@
-import {
-  getToolOrDynamicToolName,
-  isReasoningUIPart,
-  isTextUIPart,
-  isToolOrDynamicToolUIPart,
-} from 'ai';
+import { getToolName, isReasoningUIPart, isTextUIPart, isToolUIPart } from 'ai';
 import type { UIMessage } from 'ai';
 
 import type { ToolState } from '../../components/ai/types';
@@ -19,6 +14,7 @@ export type MappedPart =
       input?: unknown;
       output?: unknown;
       errorText?: string;
+      deniedReason?: string;
     };
 
 /**
@@ -35,15 +31,17 @@ export const mapMessageParts = (message: UIMessage): MappedPart[] => {
       result.push({ kind: 'text', text: part.text });
     } else if (isReasoningUIPart(part)) {
       result.push({ kind: 'reasoning', text: part.text });
-    } else if (isToolOrDynamicToolUIPart(part)) {
+    } else if (isToolUIPart(part)) {
       result.push({
         kind: 'tool',
-        name: getToolOrDynamicToolName(part),
+        name: getToolName(part),
         toolCallId: part.toolCallId,
         state: part.state,
         input: part.input,
         output: part.state === 'output-available' ? part.output : undefined,
         errorText: part.state === 'output-error' ? part.errorText : undefined,
+        deniedReason:
+          part.state === 'output-denied' ? part.approval.reason : undefined,
       });
     }
   }

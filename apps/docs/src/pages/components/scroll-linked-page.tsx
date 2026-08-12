@@ -12,7 +12,7 @@ export function ScrollLinkedPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">ScrollLinked</Heading>
+        <Heading level="h1">ScrollLinked</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.scrollLinked.description" />
         </p>
@@ -28,7 +28,7 @@ export function ScrollLinkedPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -40,13 +40,13 @@ export function ScrollLinkedPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
@@ -67,7 +67,7 @@ export function ScrollLinkedPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.scrollLinked.windowScrollTitle" />
           </Heading>
           <CodeBlock
@@ -80,7 +80,7 @@ export function ScrollLinkedPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable items={propsOf('ScrollLinked')} />

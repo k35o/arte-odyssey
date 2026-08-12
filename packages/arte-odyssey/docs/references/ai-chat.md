@@ -25,7 +25,7 @@ import { mapMessageParts } from '@k8o/arte-odyssey/ai-sdk';
 型も `@k8o/arte-odyssey/ai` から export される：
 
 - `ChatStatus`: `'ready' | 'submitted' | 'streaming' | 'error'`（AI SDK の `status` と互換）
-- `ToolState`: `'input-streaming' | 'input-available' | 'output-available' | 'output-error'`
+- `ToolState`: `'input-streaming' | 'input-available' | 'approval-requested' | 'approval-responded' | 'output-available' | 'output-error' | 'output-denied'`（AI SDK v7 のツール状態と 1:1）
 
 ### optional peer のセットアップ
 
@@ -258,7 +258,7 @@ Props (Suggestion.Item):
 
 ## ToolInvocation
 
-ツール呼び出しの折りたたみ表示。`state` に応じてスピナー / 成功 / エラーのアイコンが切り替わる。
+ツール呼び出しの折りたたみ表示。`state` に応じてスピナー / 成功 / エラー / 拒否のアイコンが切り替わる（承認待ち・承認応答・入力中は進行中としてスピナー）。
 
 ```tsx
 import { ToolInvocation } from '@k8o/arte-odyssey/ai';
@@ -278,11 +278,12 @@ Props:
 - `input`: unknown（文字列以外は JSON 表示）
 - `output`: ReactNode（文字列は `pre` 表示、要素はそのまま描画）
 - `errorText`: string（`state="output-error"` 時の表示。省略時は既定文言）
+- `deniedReason`: string（`state="output-denied"` 時の表示。省略時は既定文言）
 - `isOpen` / `defaultOpen` / `onChange`: 開閉の controlled / uncontrolled 両対応
 
 ## AI SDK 連携（mapMessageParts）
 
-`@k8o/arte-odyssey/ai-sdk` の `mapMessageParts` は、AI SDK の `UIMessage.parts` を描画しやすい `MappedPart[]` に変換する。React 非依存で、optional peer の `ai`（>= 5.0.0）が必要。
+`@k8o/arte-odyssey/ai-sdk` の `mapMessageParts` は、AI SDK の `UIMessage.parts` を描画しやすい `MappedPart[]` に変換する。React 非依存で、optional peer の `ai`（v7）が必要。
 
 ```ts
 type MappedPart =
@@ -296,6 +297,7 @@ type MappedPart =
       input?: unknown;
       output?: unknown;
       errorText?: string;
+      deniedReason?: string;
     };
 ```
 
@@ -324,6 +326,7 @@ import { Response } from '@k8o/arte-odyssey/ai/response';
               : JSON.stringify(part.output, null, 2)
           }
           errorText={part.errorText}
+          deniedReason={part.deniedReason}
         />
       );
     }

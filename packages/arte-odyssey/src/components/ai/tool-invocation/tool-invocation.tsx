@@ -14,6 +14,7 @@ type Props = {
   input?: unknown;
   output?: ReactNode;
   errorText?: string;
+  deniedReason?: string;
   isOpen?: boolean;
   defaultOpen?: boolean;
   onChange?: (isOpen: boolean) => void;
@@ -31,6 +32,13 @@ const stateIcon = (state: ToolState): ReactNode => {
     return (
       <span className="text-fg-error">
         <AlertIcon size="sm" status="error" />
+      </span>
+    );
+  }
+  if (state === 'output-denied') {
+    return (
+      <span className="text-fg-warning">
+        <AlertIcon size="sm" status="warning" />
       </span>
     );
   }
@@ -54,6 +62,7 @@ export const ToolInvocation: FC<Props> = ({
   input,
   output,
   errorText,
+  deniedReason,
   isOpen,
   defaultOpen = false,
   onChange,
@@ -82,6 +91,10 @@ export const ToolInvocation: FC<Props> = ({
         {state === 'output-error' ? (
           <p className="text-fg-error text-sm">
             {errorText ?? messages.toolError}
+          </p>
+        ) : state === 'output-denied' ? (
+          <p className="text-fg-warning text-sm">
+            {deniedReason ?? messages.toolDenied}
           </p>
         ) : output === undefined ? null : (
           <div>

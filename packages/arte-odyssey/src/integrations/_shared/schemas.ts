@@ -201,12 +201,12 @@ export const badgeProps = z.object({
 }) satisfies z.ZodType<BadgeIntegrationProps>;
 
 type HeadingIntegrationProps = {
-  text: string;
-  level?: ComponentProps<typeof Heading>['type'];
+  label: string;
+  level?: ComponentProps<typeof Heading>['level'];
   lineClamp?: ComponentProps<typeof Heading>['lineClamp'];
 };
 export const headingProps = z.object({
-  text: z.string(),
+  label: z.string(),
   level: z.enum(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']).optional(),
   lineClamp: z
     .union([
@@ -285,7 +285,7 @@ export const tableProps = z.object({
 
 type CardIntegrationProps = {
   width?: ComponentProps<typeof Card>['width'];
-  appearance?: ComponentProps<typeof Card>['appearance'];
+  variant?: ComponentProps<typeof Card>['variant'];
   interactive?: ComponentProps<typeof Card>['interactive'];
   // Integration-only: the bare Card has no padding, so `size` drives the
   // generated card's inner padding (sm/md/lg).
@@ -293,7 +293,7 @@ type CardIntegrationProps = {
 };
 export const cardProps = z.object({
   width: z.enum(['full', 'fit']).optional(),
-  appearance: z.enum(['shadow', 'bordered']).optional(),
+  variant: z.enum(['shadow', 'outline']).optional(),
   interactive: z.boolean().optional(),
   size: z.enum(['sm', 'md', 'lg']).optional(),
 }) satisfies z.ZodType<CardIntegrationProps>;
@@ -317,15 +317,15 @@ export const spinnerProps = z.object({
 }) satisfies z.ZodType<SpinnerIntegrationProps>;
 
 type ProgressIntegrationProps = {
-  progress: number;
-  maxProgress: number;
-  minProgress?: number;
+  value: number;
+  max: number;
+  min?: number;
   label?: string;
 };
 export const progressProps = z.object({
-  progress: z.number(),
-  maxProgress: z.number(),
-  minProgress: z.number().optional(),
+  value: z.number(),
+  max: z.number(),
+  min: z.number().optional(),
   label: z.string().optional(),
 }) satisfies z.ZodType<ProgressIntegrationProps>;
 
@@ -412,12 +412,12 @@ export const scrollLinkedProps = z.object(
 ) satisfies z.ZodType<ScrollLinkedIntegrationProps>;
 
 type AnchorIntegrationProps = {
-  text: string;
+  label: string;
   href: string;
   openInNewTab?: boolean;
 };
 export const anchorProps = z.object({
-  text: z.string(),
+  label: z.string(),
   href: safeUrl,
   openInNewTab: z.boolean().optional(),
 }) satisfies z.ZodType<AnchorIntegrationProps>;
@@ -715,7 +715,7 @@ export const fileFieldProps = z.object({
   triggerLabel: z
     .string()
     .optional()
-    .describe('ファイル選択ボタンの文言（未指定なら "ファイルを選択"）'),
+    .describe('ファイル選択ボタンの文言（未指定なら辞書の既定文言）'),
   multiple: z.boolean().optional(),
   maxFiles: z.number().optional(),
   clearable: z.boolean().optional(),
@@ -786,10 +786,10 @@ export const popoverProps = z.object({
   triggerLabel: z.string().describe('ポップオーバーを開くボタンの文言'),
 }) satisfies z.ZodType<PopoverIntegrationProps>;
 
-type TooltipIntegrationProps = { label: string; text: string };
+type TooltipIntegrationProps = { triggerLabel: string; content: string };
 export const tooltipProps = z.object({
-  label: z.string().describe('ツールチップを表示するトリガーの文言'),
-  text: z.string().describe('ツールチップの内容'),
+  triggerLabel: z.string().describe('ツールチップを表示するトリガーの文言'),
+  content: z.string().describe('ツールチップの内容'),
 }) satisfies z.ZodType<TooltipIntegrationProps>;
 
 type DropdownMenuIntegrationProps = {
@@ -897,8 +897,8 @@ export type _EnumCoverage = [
   >,
   AssertCovered<
     CoversComponent<
-      ComponentProps<typeof Card>['appearance'],
-      CardProps['appearance']
+      ComponentProps<typeof Card>['variant'],
+      CardProps['variant']
     >
   >,
   AssertCovered<
@@ -924,7 +924,7 @@ export type _EnumCoverage = [
   >,
   AssertCovered<
     CoversComponent<
-      ComponentProps<typeof Heading>['type'],
+      ComponentProps<typeof Heading>['level'],
       HeadingProps['level']
     >
   >,

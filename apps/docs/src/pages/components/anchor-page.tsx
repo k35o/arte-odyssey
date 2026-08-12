@@ -11,7 +11,7 @@ export function AnchorPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Anchor</Heading>
+        <Heading level="h1">Anchor</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.anchor.description" />
         </p>
@@ -27,7 +27,7 @@ export function AnchorPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -39,7 +39,7 @@ export function AnchorPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -54,7 +54,7 @@ export function AnchorPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.anchor.openInNewTabTitle" />
           </Heading>
           <ComponentPreview
@@ -73,7 +73,7 @@ export function AnchorPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.anchor.renderAnchorTitle" />
           </Heading>
           <p className="text-fg-mute text-sm">
@@ -98,7 +98,7 @@ import Link from 'next/link';
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable inherits={inheritsOf('Anchor')} items={propsOf('Anchor')} />

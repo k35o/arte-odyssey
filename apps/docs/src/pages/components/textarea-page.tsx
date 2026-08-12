@@ -11,7 +11,7 @@ export function TextareaPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Textarea</Heading>
+        <Heading level="h1">Textarea</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.textarea.description" />
         </p>
@@ -27,7 +27,7 @@ export function TextareaPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -39,7 +39,7 @@ export function TextareaPage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -64,7 +64,7 @@ export function TextareaPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.textarea.rowsTitle" />
           </Heading>
           <ComponentPreview
@@ -91,7 +91,7 @@ export function TextareaPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.textarea.autoResizeTitle" />
           </Heading>
           <ComponentPreview
@@ -120,7 +120,7 @@ export function TextareaPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.textarea.disabledTitle" />
           </Heading>
           <ComponentPreview
@@ -145,7 +145,7 @@ export function TextareaPage() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.textarea.invalidTitle" />
           </Heading>
           <ComponentPreview
@@ -172,7 +172,7 @@ export function TextareaPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable

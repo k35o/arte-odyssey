@@ -34,7 +34,7 @@ src/components/<name>/
 
 ### Boolean Props
 
-- **状態を表す boolean** → `is` prefix を付ける: `isOpen`, `isDisabled`, `isRequired`, `isExternal`
+- **状態を表す boolean** → `is` prefix を付ける: `isOpen`, `isActive`, `isStreaming`
 - **モード・バリアントを表す boolean** → prefix なし: `interactive`, `animate`, `current`, `fullWidth`, `multiple`
 - **ネイティブ HTML 属性 / ARIA 状態に 1:1 対応する boolean** → そのまま: `disabled`, `checked`, `required`, `invalid`（`aria-invalid` にそのまま渡るため `is` prefix を付けない）
 
@@ -47,6 +47,22 @@ src/components/<name>/
 - **変更通知**: `onChange?: (next) => void`（開閉専用の閉じ操作は `onClose?`）。
 
 例: `Modal` / `Drawer` は `isOpen?` + `defaultOpen?` + `onClose?`、`Tabs.Root` は `selectedId?` + `defaultSelectedId?` + `onChange?`、`Accordion.Item` は `isOpen?` + `defaultOpen?` + `onChange?`。
+
+### prop 名の語彙（v12 で確定）
+
+| prop        | 意味                                   | 値の例                                                                                   |
+| ----------- | -------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `variant`   | 見た目のバリアント                     | `solid` / `outline` / `skeleton` / `shadow`                                              |
+| `color`     | 使う色トークン系の選択                 | アクセント系: `primary` / `secondary` / `base`、モノクロ強弱: `base` / `mute` / `subtle` |
+| `tone`      | ステータス意味論（専用）               | `neutral` / `info` / `success` / `warning` / `error`                                     |
+| `size`      | 大きさ                                 | `sm` / `md` / `lg`                                                                       |
+| `label`     | 可視テキスト・アクセシブル名           | —                                                                                        |
+| `role`      | ARIA ロールの選択                      | `dialog` / `menu` / `listbox`                                                            |
+| `side`      | ビューポート端への配置                 | `center` / `bottom` / `right` / `left`                                                   |
+| `placement` | アンカー相対配置（`Placement` 型）     | `bottom-start` など                                                                      |
+| `onAction`  | 項目・ボタンの起動（イベント引数なし） | `() => void`（Button は `Promise` 可）                                                   |
+
+`type` は HTML 属性（`button` / `submit`、input の型）にのみ使う。render prop は `renderItem` / `renderAnchor` / `renderInput` の動詞+名詞形。生成 UI スキーマではトリガー文言は `triggerLabel`、本体テキストは `content`。
 
 ### イベントハンドラの値型
 

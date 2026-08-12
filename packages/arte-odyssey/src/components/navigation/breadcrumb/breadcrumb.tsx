@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren, ReactNode } from 'react';
 
 import { useMessages } from '../../../i18n/context';
 import { ChevronIcon } from '../../icons';
@@ -39,30 +39,41 @@ const Separator: FC = () => (
   </li>
 );
 
+type RenderBreadcrumbAnchorProps<T extends string> = {
+  href: NoInfer<T>;
+  className: string;
+  children: ReactNode;
+};
+
+const defaultRenderBreadcrumbAnchor = ({
+  children,
+  ...rest
+}: RenderBreadcrumbAnchorProps<string>): ReactNode => (
+  <a {...rest}>{children}</a>
+);
+
 const Link = <T extends string>({
   href,
   current = false,
   children,
-  component,
+  renderAnchor = defaultRenderBreadcrumbAnchor,
 }: PropsWithChildren<{
   href: T;
   current?: boolean;
-  component?: FC<{ href: T; className: string }>;
-}>) => {
-  const Component = component ?? 'a';
-  return current ? (
+  renderAnchor?: (props: RenderBreadcrumbAnchorProps<T>) => ReactNode;
+}>) =>
+  current ? (
     <span aria-current="page" className="text-fg-base">
       {children}
     </span>
   ) : (
-    <Component
-      className="hover:text-fg-base focus-visible:ring-border-info underline transition-colors focus-visible:rounded-sm focus-visible:ring-2 focus-visible:outline-hidden"
-      href={href}
-    >
-      {children}
-    </Component>
+    renderAnchor({
+      href,
+      className:
+        'hover:text-fg-base focus-visible:ring-border-info underline transition-colors focus-visible:rounded-sm focus-visible:ring-2 focus-visible:outline-hidden',
+      children,
+    })
   );
-};
 
 export const Breadcrumb = {
   List,

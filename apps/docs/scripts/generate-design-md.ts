@@ -364,7 +364,7 @@ font-family: 'Noto Sans JP', 'M PLUS 2', sans-serif;
       `\`inset-shadow-${n}\``,
       `\`${v}\``,
     ]),
-    `利用指針: Card（\`appearance="shadow"\`）= \`shadow-sm\` / Modal・Dialog・Tooltip・Dropdown・ListBox = \`shadow-md\` / Button = なし / Card（\`appearance="bordered"\`）= \`border border-border-mute\`。`,
+    `利用指針: Card（\`variant="shadow"\`）= \`shadow-sm\` / Modal・Dialog・Tooltip・Dropdown・ListBox = \`shadow-md\` / Button = なし / Card（\`variant="outline"\`）= \`border border-border-mute\`。`,
 
     `## モーション
 
@@ -423,40 +423,40 @@ import { ArteOdysseyProvider, Button, Card } from '@k8o/arte-odyssey';
 - **Accordion**（compound: \`Root\` / \`Item\`(\`defaultOpen?\`) / \`Button\` / \`Panel\`）
 - **Avatar** — \`src\` / \`name\`（イニシャル）/ \`fallback\`, \`size\`
 - **Badge** — \`label\`, \`tone: 'neutral'|'info'|'success'|'warning'|'error'\`, \`variant: 'solid'|'outline'\`, \`size\`, \`interactive\`
-- **Card** — \`width: 'full'|'fit'\`, \`appearance: 'shadow'|'bordered'\`, \`interactive\`
+- **Card** — \`width: 'full'|'fit'\`, \`variant: 'shadow'|'outline'\`, \`interactive\`
 - **Code** — \`children: string\`（コードブロック）
-- **Heading** — \`type: 'h1'..'h6'\`（必須）, \`id?\`, \`lineClamp?\`
+- **Heading** — \`level: 'h1'..'h6'\`（必須）, \`id?\`, \`lineClamp?\`
 - **Table**（compound: \`Root\` / \`Caption\` / \`Head\` / \`Body\` / \`Row\` / \`HeaderCell\` / \`Cell\` / \`EmptyState\`）
 
 ### Feedback
 
-- **Alert** — \`status: 'info'|'success'|'warning'|'error'\`, \`message: string | string[]\`
-- **Progress** — \`progress\`, \`maxProgress\`（必須）, \`minProgress?\`, \`label?\`
+- **Alert** — \`tone: 'info'|'success'|'warning'|'error'\`, \`message: string | string[]\`
+- **Progress** — \`value\`, \`max\`（必須）, \`min?\`, \`label?\`
 - **Skeleton** — \`shape: 'rect'|'circle'\`, \`size\`, \`animate\`
 - **Spinner** — \`size\`, \`label?\`（aria-live）
-- **Toast** — \`ToastProvider\` + \`useToast()\`（\`onOpen(status, msg)\` / \`onClose(id)\` / \`onCloseAll()\`）
+- **Toast** — \`ToastProvider\` + \`useToast()\`（\`open(tone, message, options?)\` / \`close(id)\` / \`closeAll()\`）
 
 ### Form
 
 ラベルは入力の上に配置。エラーは入力直下に \`text-fg-error text-sm\`。バリデーションは送信時が基本。
 
-- **FormControl** — フィールドのラッパー。\`label\`（必須）, \`helpText?\`, \`errorText?\`, \`isRequired?\`, \`renderInput\`
+- **FormControl** — フィールドのラッパー。\`label\`（必須）, \`helpText?\`, \`errorText?\`, \`required?\`, \`renderInput\`
 - **TextField** / **Textarea** / **PasswordInput** / **NumberField** — テキスト系入力
 - **Select** / **Autocomplete** — \`options\` ベースの選択
 - **Checkbox** / **CheckboxGroup** / **CheckboxCard** — 複数選択
 - **Radio** / **RadioCard** — 単一選択（\`options\` ベース）
-- **Switch** — \`label\`（必須）, controlled \`value: boolean\`
+- **Switch** — \`label\`（必須）, controlled \`checked: boolean\`
 - **Slider** — \`min\`/\`max\`/\`step\`, controlled \`value\`
 - **FileField**（compound: \`Root\` / \`Trigger\` / \`ItemList\`）
 - **Form** — \`<form>\` ラッパー
 
-状態 prop は \`isDisabled\` / \`isInvalid\` / \`isRequired\`、controlled は \`value\` + \`onChange\`、uncontrolled は \`defaultValue\` / \`defaultChecked\`。
+状態 prop は \`disabled\` / \`invalid\` / \`required\`、controlled は \`value\`（Checkbox / Switch は \`checked\`）+ \`onChange\`、uncontrolled は \`defaultValue\` / \`defaultChecked\`。
 
 ### Layout
 
 - **Stack** — フレックスレイアウト
 - **Grid** — グリッドレイアウト
-- **Separator** — \`color: 'mute'|'subtle'\`, \`orientation: 'horizontal'|'vertical'\`
+- **Separator** — \`color: 'base'|'mute'|'subtle'\`, \`orientation: 'horizontal'|'vertical'\`
 - **ScrollLinked** — スクロール進捗バー（\`container?\`）
 
 ### Navigation

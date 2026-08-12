@@ -18,7 +18,7 @@ export function AutocompletePage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">Autocomplete</Heading>
+        <Heading level="h1">Autocomplete</Heading>
         <p className="text-fg-mute text-lg">
           <T k="components.autocomplete.description" />
         </p>
@@ -34,7 +34,7 @@ export function AutocompletePage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -46,7 +46,7 @@ export function AutocompletePage() {
 
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <Heading type="h2">
+          <Heading level="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
@@ -76,7 +76,7 @@ const options = [
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.autocomplete.requiredTitle" />
           </Heading>
           <ComponentPreview
@@ -96,7 +96,7 @@ const options = [
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.autocomplete.multipleSelectionTitle" />
           </Heading>
           <ComponentPreview
@@ -118,7 +118,7 @@ const options = [
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.autocomplete.disabledTitle" />
           </Heading>
           <ComponentPreview
@@ -138,7 +138,7 @@ const options = [
         </div>
 
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="components.autocomplete.invalidTitle" />
           </Heading>
           <ComponentPreview
@@ -160,7 +160,7 @@ const options = [
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable

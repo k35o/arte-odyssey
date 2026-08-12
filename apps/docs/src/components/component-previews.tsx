@@ -269,7 +269,7 @@ export const componentPreviews: Record<string, ReactNode> = {
       </Table.Body>
     </Table.Root>
   ),
-  Heading: <Heading type="h2">Section Title</Heading>,
+  Heading: <Heading level="h2">Section Title</Heading>,
   Alert: <Alert message="This is an info alert." tone="info" />,
   Skeleton: (
     <div className="w-40">
@@ -280,7 +280,7 @@ export const componentPreviews: Record<string, ReactNode> = {
   Toast: <Button>Show Toast</Button>,
   Progress: (
     <div className="w-40">
-      <Progress maxProgress={100} progress={60} />
+      <Progress max={100} value={60} />
     </div>
   ),
   Dialog: (
@@ -338,7 +338,7 @@ export const componentPreviews: Record<string, ReactNode> = {
   ),
   ScrollLinked: (
     <div className="w-40">
-      <Progress maxProgress={100} progress={40} />
+      <Progress max={100} value={40} />
     </div>
   ),
   Icons: (

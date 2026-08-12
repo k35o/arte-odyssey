@@ -27,7 +27,7 @@ export function ChainPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">chain</Heading>
+        <Heading level="h1">chain</Heading>
         <p className="text-fg-mute text-lg">
           <T k="helpers.chain.description" />
         </p>
@@ -35,7 +35,7 @@ export function ChainPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="helpers.common.importTitle" />
         </Heading>
         <CodeBlock
@@ -46,11 +46,11 @@ export function ChainPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-8">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="helpers.common.usageTitle" />
         </Heading>
         <div className="flex flex-col gap-4">
-          <Heading type="h3">
+          <Heading level="h3">
             <T k="helpers.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
@@ -70,14 +70,14 @@ export function ChainPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="helpers.common.parametersTitle" />
         </Heading>
         <PropsTable items={parameters} />
       </section>
       <Separator color="mute" />
       <section className="flex flex-col gap-4">
-        <Heading type="h2">
+        <Heading level="h2">
           <T k="helpers.common.returnValueTitle" />
         </Heading>
         <PropsTable items={returnValue} />

@@ -54,7 +54,7 @@ const Root: FC<
   });
 
   return (
-    <Popover.Root flipDisabled placement={placement} type="listbox">
+    <Popover.Root flipDisabled placement={placement} role="listbox">
       <MenuProvider
         onChange={setSelectedValue}
         options={options}
