@@ -225,9 +225,11 @@ Props:
 - `onChange`: `(page: number) => void`（必須）
 - `totalPages`: `number`（必須）
 - `aria-label`: `string`
+- `children`: `ReactNode`
 - `disabled`: `boolean`（既定: `false`）
 - `nextLabel`: `string`
 - `prevLabel`: `string`
+- `ref`: `Ref<HTMLElement>`
 
 ### Tabs
 
@@ -431,11 +433,13 @@ Props:
 
 - `label`: `string`（必須）
 - `renderInput`: `(props: { id: string; 'aria-describedby': string | undefined; 'aria-labelledby': string; disabled: boolean; invalid: boolean; required: boolean; }) => ReactElement`（必須）
+- `children`: `ReactNode`
 - `disabled`: `boolean`（既定: `false`）
 - `errorText`: `string`
 - `helpText`: `string`
 - `invalid`: `boolean`（既定: `false`）
 - `labelAs`: `'label'` | `'legend'`（既定: `'label'`）
+- `ref`: `Ref<HTMLElement>`
 - `required`: `boolean`（既定: `false`）
 
 `renderInput` は `{ id, 'aria-describedby', 'aria-labelledby', disabled, invalid, required }` を受け取る。
@@ -979,7 +983,6 @@ Props (Table.Cell):
 - `align`: `CellAlign`（既定: `'left'`）
 - `children`: `ReactNode`
 - `color`: `'base'` | `'mute'`（既定: `'base'`）
-- `colSpan`: `number`
 
 Props (Table.EmptyState):
 
@@ -1132,7 +1135,7 @@ Props:
 - `defaultOpen`: `boolean`
 - `isOpen`: `boolean`
 - `onClose`: `() => void`
-- `ref`: `RefObject<HTMLDialogElement | null>`
+- `ref`: `Ref<HTMLDialogElement>`
 - `side`: `ModalSide`（既定: `'center'`）
 
 名前の解決順は `aria-label` / `aria-labelledby` > 中の `Dialog.Root` が登録した見出し。どちらも無ければ無名の dialog になるため、`Dialog` を入れずに直接コンテンツを置くときは `aria-label` を渡す。
@@ -1165,7 +1168,7 @@ Props (Dialog.Content):
 Props (Dialog.Header):
 
 - `onClose`: `() => void`（必須）
-- `title`: `string`（必須）
+- `title`: `ReactNode`（必須）
 
 Props (Dialog.Root):
 

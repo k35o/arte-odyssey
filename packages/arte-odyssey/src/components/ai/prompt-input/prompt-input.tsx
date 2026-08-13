@@ -5,11 +5,13 @@ import type {
   FC,
   KeyboardEvent,
   ReactNode,
+  Ref,
   TextareaHTMLAttributes,
 } from 'react';
 
 import { cn } from '../../../helpers/cn';
 import { createSafeContext } from '../../../helpers/create-safe-context';
+import { mergeRefs } from '../../../helpers/merge-refs';
 import { useControllableState } from '../../../hooks/controllable-state';
 import { useMessages } from '../../../i18n/context';
 import { FOCUS_RING, FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
@@ -96,18 +98,25 @@ const Root: FC<RootProps> = ({
 
 type TextareaProps = {
   placeholder?: string;
+  ref?: Ref<HTMLTextAreaElement>;
 } & Omit<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   'value' | 'defaultValue' | 'onChange' | 'className' | 'style' | 'rows'
 >;
 
-const Textarea: FC<TextareaProps> = ({ placeholder, onKeyDown, ...rest }) => {
+const Textarea: FC<TextareaProps> = ({
+  placeholder,
+  onKeyDown,
+  ref,
+  ...rest
+}) => {
   const { value, setValue, status } = usePromptInputContext();
-  const ref = useRef<HTMLTextAreaElement>(null);
+  const innerRef = useRef<HTMLTextAreaElement>(null);
+  const mergedRef = useMemo(() => mergeRefs(innerRef, ref), [ref]);
 
   useEffect(() => {
-    if (ref.current) {
-      resizeToContent(ref.current);
+    if (innerRef.current) {
+      resizeToContent(innerRef.current);
     }
   }, [value]);
 
@@ -142,7 +151,7 @@ const Textarea: FC<TextareaProps> = ({ placeholder, onKeyDown, ...rest }) => {
       }}
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
-      ref={ref}
+      ref={mergedRef}
       rows={1}
       value={value}
     />
