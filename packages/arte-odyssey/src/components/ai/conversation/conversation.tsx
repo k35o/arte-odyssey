@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { FC, ReactNode } from 'react';
+import type { FC, ReactNode, RefObject } from 'react';
 
 import { cn } from '../../../helpers/cn';
 import { createSafeContext } from '../../../helpers/create-safe-context';
@@ -18,8 +18,8 @@ const [ConversationProvider, useConversationContext] = createSafeContext<{
   isAtBottom: boolean;
   scrollToBottom: (behavior?: ScrollBehavior) => void;
   setViewport: (el: HTMLDivElement | null) => void;
-  sentinelRef: React.RefObject<HTMLDivElement | null>;
-  contentRef: React.RefObject<HTMLDivElement | null>;
+  sentinelRef: RefObject<HTMLDivElement | null>;
+  contentRef: RefObject<HTMLDivElement | null>;
 }>('Conversation.* must be used within <Conversation.Root>');
 
 const Root: FC<{ children: ReactNode }> = ({ children }) => {

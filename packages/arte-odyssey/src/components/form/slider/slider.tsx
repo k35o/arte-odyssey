@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, InputHTMLAttributes, Ref } from 'react';
+import type { CSSProperties, FC, InputHTMLAttributes, Ref } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
@@ -74,7 +74,7 @@ export const Slider: FC<Props> = ({
         'block-8 inline-full vertical:inline-48',
         disabledResolved && 'opacity-50',
       )}
-      style={{ '--slider-progress': clampedProgress } as React.CSSProperties}
+      style={{ '--slider-progress': clampedProgress } as CSSProperties}
     >
       <span
         aria-hidden

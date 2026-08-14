@@ -922,7 +922,7 @@
         },
         {
           "name": "title",
-          "types": ["string"],
+          "types": ["ReactNode"],
           "defaultValue": null,
           "required": true
         }
@@ -1365,13 +1365,19 @@
           "required": false
         },
         {
+          "name": "ref",
+          "types": ["Ref<HTMLElement>"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
           "name": "required",
           "types": ["boolean"],
           "defaultValue": "false",
           "required": false
         }
       ],
-      "inherits": null
+      "inherits": "HTMLAttributes<HTMLElement>"
     },
     {
       "name": "FormIcon",
@@ -1866,7 +1872,7 @@
         },
         {
           "name": "ref",
-          "types": ["RefObject<HTMLDialogElement | null>"],
+          "types": ["Ref<HTMLDialogElement>"],
           "defaultValue": null,
           "required": false
         },
@@ -2019,9 +2025,15 @@
           "types": ["string"],
           "defaultValue": null,
           "required": false
+        },
+        {
+          "name": "ref",
+          "types": ["Ref<HTMLElement>"],
+          "defaultValue": null,
+          "required": false
         }
       ],
-      "inherits": null
+      "inherits": "HTMLAttributes<HTMLElement>"
     },
     {
       "name": "PaletteIcon",
@@ -2727,7 +2739,7 @@
           "required": false
         }
       ],
-      "inherits": null
+      "inherits": "HTMLAttributes<HTMLTableSectionElement>"
     },
     {
       "name": "Table.Caption",
@@ -2739,7 +2751,7 @@
           "required": false
         }
       ],
-      "inherits": null
+      "inherits": "HTMLAttributes<HTMLTableCaptionElement>"
     },
     {
       "name": "Table.Cell",
@@ -2761,15 +2773,9 @@
           "types": ["'base'", "'mute'"],
           "defaultValue": "'base'",
           "required": false
-        },
-        {
-          "name": "colSpan",
-          "types": ["number"],
-          "defaultValue": null,
-          "required": false
         }
       ],
-      "inherits": null
+      "inherits": "TdHTMLAttributes<HTMLTableCellElement>"
     },
     {
       "name": "Table.EmptyState",
@@ -2799,7 +2805,7 @@
           "required": false
         }
       ],
-      "inherits": null
+      "inherits": "HTMLAttributes<HTMLTableSectionElement>"
     },
     {
       "name": "Table.HeaderCell",
@@ -2815,9 +2821,15 @@
           "types": ["ReactNode"],
           "defaultValue": null,
           "required": false
+        },
+        {
+          "name": "scope",
+          "types": ["'col'", "'row'", "'colgroup'", "'rowgroup'"],
+          "defaultValue": "'col'",
+          "required": false
         }
       ],
-      "inherits": null
+      "inherits": "ThHTMLAttributes<HTMLTableCellElement>"
     },
     {
       "name": "Table.Root",
@@ -2829,7 +2841,7 @@
           "required": false
         }
       ],
-      "inherits": null
+      "inherits": "TableHTMLAttributes<HTMLTableElement>"
     },
     {
       "name": "Table.Row",
@@ -2847,7 +2859,7 @@
           "required": false
         }
       ],
-      "inherits": null
+      "inherits": "HTMLAttributes<HTMLTableRowElement>"
     },
     {
       "name": "TableIcon",

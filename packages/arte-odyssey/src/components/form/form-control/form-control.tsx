@@ -1,7 +1,7 @@
 'use client';
 
 import { useId } from 'react';
-import type { FC, ReactElement } from 'react';
+import type { FC, HTMLAttributes, ReactElement, Ref } from 'react';
 
 import { useMessages } from '../../../i18n/context';
 
@@ -21,7 +21,8 @@ type FormControlProps = {
     invalid: boolean;
     required: boolean;
   }) => ReactElement;
-};
+  ref?: Ref<HTMLElement>;
+} & Omit<HTMLAttributes<HTMLElement>, 'className' | 'style' | 'children'>;
 
 const LABEL_CLASS = 'text-fg-base text-md mb-1 flex gap-2 pl-0.5 font-bold';
 
@@ -34,6 +35,8 @@ export const FormControl: FC<FormControlProps> = ({
   helpText,
   errorText,
   renderInput,
+  ref,
+  ...rest
 }) => {
   const messages = useMessages();
   const id = useId();
@@ -91,9 +94,23 @@ export const FormControl: FC<FormControlProps> = ({
 
   // 単一フィールドまで fieldset で包むと、名前の無いグループが全フィールドに増える。
   // legend を置けるのは fieldset の中だけなので、legend のときだけ fieldset にする。
+  // ラッパー要素が labelAs で div / fieldset に分かれるため、ref は共通の
+  // HTMLElement で受けて要素側でキャストする
   return labelAs === 'legend' ? (
-    <fieldset className="flex w-full min-w-0 flex-col">{content}</fieldset>
+    <fieldset
+      {...rest}
+      className="flex w-full min-w-0 flex-col"
+      ref={ref as Ref<HTMLFieldSetElement>}
+    >
+      {content}
+    </fieldset>
   ) : (
-    <div className="flex w-full min-w-0 flex-col">{content}</div>
+    <div
+      {...rest}
+      className="flex w-full min-w-0 flex-col"
+      ref={ref as Ref<HTMLDivElement>}
+    >
+      {content}
+    </div>
   );
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC } from 'react';
+import type { FC, HTMLAttributes, Ref } from 'react';
 
 import { useMessages } from '../../../i18n/context';
 import { Button } from '../../buttons/button';
@@ -14,7 +14,11 @@ type Props = {
   prevLabel?: string;
   nextLabel?: string;
   'aria-label'?: string;
-};
+  ref?: Ref<HTMLElement>;
+} & Omit<
+  HTMLAttributes<HTMLElement>,
+  'className' | 'style' | 'onChange' | 'children'
+>;
 
 export const Pagination: FC<Props> = ({
   totalPages,
@@ -24,6 +28,8 @@ export const Pagination: FC<Props> = ({
   prevLabel,
   nextLabel,
   'aria-label': ariaLabel,
+  ref,
+  ...rest
 }) => {
   const messages = useMessages();
   const safeTotal = Math.max(1, totalPages);
@@ -32,7 +38,7 @@ export const Pagination: FC<Props> = ({
   const isLast = safeCurrent >= safeTotal;
 
   return (
-    <nav aria-label={ariaLabel ?? messages.paginationLabel}>
+    <nav {...rest} aria-label={ariaLabel ?? messages.paginationLabel} ref={ref}>
       <div className="flex items-center justify-center gap-2">
         <Button
           color="base"

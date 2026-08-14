@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment } from 'react';
-import type { FC, HTMLAttributes } from 'react';
+import type { FC, HTMLAttributes, ReactNode } from 'react';
 
 import { useMessages } from '../../../i18n/context';
 import { findAllColors } from './find-all-colors';
@@ -22,7 +22,7 @@ export const Code: FC<Props> = ({ children, ...rest }) => {
     );
   }
 
-  const parts: React.ReactNode[] = [];
+  const parts: ReactNode[] = [];
   let lastIndex = 0;
 
   for (const [index, colorInfo] of colors.entries()) {

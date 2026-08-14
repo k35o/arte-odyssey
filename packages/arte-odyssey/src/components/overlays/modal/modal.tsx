@@ -1,17 +1,18 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { FC, PropsWithChildren, RefObject } from 'react';
+import type { FC, PropsWithChildren, Ref } from 'react';
 
 import type { ModalSide } from '../../../types/variables';
 import { ToastProvider } from '../../feedback/toast';
 import { PortalRootProvider } from '../../providers';
 import { ModalDialogProvider } from '../_internal/modal-dialog-context';
 import { cn } from './../../../helpers/cn';
+import { mergeRefs } from './../../../helpers/merge-refs';
 
 export const Modal: FC<
   PropsWithChildren<{
-    ref?: RefObject<HTMLDialogElement | null>;
+    ref?: Ref<HTMLDialogElement>;
     side?: ModalSide;
     defaultOpen?: boolean;
     isOpen?: boolean;
@@ -32,6 +33,7 @@ export const Modal: FC<
   children,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const mergedRef = useMemo(() => mergeRefs(dialogRef, ref), [ref]);
   const [dialogOpen, setDialogOpen] = useState(defaultOpen ?? false);
   const [registeredLabelledBy, setRegisteredLabelledBy] = useState<
     string | undefined
@@ -49,8 +51,6 @@ export const Modal: FC<
     }
     setDialogOpen(false);
   }, [isOpen, onClose]);
-  const realRef = ref ?? dialogRef;
-
   const modalDialogContext = useMemo(
     () => ({
       registerLabelledBy: setRegisteredLabelledBy,
@@ -65,7 +65,7 @@ export const Modal: FC<
   const describedBy = ariaDescribedBy ?? registeredDescribedBy;
 
   useEffect(() => {
-    const dialog = realRef.current;
+    const dialog = dialogRef.current;
     if (!dialog || realDialogOpen === dialog.open) {
       return;
     }
@@ -74,10 +74,10 @@ export const Modal: FC<
     } else {
       dialog.close();
     }
-  }, [realDialogOpen, realRef]);
+  }, [realDialogOpen]);
 
   useEffect(() => {
-    const dialog = realRef.current;
+    const dialog = dialogRef.current;
     if (!dialog || isOpen !== undefined) return undefined;
 
     const observer = new MutationObserver(() => {
@@ -87,7 +87,7 @@ export const Modal: FC<
     return () => {
       observer.disconnect();
     };
-  }, [isOpen, realRef]);
+  }, [isOpen]);
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- onClick は枠外(backdrop)クリックで閉じるためのもの。キーボード等価操作はネイティブ modal dialog の Escape が担う
@@ -108,15 +108,15 @@ export const Modal: FC<
       )}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
-          realRef.current?.close();
+          dialogRef.current?.close();
         }
       }}
       onClose={realOnClose}
-      ref={realRef}
+      ref={mergedRef}
     >
       <ModalDialogProvider value={modalDialogContext}>
-        <PortalRootProvider value={realRef}>
-          <ToastProvider portalRef={realRef} position="absolute">
+        <PortalRootProvider value={dialogRef}>
+          <ToastProvider portalRef={dialogRef} position="absolute">
             {children}
           </ToastProvider>
         </PortalRootProvider>
