@@ -21,8 +21,8 @@ catalog:
   '@types/react-dom': 19.2.4
   '@vitejs/plugin-react': 6.0.5
   postcss: 8.5.23
-  react: 19.2.6
-  react-dom: 19.2.6
+  react: 19.2.8
+  react-dom: 19.2.8
   tailwindcss: 4.3.3
   vite: 8.2.0
   vite-plus: 0.2.7
