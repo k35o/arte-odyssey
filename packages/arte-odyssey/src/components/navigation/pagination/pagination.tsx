@@ -15,7 +15,10 @@ type Props = {
   nextLabel?: string;
   'aria-label'?: string;
   ref?: Ref<HTMLElement>;
-} & Omit<HTMLAttributes<HTMLElement>, 'className' | 'style' | 'onChange'>;
+} & Omit<
+  HTMLAttributes<HTMLElement>,
+  'className' | 'style' | 'onChange' | 'children'
+>;
 
 export const Pagination: FC<Props> = ({
   totalPages,

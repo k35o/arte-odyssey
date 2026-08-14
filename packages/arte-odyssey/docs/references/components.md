@@ -225,7 +225,6 @@ Props:
 - `onChange`: `(page: number) => void`（必須）
 - `totalPages`: `number`（必須）
 - `aria-label`: `string`
-- `children`: `ReactNode`
 - `disabled`: `boolean`（既定: `false`）
 - `nextLabel`: `string`
 - `prevLabel`: `string`
@@ -433,7 +432,6 @@ Props:
 
 - `label`: `string`（必須）
 - `renderInput`: `(props: { id: string; 'aria-describedby': string | undefined; 'aria-labelledby': string; disabled: boolean; invalid: boolean; required: boolean; }) => ReactElement`（必須）
-- `children`: `ReactNode`
 - `disabled`: `boolean`（既定: `false`）
 - `errorText`: `string`
 - `helpText`: `string`
@@ -997,6 +995,7 @@ Props (Table.HeaderCell):
 
 - `align`: `CellAlign`（既定: `'left'`）
 - `children`: `ReactNode`
+- `scope`: `'col'` | `'row'` | `'colgroup'` | `'rowgroup'`（既定: `'col'`）
 
 Props (Table.Root):
 

@@ -1335,12 +1335,6 @@
           "required": true
         },
         {
-          "name": "children",
-          "types": ["ReactNode"],
-          "defaultValue": null,
-          "required": false
-        },
-        {
           "name": "disabled",
           "types": ["boolean"],
           "defaultValue": "false",
@@ -2011,12 +2005,6 @@
         {
           "name": "aria-label",
           "types": ["string"],
-          "defaultValue": null,
-          "required": false
-        },
-        {
-          "name": "children",
-          "types": ["ReactNode"],
           "defaultValue": null,
           "required": false
         },
@@ -2832,6 +2820,12 @@
           "name": "children",
           "types": ["ReactNode"],
           "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "scope",
+          "types": ["'col'", "'row'", "'colgroup'", "'rowgroup'"],
+          "defaultValue": "'col'",
           "required": false
         }
       ],

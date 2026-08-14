@@ -22,7 +22,7 @@ type FormControlProps = {
     required: boolean;
   }) => ReactElement;
   ref?: Ref<HTMLElement>;
-} & Omit<HTMLAttributes<HTMLElement>, 'className' | 'style'>;
+} & Omit<HTMLAttributes<HTMLElement>, 'className' | 'style' | 'children'>;
 
 const LABEL_CLASS = 'text-fg-base text-md mb-1 flex gap-2 pl-0.5 font-bold';
 

@@ -25,9 +25,10 @@ export type CellAlign = 'left' | 'center' | 'right';
 type HeaderCellProps = PropsWithChildren<
   {
     align?: CellAlign;
+    scope?: 'col' | 'row' | 'colgroup' | 'rowgroup';
   } & Omit<
     ThHTMLAttributes<HTMLTableCellElement>,
-    'className' | 'style' | 'align'
+    'className' | 'style' | 'align' | 'scope'
   >
 >;
 
