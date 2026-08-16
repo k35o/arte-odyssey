@@ -143,10 +143,10 @@ export function CheckboxPage() {
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
-        <Heading level="h2">CheckboxGroup Props</Heading>
+        <Heading level="h2">CheckboxGroup.Root Props</Heading>
         <PropsTable
-          inherits={inheritsOf('CheckboxGroup')}
-          items={propsOf('CheckboxGroup')}
+          inherits={inheritsOf('CheckboxGroup.Root')}
+          items={propsOf('CheckboxGroup.Root')}
         />
       </section>
     </div>
