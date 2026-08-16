@@ -137,7 +137,7 @@
     "streamdown": "2.5.0",
     "tailwind-token-extractor": "0.2.1",
     "tailwindcss": "catalog:",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "vite": "catalog:",
     "vite-plus": "catalog:",
     "vitest": "catalog:",
