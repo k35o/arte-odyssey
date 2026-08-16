@@ -105,4 +105,4 @@ const Root: FC<RootProps> = ({
   );
 };
 
-export const CheckboxGroup = { Root } as const;
+export { Root as CheckboxGroupRoot };
