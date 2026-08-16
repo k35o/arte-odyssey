@@ -4,6 +4,7 @@ packages:
   - examples/*
 
 allowBuilds:
+  '@openuidev/lang-core': false
   '@tailwindcss/oxide': false
   edgedriver: false
   esbuild: false
