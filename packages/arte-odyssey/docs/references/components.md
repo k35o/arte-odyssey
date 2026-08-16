@@ -647,17 +647,6 @@ import { CheckboxGroup } from '@k8o/arte-odyssey';
 </CheckboxGroup.Root>;
 ```
 
-Props:
-
-- `aria-labelledby`: `string`（必須）
-- `name`: `string`（必須）
-- `children`: `ReactNode`
-- `defaultValue`: `never`
-- `invalid`: `boolean`
-- `onChange`: `(value: string[]) => void`
-- `ref`: `Ref<HTMLFieldSetElement>`
-- `value`: `string[]`
-
 Props (CheckboxGroup.Item):
 
 - `label`: `string`（必須）

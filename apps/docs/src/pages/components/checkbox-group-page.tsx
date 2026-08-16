@@ -11,7 +11,7 @@ import { ComponentPreview } from '../../components/component-preview';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-import { inheritsOf, propsOf } from '../../data/component-props';
+import { propsOf } from '../../data/component-props';
 import { CheckboxGroupControlledPreview } from './_previews/checkbox-group-previews';
 
 export function CheckboxGroupPage() {
@@ -148,10 +148,10 @@ export function CheckboxGroupPage() {
         <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable
-          inherits={inheritsOf('CheckboxGroup')}
-          items={propsOf('CheckboxGroup')}
-        />
+        <Heading level="h3">CheckboxGroup.Root</Heading>
+        <PropsTable items={propsOf('CheckboxGroup.Root')} />
+        <Heading level="h3">CheckboxGroup.Item</Heading>
+        <PropsTable items={propsOf('CheckboxGroup.Item')} />
       </section>
     </div>
   );
