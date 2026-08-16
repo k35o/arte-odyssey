@@ -1299,6 +1299,13 @@ Props (DropdownMenu.Item):
 - `label`: `string`（必須）
 - `onAction`: `() => void`（必須）
 
+`DropdownMenu.SubMenu` は入れ子メニュー。`label` の行をホバーまたはキーボードで開くと、子要素のメニューが右側に開く。
+
+Props (DropdownMenu.SubMenu):
+
+- `label`: `string`（必須）
+- `children`: `ReactNode`
+
 Props (DropdownMenu.Trigger):
 
 - `label`: `string`（必須）
