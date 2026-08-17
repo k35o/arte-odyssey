@@ -2,7 +2,6 @@
 
 import type { RouterProps } from '@funstack/router';
 import { Router as FunStackRouter } from '@funstack/router';
-import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
 import { useEffect } from 'react';
 import type { FC } from 'react';
 
@@ -54,12 +53,10 @@ function useScrollToTopOnNavigate(): void {
   }, []);
 }
 
+// ArteOdysseyProvider はここではなく locale-layout に置く。組み込み文言の辞書が
+// URL のロケールで決まるため、ロケールが分かる層でしか正しく渡せない。
 export const Router: FC<RouterProps> = (props) => {
   useScrollToTopOnNavigate();
 
-  return (
-    <ArteOdysseyProvider>
-      <FunStackRouter {...props} />
-    </ArteOdysseyProvider>
-  );
+  return <FunStackRouter {...props} />;
 };

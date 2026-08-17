@@ -17,7 +17,7 @@ pnpm check:write       # Oxlint/Oxfmt lint/format auto-fix
 - **Routing**: `@funstack/router` with `@funstack/static` for SSG
 - **i18n**: Custom i18n system in `src/i18n/` with locale-based routing (`/ja/`, `/en/`)
 - **Styling**: Tailwind CSS 4, uses `@k8o/arte-odyssey` design tokens
-- **Root provider**: `ArteOdysseyProvider` wraps the entire app in `src/router.tsx`
+- **Root provider**: `ArteOdysseyProvider` wraps each locale subtree in `src/layouts/locale-layout.tsx`, passing the `en` dictionary on `/en/` so component built-in strings follow the site locale
 
 ### Directory Structure
 
