@@ -276,6 +276,7 @@ export const MESSAGE_KEYS = [
   'components.scrollLinked.description',
   'components.icons.description',
   'components.icons.sizesTitle',
+  'components.icons.propsDescription',
   'components.common.basicUsageTitle',
   'components.modal.sideTitle',
   'components.toast.useToastTitle',

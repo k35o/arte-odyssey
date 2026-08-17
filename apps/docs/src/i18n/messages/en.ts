@@ -347,6 +347,8 @@ export const en = {
   'components.icons.description':
     'A catalog of icon components provided by ArteOdyssey.',
   'components.icons.sizesTitle': 'Sizes',
+  'components.icons.propsDescription':
+    'Every icon accepts a shared `size` prop. Only `ChevronIcon` (direction) and `AlertIcon` (status) take additional props.',
   'components.common.basicUsageTitle': 'Basic Usage',
   'components.modal.sideTitle': 'Side',
   'components.toast.useToastTitle': 'useToast Hook',

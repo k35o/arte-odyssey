@@ -143,7 +143,7 @@ export function BreadcrumbPage() {
         <Heading level="h3">Breadcrumb.Item</Heading>
         <PropsTable items={propsOf('Breadcrumb.Item')} />
         <Heading level="h3">Breadcrumb.Separator</Heading>
-        <PropsTable items={[]} />
+        <PropsTable items={propsOf('Breadcrumb.Separator')} />
         <Heading level="h3">Breadcrumb.Link</Heading>
         <PropsTable items={propsOf('Breadcrumb.Link')} />
       </section>

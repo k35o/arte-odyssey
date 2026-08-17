@@ -333,6 +333,8 @@ export const ja = {
     'スクロール位置に連動するプログレスバー',
   'components.icons.description': 'ArteOdysseyが提供するアイコン一覧',
   'components.icons.sizesTitle': 'サイズ',
+  'components.icons.propsDescription':
+    'すべてのアイコンは共通で `size` を受け取ります。向きを持つ `ChevronIcon` と、ステータスを表す `AlertIcon` だけは追加の props があります。',
   'components.common.basicUsageTitle': '基本的な使い方',
   'components.modal.sideTitle': '配置',
   'components.toast.useToastTitle': 'useToastフック',
