@@ -115,6 +115,8 @@ export const ja = {
   'aiChat.jsonRenderTitle': '吹き出しの中に Generative UI',
   'aiChat.jsonRenderDescription':
     'Message.Content は任意の children を取れるので、json-render の registry を使って LLM が生成した UI spec を吹き出しの中に描画できます。会話の中へそのまま Generative UI を届けられます。',
+  'aiChat.propsDescription':
+    'コンポーネントの型から生成した props の一覧です。開閉を持つコンポーネント（Reasoning / ToolInvocation）は isOpen / defaultOpen / onChange の controlled / uncontrolled 両対応です。',
   'aiChat.demo.greeting':
     'こんにちは。ArteOdyssey の AI チャットについて、何でも聞いてください。',
   'aiChat.demo.seedQuestion':

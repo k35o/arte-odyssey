@@ -110,6 +110,7 @@ export const MESSAGE_KEYS = [
   'aiChat.aiSdkDescription',
   'aiChat.jsonRenderTitle',
   'aiChat.jsonRenderDescription',
+  'aiChat.propsDescription',
   'aiChat.demo.greeting',
   'aiChat.demo.seedQuestion',
   'aiChat.demo.seedReasoning',

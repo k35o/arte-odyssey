@@ -113,6 +113,8 @@ export const en = {
   'aiChat.jsonRenderTitle': 'Generative UI inside a bubble',
   'aiChat.jsonRenderDescription':
     'Because Message.Content takes any children, you can render an LLM-generated UI spec inside a bubble with the json-render registry — generative UI delivered straight into the conversation.',
+  'aiChat.propsDescription':
+    'Props generated from the component types. Collapsible components (Reasoning / ToolInvocation) support both controlled and uncontrolled usage via isOpen / defaultOpen / onChange.',
   'aiChat.demo.greeting':
     'Hi! Ask me anything about the ArteOdyssey AI chat components.',
   'aiChat.demo.seedQuestion':
