@@ -525,6 +525,11 @@ export const en = {
   'theming.darkModeTitle': 'Dark Mode',
   'theming.darkModeDescription':
     'Add the dark class to the root element to enable dark mode. Semantic color tokens automatically switch to their dark mode values.',
+  'theming.customizeTitle': 'Overriding Tokens',
+  'theming.customizeDescription':
+    'Every token is a CSS variable, so redefining the same variable in CSS loaded after the ArteOdyssey stylesheet overrides it. The base color variables (such as `--purple-200`) are also defined, so swapping the references switches the whole brand color at once. Redefine the dark mode values under `.dark`.',
+  'theming.customizeValueDescription':
+    'You can also assign a raw value directly instead of referencing a shade.',
   'theming.spacingTitle': 'Spacing',
   'theming.spacingDescription':
     'The spacing scale. The base unit is 0.25rem (4px), and p-{n} or gap-{n} computes to n × 0.25rem.',

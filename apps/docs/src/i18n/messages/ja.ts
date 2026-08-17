@@ -498,6 +498,11 @@ export const ja = {
   'theming.darkModeTitle': 'ダークモード',
   'theming.darkModeDescription':
     'ルート要素にdarkクラスを追加することで、ダークモードが有効になります。セマンティックカラートークンは自動的にダークモード用の値に切り替わります。',
+  'theming.customizeTitle': 'トークンを上書きする',
+  'theming.customizeDescription':
+    'すべてのトークンはCSS変数なので、ArteOdysseyのスタイルシートより後に読み込むCSSで同名の変数を再定義すれば上書きできます。ベースカラーの変数（`--purple-200`など）も定義済みなので、参照を差し替えるだけでブランドカラーを丸ごと切り替えられます。ダークモードの値は`.dark`側で再定義します。',
+  'theming.customizeValueDescription':
+    'シェードの参照ではなく、値そのものを直接指定することもできます。',
   'theming.spacingTitle': 'スペーシング',
   'theming.spacingDescription':
     'スペーシングスケールです。基本単位は0.25rem（4px）で、p-{n}やgap-{n}はn × 0.25remに計算されます。',
