@@ -343,6 +343,9 @@ export const ja = {
   'components.listBox.sizesTitle': 'サイズ',
   'components.listBox.iconTriggerTitle': 'アイコントリガー',
   'components.modal.defaultOpenTitle': 'デフォルトで開く',
+  'components.modal.portalRootTitle': 'トップレイヤーとPortal',
+  'components.modal.portalRootDescription':
+    'Modalはブラウザのトップレイヤー（`dialog`要素）に表示されるため、`document.body`へポータルした要素はModalの背面に隠れます。Modalは自身の`dialog`要素をPortalのルートとしてコンテキストで提供しており、`usePortalRoot`で取得してポータル先にすれば、Modalの中でも浮遊UIが正しく前面に表示されます。Modal内の`useToast`は自動的にこの仕組みで表示されるので、対応が必要なのは自前でポータルを使う場合だけです。',
   'components.dropdownMenu.sizesTitle': 'サイズ',
   'components.dropdownMenu.placementTitle': '配置',
   'components.drawer.customContentTitle': 'カスタムコンテンツ',

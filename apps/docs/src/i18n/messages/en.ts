@@ -357,6 +357,9 @@ export const en = {
   'components.listBox.sizesTitle': 'Sizes',
   'components.listBox.iconTriggerTitle': 'With Icon Trigger',
   'components.modal.defaultOpenTitle': 'Default Open',
+  'components.modal.portalRootTitle': 'Top Layer & Portals',
+  'components.modal.portalRootDescription':
+    'Modal renders in the browser top layer (a `dialog` element), so anything portaled to `document.body` ends up hidden behind it. Modal provides its own `dialog` element as a portal root via context — read it with `usePortalRoot` and portal there so floating UI stays on top inside a Modal. `useToast` inside a Modal already uses this mechanism automatically; you only need it for your own portals.',
   'components.dropdownMenu.sizesTitle': 'Sizes',
   'components.dropdownMenu.placementTitle': 'Placement',
   'components.drawer.customContentTitle': 'With Custom Content',

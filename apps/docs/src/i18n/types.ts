@@ -285,6 +285,8 @@ export const MESSAGE_KEYS = [
   'components.listBox.sizesTitle',
   'components.listBox.iconTriggerTitle',
   'components.modal.defaultOpenTitle',
+  'components.modal.portalRootTitle',
+  'components.modal.portalRootDescription',
   'components.dropdownMenu.sizesTitle',
   'components.dropdownMenu.placementTitle',
   'components.drawer.customContentTitle',
