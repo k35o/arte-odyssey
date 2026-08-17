@@ -156,7 +156,7 @@ export function AlertPage() {
 // onClose can be combined with action.
 <Alert
   action={{
-    label: '詳しくはこちら',
+    label: 'Learn more',
     renderItem: ({ children }) => (
       <button className="text-primary-fg underline" type="button" onClick={openHelp}>
         {children}

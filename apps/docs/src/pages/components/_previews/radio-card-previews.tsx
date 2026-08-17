@@ -7,17 +7,17 @@ const options = [
   {
     value: 'starter',
     label: 'Starter',
-    description: '個人利用や小さなプロトタイプ向けの最小構成です。',
+    description: 'A minimal setup for personal use and small prototypes.',
   },
   {
     value: 'pro',
     label: 'Pro',
-    description: '継続的な更新と公開運用を前提にした標準構成です。',
+    description: 'A standard setup for continuous updates and production use.',
   },
   {
     value: 'team',
     label: 'Team',
-    description: 'レビューや共同編集を含むチーム利用向けです。',
+    description: 'For teams that need reviews and collaborative editing.',
   },
 ] as const;
 
@@ -30,7 +30,7 @@ export function RadioCardControlledPreview() {
         className="text-fg-base mb-3 font-medium"
         id="radio-card-preview-label"
       >
-        プランを選択
+        Choose a plan
       </p>
       <RadioCard
         disabled={false}
@@ -58,7 +58,7 @@ export function RadioCardFormPreview() {
         }}
       >
         <p className="text-fg-base font-medium" id="radio-card-form-label">
-          プランを選択
+          Choose a plan
         </p>
         <RadioCard
           defaultValue="pro"
@@ -68,10 +68,10 @@ export function RadioCardFormPreview() {
           name="plan"
           options={options}
         />
-        <Button type="submit">送信</Button>
+        <Button type="submit">Submit</Button>
       </Form>
       {submitted !== null && (
-        <p className="text-fg-base text-sm">送信されたプラン: {submitted}</p>
+        <p className="text-fg-base text-sm">Submitted plan: {submitted}</p>
       )}
     </div>
   );

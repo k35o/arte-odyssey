@@ -7,7 +7,7 @@ import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 import { inheritsOf, propsOf } from '../../data/component-props';
 
-const sampleItems = ['有効', '保留', 'エラー'] as const;
+const sampleItems = ['Active', 'Pending', 'Error'] as const;
 const SAMPLE_TONE = ['success', 'warning', 'error'] as const;
 
 export function StackPage() {
@@ -47,9 +47,9 @@ export function StackPage() {
           </Heading>
           <ComponentPreview
             code={`<Stack direction="row" gap="sm">
-  <Badge label="有効" tone="success" />
-  <Badge label="保留" tone="warning" />
-  <Badge label="エラー" tone="error" />
+  <Badge label="Active" tone="success" />
+  <Badge label="Pending" tone="warning" />
+  <Badge label="Error" tone="error" />
 </Stack>`}
           >
             <Stack direction="row" gap="sm">

@@ -41,10 +41,10 @@ export function UseDebouncedTransitionPreview() {
           setQuery(next);
           run(async (signal) => {
             await sleep(800, signal);
-            setResult(next === '' ? '' : `"${next}" の結果`);
+            setResult(next === '' ? '' : `Results for "${next}"`);
           });
         }}
-        placeholder="検索語を入力"
+        placeholder="Type to search"
         value={query}
       />
       <p
@@ -52,8 +52,8 @@ export function UseDebouncedTransitionPreview() {
         className={`text-fg-mute text-sm transition-opacity ${isPending ? 'opacity-60' : ''}`}
       >
         {isPending
-          ? '通信中…'
-          : result || '（入力すると 500ms デバウンス後に疑似 API が走ります）'}
+          ? 'Loading…'
+          : result || 'Type to run a mock API call after a 500ms debounce.'}
       </p>
     </div>
   );

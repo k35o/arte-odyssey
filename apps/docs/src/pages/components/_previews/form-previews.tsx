@@ -20,13 +20,13 @@ export function FormBasicPreview() {
         }}
       >
         <FormControl
-          label="お名前"
+          label="Name"
           renderInput={(props) => <TextField {...props} name="name" />}
         />
-        <Button type="submit">送信</Button>
+        <Button type="submit">Submit</Button>
       </Form>
       {submitted !== null && (
-        <p className="text-fg-base text-sm">送信された名前: {submitted}</p>
+        <p className="text-fg-base text-sm">Submitted name: {submitted}</p>
       )}
     </div>
   );
@@ -38,8 +38,8 @@ export function FormActionStatePreview() {
       await sleep(1000);
       const name = formData.get('name');
       return typeof name === 'string' && name.length > 0
-        ? `こんにちは、${name}さん`
-        : '名前を入力してください';
+        ? `Hello, ${name}!`
+        : 'Please enter your name';
     },
     '',
   );
@@ -47,10 +47,10 @@ export function FormActionStatePreview() {
   return (
     <Form action={formAction}>
       <FormControl
-        label="お名前"
+        label="Name"
         renderInput={(props) => <TextField {...props} name="name" />}
       />
-      <Button type="submit">送信</Button>
+      <Button type="submit">Submit</Button>
       {message && <p className="text-fg-base text-sm">{message}</p>}
     </Form>
   );

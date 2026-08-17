@@ -115,6 +115,21 @@ export const ja = {
   'aiChat.jsonRenderTitle': '吹き出しの中に Generative UI',
   'aiChat.jsonRenderDescription':
     'Message.Content は任意の children を取れるので、json-render の registry を使って LLM が生成した UI spec を吹き出しの中に描画できます。会話の中へそのまま Generative UI を届けられます。',
+  'aiChat.demo.greeting':
+    'こんにちは。ArteOdyssey の AI チャットについて、何でも聞いてください。',
+  'aiChat.demo.seedQuestion':
+    'React で AI チャットを作るとき、何から始めればいい？',
+  'aiChat.demo.seedReasoning':
+    'まず会話の器・吹き出し・入力欄の3つが土台。Markdown やツール表示は後段で足せる。',
+  'aiChat.demo.seedToolOutput':
+    'Conversation / Message / PromptInput の3つから始めるのが推奨です。',
+  'aiChat.demo.seedAnswer':
+    'まずは Conversation・Message・PromptInput の3つで会話の骨組みを作り、そのあと Response（Markdown）や ToolInvocation を足していくのがおすすめです。',
+  'aiChat.demo.reply': 'なるほど。ドキュメントの該当箇所をまとめますね。',
+  'aiChat.demo.suggestionIme': 'IME 対応について教えて',
+  'aiChat.demo.suggestionStreaming': 'ストリーミング表示は？',
+  'aiChat.demo.suggestionTool': 'ツール呼び出しの表示例',
+  'aiChat.demo.placeholder': 'メッセージを入力…',
   'getStarted.introduction':
     'ArteOdysseyは、React 19で構築されたUIコンポーネントライブラリです。フォームやカードなどユーザーが操作する要素は丸みと余白で親しみやすく、情報を伝える要素はシャープさを保って明確に。穏やかだけど退屈じゃないUIを実現します。',
   'getStarted.installationTitle': 'インストール',

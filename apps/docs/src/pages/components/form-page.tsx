@@ -51,10 +51,10 @@ export function FormPage() {
   }}
 >
   <FormControl
-    label="お名前"
+    label="Name"
     renderInput={(props) => <TextField {...props} name="name" />}
   />
-  <Button type="submit">送信</Button>
+  <Button type="submit">Submit</Button>
 </Form>`}
           >
             <FormBasicPreview />
@@ -70,7 +70,7 @@ export function FormPage() {
   async (_prev, formData) => {
     const name = formData.get('name');
     await sleep(1000);
-    return \`こんにちは、\${name}さん\`;
+    return \`Hello, \${name}!\`;
   },
   '',
 );
@@ -78,10 +78,10 @@ export function FormPage() {
 return (
   <Form action={formAction}>
     <FormControl
-      label="お名前"
+      label="Name"
       renderInput={(props) => <TextField {...props} name="name" />}
     />
-    <Button type="submit">送信</Button>
+    <Button type="submit">Submit</Button>
     <p>{message}</p>
   </Form>
 );`}

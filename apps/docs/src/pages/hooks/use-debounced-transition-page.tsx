@@ -65,14 +65,14 @@ const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
   setQuery(next);
   run(async (signal) => {
     await sleep(800, signal);
-    setResult(\`\${next} の結果\`);
+    setResult(\`Results for "\${next}"\`);
   });
 };
 
 return (
   <>
     <TextField value={query} onChange={handleChange} />
-    <p aria-busy={isPending}>{isPending ? '通信中…' : result}</p>
+    <p aria-busy={isPending}>{isPending ? 'Loading…' : result}</p>
   </>
 );`}
           >

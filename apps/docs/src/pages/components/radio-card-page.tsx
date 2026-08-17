@@ -15,17 +15,17 @@ const options = [
   {
     value: 'starter',
     label: 'Starter',
-    description: '個人利用や小さなプロトタイプ向けの最小構成です。',
+    description: 'A minimal setup for personal use and small prototypes.',
   },
   {
     value: 'pro',
     label: 'Pro',
-    description: '継続的な更新と公開運用を前提にした標準構成です。',
+    description: 'A standard setup for continuous updates and production use.',
   },
   {
     value: 'team',
     label: 'Team',
-    description: 'レビューや共同編集を含むチーム利用向けです。',
+    description: 'For teams that need reviews and collaborative editing.',
   },
 ] as const;
 
@@ -76,7 +76,7 @@ const options = [
 
 const [value, setValue] = useState('pro');
 
-<p id="plan-label">プランを選択</p>
+<p id="plan-label">Choose a plan</p>
 <RadioCard
   disabled={false}
   invalid={false}
@@ -101,7 +101,7 @@ const [value, setValue] = useState('pro');
   { value: 'team', label: 'Team', description: '...' },
 ];
 
-<p id="plan-default-label">プランを選択</p>
+<p id="plan-default-label">Choose a plan</p>
 <RadioCard
   defaultValue="starter"
   disabled={false}
@@ -115,7 +115,7 @@ const [value, setValue] = useState('pro');
                 className="text-fg-base mb-3 font-medium"
                 id="plan-default-label"
               >
-                プランを選択
+                Choose a plan
               </p>
               <RadioCard
                 defaultValue="starter"
@@ -144,7 +144,7 @@ const [value, setValue] = useState('pro');
     setSubmitted(typeof plan === 'string' ? plan : null);
   }}
 >
-  <p id="plan-form-label">プランを選択</p>
+  <p id="plan-form-label">Choose a plan</p>
   <RadioCard
     defaultValue="pro"
     disabled={false}
@@ -153,7 +153,7 @@ const [value, setValue] = useState('pro');
     name="plan"
     options={options}
   />
-  <Button type="submit">送信</Button>
+  <Button type="submit">Submit</Button>
 </Form>`}
           >
             <RadioCardFormPreview />

@@ -56,7 +56,7 @@ export function UseDeferredDebouncePreview() {
         value={query}
       />
       <p className="text-fg-mute text-sm">
-        {isPending ? '反映待ち…' : `${filtered.length} 件ヒット`}
+        {isPending ? 'Updating…' : `${filtered.length.toString()} results`}
       </p>
       <ul
         aria-busy={isPending || undefined}

@@ -53,11 +53,11 @@ export function Chat({ messages, send }: Props) {
       </Conversation.Root>
 
       <Suggestion.List>
-        <Suggestion.Item onSelect={send} value="IME 対応について教えて" />
+        <Suggestion.Item onSelect={send} value="Tell me about IME support" />
       </Suggestion.List>
 
       <PromptInput.Root onSubmit={send}>
-        <PromptInput.Textarea placeholder="メッセージを入力…" />
+        <PromptInput.Textarea placeholder="Type a message…" />
         <PromptInput.Submit />
       </PromptInput.Root>
     </div>
@@ -106,7 +106,7 @@ export function Chat() {
         onSubmit={(text) => sendMessage({ text })}
         status={status}
       >
-        <PromptInput.Textarea placeholder="メッセージを入力" />
+        <PromptInput.Textarea placeholder="Type a message" />
         <PromptInput.Submit />
       </PromptInput.Root>
     </div>
@@ -129,7 +129,7 @@ export function Chat() {
           code={`// Enter to send, Shift+Enter for a newline, IME-confirm Enter never submits.
 // status: 'ready' | 'submitted' | 'streaming' | 'error' (matches AI SDK).
 <PromptInput.Root status={status} onSubmit={send} onStop={stop}>
-  <PromptInput.Textarea placeholder="メッセージを入力" />
+  <PromptInput.Textarea placeholder="Type a message" />
   <PromptInput.Submit /> {/* send when ready, stop while streaming */}
 </PromptInput.Root>`}
           lang="tsx"

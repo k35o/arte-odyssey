@@ -113,6 +113,21 @@ export const en = {
   'aiChat.jsonRenderTitle': 'Generative UI inside a bubble',
   'aiChat.jsonRenderDescription':
     'Because Message.Content takes any children, you can render an LLM-generated UI spec inside a bubble with the json-render registry — generative UI delivered straight into the conversation.',
+  'aiChat.demo.greeting':
+    'Hi! Ask me anything about the ArteOdyssey AI chat components.',
+  'aiChat.demo.seedQuestion':
+    'Where should I start when building an AI chat in React?',
+  'aiChat.demo.seedReasoning':
+    'The conversation area, message bubbles, and the input are the foundation. Markdown and tool views can come later.',
+  'aiChat.demo.seedToolOutput':
+    'Starting with Conversation, Message, and PromptInput is recommended.',
+  'aiChat.demo.seedAnswer':
+    'Start with Conversation, Message, and PromptInput to frame the conversation, then add Response (Markdown) and ToolInvocation on top.',
+  'aiChat.demo.reply': 'Got it — let me pull together the relevant docs.',
+  'aiChat.demo.suggestionIme': 'Tell me about IME support',
+  'aiChat.demo.suggestionStreaming': 'How does streaming rendering work?',
+  'aiChat.demo.suggestionTool': 'Show me a tool call example',
+  'aiChat.demo.placeholder': 'Type a message…',
   'generativeUi.openuiTitle': 'OpenUI',
   'generativeUi.openuiDescription':
     'OpenUI renders a DSL string with the `library`. Generate the prompt on the server with the dedicated `openui/prompt` entry.',
