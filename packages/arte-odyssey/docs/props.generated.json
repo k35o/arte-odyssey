@@ -876,6 +876,54 @@
       "inherits": null
     },
     {
+      "name": "Conversation.Messages",
+      "props": [
+        {
+          "name": "children",
+          "types": ["ReactNode"],
+          "defaultValue": null,
+          "required": true
+        },
+        {
+          "name": "isStreaming",
+          "types": ["boolean"],
+          "defaultValue": "false",
+          "required": false
+        },
+        {
+          "name": "label",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": false
+        }
+      ],
+      "inherits": null
+    },
+    {
+      "name": "Conversation.Root",
+      "props": [
+        {
+          "name": "children",
+          "types": ["ReactNode"],
+          "defaultValue": null,
+          "required": true
+        }
+      ],
+      "inherits": null
+    },
+    {
+      "name": "Conversation.ScrollButton",
+      "props": [
+        {
+          "name": "label",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": false
+        }
+      ],
+      "inherits": null
+    },
+    {
       "name": "CopyIcon",
       "props": [
         {
@@ -1802,6 +1850,42 @@
       "inherits": null
     },
     {
+      "name": "Message.Content",
+      "props": [
+        {
+          "name": "children",
+          "types": ["ReactNode"],
+          "defaultValue": null,
+          "required": true
+        },
+        {
+          "name": "isStreaming",
+          "types": ["boolean"],
+          "defaultValue": "false",
+          "required": false
+        }
+      ],
+      "inherits": "HTMLAttributes<HTMLDivElement>"
+    },
+    {
+      "name": "Message.Root",
+      "props": [
+        {
+          "name": "children",
+          "types": ["ReactNode"],
+          "defaultValue": null,
+          "required": true
+        },
+        {
+          "name": "from",
+          "types": ["MessageRole"],
+          "defaultValue": null,
+          "required": true
+        }
+      ],
+      "inherits": "HTMLAttributes<HTMLDivElement>"
+    },
+    {
       "name": "MinusIcon",
       "props": [
         {
@@ -2246,6 +2330,96 @@
       "inherits": "HTMLAttributes<HTMLDivElement>"
     },
     {
+      "name": "PromptInput.Root",
+      "props": [
+        {
+          "name": "children",
+          "types": ["ReactNode"],
+          "defaultValue": null,
+          "required": true
+        },
+        {
+          "name": "defaultValue",
+          "types": ["string"],
+          "defaultValue": "''",
+          "required": false
+        },
+        {
+          "name": "onChange",
+          "types": ["(value: string) => void"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "onStop",
+          "types": ["() => void"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "onSubmit",
+          "types": ["(message: string) => void"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "status",
+          "types": ["ChatStatus"],
+          "defaultValue": "'ready'",
+          "required": false
+        },
+        {
+          "name": "value",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": false
+        }
+      ],
+      "inherits": null
+    },
+    {
+      "name": "PromptInput.Submit",
+      "props": [
+        {
+          "name": "sendLabel",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "stopLabel",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": false
+        }
+      ],
+      "inherits": null
+    },
+    {
+      "name": "PromptInput.Textarea",
+      "props": [
+        {
+          "name": "children",
+          "types": ["ReactNode"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "ref",
+          "types": ["Ref<HTMLTextAreaElement>"],
+          "defaultValue": null,
+          "required": false
+        }
+      ],
+      "inherits": "TextareaHTMLAttributes<HTMLTextAreaElement>"
+    },
+    {
       "name": "PublishDateIcon",
       "props": [
         {
@@ -2368,6 +2542,42 @@
       "inherits": null
     },
     {
+      "name": "Reasoning",
+      "props": [
+        {
+          "name": "children",
+          "types": ["ReactNode"],
+          "defaultValue": null,
+          "required": true
+        },
+        {
+          "name": "defaultOpen",
+          "types": ["boolean"],
+          "defaultValue": "false",
+          "required": false
+        },
+        {
+          "name": "isOpen",
+          "types": ["boolean"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "isStreaming",
+          "types": ["boolean"],
+          "defaultValue": "false",
+          "required": false
+        },
+        {
+          "name": "onChange",
+          "types": ["(isOpen: boolean) => void"],
+          "defaultValue": null,
+          "required": false
+        }
+      ],
+      "inherits": null
+    },
+    {
       "name": "RefreshIcon",
       "props": [
         {
@@ -2378,6 +2588,24 @@
         }
       ],
       "inherits": null
+    },
+    {
+      "name": "Response",
+      "props": [
+        {
+          "name": "children",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": true
+        },
+        {
+          "name": "isStreaming",
+          "types": ["boolean"],
+          "defaultValue": "false",
+          "required": false
+        }
+      ],
+      "inherits": "StreamdownProps"
     },
     {
       "name": "RSSIcon",
@@ -2680,6 +2908,48 @@
           "name": "size",
           "types": ["'xs'", "'sm'", "'md'", "'lg'", "'xl'", "'2xl'", "'3xl'"],
           "defaultValue": "'md'",
+          "required": false
+        }
+      ],
+      "inherits": null
+    },
+    {
+      "name": "Suggestion.Item",
+      "props": [
+        {
+          "name": "value",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": true
+        },
+        {
+          "name": "children",
+          "types": ["ReactNode"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "onSelect",
+          "types": ["(value: string) => void"],
+          "defaultValue": null,
+          "required": false
+        }
+      ],
+      "inherits": null
+    },
+    {
+      "name": "Suggestion.List",
+      "props": [
+        {
+          "name": "children",
+          "types": ["ReactNode"],
+          "defaultValue": null,
+          "required": true
+        },
+        {
+          "name": "label",
+          "types": ["string"],
+          "defaultValue": null,
           "required": false
         }
       ],
@@ -3060,6 +3330,66 @@
           "name": "position",
           "types": ["'fixed'", "'absolute'"],
           "defaultValue": "'fixed'",
+          "required": false
+        }
+      ],
+      "inherits": null
+    },
+    {
+      "name": "ToolInvocation",
+      "props": [
+        {
+          "name": "name",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": true
+        },
+        {
+          "name": "state",
+          "types": ["ToolState"],
+          "defaultValue": null,
+          "required": true
+        },
+        {
+          "name": "defaultOpen",
+          "types": ["boolean"],
+          "defaultValue": "false",
+          "required": false
+        },
+        {
+          "name": "deniedReason",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "errorText",
+          "types": ["string"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "input",
+          "types": ["unknown"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "isOpen",
+          "types": ["boolean"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "onChange",
+          "types": ["(isOpen: boolean) => void"],
+          "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "output",
+          "types": ["ReactNode"],
+          "defaultValue": null,
           "required": false
         }
       ],
