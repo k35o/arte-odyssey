@@ -103,7 +103,7 @@
   },
   "dependencies": {
     "clsx": "2.1.1",
-    "lucide-react": "1.30.0",
+    "lucide-react": "1.31.0",
     "tailwind-merge": "3.6.0"
   },
   "devDependencies": {
@@ -133,7 +133,7 @@
     "storybook": "10.5.7",
     "storybook-addon-determinism": "0.1.2",
     "storybook-addon-mock-date": "3.1.1",
-    "storybook-addon-vrt": "0.3.0",
+    "storybook-addon-vrt": "0.4.0",
     "streamdown": "2.5.0",
     "tailwind-token-extractor": "0.2.1",
     "tailwindcss": "catalog:",
