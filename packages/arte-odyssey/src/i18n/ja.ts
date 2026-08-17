@@ -15,8 +15,8 @@ export const ja: Messages = {
   toastRegion: '通知',
 
   autocompletePlaceholder: '入力して絞り込めます',
-  autocompleteRemoveTag: '閉じる',
-  autocompleteClear: 'すべて閉じる',
+  autocompleteRemoveTag: 'タグを削除',
+  autocompleteClear: 'すべて削除',
   autocompleteEmpty: '該当なし',
 
   fileFieldRemove: 'ファイルを削除',

@@ -15,7 +15,7 @@ export const en: Messages = {
   toastRegion: 'Notifications',
 
   autocompletePlaceholder: 'Type to filter',
-  autocompleteRemoveTag: 'Remove',
+  autocompleteRemoveTag: 'Remove tag',
   autocompleteClear: 'Clear all',
   autocompleteEmpty: 'No results',
 
