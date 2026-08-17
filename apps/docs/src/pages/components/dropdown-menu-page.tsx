@@ -167,6 +167,8 @@ export function DropdownMenuPage() {
         <PropsTable items={propsOf('DropdownMenu.Content')} />
         <Heading level="h3">DropdownMenu.Item</Heading>
         <PropsTable items={propsOf('DropdownMenu.Item')} />
+        <Heading level="h3">DropdownMenu.SubMenu</Heading>
+        <PropsTable items={propsOf('DropdownMenu.SubMenu')} />
       </section>
     </div>
   );

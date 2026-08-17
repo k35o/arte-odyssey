@@ -429,6 +429,46 @@ document.documentElement.classList.remove('dark');`}
           lang="ts"
         />
       </section>
+      <Separator color="mute" />
+
+      <section className="flex flex-col gap-4">
+        <Heading level="h2">
+          <T k="theming.customizeTitle" />
+        </Heading>
+        <p className="text-fg-mute">
+          <T k="theming.customizeDescription" />
+        </p>
+        <CodeBlock
+          code={`/* app.css — import after the ArteOdyssey stylesheet */
+:root {
+  --primary-fg: var(--purple-800);
+  --primary-bg: var(--purple-200);
+  --primary-bg-subtle: var(--purple-50);
+  --primary-bg-mute: var(--purple-100);
+  --primary-bg-emphasize: var(--purple-300);
+  --primary-border: var(--purple-500);
+}
+
+.dark {
+  --primary-fg: var(--purple-300);
+  --primary-bg: var(--purple-800);
+  --primary-bg-subtle: var(--purple-950);
+  --primary-bg-mute: var(--purple-900);
+  --primary-bg-emphasize: var(--purple-700);
+  --primary-border: var(--purple-500);
+}`}
+          lang="css"
+        />
+        <p className="text-fg-mute">
+          <T k="theming.customizeValueDescription" />
+        </p>
+        <CodeBlock
+          code={`:root {
+  --primary-border: oklch(0.55 0.15 300);
+}`}
+          lang="css"
+        />
+      </section>
     </div>
   );
 }

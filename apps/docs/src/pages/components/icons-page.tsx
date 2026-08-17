@@ -60,8 +60,10 @@ import {
 import type { ReactNode } from 'react';
 
 import { CodeBlock } from '../../components/code-block';
+import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { propsOf } from '../../data/component-props';
 
 const IconCard = ({
   name,
@@ -310,6 +312,21 @@ export function IconsPage() {
             <QiitaIcon />
           </IconCard>
         </div>
+      </section>
+      <Separator color="mute" />
+
+      <section className="flex flex-col gap-4">
+        <Heading level="h2">
+          <T k="components.common.propsTitle" />
+        </Heading>
+        <p className="text-fg-mute text-sm">
+          <T k="components.icons.propsDescription" />
+        </p>
+        <PropsTable items={propsOf('CheckIcon')} />
+        <Heading level="h3">ChevronIcon</Heading>
+        <PropsTable items={propsOf('ChevronIcon')} />
+        <Heading level="h3">AlertIcon</Heading>
+        <PropsTable items={propsOf('AlertIcon')} />
       </section>
     </div>
   );

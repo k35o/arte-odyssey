@@ -12,17 +12,17 @@ const options = [
   {
     value: 'history',
     label: 'Version history',
-    description: '変更履歴を保存して必要な時に差し戻せます。',
+    description: 'Keep every change and roll back when needed.',
   },
   {
     value: 'comments',
     label: 'Inline comments',
-    description: '各セクションに直接フィードバックを残せます。',
+    description: 'Leave feedback directly on each section.',
   },
   {
     value: 'share',
     label: 'Share links',
-    description: '閲覧専用の共有リンクをすぐに発行できます。',
+    description: 'Publish read-only share links in seconds.',
   },
 ] as const;
 
@@ -69,23 +69,23 @@ const options = [
   {
     value: 'history',
     label: 'Version history',
-    description: '変更履歴を保存して必要な時に差し戻せます。',
+    description: 'Keep every change and roll back when needed.',
   },
   {
     value: 'comments',
     label: 'Inline comments',
-    description: '各セクションに直接フィードバックを残せます。',
+    description: 'Leave feedback directly on each section.',
   },
   {
     value: 'share',
     label: 'Share links',
-    description: '閲覧専用の共有リンクをすぐに発行できます。',
+    description: 'Publish read-only share links in seconds.',
   },
 ];
 
 const [value, setValue] = useState(['comments']);
 
-<p id="features-label">有効にする機能を選択</p>
+<p id="features-label">Choose features to enable</p>
 <CheckboxCard
   disabled={false}
   invalid={false}
@@ -108,21 +108,21 @@ const [value, setValue] = useState(['comments']);
   {
     value: 'history',
     label: 'Version history',
-    description: '変更履歴を保存して必要な時に差し戻せます。',
+    description: 'Keep every change and roll back when needed.',
   },
   {
     value: 'comments',
     label: 'Inline comments',
-    description: '各セクションに直接フィードバックを残せます。',
+    description: 'Leave feedback directly on each section.',
   },
   {
     value: 'share',
     label: 'Share links',
-    description: '閲覧専用の共有リンクをすぐに発行できます。',
+    description: 'Publish read-only share links in seconds.',
   },
 ];
 
-<p id="features-default-label">有効にする機能を選択</p>
+<p id="features-default-label">Choose features to enable</p>
 <CheckboxCard
   defaultValue={['history', 'share']}
   disabled={false}
@@ -136,7 +136,7 @@ const [value, setValue] = useState(['comments']);
                 className="text-fg-base mb-3 font-medium"
                 id="features-default-label"
               >
-                有効にする機能を選択
+                Choose features to enable
               </p>
               <CheckboxCard
                 defaultValue={['history', 'share']}

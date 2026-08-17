@@ -4,7 +4,7 @@ import { codeToHtml } from 'shiki';
 
 type Props = {
   code: string;
-  lang: 'bash' | 'json' | 'md' | 'ts' | 'tsx';
+  lang: 'bash' | 'css' | 'json' | 'md' | 'ts' | 'tsx';
   rounded?: 'all' | 'bottom' | 'none';
 };
 

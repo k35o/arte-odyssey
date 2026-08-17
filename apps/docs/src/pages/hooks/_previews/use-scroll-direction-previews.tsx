@@ -32,7 +32,7 @@ export function UseScrollDirectionTargetPreview() {
         ref={scrollRef}
       >
         <div className="from-primary-bg-subtle to-bg-base text-fg-mute h-96 bg-linear-to-b p-3 text-sm">
-          この領域をスクロールすると、この領域のスクロール方向が検知されます。
+          Scroll this area to see its scroll direction being detected.
         </div>
       </div>
     </div>

@@ -2,7 +2,9 @@ import { Heading, Separator } from '@k8o/arte-odyssey';
 
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
+import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
+import { inheritsOf, propsOf } from '../../data/component-props';
 import { ChatDemo } from './_previews/chat-demo';
 
 export function AiChat() {
@@ -53,11 +55,11 @@ export function Chat({ messages, send }: Props) {
       </Conversation.Root>
 
       <Suggestion.List>
-        <Suggestion.Item onSelect={send} value="IME 対応について教えて" />
+        <Suggestion.Item onSelect={send} value="Tell me about IME support" />
       </Suggestion.List>
 
       <PromptInput.Root onSubmit={send}>
-        <PromptInput.Textarea placeholder="メッセージを入力…" />
+        <PromptInput.Textarea placeholder="Type a message…" />
         <PromptInput.Submit />
       </PromptInput.Root>
     </div>
@@ -106,7 +108,7 @@ export function Chat() {
         onSubmit={(text) => sendMessage({ text })}
         status={status}
       >
-        <PromptInput.Textarea placeholder="メッセージを入力" />
+        <PromptInput.Textarea placeholder="Type a message" />
         <PromptInput.Submit />
       </PromptInput.Root>
     </div>
@@ -129,7 +131,7 @@ export function Chat() {
           code={`// Enter to send, Shift+Enter for a newline, IME-confirm Enter never submits.
 // status: 'ready' | 'submitted' | 'streaming' | 'error' (matches AI SDK).
 <PromptInput.Root status={status} onSubmit={send} onStop={stop}>
-  <PromptInput.Textarea placeholder="メッセージを入力" />
+  <PromptInput.Textarea placeholder="Type a message" />
   <PromptInput.Submit /> {/* send when ready, stop while streaming */}
 </PromptInput.Root>`}
           lang="tsx"
@@ -249,6 +251,39 @@ import { JsonRenderUI } from '@k8o/arte-odyssey/json-render/registry';
 </Message.Root>`}
           lang="tsx"
         />
+      </section>
+
+      <Separator color="mute" />
+
+      <section className="flex flex-col gap-4">
+        <Heading level="h2">
+          <T k="components.common.propsTitle" />
+        </Heading>
+        <p className="text-fg-mute">
+          <T k="aiChat.propsDescription" />
+        </p>
+        {(
+          [
+            'Conversation.Root',
+            'Conversation.Messages',
+            'Conversation.ScrollButton',
+            'Message.Root',
+            'Message.Content',
+            'PromptInput.Root',
+            'PromptInput.Textarea',
+            'PromptInput.Submit',
+            'Suggestion.List',
+            'Suggestion.Item',
+            'Response',
+            'Reasoning',
+            'ToolInvocation',
+          ] as const
+        ).map((name) => (
+          <div className="flex flex-col gap-4" key={name}>
+            <Heading level="h3">{name}</Heading>
+            <PropsTable inherits={inheritsOf(name)} items={propsOf(name)} />
+          </div>
+        ))}
       </section>
     </div>
   );

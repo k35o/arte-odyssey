@@ -115,6 +115,23 @@ export const ja = {
   'aiChat.jsonRenderTitle': '吹き出しの中に Generative UI',
   'aiChat.jsonRenderDescription':
     'Message.Content は任意の children を取れるので、json-render の registry を使って LLM が生成した UI spec を吹き出しの中に描画できます。会話の中へそのまま Generative UI を届けられます。',
+  'aiChat.propsDescription':
+    'コンポーネントの型から生成した props の一覧です。開閉を持つコンポーネント（Reasoning / ToolInvocation）は isOpen / defaultOpen / onChange の controlled / uncontrolled 両対応です。',
+  'aiChat.demo.greeting':
+    'こんにちは。ArteOdyssey の AI チャットについて、何でも聞いてください。',
+  'aiChat.demo.seedQuestion':
+    'React で AI チャットを作るとき、何から始めればいい？',
+  'aiChat.demo.seedReasoning':
+    'まず会話の器・吹き出し・入力欄の3つが土台。Markdown やツール表示は後段で足せる。',
+  'aiChat.demo.seedToolOutput':
+    'Conversation / Message / PromptInput の3つから始めるのが推奨です。',
+  'aiChat.demo.seedAnswer':
+    'まずは Conversation・Message・PromptInput の3つで会話の骨組みを作り、そのあと Response（Markdown）や ToolInvocation を足していくのがおすすめです。',
+  'aiChat.demo.reply': 'なるほど。ドキュメントの該当箇所をまとめますね。',
+  'aiChat.demo.suggestionIme': 'IME 対応について教えて',
+  'aiChat.demo.suggestionStreaming': 'ストリーミング表示は？',
+  'aiChat.demo.suggestionTool': 'ツール呼び出しの表示例',
+  'aiChat.demo.placeholder': 'メッセージを入力…',
   'getStarted.introduction':
     'ArteOdysseyは、React 19で構築されたUIコンポーネントライブラリです。フォームやカードなどユーザーが操作する要素は丸みと余白で親しみやすく、情報を伝える要素はシャープさを保って明確に。穏やかだけど退屈じゃないUIを実現します。',
   'getStarted.installationTitle': 'インストール',
@@ -316,6 +333,8 @@ export const ja = {
     'スクロール位置に連動するプログレスバー',
   'components.icons.description': 'ArteOdysseyが提供するアイコン一覧',
   'components.icons.sizesTitle': 'サイズ',
+  'components.icons.propsDescription':
+    'すべてのアイコンは共通で `size` を受け取ります。向きを持つ `ChevronIcon` と、ステータスを表す `AlertIcon` だけは追加の props があります。',
   'components.common.basicUsageTitle': '基本的な使い方',
   'components.modal.sideTitle': '配置',
   'components.toast.useToastTitle': 'useToastフック',
@@ -324,6 +343,9 @@ export const ja = {
   'components.listBox.sizesTitle': 'サイズ',
   'components.listBox.iconTriggerTitle': 'アイコントリガー',
   'components.modal.defaultOpenTitle': 'デフォルトで開く',
+  'components.modal.portalRootTitle': 'トップレイヤーとPortal',
+  'components.modal.portalRootDescription':
+    'Modalはブラウザのトップレイヤー（`dialog`要素）に表示されるため、`document.body`へポータルした要素はModalの背面に隠れます。Modalは自身の`dialog`要素をPortalのルートとしてコンテキストで提供しており、`usePortalRoot`で取得してポータル先にすれば、Modalの中でも浮遊UIが正しく前面に表示されます。Modal内の`useToast`は自動的にこの仕組みで表示されるので、対応が必要なのは自前でポータルを使う場合だけです。',
   'components.dropdownMenu.sizesTitle': 'サイズ',
   'components.dropdownMenu.placementTitle': '配置',
   'components.drawer.customContentTitle': 'カスタムコンテンツ',
@@ -479,6 +501,11 @@ export const ja = {
   'theming.darkModeTitle': 'ダークモード',
   'theming.darkModeDescription':
     'ルート要素にdarkクラスを追加することで、ダークモードが有効になります。セマンティックカラートークンは自動的にダークモード用の値に切り替わります。',
+  'theming.customizeTitle': 'トークンを上書きする',
+  'theming.customizeDescription':
+    'すべてのトークンはCSS変数なので、ArteOdysseyのスタイルシートより後に読み込むCSSで同名の変数を再定義すれば上書きできます。ベースカラーの変数（`--purple-200`など）も定義済みなので、参照を差し替えるだけでブランドカラーを丸ごと切り替えられます。ダークモードの値は`.dark`側で再定義します。',
+  'theming.customizeValueDescription':
+    'シェードの参照ではなく、値そのものを直接指定することもできます。',
   'theming.spacingTitle': 'スペーシング',
   'theming.spacingDescription':
     'スペーシングスケールです。基本単位は0.25rem（4px）で、p-{n}やgap-{n}はn × 0.25remに計算されます。',

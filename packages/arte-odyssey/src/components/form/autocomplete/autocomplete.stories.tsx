@@ -73,7 +73,7 @@ export const Disabled: Story = {
   },
 };
 
-// 回帰: チップ行が min-w-0 で縮まないと「すべて閉じる」が枠外へ押し出される
+// 回帰: チップ行が min-w-0 で縮まないと「すべて削除」が枠外へ押し出される
 export const NarrowContainer: Story = {
   render: () => (
     <Autocomplete
@@ -99,7 +99,7 @@ export const NarrowContainer: Story = {
     );
     // decorator の唯一の子が Autocomplete のルート（枠）
     const box = container?.firstElementChild;
-    const clearAll = canvasElement.querySelector('[aria-label="すべて閉じる"]');
+    const clearAll = canvasElement.querySelector('[aria-label="すべて削除"]');
     if (!(box instanceof HTMLElement) || !(clearAll instanceof HTMLElement)) {
       throw new Error('要素が見つかりません');
     }

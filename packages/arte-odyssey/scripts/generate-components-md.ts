@@ -4,6 +4,9 @@
  *
  * Only the props lists are generated. The prose and the code examples around
  * them stay hand-written, because they carry judgement the types do not.
+ * `ai-chat.md` is deliberately left out: its props bullets group controllable
+ * props and describe pass-through behavior, which the generated form would
+ * flatten away.
  *
  *   node scripts/generate-components-md.ts            # rewrite the blocks
  *   node scripts/generate-components-md.ts --check    # fail if any block is stale
@@ -147,13 +150,22 @@ if (process.argv.includes('--check')) {
   const documented = new Set(
     [...source.matchAll(/^### (\S+)/gmu)].map((m) => m[1] ?? ''),
   );
+  // The AI chat components are documented in ai-chat.md with hand-written
+  // props bullets, so their absence from components.md is not a gap.
+  const aiChatSource = await readFile(
+    fileURLToPath(new URL('../docs/references/ai-chat.md', import.meta.url)),
+    'utf8',
+  );
+  const documentedElsewhere = new Set(
+    [...aiChatSource.matchAll(/^## (\S+)/gmu)].map((m) => m[1] ?? ''),
+  );
+  const covered = (name: string) =>
+    documented.has(name.split('.')[0] ?? '') ||
+    documentedElsewhere.has(name.split('.')[0] ?? '');
   const missing = components
     .filter((c) => c.props.length > 0)
     .map((c) => c.name)
-    .filter(
-      (name) =>
-        !rewritten.has(name) && !documented.has(name.split('.')[0] ?? ''),
-    );
+    .filter((name) => !rewritten.has(name) && !covered(name));
   if (unknown.length > 0) {
     console.warn(`Props ブロックの対応先が不明: ${unknown.join(', ')}`);
   }

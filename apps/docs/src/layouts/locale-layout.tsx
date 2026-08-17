@@ -1,7 +1,14 @@
 'use client';
 
 import { Outlet, useLocation } from '@funstack/router';
-import { Drawer, Heading, IconButton, ListIcon } from '@k8o/arte-odyssey';
+import {
+  ArteOdysseyProvider,
+  Drawer,
+  Heading,
+  IconButton,
+  ListIcon,
+} from '@k8o/arte-odyssey';
+import { en } from '@k8o/arte-odyssey/i18n';
 import { useEffect, useRef, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -214,13 +221,15 @@ export function LocaleLayout({ params }: { params: { locale: string } }) {
       resetKeys={[location.entryId]}
     >
       <LocaleProvider locale={localeParam}>
-        <ThemeProvider>
-          <WritingModeProvider>
-            <div className="flex min-h-dvh flex-col">
-              <LayoutContent />
-            </div>
-          </WritingModeProvider>
-        </ThemeProvider>
+        <ArteOdysseyProvider messages={localeParam === 'en' ? en : undefined}>
+          <ThemeProvider>
+            <WritingModeProvider>
+              <div className="flex min-h-dvh flex-col">
+                <LayoutContent />
+              </div>
+            </WritingModeProvider>
+          </ThemeProvider>
+        </ArteOdysseyProvider>
       </LocaleProvider>
     </ErrorBoundary>
   );

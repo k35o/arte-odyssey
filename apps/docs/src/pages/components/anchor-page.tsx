@@ -80,7 +80,7 @@ export function AnchorPage() {
             <T k="components.anchor.renderAnchorDescription" />
           </p>
           <CodeBlock
-            code={`// Next.js の Link で差し替え
+            code={`// Swap in the Next.js Link
 import Link from 'next/link';
 
 <Anchor

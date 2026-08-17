@@ -45,7 +45,7 @@ export function AlertDismissiblePreview() {
   const [isVisible, setIsVisible] = useState(true);
   return isVisible ? (
     <Alert
-      message="お使いのブラウザでは一部の機能が正しく動作しない可能性があります。最新版への更新をおすすめします。"
+      message="Some features may not work correctly in your browser. We recommend updating to the latest version."
       onClose={() => {
         setIsVisible(false);
       }}
@@ -68,7 +68,7 @@ export function AlertWithActionPreview() {
   return isVisible ? (
     <Alert
       action={{
-        label: '詳しくはこちら',
+        label: 'Learn more',
         renderItem: ({ children }) => (
           <button
             className="text-primary-fg cursor-pointer underline underline-offset-2"
@@ -79,7 +79,7 @@ export function AlertWithActionPreview() {
           </button>
         ),
       }}
-      message="お使いのブラウザでは一部の機能が正しく動作しない可能性があります。最新版への更新をおすすめします。"
+      message="Some features may not work correctly in your browser. We recommend updating to the latest version."
       onClose={() => {
         setIsVisible(false);
       }}

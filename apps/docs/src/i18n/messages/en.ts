@@ -113,6 +113,23 @@ export const en = {
   'aiChat.jsonRenderTitle': 'Generative UI inside a bubble',
   'aiChat.jsonRenderDescription':
     'Because Message.Content takes any children, you can render an LLM-generated UI spec inside a bubble with the json-render registry — generative UI delivered straight into the conversation.',
+  'aiChat.propsDescription':
+    'Props generated from the component types. Collapsible components (Reasoning / ToolInvocation) support both controlled and uncontrolled usage via isOpen / defaultOpen / onChange.',
+  'aiChat.demo.greeting':
+    'Hi! Ask me anything about the ArteOdyssey AI chat components.',
+  'aiChat.demo.seedQuestion':
+    'Where should I start when building an AI chat in React?',
+  'aiChat.demo.seedReasoning':
+    'The conversation area, message bubbles, and the input are the foundation. Markdown and tool views can come later.',
+  'aiChat.demo.seedToolOutput':
+    'Starting with Conversation, Message, and PromptInput is recommended.',
+  'aiChat.demo.seedAnswer':
+    'Start with Conversation, Message, and PromptInput to frame the conversation, then add Response (Markdown) and ToolInvocation on top.',
+  'aiChat.demo.reply': 'Got it — let me pull together the relevant docs.',
+  'aiChat.demo.suggestionIme': 'Tell me about IME support',
+  'aiChat.demo.suggestionStreaming': 'How does streaming rendering work?',
+  'aiChat.demo.suggestionTool': 'Show me a tool call example',
+  'aiChat.demo.placeholder': 'Type a message…',
   'generativeUi.openuiTitle': 'OpenUI',
   'generativeUi.openuiDescription':
     'OpenUI renders a DSL string with the `library`. Generate the prompt on the server with the dedicated `openui/prompt` entry.',
@@ -330,6 +347,8 @@ export const en = {
   'components.icons.description':
     'A catalog of icon components provided by ArteOdyssey.',
   'components.icons.sizesTitle': 'Sizes',
+  'components.icons.propsDescription':
+    'Every icon accepts a shared `size` prop. Only `ChevronIcon` (direction) and `AlertIcon` (status) take additional props.',
   'components.common.basicUsageTitle': 'Basic Usage',
   'components.modal.sideTitle': 'Side',
   'components.toast.useToastTitle': 'useToast Hook',
@@ -338,6 +357,9 @@ export const en = {
   'components.listBox.sizesTitle': 'Sizes',
   'components.listBox.iconTriggerTitle': 'With Icon Trigger',
   'components.modal.defaultOpenTitle': 'Default Open',
+  'components.modal.portalRootTitle': 'Top Layer & Portals',
+  'components.modal.portalRootDescription':
+    'Modal renders in the browser top layer (a `dialog` element), so anything portaled to `document.body` ends up hidden behind it. Modal provides its own `dialog` element as a portal root via context — read it with `usePortalRoot` and portal there so floating UI stays on top inside a Modal. `useToast` inside a Modal already uses this mechanism automatically; you only need it for your own portals.',
   'components.dropdownMenu.sizesTitle': 'Sizes',
   'components.dropdownMenu.placementTitle': 'Placement',
   'components.drawer.customContentTitle': 'With Custom Content',
@@ -506,6 +528,11 @@ export const en = {
   'theming.darkModeTitle': 'Dark Mode',
   'theming.darkModeDescription':
     'Add the dark class to the root element to enable dark mode. Semantic color tokens automatically switch to their dark mode values.',
+  'theming.customizeTitle': 'Overriding Tokens',
+  'theming.customizeDescription':
+    'Every token is a CSS variable, so redefining the same variable in CSS loaded after the ArteOdyssey stylesheet overrides it. The base color variables (such as `--purple-200`) are also defined, so swapping the references switches the whole brand color at once. Redefine the dark mode values under `.dark`.',
+  'theming.customizeValueDescription':
+    'You can also assign a raw value directly instead of referencing a shade.',
   'theming.spacingTitle': 'Spacing',
   'theming.spacingDescription':
     'The spacing scale. The base unit is 0.25rem (4px), and p-{n} or gap-{n} computes to n × 0.25rem.',

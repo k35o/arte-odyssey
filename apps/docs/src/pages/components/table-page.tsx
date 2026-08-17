@@ -5,7 +5,7 @@ import { ComponentPreview } from '../../components/component-preview';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-import { propsOf } from '../../data/component-props';
+import { inheritsOf, propsOf } from '../../data/component-props';
 
 export function TablePage() {
   return (
@@ -132,11 +132,42 @@ export function TablePage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <Heading level="h3">Table.Root</Heading>
-        <PropsTable items={propsOf('Table.Root')} />
+        <PropsTable
+          inherits={inheritsOf('Table.Root')}
+          items={propsOf('Table.Root')}
+        />
+        <Heading level="h3">Table.Caption</Heading>
+        <PropsTable
+          inherits={inheritsOf('Table.Caption')}
+          items={propsOf('Table.Caption')}
+        />
+        <Heading level="h3">Table.Head</Heading>
+        <PropsTable
+          inherits={inheritsOf('Table.Head')}
+          items={propsOf('Table.Head')}
+        />
+        <Heading level="h3">Table.Body</Heading>
+        <PropsTable
+          inherits={inheritsOf('Table.Body')}
+          items={propsOf('Table.Body')}
+        />
         <Heading level="h3">Table.Row</Heading>
-        <PropsTable items={propsOf('Table.Row')} />
-        <Heading level="h3">Table.Cell / Table.HeaderCell</Heading>
-        <PropsTable items={propsOf('Table.Cell')} />
+        <PropsTable
+          inherits={inheritsOf('Table.Row')}
+          items={propsOf('Table.Row')}
+        />
+        <Heading level="h3">Table.HeaderCell</Heading>
+        <PropsTable
+          inherits={inheritsOf('Table.HeaderCell')}
+          items={propsOf('Table.HeaderCell')}
+        />
+        <Heading level="h3">Table.Cell</Heading>
+        <PropsTable
+          inherits={inheritsOf('Table.Cell')}
+          items={propsOf('Table.Cell')}
+        />
+        <Heading level="h3">Table.EmptyState</Heading>
+        <PropsTable items={propsOf('Table.EmptyState')} />
       </section>
     </div>
   );

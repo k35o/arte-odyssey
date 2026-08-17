@@ -37,8 +37,8 @@ export function UseScrollLockTargetPreview() {
         ref={scrollRef}
       >
         <div className="from-primary-bg-subtle to-bg-base text-fg-mute h-96 bg-linear-to-b p-3 text-sm">
-          この領域をスクロールしてみてください。Lock area
-          を押すとこの要素のスクロールだけが停止します。
+          Try scrolling this area. Pressing Lock area stops scrolling for this
+          element only.
         </div>
       </div>
     </div>

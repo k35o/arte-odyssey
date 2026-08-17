@@ -41,7 +41,13 @@ import type { Symbol as TsSymbol, Type } from 'typescript/unstable/sync';
 
 const PACKAGE_DIR = fileURLToPath(new URL('..', import.meta.url));
 const TSCONFIG = fileURLToPath(new URL('../tsconfig.json', import.meta.url));
-const ENTRY = fileURLToPath(new URL('../src/index.ts', import.meta.url));
+// Every subpath entry that exports components. The `./ai` surfaces live
+// outside `src/index.ts`, so walking the root entry alone would miss them.
+const ENTRIES = [
+  '../src/index.ts',
+  '../src/components/ai/index.ts',
+  '../src/components/ai/response/index.ts',
+].map((path) => fileURLToPath(new URL(path, import.meta.url)));
 const OUT_PATH = fileURLToPath(
   new URL('../docs/props.generated.json', import.meta.url),
 );
@@ -282,41 +288,46 @@ const componentFrom = (name: string, symbol: TsSymbol): Component | null => {
   return { name, props, inherits: inheritsOf(declaration) };
 };
 
-const entrySource = program.getSourceFile(ENTRY);
-if (!entrySource) throw new Error(`Cannot read entry: ${ENTRY}`);
-const moduleSymbol = checker.getSymbolAtLocation(entrySource);
-if (!moduleSymbol) throw new Error('Entry has no module symbol');
-
 const components: Component[] = [];
 const skipped: string[] = [];
+const seen = new Set<string>();
 
-for (const exported of checker.getExportsOfModule(moduleSymbol)) {
-  const { name } = exported;
-  // Hooks and helpers (`useToast`, `cn`, `chain`) also have call signatures.
-  if (!/^[A-Z]/u.test(name)) continue;
+for (const entry of ENTRIES) {
+  const entrySource = program.getSourceFile(entry);
+  if (!entrySource) throw new Error(`Cannot read entry: ${entry}`);
+  const moduleSymbol = checker.getSymbolAtLocation(entrySource);
+  if (!moduleSymbol) throw new Error(`Entry has no module symbol: ${entry}`);
 
-  const symbol =
-    exported.flags & SymbolFlags.Alias
-      ? checker.getAliasedSymbol(exported)
-      : exported;
+  for (const exported of checker.getExportsOfModule(moduleSymbol)) {
+    const { name } = exported;
+    // Hooks and helpers (`useToast`, `cn`, `chain`) also have call signatures.
+    if (!/^[A-Z]/u.test(name)) continue;
+    if (seen.has(name)) continue;
+    seen.add(name);
 
-  const direct = componentFrom(name, symbol);
-  if (direct) components.push(direct);
+    const symbol =
+      exported.flags & SymbolFlags.Alias
+        ? checker.getAliasedSymbol(exported)
+        : exported;
 
-  // Parts hang off the export either as a plain object (`{ Root, Header }`) or
-  // attached to the component itself (`Object.assign(Group, { Item })`), so
-  // look for them even when the export is already a component on its own.
-  const declaration = declarationOf(symbol);
-  if (!declaration) continue;
-  const type = checker.getTypeOfSymbolAtLocation(symbol, declaration);
-  const parts = checker
-    .getPropertiesOfType(type)
-    .filter((part) => /^[A-Z]/u.test(part.name))
-    .map((part) => componentFrom(`${name}.${part.name}`, part))
-    .filter((part): part is Component => part !== null);
+    const direct = componentFrom(name, symbol);
+    if (direct) components.push(direct);
 
-  if (parts.length > 0) components.push(...parts);
-  else if (!direct) skipped.push(name);
+    // Parts hang off the export either as a plain object (`{ Root, Header }`) or
+    // attached to the component itself (`Object.assign(Group, { Item })`), so
+    // look for them even when the export is already a component on its own.
+    const declaration = declarationOf(symbol);
+    if (!declaration) continue;
+    const type = checker.getTypeOfSymbolAtLocation(symbol, declaration);
+    const parts = checker
+      .getPropertiesOfType(type)
+      .filter((part) => /^[A-Z]/u.test(part.name))
+      .map((part) => componentFrom(`${name}.${part.name}`, part))
+      .filter((part): part is Component => part !== null);
+
+    if (parts.length > 0) components.push(...parts);
+    else if (!direct) skipped.push(name);
+  }
 }
 
 api.close();

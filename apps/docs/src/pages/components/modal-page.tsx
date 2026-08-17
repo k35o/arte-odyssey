@@ -138,6 +138,27 @@ export function ModalPage() {
 
       <section className="flex flex-col gap-4">
         <Heading level="h2">
+          <T k="components.modal.portalRootTitle" />
+        </Heading>
+        <p className="text-fg-mute">
+          <T k="components.modal.portalRootDescription" />
+        </p>
+        <CodeBlock
+          code={`import { usePortalRoot } from '@k8o/arte-odyssey';
+import { createPortal } from 'react-dom';
+
+function FloatingLayer({ children }) {
+  // Inside a Modal this is the top-layer <dialog>; outside it is undefined.
+  const portalRoot = usePortalRoot();
+  return createPortal(children, portalRoot?.current ?? document.body);
+}`}
+          lang="tsx"
+        />
+      </section>
+      <Separator color="mute" />
+
+      <section className="flex flex-col gap-4">
+        <Heading level="h2">
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable items={propsOf('Modal')} />
