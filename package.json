@@ -23,14 +23,14 @@
   },
   "devDependencies": {
     "@k8o/oxc-config": "0.2.1",
-    "@oxlint/plugins": "1.77.0",
+    "@oxlint/plugins": "1.78.0",
     "@types/node": "24.13.3",
-    "oxlint-tailwindcss": "1.7.1",
+    "oxlint-tailwindcss": "1.9.0",
     "playwright": "1.62.1",
     "typescript": "7.0.2",
     "vite-plus": "catalog:",
     "vite-plus-inspector": "0.1.1",
-    "wrangler": "4.120.0"
+    "wrangler": "4.122.0"
   },
   "engines": {
     "node": ">=24.13.0"
