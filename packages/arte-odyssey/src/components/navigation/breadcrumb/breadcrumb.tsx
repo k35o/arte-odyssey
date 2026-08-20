@@ -6,7 +6,7 @@ import { useMessages } from '../../../i18n/context';
 import { ChevronIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
 
-const List: FC<
+export const List: FC<
   PropsWithChildren<{
     size?: 'sm' | 'md' | 'lg';
   }>
@@ -29,11 +29,11 @@ const List: FC<
   );
 };
 
-const Item: FC<PropsWithChildren> = ({ children }) => (
+export const Item: FC<PropsWithChildren> = ({ children }) => (
   <li className="inline-flex items-center">{children}</li>
 );
 
-const Separator: FC = () => (
+export const Separator: FC = () => (
   <li aria-hidden="true" className="text-fg-mute vertical:rotate-90">
     <ChevronIcon direction="right" size="sm" />
   </li>
@@ -52,7 +52,7 @@ const defaultRenderBreadcrumbAnchor = ({
   <a {...rest}>{children}</a>
 );
 
-const Link = <T extends string>({
+export const Link = <T extends string>({
   href,
   current = false,
   children,
@@ -74,10 +74,3 @@ const Link = <T extends string>({
       children,
     })
   );
-
-export const Breadcrumb = {
-  List,
-  Item,
-  Separator,
-  Link,
-} as const;
