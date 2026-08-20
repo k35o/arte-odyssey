@@ -5,7 +5,7 @@ const catalogNames = catalog.componentNames;
 const openuiNames = Object.keys(library.components);
 
 const diff = (a: string[], b: string[]): string[] =>
-  a.filter((name) => !b.includes(name)).sort();
+  a.filter((name) => !b.includes(name)).toSorted();
 
 describe('json-render catalog と openui library のコンポーネント整合性', () => {
   it('どちらの登録セットも空ではない', () => {
