@@ -6,7 +6,10 @@
   dir: packages/arte-odyssey
   intents:
     - agent-docs-single-source
+    - ai-props-generated
     - audit-small-fixes
+    - autocomplete-remove-labels
+    - checkbox-group-rsc-root
     - distribution-compat
     - docs-fix-component-reference-examples
     - docs-restore-truth

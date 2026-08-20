@@ -2,6 +2,16 @@
 
 ## 12.0.0
 
+### Patch Changes
+
+- `props.json` に `@k8o/arte-odyssey/ai`（Conversation / Message / PromptInput / Reasoning / Suggestion / ToolInvocation）と `@k8o/arte-odyssey/ai/response`（Response）の props を追加しました。extract-props がルートエントリしか見ておらず、AI コンポーネントだけ型からの props 生成の対象外になっていました。ドキュメントサイトの AI チャットページにも生成された props テーブルを掲載しています。
+
+- Autocomplete のタグ解除ボタンの文言を実際の動作に合わせました。タグの × ボタンは「閉じる」→「タグを削除」（en: Remove → Remove tag）、一括解除ボタンは「すべて閉じる」→「すべて削除」になります。どちらもタグを削除する操作であり、「閉じる」では何が起きるか読み上げから判断できませんでした。
+
+- RSC の server 環境で `CheckboxGroup.Root` が undefined になり、server コンポーネントから使うと「Element type is invalid」で落ちるのを修正しました。合成モジュールが client モジュールの export（参照プロキシ）をスプレッドしており、`Root` がコピーされずに消えていたためで、`Accordion` などと同じ直接参照での合成に揃えています。公開 API は変わりません。
+
+## 12.0.0
+
 ### Major Changes
 
 - グループ入力とフィールドラッパーのアクセシブルネームを整理しました。
