@@ -1,5 +1,275 @@
 # @k8o/arte-odyssey
 
+## 12.0.0
+
+### Major Changes
+
+- グループ入力とフィールドラッパーのアクセシブルネームを整理しました。
+
+  **CheckboxCard（破壊的変更）**
+
+  `aria-labelledby` を必須にし、`role="group"` を明示しました。これまでは任意の ARIA 属性として渡せるだけで、省略するとグループに名前が付きませんでした。`RadioCard` と同じく、グループ名を指す要素の id を渡してください。生成 UI の `CheckboxCard` にもグループ名用の `label` を追加しています（キーは末尾に追加）。
+
+  **CheckboxGroup（破壊的変更）**
+
+  - `aria-labelledby` を必須にしました。`RadioCard` / `CheckboxCard` / `Radio` と同じく、グループ名を指す要素の id を渡してください。
+  - `required` prop を削除しました。`role="group"`（`fieldset` の暗黙ロール）は `aria-required` を許可しておらず、axe の `aria-allowed-attr` に引っかかります。必須であることは、`aria-labelledby` の参照先ラベル（`FormControl` の必須表示など）に含めて伝えてください。
+
+  ```tsx
+  <p id="interests-label">興味のある分野</p>
+  <CheckboxGroup aria-labelledby="interests-label" name="interests" ...>
+  ```
+
+  生成 UI（json-render / OpenUI）の `CheckboxGroup` にはグループ名用の `label` を追加しました（キーは末尾に追加）。
+
+  **FormControl（破壊的変更）**
+
+  `labelAs="label"`（既定）のラッパーを `<fieldset>` から `<div>` に変更しました。従来は 1 フィールド包むだけで名前の無い `role="group"` が生まれ、全フォーム部品にそれが付いていました。`labelAs="legend"` は従来どおり `<fieldset>` + `<legend>` です。DOM 構造に依存したスタイル・テストがある場合は追随してください。
+
+- peer 依存の下限を「実際に検証しているバージョン」に統一し、古いバージョンのための互換を廃止しました。
+
+  - **`ai` は v7 のみサポートします**（`>=7.0.51`）。AI SDK v7 のツール状態機械に追随し、`ToolState` に `approval-requested` / `approval-responded` / `output-denied` を追加、`ToolInvocation` は拒否状態を警告トーンで表示します（`deniedReason` prop、既定文言は辞書の `toolDenied`）。`mapMessageParts` は v7 で削除された `isToolOrDynamicToolUIPart` と deprecated の `getToolOrDynamicToolName` をやめ、`isToolUIPart` / `getToolName` を使います。`MappedPart` の tool には `deniedReason` が追加されています。
+  - **`typescript` の下限を `>=7.0.2` にしました。** 配布物の型定義は TS 7 の tsc での型チェックで検証しています（リポジトリ内のビルドは vite-plus の dts 生成が TS 7 の JS API 未提供に未対応のため、当面 TS 6 を使います）。
+  - そのほかの peer も devDependencies で検証している版を下限にしました: `react` / `react-dom` `>=19.2.6`、`@types/react` `>=19.2.18`、`@types/react-dom` `>=19.2.4`、`tailwindcss` `>=4.3.3`、`zod` `>=4.4.3`、`@openuidev/lang-core` `>=0.2.10`、`@openuidev/react-lang` `>=0.2.9`。
+
+  `Messages` 型に `toolDenied` キーが増えています。辞書を型注釈付きで全置換している場合はキーを追加してください。
+
+- `styles.css` をビルド済み CSS にして、Tailwind を持たないプロジェクト（CSS Modules・素の CSS）でも import 1行で使えるようにしました。ライブラリのルールはすべて `@layer` 内にあるため利用側の CSS が優先され（例外は preflight の `[hidden] { display: none !important }` のみ）、デザイントークンは `:root` / `.dark` の CSS カスタムプロパティとして参照できます（`var(--fg-mute)` など）。どちらのエントリも Tailwind の preflight とライブラリの base スタイルを文書全体に適用します（既存アプリへの後付け時は注意）。`Response`（streamdown）だけは利用側の Tailwind ビルドが必要なため、ビルド済み CSS では対象外です。
+
+  **破壊的変更**: Tailwind CSS 4 のプロジェクトは import を `@k8o/arte-odyssey/tailwind.css`（従来の `styles.css` と同内容の Tailwind ソース版）に変更してください。デザイントークンを自分のマークアップの Tailwind クラスとして使うにはこちらが必要です。
+
+  あわせて、コンポーネントが参照しながら生成されていなかったユーティリティを修正しました: `rounded-xs`（`--radius-xs: 0.125rem` をトークンに追加。AI コンポーネントの停止ボタン・ストリーミングカーソルに 2px の角丸が付くようになります）と、`Modal` center の `max-h-lg` / `vertical:max-h-2xl`（実在する `max-h-128` / `max-h-168` に置換。中央モーダルに意図されていた最大高さが初めて効きます）。
+
+- `Response` が streamdown の設定を透過し、コントロールの文言も辞書化しました。
+
+  - **`children` / `isStreaming` 以外の props が streamdown にそのまま渡ります。** 型は `Omit<StreamdownProps, 'children' | 'className' | 'mode'>` で、`translations` / `controls` / `linkSafety` / `urlTransform` / `components` / `plugins` / `dir` / `icons` などが指定できます。`className` と `mode` はこのライブラリが握ります（`mode` は `isStreaming` から決まります）。
+  - **`linkSafety` の既定を `{ enabled: false }` にしました（streamdown の既定は `{ enabled: true }`）。** streamdown は有効時にリンクを `<a href>` ではなく `<button type="button">` で描画するため、⌘クリック・中クリック・リンクアドレスのコピー・支援技術の link ロールが失われます。確認モーダルは URL を見せるだけで素通しできる一方、失われるものは全ユーザーに常に効くため、既定では切っています。従来どおり確認を挟むには `<Response linkSafety={{ enabled: true }}>` を指定してください。安全でないスキーム（`javascript:` など）は linkSafety とは無関係に rehype-harden が潰します。
+  - **コードブロックの Copy / Download、表のコピー、外部リンク確認などの文言が日本語になりました。** `Messages` に `response*` のキーを追加し、`useMessages()` 経由で streamdown の `translations` を組み立てます。優先順位は「`translations` prop > 辞書 > streamdown の既定」です。書式名（Markdown / CSV / TSV / SVG / PNG / MMD）は翻訳対象にしていません。
+
+- v12 監査で見つかった「後から非破壊では直せない」取りこぼしを一括修正しました。
+
+  ## 破壊的変更
+
+  - **`Heading` の `type` を `level` に改名しました。** 生成 UI スキーマは以前から `level` で、ライブラリ本体だけ旧名のままでした。
+  - **生成 UI スキーマから `text` キーを廃止し、語彙を統一しました。** `Heading` / `Anchor` は `label`、`Tooltip` は `triggerLabel`（トリガー文言）+ `content`（本体）になります（`label` = 可視テキスト、`triggerLabel` = トリガー文言、`content` = 本体、という既存語彙に整列）。旧キーの保存済み spec は `validateGeneratedSpec()` が未知のキーとして報告します。
+  - **`RadioCard` が先頭オプションを自動選択しなくなりました。** `defaultValue` 未指定の非制御では未選択で開始し、`Radio` / `CheckboxCard` と対称になります（非制御フォームの送信値が変わります）。生成 UI（json-render / OpenUI）のフォーム状態は従来どおり `defaultValue ?? 先頭オプション` で初期化します（生成フォームでは Radio とも対称の既定です）。
+  - **`Messages` 型に `tabList` / `fileFieldTrigger` が増えました。** 生成 UI のタブリストのアクセシブル名とファイル選択ボタンの文言が辞書経由になります（従来は日本語ハードコードで、英語辞書でも日本語のままでした）。辞書を型注釈付きで全置換している場合はキーを追加してください。
+
+  ## 追加
+
+  - **`Radio` が `ref`（`Ref<HTMLDivElement>`）を受け取れるようになりました。**「フォーム系が ref を受け取れる」対応の唯一の漏れでした。
+  - **公開 API が参照していた未公開の型を export しました**: `ToastOptions` / `ToastAction`（`useToast().onOpen` の第3引数）、`GapSize` / `PaddingSize`（`Stack` / `Grid`）、`CellAlign`（`Table`）、`BaseIconProps` / `IconRenderProps`（アイコン・`Logo`）。
+  - **`useMessages()` を `@k8o/arte-odyssey/i18n` から export しました。** ライブラリの文言（`close` など）を、上に重ねる自作 UI からも参照できます。
+
+- 語彙を統一し、RadioCard を本物の `radiogroup` にし、文言を辞書化しました。
+
+  ## 改名
+
+  | 旧                                                                              | 新                      |
+  | ------------------------------------------------------------------------------- | ----------------------- |
+  | `<Checkbox value={b}>` / `<Switch value={b}>` / `<CheckboxGroup.Item value={b}>` | `checked={b}`           |
+  | `<Modal type="center">`                                                         | `side="center"`         |
+  | `<Badge text="新着">`                                                           | `label="新着"`          |
+  | `<DropdownMenu.Trigger text="操作">`                                            | `label="操作"`          |
+  | `<Button color="gray">`                                                         | `color="base"`          |
+  | `<Pagination onPageChange={fn}>`                                                | `onChange={fn}`         |
+  | `<ListBox.TriggerIcon>`                                                         | `<ListBox.IconTrigger>` |
+  | `ListBox` の options `{ key, label }`                                           | `{ value, label }`      |
+
+  値が `string[]` の `<CheckboxGroup value>`、`<CheckboxCard value>`、`<RadioCard value>` はそのままです。`Modal` の配置の値（`center` / `bottom` / `right` / `left`）も変わりません。
+
+  `placement` はアンカー要素からの相対配置（`Placement` 型）専用の語彙にし、ビューポートの縁に貼り付く `Modal` / `Drawer` は `side` に統一しました。`Modal` の `side` は `ModalSide`、`Drawer` の `side` はその部分集合の `DrawerSide` で、どちらもルートから export します。これまで `Placement` を受け取るラッパーを `Modal` にそのまま渡すと型エラーになっていました。
+
+  ## 型・DOM が変わるもの
+
+  - **`RadioCard` が `input[type="radio"]` の `radiogroup` になりました。** props は変わりませんが、テストの `getByRole('button', { pressed })` は `getByRole('radio', { checked })` に、`getByRole('group')` は `getByRole('radiogroup')` に置き換えが必要です。ネイティブの radio group はグループ化に `name` が要るため、`name` 未指定でも `useId()` 由来のキーで選択値が送信されるようになります（旧実装は `name` 無しなら `FormData` に現れませんでした）。
+  - **`Button` / `IconButton` の props が `ButtonHTMLAttributes` になりました。** `HTMLProps`（= `AllHTMLAttributes`）だったので `href` / `src` なども型上は通っていました。実行時の挙動は変わらず、型だけが壊れます。
+  - **既定の文言がすべて日本語になりました。** `Spinner` の `Loading` は `読み込み中` になります。英語のままにするには辞書を渡してください。
+  - **生成 UI のスキーマが上記の改名に追随しました。** 保存済みの spec は `validateGeneratedSpec()` が旧 prop 名を未知のキーとして報告します（従来は無言で既定値に落ちていました）。
+
+  ## 追加
+
+  - **フォーム系が `ref` を受け取れるようになりました。** 内部で ref を持つ `Textarea` / `FileField` は `mergeRefs` で合成します。
+  - **`TextField` が `type` を受け取れるようになりました**（`text` / `email` / `tel` / `url` / `search`）。
+  - **`Popover` / `DropdownMenu` / `Tooltip` が `isOpen` / `defaultOpen` / `onChange` に対応しました。**
+  - **`ListBox` が非制御でも使えるようになりました**（`defaultValue`）。`ListBox.Trigger` / `IconTrigger` の `label` でアクセシブル名を「値」ではなく「ラベル + 値」にできます。
+  - **`Modal` が `aria-label` / `aria-labelledby` を受け取れるようになりました。**
+  - **文言辞書を追加しました。** `@k8o/arte-odyssey/i18n` から `ja` / `en` と `Messages` 型を export します。
+
+    ```tsx
+    import { en } from '@k8o/arte-odyssey/i18n';
+
+    <ArteOdysseyProvider messages={{ ...en, close: 'Dismiss' }}>{children}</ArteOdysseyProvider>;
+    ```
+
+    優先順位は「コンポーネントの prop > 辞書 > 既定」です。Provider を置かなければ日本語で動きます。
+
+  - **公開型をルートから export しました**（`Placement` / `ModalSide` / `DrawerSide` / `Option` / `TooltipTriggerProps` / `RadioCardOption` / `Messages` など）。
+
+  ## 挙動の改善（API は不変）
+
+  - **Toast**: 閉じたときにフォーカスを元の要素へ返します。上限を超えた古いトーストの追い出しは、ホバー中・フォーカス中は保留します。ライブリージョンの二重読み上げも解消しました。
+  - **Popover**: Escape がレイヤースタックの最も内側の 1 枚だけを閉じます。これまでは `IconButton` の数だけ window のリスナが積まれ、Escape 一発で開いているものが全部閉じていました。
+  - **Modal**: 名前の無い `dialog` が生まれる問題と、`Modal` 配下で role が二重に付く問題を解消しました。
+  - **ListBox**: `helpContent` を `role="listbox"` の外へ出し、`aria-required-children` 違反を解消しました（読み上げには `aria-describedby` で繋いでいます）。
+
+- v12 監査の残り（語彙・型の不統一と内部実装の露出）を一括修正しました。
+
+  ## 改名
+
+  | 旧 | 新 |
+  | --- | --- |
+  | `<Popover.Root type="menu">` | `role="menu"`（`'dialog' \| 'menu' \| 'listbox'`。role の意味なので `Modal.type`→`side` と同じ整理） |
+  | `useToast()` の `onOpen` / `onClose` / `onCloseAll` | `open` / `close` / `closeAll`（利用者が呼ぶ命令であって callback ではないため） |
+  | `<Card appearance="bordered">` | `variant="outline"`（Button / Badge の `variant` 語彙に整列。`shadow` はそのまま） |
+  | `<Table.Cell tone="muted">` | `color="mute"`（`tone` はステータス語彙に予約。強さの軸は `Separator.color` と同じ `color` + トークン綴りに統一） |
+  | `<Progress progress={n} maxProgress={m} minProgress={l}>` | `value` / `max` / `min`（`Slider` と同語彙） |
+  | `<DropdownMenu.Item onClick={fn}>` | `onAction={fn}`（`() => void`。Button / IconButton の action 語彙に整列。イベント引数は渡らなくなります） |
+  | `<Breadcrumb.Link component={Link}>` | `renderAnchor={({ href, className, children }) => …}`（`Anchor.renderAnchor` と同じ render prop 形式） |
+  | `Anchor` の `renderAnchor` に渡る `type: 'internal' \| 'external'` | `kind`（HTML 属性でも role でもないため） |
+  | `<CheckboxGroup>` 直接呼び出し | `<CheckboxGroup.Root>`（他の compound と同じ `.Root` 一択。自己参照エイリアスを削除） |
+
+  ## 型が変わるもの
+
+  - **`Dialog.Root` の `role` が `'dialog' \| 'alertdialog'` の union になりました**（従来は素の `string`）。
+  - **`Badge` が `interactive` の判別 union になりました。** `interactive` 時は `ButtonHTMLAttributes`（`disabled` / `name` など）、非 interactive 時は `HTMLAttributes<HTMLSpanElement>` を受け付け、`span` に `onClick` だけ渡すような組み合わせは型エラーになります。`type` 属性は内部で `"button"` 固定のため受け付けません。
+  - **`DropdownMenu.Item` / `SubMenu` の `index` prop が公開型から消えました。** `Content` の `cloneWithIndex` が注入する内部実装で、利用者が渡しても無視されていました。
+  - **`useOpenContext` のルート export を削除しました。** ドキュメント未掲載の内部フックです。
+
+  ## 対応不要と結論づけたもの
+
+  - `ListBox.Root` の `onChange(value)`: フォーム系の「主状態を `onChange` で通知する」規約どおり（開閉は主状態ではない）。
+  - `ListBox.Trigger` の `label` が任意: 未指定時は選択値がアクセシブル名になる意図的な設計。
+  - `ToastProvider` の `portalRef` / `position`: Modal 内部用に見えるが、トーストの表示位置を変える公開機能としてドキュメント化済み。
+
+### Minor Changes
+
+- 監査で見つかったバグ級の問題を一括修正しました。
+
+  **Autocomplete（スクリーンリーダーでほぼ操作不能だった問題の解消）**
+
+  - 矢印キーのハイライトを `aria-activedescendant` で支援技術に伝えるようにした
+  - Escape でリストを閉じられるようにした
+  - 絞り込み後に矢印キーの上限が全候補数のままで Enter が無反応になるバグを修正
+  - 候補リストに `overflow-y-auto` とアクティブ行への自動スクロールを追加し、`aria-multiselectable` を付与
+  - `placeholder` / `onBlur` / `onClick` / `onKeyDown` が内部実装に無言で上書きされていた問題を修正（利用者のハンドラと連結）
+  - document への click リスナーを開いている間だけ登録するようにした
+
+  **フォーム・表示系の修正**
+
+  - `Progress`: 読み上げ値が 100 倍されず「0.5%」になるバグを修正（`minProgress` オフセットも考慮）
+  - `Heading`: `lineClamp` が動的クラス生成のため CSS が生成されず機能していなかった問題を静的マップで修正。型は `1〜6` のリテラルに変更（従来はどの値でも無効だったため実害なし）
+  - `FileField`: 型定義のみで未実装だった `defaultValue` を実装
+  - `FormControl`: `labelAs="legend"` 時に radiogroup 等の `aria-labelledby` が空参照になる問題を修正
+  - `NumberField`: 利用者の `onBlur` / `onKeyDown` が破棄されていた問題を修正
+
+  **アクセシビリティ**
+
+  - 全アイコン（lucide ラッパー・自前 SVG とも）の svg に `aria-hidden="true"` / `focusable="false"` を注入
+  - `Dialog` / `Drawer`: アクセシブルネームに「閉じる」ボタンのラベルが混入していた問題を修正
+  - `Breadcrumb`: セパレータを a11y ツリーから除外し、現在ページに `aria-current="page"` を付与。nav ラベルの誤記「パンクズリスト」を修正
+  - `Pagination`: ページカウンタへの `aria-current` 誤用を削除
+  - `DropdownMenu` / `ListBox`: Tab でフォーカスが外れたときメニューが開いたままになる問題を修正（Popover の focusout 処理）
+
+  **ビジュアル（VRT に差分が出ます）**
+
+  - `fg-subtle` のコントラストを WCAG AA 準拠に（light: gray-400→gray-600 で 2.22:1→5.50:1、dark: gray-500→gray-400 で 4.39:1→6.13:1）
+  - ダークモードでメニュー・リストボックスの境界が見えなかった問題に対し、ポップアップ面へ `border-border-subtle` を追加
+
+- hover 操作を寛容にしました。
+
+  **DropdownMenu.SubMenu（新規）**
+
+  - hover / クリック / キーボード（Enter・Space・→ で開き、← / Escape で戻る）で開くネストサブメニュー
+  - ポインタ位置とサブメニューの手前側 2 角を結ぶ safe triangle により、サブメニューへ斜めに移動しても途中の兄弟項目で閉じません
+  - hover で開いたときはフォーカスを奪わず、キーボードで開いたときだけ先頭項目へフォーカスします
+
+  **Tooltip の hover 寛容化**
+
+  - `Tooltip.Root` に `openDelay`（既定 0）/ `closeDelay`（既定 150ms）を追加。trigger から外れても猶予内に content へ入れば表示が維持されます
+  - trigger と content の 8px の隙間を透明ブリッジ（trigger 幅と content 幅の 2 枚)で覆い、ポインタで渡れるようにしました（WCAG 1.4.13 Hoverable 対応）
+
+- motion（framer-motion）依存を完全に削除しました。Modal / Tabs / ScrollLinked のアニメーションを CSS に置き換え、どのコンポーネントを使ってもライブラリ由来で motion がバンドルされることはなくなりました。
+
+  - **Modal**: `@starting-style` + `transition-behavior: allow-discrete` + `overlay` による CSS transition に移行。これまで実装されていながら再生されていなかった**退場アニメーションが実際に動くようになりました**（backdrop のフェード込み）。`overlay` 未対応ブラウザ（Safari / Firefox）は `@supports` で退場を即時に切り替え、位置ずれしたゴーストが残らないようにしています（入場アニメーションは全対応ブラウザで動作）
+  - **Tabs**: 選択インジケータを CSS Anchor Positioning（`anchor-name` + `inset` の transition）によるスライドに移行。Popover と同じプラットフォーム依存で、未対応ブラウザでは選択タブの静的な下線に劣化します。`anchor-scope` で複数 React ルート間の名前衝突も防いでいます
+  - **ScrollLinked**: CSS scroll-driven animations（`animation-timeline: scroll(root)`）に移行。未対応ブラウザ（Firefox）と `container` 指定時は scroll リスナー + ResizeObserver で同じ見た目を再現します。バーに `aria-hidden` を付与しました
+  - `prefers-reduced-motion` は CSS メディアクエリで尊重します。従来の `MotionConfig reducedMotion="user"`（transform 系のみ無効化）より保守的に、Modal は退場含め遷移を完全に無効化します
+
+  公開 API の変更はありません。
+
+- v12 監査の非破壊項目（Tier 3）を対応しました。すべて受け入れ範囲の拡張です。
+
+  - **`Modal` の `ref` がコールバック ref も受け取れるようになりました**（`RefObject` 固定 → `Ref<HTMLDialogElement>`）。内部の開閉制御は内部 ref に一本化し、外部 ref は要素で合成します。
+  - **`Table` の各サブコンポーネントが要素固有の HTML 属性を受け取れるようになりました**（`id` / `data-*` / aria 属性など。`className` / `style` は従来どおり不可）。`Cell` の `colSpan` は `TdHTMLAttributes` 経由になり、`HeaderCell` の `scope` が上書き可能になりました（既定 `col`）。
+  - **`FormControl` / `Pagination` が `ref` と HTML 属性を受け取れるようになりました。**
+  - **`PromptInput.Textarea` が `ref` を受け取れるようになりました**（内部の autosize 用 ref と合成）。
+  - **`Dialog.Header` の `title` が `ReactNode` になりました**（`Drawer.title` と同型に）。
+  - 内部整理: `React.` グローバル名前空間への依存 3 件を明示 import に置き換えました（公開 API への影響なし）。
+
+- Toast を刷新し、ライブラリの motion 依存を Provider から切り離しました。
+
+  **Toast の新機能**
+
+  - `onOpen(tone, message, options)` に第3引数 `options` を追加
+    - `duration`: 自動クローズまでのミリ秒。`Number.POSITIVE_INFINITY` で自動クローズなし（既定 5000ms）
+    - `action`: Alert と同じ `{ label, renderItem }` 形式のインラインアクション
+  - すべてのトーストに閉じるボタンが付き、手動で閉じられるようになりました
+  - ホバー中・フォーカス中は自動クローズのタイマーが一時停止します（WCAG 2.2.1 Timing Adjustable 対応）。再開時は残り時間から数えます
+  - 上限（5件）を超えたときは最古のトーストが閉じ演出つきで退避します
+
+  **motion 依存の縮小（バンドルサイズ）**
+
+  - トーストの出入りを CSS アニメーションに置き換え、`ToastProvider` から motion 依存を除去
+  - `ArteOdysseyProvider` から `MotionConfig` を外し、motion を使う各コンポーネント（Modal / Tabs / ScrollLinked）がローカルに `reducedMotion="user"` を設定するように変更
+
+  これにより、Modal / Tabs / ScrollLinked を使わないアプリのバンドルから motion のランタイム（数十KB gzip）が丸ごと外れます。既存の `onOpen(tone, message)` 呼び出しはそのまま動きます。
+
+### Patch Changes
+
+- エージェント向けの導線を npm 同梱 `docs/` 一本に集約しました。
+
+  - README の「AI Agent Documentation」を、利用側の `CLAUDE.md` / `AGENTS.md` にそのまま貼れるスニペットに書き換え。あわせて `llms.txt`・生成済みトークン仕様（`design.md`）・Storybook の MCP エンドポイント（`…chromatic.com/mcp`）の在り処を表で明示しました。スキルを配布するのではなく同梱 docs を指させることで、参照先がインストール済みバージョンに固定されます。
+  - `docs/GUIDE.md` のコアコンセプトに「要素の性格ごとの方向性」の表を追加（フォーム・カードは柔らかく、Alert/Badge は端正に、Tabs/Breadcrumb はシャープに）。
+
+- パッケージ配布の互換性を修正しました。
+
+  - `typescript` / `tailwindcss` / `@types/react` / `@types/react-dom` の peer 依存を optional にしました。npm v7+ は peer 範囲をインストール時に強制するため、JS のみ・Tailwind 非使用の利用者で `npm install` が失敗していました。
+  - `exports` の全エントリに `default` 条件を追加（従来は `import` のみ）。`require(ESM)` 対応の Node.js や `import` 以外の条件で解決するツールから `ERR_PACKAGE_PATH_NOT_EXPORTED` にならず利用できます。
+  - ランタイム依存（`clsx` / `lucide-react` / `tailwind-merge`）を exact 固定から caret 範囲に変更し、利用側アプリの同一ライブラリと dedupe できるようにしました。
+  - npm パッケージに `LICENSE` を同梱し、`homepage`（https://arte-odyssey.k8o.me）を追加。
+
+- npm に同梱される `docs/references/components.md` の実装と食い違っていたコード例を修正しました。
+
+  - 存在しないアイコンを実在するものに差し替え（`XIcon` → `CloseIcon`、`HomeIcon` → `MailIcon`）。
+  - `FileField.Trigger` の例を children 形式から実装どおりの `renderItem` 形式に修正。
+  - `useToast().onOpen` に第 3 引数 `options?: { duration?, action? }` を追記。
+
+- npm に同梱されるドキュメント（README / docs/）を現行 API に追随させました。
+
+  - README・GUIDE.md・references/components.md のコード例を修正（`variant="contained"/"outlined"` → `"solid"/"outline"`、IconButton の `bg` → `color`、Card の削除済み `title` prop、フォーム系の `isInvalid/isDisabled/isRequired` → `invalid/disabled/required` ほか）。これまで Quick Start をコピペするとコンパイルエラーになっていました。
+  - AI チャットコンポーネント群（`/ai`, `/ai/response`, `/ai-sdk`）のリファレンス `docs/references/ai-chat.md` を新規追加し、README にもセクションと optional peer（`streamdown` / `ai`）のセットアップ手順を追加。
+  - 「Granular Imports」節を実態（単一 ESM エントリ + tree-shaking、実在するサブパス一覧）に合わせて書き換え、CSS の読み込み手順を 1 行 import に統一（現在のエントリの選び方は上の `styles.css` ビルド済み化の項を参照）。
+  - README 冒頭に公式ドキュメントサイトと公開 Storybook へのリンクを追加。
+
+- コンポーネントの props を型から生成し、ドキュメントの三重手書きをやめました。
+
+  - `scripts/extract-props.ts` が TypeScript の型チェッカーで全 export の props を解決し、`docs/props.generated.json` を生成します（150 コンポーネント）。宣言の書き方（名前付き `Props` / インライン `FC<{…}>` / controlled・uncontrolled の union / `Object.assign` の複合）に依存しません。
+  - 生成物を `@k8o/arte-odyssey/props.json` として公開。エージェントやツールが props を機械可読に引けます。
+  - `docs/references/components.md` の props ブロックと、ドキュメントサイトの props 表を生成に切り替え。サイト側で手書きしていた 1000 行超を削除しました。散文とコード例は引き続き手書きです。
+  - CI に `check:props` を追加。型と生成物がずれたらビルドが落ちます。
+
+  あわせてドキュメントの実装とのずれを修正しました。
+
+  - コンパイルできなかったコード例: `<Badge text=…>` → `label`、`<Modal placement=…>` → `side`、`<DropdownMenu.Trigger text=…>` → `label`。
+  - `useToast().onOpen` の型（第 3 引数 `options` の欠落、`status` → `tone`）。
+  - 未掲載だった `Form` / `Grid` / `Stack` / `ToastProvider` を追加し、props ブロックの無かった 46 件を埋めました。
+  - `Badge` の `size` に `'lg'` が載っていなかったなど、生成に切り替えたことで解消した表記ゆれ多数。
+
+- ランタイム依存（`clsx` / `lucide-react` / `tailwind-merge`）を exact 固定に戻しました。caret 範囲は Renovate の運用方針（rangeStrategy: pin）と衝突し、未検証バージョンが利用者環境に混入しうるためです。二重バンドルの懸念が最も大きかった motion は依存ごと削除済みです。
+
+- ライトモードのパレットを柔らかくしました。`gray-100` / `gray-200` の明度を上げ（0.945→0.955 / 0.9→0.925）、`teal-100` / `cyan-100` の彩度を抑えました。Code の地、Table・RadioCard のホバー、ListBox トリガーなど、ライトで強く見えていた面が静かになります。ダークモードのマッピングはこれらのシェードを使っていないため影響ありません。
+
 ## 11.0.1
 
 ### Patch Changes
