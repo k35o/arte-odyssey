@@ -27,6 +27,10 @@
     - v12-audit-sweep
     - v12-vocabulary-and-a11y
     - v12-vocabulary-sweep-2
+"@k8o/arte-odyssey@12.0.1":
+  dir: packages/arte-odyssey
+  intents:
+    - breadcrumb-rsc-compound
 docs@0.0.10:
   dir: apps/docs
   intents:
