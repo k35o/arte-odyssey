@@ -263,8 +263,8 @@ importers:
         specifier: 0.19.0
         version: 0.19.0(react@19.2.8)(zod@4.4.3)
       '@openuidev/lang-core':
-        specifier: 0.2.11
-        version: 0.2.11(zod@4.4.3)
+        specifier: 0.2.12
+        version: 0.2.12(zod@4.4.3)
       '@openuidev/react-lang':
         specifier: 0.2.11
         version: 0.2.11(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.4.3)
@@ -1369,8 +1369,8 @@ packages:
       react: ^18.3.1 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
 
-  '@openuidev/lang-core@0.2.11':
-    resolution: {integrity: sha512-30tTX7bnTLMQMs1kPhIv/tVY8hlW5xtimf6fBBS16ctidceuMZNWEe0VTpuz3lEmdyThp2lc7vy+lSfTqIIwlg==}
+  '@openuidev/lang-core@0.2.12':
+    resolution: {integrity: sha512-G2cYAUVkh2t7zBjqUYAfKdNLNpA5FwFfqSH0TRP6/SsTCzyxbP92Gih57zsWkYRC8zP4RV/bivIvP1ZAzQhhew==}
     peerDependencies:
       '@modelcontextprotocol/sdk': '>=1.0.0'
       zod: ^3.25.0 || ^4.0.0
@@ -3130,6 +3130,10 @@ packages:
         optional: true
       '@chromatic-com/vitest':
         optional: true
+
+  ci-info@4.4.0:
+    resolution: {integrity: sha512-77PSwercCZU2Fc4sX94eF8k8Pxte6JAwL4/ICZLFjJLqegs7kCuAsqqj/70NQF6TvDpgFjkubQB2FW2ZZddvQg==}
+    engines: {node: '>=8'}
 
   cjs-module-lexer@1.4.3:
     resolution: {integrity: sha512-9z8TZaGM1pfswYeXrUpzPrkx8UnWYdhJclsiYMm6x/w5+nN+8Tf/LnAgfLGQCm59qAOxU8WwHEq2vNwF6i4j+Q==}
@@ -5714,8 +5718,9 @@ snapshots:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
 
-  '@openuidev/lang-core@0.2.11(zod@4.4.3)':
+  '@openuidev/lang-core@0.2.12(zod@4.4.3)':
     dependencies:
+      ci-info: 4.4.0
       zod: 4.4.3
 
   '@openuidev/observability@0.0.2': {}
@@ -5723,7 +5728,7 @@ snapshots:
   '@openuidev/react-lang@0.2.11(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.4.3)':
     dependencies:
       '@openuidev/devtools': 0.0.4(@openuidev/observability@0.0.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@openuidev/lang-core': 0.2.11(zod@4.4.3)
+      '@openuidev/lang-core': 0.2.12(zod@4.4.3)
       '@openuidev/observability': 0.0.2
       react: 19.2.8
       zod: 4.4.3
@@ -5732,7 +5737,7 @@ snapshots:
 
   '@openuidev/react-lang@0.2.6(react@19.2.8)(zod@4.4.3)':
     dependencies:
-      '@openuidev/lang-core': 0.2.11(zod@4.4.3)
+      '@openuidev/lang-core': 0.2.12(zod@4.4.3)
       react: 19.2.8
       zod: 4.4.3
 
@@ -7137,6 +7142,8 @@ snapshots:
   chromatic@18.1.0:
     dependencies:
       semver: 7.8.5
+
+  ci-info@4.4.0: {}
 
   cjs-module-lexer@1.4.3: {}
 
