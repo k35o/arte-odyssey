@@ -51,8 +51,8 @@ importers:
   .:
     devDependencies:
       '@k8o/oxc-config':
-        specifier: 0.2.1
-        version: 0.2.1(8b0880a6dd13ed04c09ad3cbbfb5befd)
+        specifier: 0.3.0
+        version: 0.3.0(8b0880a6dd13ed04c09ad3cbbfb5befd)
       '@oxlint/plugins':
         specifier: 1.78.0
         version: 1.78.0
@@ -85,7 +85,7 @@ importers:
         version: 1.2.0(react@19.2.8)
       '@funstack/static':
         specifier: 1.2.0
-        version: 1.2.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
+        version: 1.2.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
       '@k8o/arte-odyssey':
         specifier: workspace:^
         version: link:../../packages/arte-odyssey
@@ -93,8 +93,8 @@ importers:
         specifier: 'catalog:'
         version: 4.3.3(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
       react-error-boundary:
-        specifier: 6.1.2
-        version: 6.1.2(react@19.2.8)
+        specifier: 6.1.3
+        version: 6.1.3(@types/react@19.2.18)(react@19.2.8)
       shiki:
         specifier: 4.4.3
         version: 4.4.3
@@ -305,8 +305,8 @@ importers:
         specifier: 4.1.10
         version: 4.1.10(vitest@4.1.10)
       ai:
-        specifier: 7.0.65
-        version: 7.0.65(zod@4.4.3)
+        specifier: 7.0.66
+        version: 7.0.66(zod@4.4.3)
       postcss:
         specifier: 'catalog:'
         version: 8.5.26
@@ -323,11 +323,11 @@ importers:
         specifier: 10.5.8
         version: 10.5.8(@types/react@19.2.18)(react@19.2.8)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
       storybook-addon-determinism:
-        specifier: 0.1.2
-        version: 0.1.2(storybook@10.5.8(@types/react@19.2.18)(react@19.2.8)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))))
+        specifier: 0.2.1
+        version: 0.2.1(storybook@10.5.8(@types/react@19.2.18)(react@19.2.8)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))))
       storybook-addon-mock-date:
-        specifier: 3.1.1
-        version: 3.1.1(storybook@10.5.8(@types/react@19.2.18)(react@19.2.8)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))))
+        specifier: 3.2.1
+        version: 3.2.1(storybook@10.5.8(@types/react@19.2.18)(react@19.2.8)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))))
       storybook-addon-vrt:
         specifier: 0.4.0
         version: 0.4.0(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.10)
@@ -1258,10 +1258,11 @@ packages:
     peerDependencies:
       react: ^19.2.3
 
-  '@k8o/oxc-config@0.2.1':
-    resolution: {integrity: sha512-2r9T1LnEhL2P3nfEJVeuam9aTc4UeiyTUCyo5xqgfP5DpydXwp7Q5m58K9k8yilJorWbxrOg3f+W2wI+8wXg6w==}
-    engines: {node: ^20.19.0 || >=22.12.0}
+  '@k8o/oxc-config@0.3.0':
+    resolution: {integrity: sha512-KhzgHQPvzN9BURfhn4JoetiMNKxogr9sAPgOVD+hnshoSbXD33+PzWAPPg84LyU/tybXsxit7Bkdy1YuJAfMPg==}
+    engines: {node: '>=24.13.0'}
     peerDependencies:
+      '@k8o/html-nest': '>=0.2.0'
       eslint-plugin-playwright: '>=2.0.0'
       eslint-plugin-regexp: '>=3.0.0'
       eslint-plugin-storybook: '>=10.0.0'
@@ -1270,6 +1271,8 @@ packages:
       oxlint-tailwindcss: '>=1.3.2'
       oxlint-tsgolint: '>=0.23.0'
     peerDependenciesMeta:
+      '@k8o/html-nest':
+        optional: true
       eslint-plugin-playwright:
         optional: true
       eslint-plugin-regexp:
@@ -2990,8 +2993,8 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
-  ai@7.0.65:
-    resolution: {integrity: sha512-Uzom971mOHETL9tbeCWDEgbAA/Banj0KnR2obNEWPEUlGnAv2NJjFIxrUZ6F0XxHFDgGVVpnz86BB2CPOZZ83g==}
+  ai@7.0.66:
+    resolution: {integrity: sha512-wBUyoCYF3GVr+62nelBgR8YbpTSsMZrzFyOOjiwijylNSM2TFCW35C+Pml2vc59/WLMpyhS/LWZ55M+B9DAcSg==}
     engines: {node: '>=22'}
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
@@ -4299,10 +4302,14 @@ packages:
     peerDependencies:
       react: ^19.2.8
 
-  react-error-boundary@6.1.2:
-    resolution: {integrity: sha512-3DpCr5HVdZ0caUjYE/kIHBEJN0mNP3ZCgf16c48uJ5TbWjorKVp+YG8W3XqlJ7vJAVNw6wNIImyPXmFydwmyng==}
+  react-error-boundary@6.1.3:
+    resolution: {integrity: sha512-GnSKpCohFi2nQmJCWwP8O8wub7zexlePvpsejvQr35vS5RTouS1+utTNOmyc540yw5vyOXnSL1rBWsCQDmkyUA==}
     peerDependencies:
+      '@types/react': ^18.0.0 || ^19.0.0
       react: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
@@ -4459,14 +4466,14 @@ packages:
   std-env@4.2.0:
     resolution: {integrity: sha512-oCUKSupKTHX53EyjDtuZQ64pjLJ6yYCtpmEw0goYxtjG9KpbRe8KAsl2tBUGU9DyMcJ0RwJ8GqJAFzMXcXW1Rw==}
 
-  storybook-addon-determinism@0.1.2:
-    resolution: {integrity: sha512-yc5edX+eCtwUIAJkG9Wy9isuASI6nyXI40B0qHuZi03eGKj1vzvUySzgM9dTpeSg5SGy2KZbTgk6hxEvxuQp/g==}
+  storybook-addon-determinism@0.2.1:
+    resolution: {integrity: sha512-woIRzwJ56OH3PBlzD7yd1+IsTaJx1S4Js97havTQVMif3u/TIvitRejZA+jVG5L4r+xb/uJGv3pepGTbM+/DVA==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       storybook: ^10.0.0
 
-  storybook-addon-mock-date@3.1.1:
-    resolution: {integrity: sha512-P/dV9T3DUSoLaS7Vk57U/2Ppcxp/Xo/khWWBsuOH5+GQKEGMgyt+6gyWG8l/otWfSEWLzmnUQPw6d+4iZ3i2ww==}
+  storybook-addon-mock-date@3.2.1:
+    resolution: {integrity: sha512-/bTgEz59TkcYs+jcn5iieyenQRF8BDF6/2gQ0eRr10gmqujWlYh6bDK42crey1a7PeipUrkWCJUyUqyYqMBGHg==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       storybook: ^10.0.0
@@ -5374,17 +5381,18 @@ snapshots:
 
   '@funstack/skill-installer@1.1.0': {}
 
-  '@funstack/static@1.2.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))':
+  '@funstack/static@1.2.0(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))':
     dependencies:
       '@funstack/skill-installer': 1.1.0
       '@vitejs/plugin-rsc': 0.5.34(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
-      react-error-boundary: 6.1.2(react@19.2.8)
+      react-error-boundary: 6.1.3(@types/react@19.2.18)(react@19.2.8)
       rsc-html-stream: 0.0.7
       srvx: 0.11.22
       vite: 8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)
     transitivePeerDependencies:
+      - '@types/react'
       - react-server-dom-webpack
 
   '@iconify/types@2.0.0': {}
@@ -5648,7 +5656,7 @@ snapshots:
     transitivePeerDependencies:
       - zod
 
-  '@k8o/oxc-config@0.2.1(8b0880a6dd13ed04c09ad3cbbfb5befd)':
+  '@k8o/oxc-config@0.3.0(8b0880a6dd13ed04c09ad3cbbfb5befd)':
     optionalDependencies:
       oxfmt: 0.62.0(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10(playwright@1.62.1)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.10))(@vitest/coverage-v8@4.1.10(@vitest/browser@4.1.10(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.10))(vitest@4.1.10))(@vitest/ui@4.1.10(vitest@4.1.10))(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
       oxlint: 1.77.0(oxlint-tsgolint@7.0.2001)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10(playwright@1.62.1)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.10))(@vitest/coverage-v8@4.1.10(@vitest/browser@4.1.10(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.10))(vitest@4.1.10))(@vitest/ui@4.1.10(vitest@4.1.10))(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
@@ -7037,7 +7045,7 @@ snapshots:
 
   acorn@8.18.0: {}
 
-  ai@7.0.65(zod@4.4.3):
+  ai@7.0.66(zod@4.4.3):
     dependencies:
       '@ai-sdk/gateway': 4.0.52(zod@4.4.3)
       '@ai-sdk/provider': 4.0.7
@@ -8712,9 +8720,11 @@ snapshots:
       react: 19.2.8
       scheduler: 0.27.0
 
-  react-error-boundary@6.1.2(react@19.2.8):
+  react-error-boundary@6.1.3(@types/react@19.2.18)(react@19.2.8):
     dependencies:
       react: 19.2.8
+    optionalDependencies:
+      '@types/react': 19.2.18
 
   react-is@17.0.2: {}
 
@@ -8955,11 +8965,11 @@ snapshots:
 
   std-env@4.2.0: {}
 
-  storybook-addon-determinism@0.1.2(storybook@10.5.8(@types/react@19.2.18)(react@19.2.8)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))):
+  storybook-addon-determinism@0.2.1(storybook@10.5.8(@types/react@19.2.18)(react@19.2.8)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))):
     dependencies:
       storybook: 10.5.8(@types/react@19.2.18)(react@19.2.8)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))
 
-  storybook-addon-mock-date@3.1.1(storybook@10.5.8(@types/react@19.2.18)(react@19.2.8)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))):
+  storybook-addon-mock-date@3.2.1(storybook@10.5.8(@types/react@19.2.18)(react@19.2.8)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))):
     dependencies:
       '@sinonjs/fake-timers': 15.4.0
       storybook: 10.5.8(@types/react@19.2.18)(react@19.2.8)(vite-plus@0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)))

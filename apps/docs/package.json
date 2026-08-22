@@ -18,7 +18,7 @@
     "@funstack/static": "1.2.0",
     "@k8o/arte-odyssey": "workspace:^",
     "@tailwindcss/vite": "catalog:",
-    "react-error-boundary": "6.1.2",
+    "react-error-boundary": "6.1.3",
     "shiki": "4.4.3",
     "tailwindcss": "catalog:"
   },
